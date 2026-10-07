@@ -1,0 +1,25 @@
+Modelo,MAE_HH_registro,MAPE_proyecto,MAE_logphi,PICP_P10_P90,Ancho_medio,Pinball_0.9,mundo
+Ratio vigente,13.572,4.397,0.055,,,,M1 ratio casi correcto
+Regresión lineal,13.524,4.937,0.059,,,,M1 ratio casi correcto
+RF puntual,12.527,4.309,0.055,,,,M1 ratio casi correcto
+Empírico,12.658,3.997,0.055,0.745,0.161,0.014,M1 ratio casi correcto
+QRF,12.666,4.427,0.056,0.735,0.162,0.012,M1 ratio casi correcto
+QRF + conformal,12.666,4.427,0.056,0.803,0.19,0.012,M1 ratio casi correcto
+Ratio vigente,24.281,7.442,0.114,,,,M2 sesgo sistemático
+Regresión lineal,22.842,6.797,0.111,,,,M2 sesgo sistemático
+RF puntual,20.318,4.945,0.101,,,,M2 sesgo sistemático
+Empírico,24.728,7.694,0.11,0.748,0.3,0.03,M2 sesgo sistemático
+QRF,20.453,5.362,0.1,0.785,0.309,0.026,M2 sesgo sistemático
+QRF + conformal,20.453,5.362,0.1,0.806,0.322,0.026,M2 sesgo sistemático
+Ratio vigente,22.593,8.745,0.113,,,,M3 no lineal y colas pesadas
+Regresión lineal,23.33,9.563,0.11,,,,M3 no lineal y colas pesadas
+RF puntual,21.273,8.818,0.102,,,,M3 no lineal y colas pesadas
+Empírico,23.304,8.802,0.113,0.751,0.301,0.027,M3 no lineal y colas pesadas
+QRF,21.0,8.532,0.102,0.705,0.278,0.026,M3 no lineal y colas pesadas
+QRF + conformal,21.0,8.532,0.102,0.775,0.336,0.026,M3 no lineal y colas pesadas
+Ratio vigente,27.175,8.695,0.14,,,,M4 deriva del taller
+Regresión lineal,25.532,7.811,0.112,,,,M4 deriva del taller
+RF puntual,24.076,8.041,0.106,,,,M4 deriva del taller
+Empírico,26.888,8.81,0.128,0.742,0.347,0.03,M4 deriva del taller
+QRF,24.349,8.116,0.109,0.769,0.327,0.025,M4 deriva del taller
+QRF + conformal,24.349,8.116,0.109,0.791,0.345,0.025,M4 deriva del taller

@@ -1,0 +1,13 @@
+﻿__pycache__/
+*.pyc
+.venv/
+# BD regenerable con: py scripts/build_db.py
+data/*.db
+# temporales de Office
+~$*
+
+# PDFs de la literatura: no versionar (tamano y derechos de autor)
+papers/*.pdf
+
+# confidencial (declaracion jurada)
+extras/

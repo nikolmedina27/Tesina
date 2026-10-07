@@ -1,0 +1,401 @@
+mundo,cod,ini,variante,fecha,lead,lead_plan,cumple,dias_tarde,p_plan,p_fecha
+M1 ratio casi correcto,2,2021-02-19,A0 criterio del cotizador (real),2021-05-10,81,81,True,0,,
+M1 ratio casi correcto,2,2021-02-19,A5 MC empírico α=0.80,2021-05-17,88,81,True,0,,
+M1 ratio casi correcto,2,2021-02-19,A6 MC QRF+conformal α=0.80,2021-05-17,88,81,True,0,0.455,0.808
+M1 ratio casi correcto,2,2021-02-19,A7 MC QRF+conformal α*,2021-05-21,92,81,True,0,,
+M1 ratio casi correcto,1,2021-02-20,A0 criterio del cotizador (real),2021-05-13,83,83,True,0,,
+M1 ratio casi correcto,1,2021-02-20,A5 MC empírico α=0.80,2021-06-11,112,83,True,0,,
+M1 ratio casi correcto,1,2021-02-20,A6 MC QRF+conformal α=0.80,2021-06-11,112,83,True,0,0.004,0.807
+M1 ratio casi correcto,1,2021-02-20,A7 MC QRF+conformal α*,2021-06-16,117,83,True,0,,
+M1 ratio casi correcto,3,2021-09-04,A0 criterio del cotizador (real),2021-11-17,75,75,True,0,,
+M1 ratio casi correcto,3,2021-09-04,A5 MC empírico α=0.80,2021-11-17,75,75,True,0,,
+M1 ratio casi correcto,3,2021-09-04,A6 MC QRF+conformal α=0.80,2021-11-17,75,75,True,0,0.809,0.809
+M1 ratio casi correcto,3,2021-09-04,A7 MC QRF+conformal α*,2021-11-20,78,75,True,0,,
+M1 ratio casi correcto,5,2022-01-03,A0 criterio del cotizador (real),2022-03-15,72,72,True,0,,
+M1 ratio casi correcto,5,2022-01-03,A5 MC empírico α=0.80,2022-03-22,79,72,True,0,,
+M1 ratio casi correcto,5,2022-01-03,A6 MC QRF+conformal α=0.80,2022-03-22,79,72,True,0,0.315,0.823
+M1 ratio casi correcto,5,2022-01-03,A7 MC QRF+conformal α*,2022-03-25,82,72,True,0,,
+M1 ratio casi correcto,6,2022-01-07,A0 criterio del cotizador (real),2022-03-08,61,61,False,5,,
+M1 ratio casi correcto,6,2022-01-07,A5 MC empírico α=0.80,2022-03-10,63,61,False,3,,
+M1 ratio casi correcto,6,2022-01-07,A6 MC QRF+conformal α=0.80,2022-03-10,63,61,False,3,0.641,0.84
+M1 ratio casi correcto,6,2022-01-07,A7 MC QRF+conformal α*,2022-03-12,65,61,False,1,,
+M1 ratio casi correcto,4,2022-02-02,A0 criterio del cotizador (real),2022-04-06,64,64,True,0,,
+M1 ratio casi correcto,4,2022-02-02,A5 MC empírico α=0.80,2022-04-07,65,64,True,0,,
+M1 ratio casi correcto,4,2022-02-02,A6 MC QRF+conformal α=0.80,2022-04-07,65,64,True,0,0.763,0.838
+M1 ratio casi correcto,4,2022-02-02,A7 MC QRF+conformal α*,2022-04-09,67,64,True,0,,
+M1 ratio casi correcto,7,2022-03-22,A0 criterio del cotizador (real),2022-05-21,61,61,True,0,,
+M1 ratio casi correcto,7,2022-03-22,A5 MC empírico α=0.80,2022-05-24,64,61,True,0,,
+M1 ratio casi correcto,7,2022-03-22,A6 MC QRF+conformal α=0.80,2022-05-24,64,61,True,0,0.634,0.855
+M1 ratio casi correcto,7,2022-03-22,A7 MC QRF+conformal α*,2022-05-26,66,61,True,0,,
+M1 ratio casi correcto,13,2023-02-03,A0 criterio del cotizador (real),2023-04-09,66,66,True,0,,
+M1 ratio casi correcto,13,2023-02-03,A5 MC empírico α=0.80,2023-04-13,70,66,True,0,,
+M1 ratio casi correcto,13,2023-02-03,A6 MC QRF+conformal α=0.80,2023-04-13,70,66,True,0,0.335,0.829
+M1 ratio casi correcto,13,2023-02-03,A7 MC QRF+conformal α*,2023-04-15,72,66,True,0,,
+M1 ratio casi correcto,8,2023-02-14,A0 criterio del cotizador (real),2023-04-24,70,70,True,0,,
+M1 ratio casi correcto,8,2023-02-14,A5 MC empírico α=0.80,2023-05-01,77,70,True,0,,
+M1 ratio casi correcto,8,2023-02-14,A6 MC QRF+conformal α=0.80,2023-05-01,77,70,True,0,0.158,0.833
+M1 ratio casi correcto,8,2023-02-14,A7 MC QRF+conformal α*,2023-05-03,79,70,True,0,,
+M1 ratio casi correcto,9,2023-05-18,A0 criterio del cotizador (real),2023-07-18,62,62,True,0,,
+M1 ratio casi correcto,9,2023-05-18,A5 MC empírico α=0.80,2023-07-20,64,62,True,0,,
+M1 ratio casi correcto,9,2023-05-18,A6 MC QRF+conformal α=0.80,2023-07-21,65,62,True,0,0.541,0.84
+M1 ratio casi correcto,9,2023-05-18,A7 MC QRF+conformal α*,2023-07-24,68,62,True,0,,
+M1 ratio casi correcto,11,2023-06-02,A0 criterio del cotizador (real),2023-07-18,47,47,True,0,,
+M1 ratio casi correcto,11,2023-06-02,A5 MC empírico α=0.80,2023-07-20,49,47,True,0,,
+M1 ratio casi correcto,11,2023-06-02,A6 MC QRF+conformal α=0.80,2023-07-21,50,47,True,0,0.439,0.863
+M1 ratio casi correcto,11,2023-06-02,A7 MC QRF+conformal α*,2023-07-22,51,47,True,0,,
+M1 ratio casi correcto,14,2023-08-04,A0 criterio del cotizador (real),2023-10-04,62,62,True,0,,
+M1 ratio casi correcto,14,2023-08-04,A5 MC empírico α=0.80,2023-10-06,64,62,True,0,,
+M1 ratio casi correcto,14,2023-08-04,A6 MC QRF+conformal α=0.80,2023-10-07,65,62,True,0,0.574,0.874
+M1 ratio casi correcto,14,2023-08-04,A7 MC QRF+conformal α*,2023-10-09,67,62,True,0,,
+M1 ratio casi correcto,10,2023-08-11,A0 criterio del cotizador (real),2023-10-01,52,52,True,0,,
+M1 ratio casi correcto,10,2023-08-11,A5 MC empírico α=0.80,2023-09-30,51,52,False,1,,
+M1 ratio casi correcto,10,2023-08-11,A6 MC QRF+conformal α=0.80,2023-10-02,53,52,True,0,0.797,0.889
+M1 ratio casi correcto,10,2023-08-11,A7 MC QRF+conformal α*,2023-10-03,54,52,True,0,,
+M1 ratio casi correcto,12,2023-08-13,A0 criterio del cotizador (real),2023-10-17,66,66,False,4,,
+M1 ratio casi correcto,12,2023-08-13,A5 MC empírico α=0.80,2023-10-20,69,66,False,1,,
+M1 ratio casi correcto,12,2023-08-13,A6 MC QRF+conformal α=0.80,2023-10-20,69,66,False,1,0.565,0.873
+M1 ratio casi correcto,12,2023-08-13,A7 MC QRF+conformal α*,2023-10-21,70,66,True,0,,
+M1 ratio casi correcto,15,2023-09-23,A0 criterio del cotizador (real),2023-12-07,76,76,True,0,,
+M1 ratio casi correcto,15,2023-09-23,A5 MC empírico α=0.80,2023-12-02,71,76,False,3,,
+M1 ratio casi correcto,15,2023-09-23,A6 MC QRF+conformal α=0.80,2023-12-04,73,76,False,1,0.955,0.81
+M1 ratio casi correcto,15,2023-09-23,A7 MC QRF+conformal α*,2023-12-07,76,76,True,0,,
+M1 ratio casi correcto,19,2024-01-11,A0 criterio del cotizador (real),2024-03-07,57,57,False,8,,
+M1 ratio casi correcto,19,2024-01-11,A5 MC empírico α=0.80,2024-03-09,59,57,False,6,,
+M1 ratio casi correcto,19,2024-01-11,A6 MC QRF+conformal α=0.80,2024-03-11,61,57,False,4,0.491,0.842
+M1 ratio casi correcto,19,2024-01-11,A7 MC QRF+conformal α*,2024-03-13,63,57,False,2,,
+M1 ratio casi correcto,17,2024-04-10,A0 criterio del cotizador (real),2024-06-06,58,58,True,0,,
+M1 ratio casi correcto,17,2024-04-10,A5 MC empírico α=0.80,2024-06-03,55,58,False,3,,
+M1 ratio casi correcto,17,2024-04-10,A6 MC QRF+conformal α=0.80,2024-06-03,55,58,False,3,0.976,0.858
+M1 ratio casi correcto,17,2024-04-10,A7 MC QRF+conformal α*,2024-06-04,56,58,False,2,,
+M1 ratio casi correcto,16,2024-06-09,A0 criterio del cotizador (real),2024-08-04,57,57,True,0,,
+M1 ratio casi correcto,16,2024-06-09,A5 MC empírico α=0.80,2024-08-08,61,57,True,0,,
+M1 ratio casi correcto,16,2024-06-09,A6 MC QRF+conformal α=0.80,2024-08-09,62,57,True,0,0.153,0.801
+M1 ratio casi correcto,16,2024-06-09,A7 MC QRF+conformal α*,2024-08-13,66,57,True,0,,
+M1 ratio casi correcto,18,2024-08-03,A0 criterio del cotizador (real),2024-10-28,87,87,True,0,,
+M1 ratio casi correcto,18,2024-08-03,A5 MC empírico α=0.80,2024-11-08,98,87,True,0,,
+M1 ratio casi correcto,18,2024-08-03,A6 MC QRF+conformal α=0.80,2024-11-06,96,87,True,0,0.133,0.8
+M1 ratio casi correcto,18,2024-08-03,A7 MC QRF+conformal α*,2024-11-09,99,87,True,0,,
+M1 ratio casi correcto,20,2025-05-08,A0 criterio del cotizador (real),2025-07-13,67,67,True,0,,
+M1 ratio casi correcto,20,2025-05-08,A5 MC empírico α=0.80,2025-07-16,70,67,True,0,,
+M1 ratio casi correcto,20,2025-05-08,A6 MC QRF+conformal α=0.80,2025-07-16,70,67,True,0,0.5,0.859
+M1 ratio casi correcto,20,2025-05-08,A7 MC QRF+conformal α*,2025-07-17,71,67,True,0,,
+M1 ratio casi correcto,22,2025-07-03,A0 criterio del cotizador (real),2025-09-03,63,63,False,4,,
+M1 ratio casi correcto,22,2025-07-03,A5 MC empírico α=0.80,2025-09-05,65,63,False,2,,
+M1 ratio casi correcto,22,2025-07-03,A6 MC QRF+conformal α=0.80,2025-09-08,68,63,True,0,0.387,0.834
+M1 ratio casi correcto,22,2025-07-03,A7 MC QRF+conformal α*,2025-09-10,70,63,True,0,,
+M1 ratio casi correcto,21,2025-09-20,A0 criterio del cotizador (real),2025-12-11,83,83,False,4,,
+M1 ratio casi correcto,21,2025-09-20,A5 MC empírico α=0.80,2025-12-13,85,83,False,2,,
+M1 ratio casi correcto,21,2025-09-20,A6 MC QRF+conformal α=0.80,2025-12-15,87,83,True,0,0.611,0.85
+M1 ratio casi correcto,21,2025-09-20,A7 MC QRF+conformal α*,2025-12-17,89,83,True,0,,
+M1 ratio casi correcto,24,2026-02-17,A0 criterio del cotizador (real),2026-05-15,88,88,False,5,,
+M1 ratio casi correcto,24,2026-02-17,A5 MC empírico α=0.80,2026-06-01,105,88,True,0,,
+M1 ratio casi correcto,24,2026-02-17,A6 MC QRF+conformal α=0.80,2026-05-30,103,88,True,0,0.01,0.81
+M1 ratio casi correcto,24,2026-02-17,A7 MC QRF+conformal α*,2026-06-03,107,88,True,0,,
+M1 ratio casi correcto,25,2026-03-25,A0 criterio del cotizador (real),2026-05-18,55,55,True,0,,
+M1 ratio casi correcto,25,2026-03-25,A5 MC empírico α=0.80,2026-05-22,59,55,True,0,,
+M1 ratio casi correcto,25,2026-03-25,A6 MC QRF+conformal α=0.80,2026-05-22,59,55,True,0,0.314,0.831
+M1 ratio casi correcto,25,2026-03-25,A7 MC QRF+conformal α*,2026-05-25,62,55,True,0,,
+M1 ratio casi correcto,23,2026-08-05,A0 criterio del cotizador (real),2026-09-25,52,52,True,0,,
+M1 ratio casi correcto,23,2026-08-05,A5 MC empírico α=0.80,2026-10-01,58,52,True,0,,
+M1 ratio casi correcto,23,2026-08-05,A6 MC QRF+conformal α=0.80,2026-10-01,58,52,True,0,0.149,0.841
+M1 ratio casi correcto,23,2026-08-05,A7 MC QRF+conformal α*,2026-10-03,60,52,True,0,,
+M2 sesgo sistemático,2,2021-02-19,A0 criterio del cotizador (real),2021-05-10,81,81,True,0,,
+M2 sesgo sistemático,2,2021-02-19,A5 MC empírico α=0.80,2021-05-18,89,81,True,0,,
+M2 sesgo sistemático,2,2021-02-19,A6 MC QRF+conformal α=0.80,2021-05-18,89,81,True,0,0.423,0.831
+M2 sesgo sistemático,2,2021-02-19,A7 MC QRF+conformal α*,2021-05-22,93,81,True,0,,
+M2 sesgo sistemático,1,2021-02-20,A0 criterio del cotizador (real),2021-05-13,83,83,True,0,,
+M2 sesgo sistemático,1,2021-02-20,A5 MC empírico α=0.80,2021-06-12,113,83,True,0,,
+M2 sesgo sistemático,1,2021-02-20,A6 MC QRF+conformal α=0.80,2021-06-12,113,83,True,0,0.004,0.802
+M2 sesgo sistemático,1,2021-02-20,A7 MC QRF+conformal α*,2021-06-18,119,83,True,0,,
+M2 sesgo sistemático,3,2021-09-04,A0 criterio del cotizador (real),2021-11-17,75,75,True,0,,
+M2 sesgo sistemático,3,2021-09-04,A5 MC empírico α=0.80,2021-11-18,76,75,True,0,,
+M2 sesgo sistemático,3,2021-09-04,A6 MC QRF+conformal α=0.80,2021-11-18,76,75,True,0,0.79,0.841
+M2 sesgo sistemático,3,2021-09-04,A7 MC QRF+conformal α*,2021-11-22,80,75,True,0,,
+M2 sesgo sistemático,5,2022-01-03,A0 criterio del cotizador (real),2022-03-15,72,72,True,0,,
+M2 sesgo sistemático,5,2022-01-03,A5 MC empírico α=0.80,2022-03-18,75,72,True,0,,
+M2 sesgo sistemático,5,2022-01-03,A6 MC QRF+conformal α=0.80,2022-03-18,75,72,True,0,0.595,0.822
+M2 sesgo sistemático,5,2022-01-03,A7 MC QRF+conformal α*,2022-03-22,79,72,True,0,,
+M2 sesgo sistemático,6,2022-01-07,A0 criterio del cotizador (real),2022-03-08,61,61,False,5,,
+M2 sesgo sistemático,6,2022-01-07,A5 MC empírico α=0.80,2022-03-07,60,61,False,6,,
+M2 sesgo sistemático,6,2022-01-07,A6 MC QRF+conformal α=0.80,2022-03-07,60,61,False,6,0.875,0.809
+M2 sesgo sistemático,6,2022-01-07,A7 MC QRF+conformal α*,2022-03-10,63,61,False,3,,
+M2 sesgo sistemático,4,2022-02-02,A0 criterio del cotizador (real),2022-04-06,64,64,True,0,,
+M2 sesgo sistemático,4,2022-02-02,A5 MC empírico α=0.80,2022-04-05,63,64,False,1,,
+M2 sesgo sistemático,4,2022-02-02,A6 MC QRF+conformal α=0.80,2022-04-05,63,64,False,1,0.913,0.857
+M2 sesgo sistemático,4,2022-02-02,A7 MC QRF+conformal α*,2022-04-07,65,64,True,0,,
+M2 sesgo sistemático,7,2022-03-22,A0 criterio del cotizador (real),2022-05-21,61,61,True,0,,
+M2 sesgo sistemático,7,2022-03-22,A5 MC empírico α=0.80,2022-05-23,63,61,True,0,,
+M2 sesgo sistemático,7,2022-03-22,A6 MC QRF+conformal α=0.80,2022-05-23,63,61,True,0,0.794,0.87
+M2 sesgo sistemático,7,2022-03-22,A7 MC QRF+conformal α*,2022-05-25,65,61,True,0,,
+M2 sesgo sistemático,13,2023-02-03,A0 criterio del cotizador (real),2023-04-09,66,66,True,0,,
+M2 sesgo sistemático,13,2023-02-03,A5 MC empírico α=0.80,2023-04-12,69,66,True,0,,
+M2 sesgo sistemático,13,2023-02-03,A6 MC QRF+conformal α=0.80,2023-04-13,70,66,True,0,0.439,0.832
+M2 sesgo sistemático,13,2023-02-03,A7 MC QRF+conformal α*,2023-04-15,72,66,True,0,,
+M2 sesgo sistemático,8,2023-02-14,A0 criterio del cotizador (real),2023-04-24,70,70,True,0,,
+M2 sesgo sistemático,8,2023-02-14,A5 MC empírico α=0.80,2023-04-29,75,70,True,0,,
+M2 sesgo sistemático,8,2023-02-14,A6 MC QRF+conformal α=0.80,2023-05-02,78,70,True,0,0.206,0.807
+M2 sesgo sistemático,8,2023-02-14,A7 MC QRF+conformal α*,2023-05-05,81,70,True,0,,
+M2 sesgo sistemático,9,2023-05-18,A0 criterio del cotizador (real),2023-07-18,62,62,True,0,,
+M2 sesgo sistemático,9,2023-05-18,A5 MC empírico α=0.80,2023-07-19,63,62,True,0,,
+M2 sesgo sistemático,9,2023-05-18,A6 MC QRF+conformal α=0.80,2023-07-22,66,62,True,0,0.455,0.856
+M2 sesgo sistemático,9,2023-05-18,A7 MC QRF+conformal α*,2023-07-25,69,62,True,0,,
+M2 sesgo sistemático,11,2023-06-02,A0 criterio del cotizador (real),2023-07-18,47,47,True,0,,
+M2 sesgo sistemático,11,2023-06-02,A5 MC empírico α=0.80,2023-07-19,48,47,True,0,,
+M2 sesgo sistemático,11,2023-06-02,A6 MC QRF+conformal α=0.80,2023-07-19,48,47,True,0,0.737,0.831
+M2 sesgo sistemático,11,2023-06-02,A7 MC QRF+conformal α*,2023-07-21,50,47,True,0,,
+M2 sesgo sistemático,14,2023-08-04,A0 criterio del cotizador (real),2023-10-04,62,62,True,0,,
+M2 sesgo sistemático,14,2023-08-04,A5 MC empírico α=0.80,2023-10-06,64,62,True,0,,
+M2 sesgo sistemático,14,2023-08-04,A6 MC QRF+conformal α=0.80,2023-10-09,67,62,True,0,0.464,0.821
+M2 sesgo sistemático,14,2023-08-04,A7 MC QRF+conformal α*,2023-10-11,69,62,True,0,,
+M2 sesgo sistemático,10,2023-08-11,A0 criterio del cotizador (real),2023-10-01,52,52,True,0,,
+M2 sesgo sistemático,10,2023-08-11,A5 MC empírico α=0.80,2023-09-29,50,52,False,2,,
+M2 sesgo sistemático,10,2023-08-11,A6 MC QRF+conformal α=0.80,2023-10-02,53,52,True,0,0.737,0.831
+M2 sesgo sistemático,10,2023-08-11,A7 MC QRF+conformal α*,2023-10-04,55,52,True,0,,
+M2 sesgo sistemático,12,2023-08-13,A0 criterio del cotizador (real),2023-10-17,66,66,False,4,,
+M2 sesgo sistemático,12,2023-08-13,A5 MC empírico α=0.80,2023-10-20,69,66,False,1,,
+M2 sesgo sistemático,12,2023-08-13,A6 MC QRF+conformal α=0.80,2023-10-24,73,66,True,0,0.32,0.865
+M2 sesgo sistemático,12,2023-08-13,A7 MC QRF+conformal α*,2023-10-26,75,66,True,0,,
+M2 sesgo sistemático,15,2023-09-23,A0 criterio del cotizador (real),2023-12-07,76,76,True,0,,
+M2 sesgo sistemático,15,2023-09-23,A5 MC empírico α=0.80,2023-12-02,71,76,False,3,,
+M2 sesgo sistemático,15,2023-09-23,A6 MC QRF+conformal α=0.80,2023-12-04,73,76,False,1,0.939,0.805
+M2 sesgo sistemático,15,2023-09-23,A7 MC QRF+conformal α*,2023-12-07,76,76,True,0,,
+M2 sesgo sistemático,19,2024-01-11,A0 criterio del cotizador (real),2024-03-07,57,57,False,8,,
+M2 sesgo sistemático,19,2024-01-11,A5 MC empírico α=0.80,2024-03-08,58,57,False,7,,
+M2 sesgo sistemático,19,2024-01-11,A6 MC QRF+conformal α=0.80,2024-03-08,58,57,False,7,0.717,0.814
+M2 sesgo sistemático,19,2024-01-11,A7 MC QRF+conformal α*,2024-03-11,61,57,False,4,,
+M2 sesgo sistemático,17,2024-04-10,A0 criterio del cotizador (real),2024-06-06,58,58,True,0,,
+M2 sesgo sistemático,17,2024-04-10,A5 MC empírico α=0.80,2024-06-01,53,58,False,5,,
+M2 sesgo sistemático,17,2024-04-10,A6 MC QRF+conformal α=0.80,2024-06-03,55,58,False,3,0.968,0.84
+M2 sesgo sistemático,17,2024-04-10,A7 MC QRF+conformal α*,2024-06-05,57,58,False,1,,
+M2 sesgo sistemático,16,2024-06-09,A0 criterio del cotizador (real),2024-08-04,57,57,True,0,,
+M2 sesgo sistemático,16,2024-06-09,A5 MC empírico α=0.80,2024-08-09,62,57,True,0,,
+M2 sesgo sistemático,16,2024-06-09,A6 MC QRF+conformal α=0.80,2024-08-17,70,57,True,0,0.153,0.836
+M2 sesgo sistemático,16,2024-06-09,A7 MC QRF+conformal α*,2024-08-21,74,57,True,0,,
+M2 sesgo sistemático,18,2024-08-03,A0 criterio del cotizador (real),2024-10-28,87,87,True,0,,
+M2 sesgo sistemático,18,2024-08-03,A5 MC empírico α=0.80,2024-11-09,99,87,True,0,,
+M2 sesgo sistemático,18,2024-08-03,A6 MC QRF+conformal α=0.80,2024-11-07,97,87,True,0,0.354,0.826
+M2 sesgo sistemático,18,2024-08-03,A7 MC QRF+conformal α*,2024-11-12,102,87,True,0,,
+M2 sesgo sistemático,20,2025-05-08,A0 criterio del cotizador (real),2025-07-13,67,67,True,0,,
+M2 sesgo sistemático,20,2025-05-08,A5 MC empírico α=0.80,2025-07-17,71,67,True,0,,
+M2 sesgo sistemático,20,2025-05-08,A6 MC QRF+conformal α=0.80,2025-07-21,75,67,True,0,0.358,0.822
+M2 sesgo sistemático,20,2025-05-08,A7 MC QRF+conformal α*,2025-07-25,79,67,True,0,,
+M2 sesgo sistemático,22,2025-07-03,A0 criterio del cotizador (real),2025-09-03,63,63,False,4,,
+M2 sesgo sistemático,22,2025-07-03,A5 MC empírico α=0.80,2025-09-05,65,63,False,2,,
+M2 sesgo sistemático,22,2025-07-03,A6 MC QRF+conformal α=0.80,2025-09-03,63,63,False,4,0.806,0.806
+M2 sesgo sistemático,22,2025-07-03,A7 MC QRF+conformal α*,2025-09-06,66,63,False,1,,
+M2 sesgo sistemático,21,2025-09-20,A0 criterio del cotizador (real),2025-12-11,83,83,False,4,,
+M2 sesgo sistemático,21,2025-09-20,A5 MC empírico α=0.80,2025-12-15,87,83,True,0,,
+M2 sesgo sistemático,21,2025-09-20,A6 MC QRF+conformal α=0.80,2025-12-26,98,83,True,0,0.208,0.814
+M2 sesgo sistemático,21,2025-09-20,A7 MC QRF+conformal α*,2026-01-01,104,83,True,0,,
+M2 sesgo sistemático,24,2026-02-17,A0 criterio del cotizador (real),2026-05-15,88,88,False,5,,
+M2 sesgo sistemático,24,2026-02-17,A5 MC empírico α=0.80,2026-06-03,107,88,True,0,,
+M2 sesgo sistemático,24,2026-02-17,A6 MC QRF+conformal α=0.80,2026-05-22,95,88,True,0,0.335,0.8
+M2 sesgo sistemático,24,2026-02-17,A7 MC QRF+conformal α*,2026-05-26,99,88,True,0,,
+M2 sesgo sistemático,25,2026-03-25,A0 criterio del cotizador (real),2026-05-18,55,55,True,0,,
+M2 sesgo sistemático,25,2026-03-25,A5 MC empírico α=0.80,2026-05-22,59,55,True,0,,
+M2 sesgo sistemático,25,2026-03-25,A6 MC QRF+conformal α=0.80,2026-05-22,59,55,True,0,0.377,0.843
+M2 sesgo sistemático,25,2026-03-25,A7 MC QRF+conformal α*,2026-05-25,62,55,True,0,,
+M2 sesgo sistemático,23,2026-08-05,A0 criterio del cotizador (real),2026-09-25,52,52,True,0,,
+M2 sesgo sistemático,23,2026-08-05,A5 MC empírico α=0.80,2026-10-01,58,52,True,0,,
+M2 sesgo sistemático,23,2026-08-05,A6 MC QRF+conformal α=0.80,2026-10-02,59,52,True,0,0.231,0.852
+M2 sesgo sistemático,23,2026-08-05,A7 MC QRF+conformal α*,2026-10-05,62,52,True,0,,
+M3 no lineal y colas pesadas,2,2021-02-19,A0 criterio del cotizador (real),2021-05-10,81,81,True,0,,
+M3 no lineal y colas pesadas,2,2021-02-19,A5 MC empírico α=0.80,2021-05-18,89,81,True,0,,
+M3 no lineal y colas pesadas,2,2021-02-19,A6 MC QRF+conformal α=0.80,2021-05-18,89,81,True,0,0.415,0.818
+M3 no lineal y colas pesadas,2,2021-02-19,A7 MC QRF+conformal α*,2021-05-22,93,81,True,0,,
+M3 no lineal y colas pesadas,1,2021-02-20,A0 criterio del cotizador (real),2021-05-13,83,83,True,0,,
+M3 no lineal y colas pesadas,1,2021-02-20,A5 MC empírico α=0.80,2021-06-12,113,83,True,0,,
+M3 no lineal y colas pesadas,1,2021-02-20,A6 MC QRF+conformal α=0.80,2021-06-12,113,83,True,0,0.003,0.811
+M3 no lineal y colas pesadas,1,2021-02-20,A7 MC QRF+conformal α*,2021-06-18,119,83,True,0,,
+M3 no lineal y colas pesadas,3,2021-09-04,A0 criterio del cotizador (real),2021-11-17,75,75,True,0,,
+M3 no lineal y colas pesadas,3,2021-09-04,A5 MC empírico α=0.80,2021-11-18,76,75,True,0,,
+M3 no lineal y colas pesadas,3,2021-09-04,A6 MC QRF+conformal α=0.80,2021-11-18,76,75,True,0,0.795,0.846
+M3 no lineal y colas pesadas,3,2021-09-04,A7 MC QRF+conformal α*,2021-11-20,78,75,True,0,,
+M3 no lineal y colas pesadas,5,2022-01-03,A0 criterio del cotizador (real),2022-03-15,72,72,True,0,,
+M3 no lineal y colas pesadas,5,2022-01-03,A5 MC empírico α=0.80,2022-03-21,78,72,True,0,,
+M3 no lineal y colas pesadas,5,2022-01-03,A6 MC QRF+conformal α=0.80,2022-03-21,78,72,True,0,0.534,0.827
+M3 no lineal y colas pesadas,5,2022-01-03,A7 MC QRF+conformal α*,2022-03-24,81,72,True,0,,
+M3 no lineal y colas pesadas,6,2022-01-07,A0 criterio del cotizador (real),2022-03-08,61,61,False,5,,
+M3 no lineal y colas pesadas,6,2022-01-07,A5 MC empírico α=0.80,2022-03-09,62,61,False,4,,
+M3 no lineal y colas pesadas,6,2022-01-07,A6 MC QRF+conformal α=0.80,2022-03-09,62,61,False,4,0.757,0.812
+M3 no lineal y colas pesadas,6,2022-01-07,A7 MC QRF+conformal α*,2022-03-12,65,61,False,1,,
+M3 no lineal y colas pesadas,4,2022-02-02,A0 criterio del cotizador (real),2022-04-06,64,64,True,0,,
+M3 no lineal y colas pesadas,4,2022-02-02,A5 MC empírico α=0.80,2022-04-06,64,64,True,0,,
+M3 no lineal y colas pesadas,4,2022-02-02,A6 MC QRF+conformal α=0.80,2022-04-06,64,64,True,0,0.803,0.803
+M3 no lineal y colas pesadas,4,2022-02-02,A7 MC QRF+conformal α*,2022-04-09,67,64,True,0,,
+M3 no lineal y colas pesadas,7,2022-03-22,A0 criterio del cotizador (real),2022-05-21,61,61,True,0,,
+M3 no lineal y colas pesadas,7,2022-03-22,A5 MC empírico α=0.80,2022-05-25,65,61,True,0,,
+M3 no lineal y colas pesadas,7,2022-03-22,A6 MC QRF+conformal α=0.80,2022-05-25,65,61,True,0,0.566,0.806
+M3 no lineal y colas pesadas,7,2022-03-22,A7 MC QRF+conformal α*,2022-05-28,68,61,True,0,,
+M3 no lineal y colas pesadas,13,2023-02-03,A0 criterio del cotizador (real),2023-04-09,66,66,True,0,,
+M3 no lineal y colas pesadas,13,2023-02-03,A5 MC empírico α=0.80,2023-04-14,71,66,True,0,,
+M3 no lineal y colas pesadas,13,2023-02-03,A6 MC QRF+conformal α=0.80,2023-04-18,75,66,True,0,0.309,0.836
+M3 no lineal y colas pesadas,13,2023-02-03,A7 MC QRF+conformal α*,2023-04-21,78,66,True,0,,
+M3 no lineal y colas pesadas,8,2023-02-14,A0 criterio del cotizador (real),2023-04-24,70,70,True,0,,
+M3 no lineal y colas pesadas,8,2023-02-14,A5 MC empírico α=0.80,2023-05-02,78,70,True,0,,
+M3 no lineal y colas pesadas,8,2023-02-14,A6 MC QRF+conformal α=0.80,2023-05-02,78,70,True,0,0.428,0.822
+M3 no lineal y colas pesadas,8,2023-02-14,A7 MC QRF+conformal α*,2023-05-06,82,70,True,0,,
+M3 no lineal y colas pesadas,9,2023-05-18,A0 criterio del cotizador (real),2023-07-18,62,62,True,0,,
+M3 no lineal y colas pesadas,9,2023-05-18,A5 MC empírico α=0.80,2023-07-21,65,62,True,0,,
+M3 no lineal y colas pesadas,9,2023-05-18,A6 MC QRF+conformal α=0.80,2023-07-22,66,62,True,0,0.609,0.841
+M3 no lineal y colas pesadas,9,2023-05-18,A7 MC QRF+conformal α*,2023-07-26,70,62,True,0,,
+M3 no lineal y colas pesadas,11,2023-06-02,A0 criterio del cotizador (real),2023-07-18,47,47,True,0,,
+M3 no lineal y colas pesadas,11,2023-06-02,A5 MC empírico α=0.80,2023-07-20,49,47,True,0,,
+M3 no lineal y colas pesadas,11,2023-06-02,A6 MC QRF+conformal α=0.80,2023-07-19,48,47,True,0,0.762,0.844
+M3 no lineal y colas pesadas,11,2023-06-02,A7 MC QRF+conformal α*,2023-07-21,50,47,True,0,,
+M3 no lineal y colas pesadas,14,2023-08-04,A0 criterio del cotizador (real),2023-10-04,62,62,True,0,,
+M3 no lineal y colas pesadas,14,2023-08-04,A5 MC empírico α=0.80,2023-10-09,67,62,True,0,,
+M3 no lineal y colas pesadas,14,2023-08-04,A6 MC QRF+conformal α=0.80,2023-10-13,71,62,True,0,0.234,0.837
+M3 no lineal y colas pesadas,14,2023-08-04,A7 MC QRF+conformal α*,2023-10-16,74,62,True,0,,
+M3 no lineal y colas pesadas,10,2023-08-11,A0 criterio del cotizador (real),2023-10-01,52,52,True,0,,
+M3 no lineal y colas pesadas,10,2023-08-11,A5 MC empírico α=0.80,2023-10-02,53,52,True,0,,
+M3 no lineal y colas pesadas,10,2023-08-11,A6 MC QRF+conformal α=0.80,2023-09-30,51,52,False,1,0.803,0.803
+M3 no lineal y colas pesadas,10,2023-08-11,A7 MC QRF+conformal α*,2023-10-04,55,52,True,0,,
+M3 no lineal y colas pesadas,12,2023-08-13,A0 criterio del cotizador (real),2023-10-17,66,66,False,4,,
+M3 no lineal y colas pesadas,12,2023-08-13,A5 MC empírico α=0.80,2023-10-21,70,66,True,0,,
+M3 no lineal y colas pesadas,12,2023-08-13,A6 MC QRF+conformal α=0.80,2023-10-21,70,66,True,0,0.564,0.843
+M3 no lineal y colas pesadas,12,2023-08-13,A7 MC QRF+conformal α*,2023-10-25,74,66,True,0,,
+M3 no lineal y colas pesadas,15,2023-09-23,A0 criterio del cotizador (real),2023-12-07,76,76,True,0,,
+M3 no lineal y colas pesadas,15,2023-09-23,A5 MC empírico α=0.80,2023-12-05,74,76,True,0,,
+M3 no lineal y colas pesadas,15,2023-09-23,A6 MC QRF+conformal α=0.80,2023-12-05,74,76,True,0,0.922,0.843
+M3 no lineal y colas pesadas,15,2023-09-23,A7 MC QRF+conformal α*,2023-12-08,77,76,True,0,,
+M3 no lineal y colas pesadas,19,2024-01-11,A0 criterio del cotizador (real),2024-03-07,57,57,False,8,,
+M3 no lineal y colas pesadas,19,2024-01-11,A5 MC empírico α=0.80,2024-03-11,61,57,False,4,,
+M3 no lineal y colas pesadas,19,2024-01-11,A6 MC QRF+conformal α=0.80,2024-03-12,62,57,False,3,0.538,0.838
+M3 no lineal y colas pesadas,19,2024-01-11,A7 MC QRF+conformal α*,2024-03-14,64,57,False,1,,
+M3 no lineal y colas pesadas,17,2024-04-10,A0 criterio del cotizador (real),2024-06-06,58,58,True,0,,
+M3 no lineal y colas pesadas,17,2024-04-10,A5 MC empírico α=0.80,2024-06-03,55,58,False,3,,
+M3 no lineal y colas pesadas,17,2024-04-10,A6 MC QRF+conformal α=0.80,2024-06-04,56,58,False,2,0.936,0.834
+M3 no lineal y colas pesadas,17,2024-04-10,A7 MC QRF+conformal α*,2024-06-06,58,58,True,0,,
+M3 no lineal y colas pesadas,16,2024-06-09,A0 criterio del cotizador (real),2024-08-04,57,57,True,0,,
+M3 no lineal y colas pesadas,16,2024-06-09,A5 MC empírico α=0.80,2024-08-10,63,57,True,0,,
+M3 no lineal y colas pesadas,16,2024-06-09,A6 MC QRF+conformal α=0.80,2024-08-15,68,57,True,0,0.27,0.843
+M3 no lineal y colas pesadas,16,2024-06-09,A7 MC QRF+conformal α*,2024-08-19,72,57,True,0,,
+M3 no lineal y colas pesadas,18,2024-08-03,A0 criterio del cotizador (real),2024-10-28,87,87,True,0,,
+M3 no lineal y colas pesadas,18,2024-08-03,A5 MC empírico α=0.80,2024-11-11,101,87,True,0,,
+M3 no lineal y colas pesadas,18,2024-08-03,A6 MC QRF+conformal α=0.80,2024-11-08,98,87,True,0,0.412,0.817
+M3 no lineal y colas pesadas,18,2024-08-03,A7 MC QRF+conformal α*,2024-11-15,105,87,True,0,,
+M3 no lineal y colas pesadas,20,2025-05-08,A0 criterio del cotizador (real),2025-07-13,67,67,True,0,,
+M3 no lineal y colas pesadas,20,2025-05-08,A5 MC empírico α=0.80,2025-07-18,72,67,True,0,,
+M3 no lineal y colas pesadas,20,2025-05-08,A6 MC QRF+conformal α=0.80,2025-07-22,76,67,True,0,0.397,0.841
+M3 no lineal y colas pesadas,20,2025-05-08,A7 MC QRF+conformal α*,2025-07-25,79,67,True,0,,
+M3 no lineal y colas pesadas,22,2025-07-03,A0 criterio del cotizador (real),2025-09-03,63,63,False,4,,
+M3 no lineal y colas pesadas,22,2025-07-03,A5 MC empírico α=0.80,2025-09-06,66,63,False,1,,
+M3 no lineal y colas pesadas,22,2025-07-03,A6 MC QRF+conformal α=0.80,2025-09-05,65,63,False,2,0.676,0.816
+M3 no lineal y colas pesadas,22,2025-07-03,A7 MC QRF+conformal α*,2025-09-09,69,63,True,0,,
+M3 no lineal y colas pesadas,21,2025-09-20,A0 criterio del cotizador (real),2025-12-11,83,83,False,4,,
+M3 no lineal y colas pesadas,21,2025-09-20,A5 MC empírico α=0.80,2025-12-16,88,83,True,0,,
+M3 no lineal y colas pesadas,21,2025-09-20,A6 MC QRF+conformal α=0.80,2025-12-18,90,83,True,0,0.475,0.813
+M3 no lineal y colas pesadas,21,2025-09-20,A7 MC QRF+conformal α*,2025-12-23,95,83,True,0,,
+M3 no lineal y colas pesadas,24,2026-02-17,A0 criterio del cotizador (real),2026-05-15,88,88,False,5,,
+M3 no lineal y colas pesadas,24,2026-02-17,A5 MC empírico α=0.80,2026-06-04,108,88,True,0,,
+M3 no lineal y colas pesadas,24,2026-02-17,A6 MC QRF+conformal α=0.80,2026-05-25,98,88,True,0,0.341,0.806
+M3 no lineal y colas pesadas,24,2026-02-17,A7 MC QRF+conformal α*,2026-05-29,102,88,True,0,,
+M3 no lineal y colas pesadas,25,2026-03-25,A0 criterio del cotizador (real),2026-05-18,55,55,True,0,,
+M3 no lineal y colas pesadas,25,2026-03-25,A5 MC empírico α=0.80,2026-05-23,60,55,True,0,,
+M3 no lineal y colas pesadas,25,2026-03-25,A6 MC QRF+conformal α=0.80,2026-05-22,59,55,True,0,0.486,0.851
+M3 no lineal y colas pesadas,25,2026-03-25,A7 MC QRF+conformal α*,2026-05-25,62,55,True,0,,
+M3 no lineal y colas pesadas,23,2026-08-05,A0 criterio del cotizador (real),2026-09-25,52,52,True,0,,
+M3 no lineal y colas pesadas,23,2026-08-05,A5 MC empírico α=0.80,2026-10-02,59,52,True,0,,
+M3 no lineal y colas pesadas,23,2026-08-05,A6 MC QRF+conformal α=0.80,2026-10-08,65,52,True,0,0.034,0.819
+M3 no lineal y colas pesadas,23,2026-08-05,A7 MC QRF+conformal α*,2026-10-12,69,52,True,0,,
+M4 deriva del taller,2,2021-02-19,A0 criterio del cotizador (real),2021-05-10,81,81,True,0,,
+M4 deriva del taller,2,2021-02-19,A5 MC empírico α=0.80,2021-05-17,88,81,True,0,,
+M4 deriva del taller,2,2021-02-19,A6 MC QRF+conformal α=0.80,2021-05-17,88,81,True,0,0.458,0.805
+M4 deriva del taller,2,2021-02-19,A7 MC QRF+conformal α*,2021-05-21,92,81,True,0,,
+M4 deriva del taller,1,2021-02-20,A0 criterio del cotizador (real),2021-05-13,83,83,True,0,,
+M4 deriva del taller,1,2021-02-20,A5 MC empírico α=0.80,2021-06-11,112,83,True,0,,
+M4 deriva del taller,1,2021-02-20,A6 MC QRF+conformal α=0.80,2021-06-11,112,83,True,0,0.007,0.803
+M4 deriva del taller,1,2021-02-20,A7 MC QRF+conformal α*,2021-06-17,118,83,True,0,,
+M4 deriva del taller,3,2021-09-04,A0 criterio del cotizador (real),2021-11-17,75,75,True,0,,
+M4 deriva del taller,3,2021-09-04,A5 MC empírico α=0.80,2021-11-17,75,75,True,0,,
+M4 deriva del taller,3,2021-09-04,A6 MC QRF+conformal α=0.80,2021-11-17,75,75,True,0,0.804,0.804
+M4 deriva del taller,3,2021-09-04,A7 MC QRF+conformal α*,2021-11-20,78,75,True,0,,
+M4 deriva del taller,5,2022-01-03,A0 criterio del cotizador (real),2022-03-15,72,72,True,0,,
+M4 deriva del taller,5,2022-01-03,A5 MC empírico α=0.80,2022-03-21,78,72,True,0,,
+M4 deriva del taller,5,2022-01-03,A6 MC QRF+conformal α=0.80,2022-03-21,78,72,True,0,0.517,0.805
+M4 deriva del taller,5,2022-01-03,A7 MC QRF+conformal α*,2022-03-26,83,72,True,0,,
+M4 deriva del taller,6,2022-01-07,A0 criterio del cotizador (real),2022-03-08,61,61,False,5,,
+M4 deriva del taller,6,2022-01-07,A5 MC empírico α=0.80,2022-03-09,62,61,False,4,,
+M4 deriva del taller,6,2022-01-07,A6 MC QRF+conformal α=0.80,2022-03-09,62,61,False,4,0.767,0.82
+M4 deriva del taller,6,2022-01-07,A7 MC QRF+conformal α*,2022-03-12,65,61,False,1,,
+M4 deriva del taller,4,2022-02-02,A0 criterio del cotizador (real),2022-04-06,64,64,True,0,,
+M4 deriva del taller,4,2022-02-02,A5 MC empírico α=0.80,2022-04-07,65,64,True,0,,
+M4 deriva del taller,4,2022-02-02,A6 MC QRF+conformal α=0.80,2022-04-07,65,64,True,0,0.781,0.836
+M4 deriva del taller,4,2022-02-02,A7 MC QRF+conformal α*,2022-04-11,69,64,True,0,,
+M4 deriva del taller,7,2022-03-22,A0 criterio del cotizador (real),2022-05-21,61,61,True,0,,
+M4 deriva del taller,7,2022-03-22,A5 MC empírico α=0.80,2022-05-24,64,61,True,0,,
+M4 deriva del taller,7,2022-03-22,A6 MC QRF+conformal α=0.80,2022-05-24,64,61,True,0,0.629,0.804
+M4 deriva del taller,7,2022-03-22,A7 MC QRF+conformal α*,2022-05-27,67,61,True,0,,
+M4 deriva del taller,13,2023-02-03,A0 criterio del cotizador (real),2023-04-09,66,66,True,0,,
+M4 deriva del taller,13,2023-02-03,A5 MC empírico α=0.80,2023-04-14,71,66,True,0,,
+M4 deriva del taller,13,2023-02-03,A6 MC QRF+conformal α=0.80,2023-04-18,75,66,True,0,0.287,0.817
+M4 deriva del taller,13,2023-02-03,A7 MC QRF+conformal α*,2023-04-21,78,66,True,0,,
+M4 deriva del taller,8,2023-02-14,A0 criterio del cotizador (real),2023-04-24,70,70,True,0,,
+M4 deriva del taller,8,2023-02-14,A5 MC empírico α=0.80,2023-05-02,78,70,True,0,,
+M4 deriva del taller,8,2023-02-14,A6 MC QRF+conformal α=0.80,2023-04-27,73,70,True,0,0.676,0.848
+M4 deriva del taller,8,2023-02-14,A7 MC QRF+conformal α*,2023-05-01,77,70,True,0,,
+M4 deriva del taller,9,2023-05-18,A0 criterio del cotizador (real),2023-07-18,62,62,True,0,,
+M4 deriva del taller,9,2023-05-18,A5 MC empírico α=0.80,2023-07-20,64,62,True,0,,
+M4 deriva del taller,9,2023-05-18,A6 MC QRF+conformal α=0.80,2023-07-22,66,62,True,0,0.44,0.805
+M4 deriva del taller,9,2023-05-18,A7 MC QRF+conformal α*,2023-07-26,70,62,True,0,,
+M4 deriva del taller,11,2023-06-02,A0 criterio del cotizador (real),2023-07-18,47,47,True,0,,
+M4 deriva del taller,11,2023-06-02,A5 MC empírico α=0.80,2023-07-19,48,47,True,0,,
+M4 deriva del taller,11,2023-06-02,A6 MC QRF+conformal α=0.80,2023-07-19,48,47,True,0,0.697,0.807
+M4 deriva del taller,11,2023-06-02,A7 MC QRF+conformal α*,2023-07-21,50,47,True,0,,
+M4 deriva del taller,14,2023-08-04,A0 criterio del cotizador (real),2023-10-04,62,62,True,0,,
+M4 deriva del taller,14,2023-08-04,A5 MC empírico α=0.80,2023-10-06,64,62,True,0,,
+M4 deriva del taller,14,2023-08-04,A6 MC QRF+conformal α=0.80,2023-10-10,68,62,True,0,0.395,0.811
+M4 deriva del taller,14,2023-08-04,A7 MC QRF+conformal α*,2023-10-13,71,62,True,0,,
+M4 deriva del taller,10,2023-08-11,A0 criterio del cotizador (real),2023-10-01,52,52,True,0,,
+M4 deriva del taller,10,2023-08-11,A5 MC empírico α=0.80,2023-09-30,51,52,False,1,,
+M4 deriva del taller,10,2023-08-11,A6 MC QRF+conformal α=0.80,2023-10-02,53,52,True,0,0.768,0.863
+M4 deriva del taller,10,2023-08-11,A7 MC QRF+conformal α*,2023-10-03,54,52,True,0,,
+M4 deriva del taller,12,2023-08-13,A0 criterio del cotizador (real),2023-10-17,66,66,False,4,,
+M4 deriva del taller,12,2023-08-13,A5 MC empírico α=0.80,2023-10-20,69,66,False,1,,
+M4 deriva del taller,12,2023-08-13,A6 MC QRF+conformal α=0.80,2023-10-21,70,66,True,0,0.43,0.812
+M4 deriva del taller,12,2023-08-13,A7 MC QRF+conformal α*,2023-10-24,73,66,True,0,,
+M4 deriva del taller,15,2023-09-23,A0 criterio del cotizador (real),2023-12-07,76,76,True,0,,
+M4 deriva del taller,15,2023-09-23,A5 MC empírico α=0.80,2023-12-02,71,76,False,3,,
+M4 deriva del taller,15,2023-09-23,A6 MC QRF+conformal α=0.80,2023-12-04,73,76,False,1,0.955,0.817
+M4 deriva del taller,15,2023-09-23,A7 MC QRF+conformal α*,2023-12-07,76,76,True,0,,
+M4 deriva del taller,19,2024-01-11,A0 criterio del cotizador (real),2024-03-07,57,57,False,8,,
+M4 deriva del taller,19,2024-01-11,A5 MC empírico α=0.80,2024-03-09,59,57,False,6,,
+M4 deriva del taller,19,2024-01-11,A6 MC QRF+conformal α=0.80,2024-03-13,63,57,False,2,0.471,0.854
+M4 deriva del taller,19,2024-01-11,A7 MC QRF+conformal α*,2024-03-15,65,57,True,0,,
+M4 deriva del taller,17,2024-04-10,A0 criterio del cotizador (real),2024-06-06,58,58,True,0,,
+M4 deriva del taller,17,2024-04-10,A5 MC empírico α=0.80,2024-06-03,55,58,False,3,,
+M4 deriva del taller,17,2024-04-10,A6 MC QRF+conformal α=0.80,2024-06-05,57,58,False,1,0.871,0.817
+M4 deriva del taller,17,2024-04-10,A7 MC QRF+conformal α*,2024-06-08,60,58,True,0,,
+M4 deriva del taller,16,2024-06-09,A0 criterio del cotizador (real),2024-08-04,57,57,True,0,,
+M4 deriva del taller,16,2024-06-09,A5 MC empírico α=0.80,2024-08-10,63,57,True,0,,
+M4 deriva del taller,16,2024-06-09,A6 MC QRF+conformal α=0.80,2024-08-14,67,57,True,0,0.242,0.813
+M4 deriva del taller,16,2024-06-09,A7 MC QRF+conformal α*,2024-08-19,72,57,True,0,,
+M4 deriva del taller,18,2024-08-03,A0 criterio del cotizador (real),2024-10-28,87,87,True,0,,
+M4 deriva del taller,18,2024-08-03,A5 MC empírico α=0.80,2024-11-14,104,87,True,0,,
+M4 deriva del taller,18,2024-08-03,A6 MC QRF+conformal α=0.80,2024-11-01,91,87,True,0,0.661,0.818
+M4 deriva del taller,18,2024-08-03,A7 MC QRF+conformal α*,2024-11-07,97,87,True,0,,
+M4 deriva del taller,20,2025-05-08,A0 criterio del cotizador (real),2025-07-13,67,67,True,0,,
+M4 deriva del taller,20,2025-05-08,A5 MC empírico α=0.80,2025-07-19,73,67,True,0,,
+M4 deriva del taller,20,2025-05-08,A6 MC QRF+conformal α=0.80,2025-07-18,72,67,True,0,0.542,0.824
+M4 deriva del taller,20,2025-05-08,A7 MC QRF+conformal α*,2025-07-22,76,67,True,0,,
+M4 deriva del taller,22,2025-07-03,A0 criterio del cotizador (real),2025-09-03,63,63,False,4,,
+M4 deriva del taller,22,2025-07-03,A5 MC empírico α=0.80,2025-09-08,68,63,True,0,,
+M4 deriva del taller,22,2025-07-03,A6 MC QRF+conformal α=0.80,2025-09-09,69,63,True,0,0.427,0.829
+M4 deriva del taller,22,2025-07-03,A7 MC QRF+conformal α*,2025-09-12,72,63,True,0,,
+M4 deriva del taller,21,2025-09-20,A0 criterio del cotizador (real),2025-12-11,83,83,False,4,,
+M4 deriva del taller,21,2025-09-20,A5 MC empírico α=0.80,2025-12-17,89,83,True,0,,
+M4 deriva del taller,21,2025-09-20,A6 MC QRF+conformal α=0.80,2025-12-17,89,83,True,0,0.574,0.823
+M4 deriva del taller,21,2025-09-20,A7 MC QRF+conformal α*,2025-12-22,94,83,True,0,,
+M4 deriva del taller,24,2026-02-17,A0 criterio del cotizador (real),2026-05-15,88,88,False,5,,
+M4 deriva del taller,24,2026-02-17,A5 MC empírico α=0.80,2026-06-05,109,88,True,0,,
+M4 deriva del taller,24,2026-02-17,A6 MC QRF+conformal α=0.80,2026-05-25,98,88,True,0,0.321,0.814
+M4 deriva del taller,24,2026-02-17,A7 MC QRF+conformal α*,2026-05-29,102,88,True,0,,
+M4 deriva del taller,25,2026-03-25,A0 criterio del cotizador (real),2026-05-18,55,55,True,0,,
+M4 deriva del taller,25,2026-03-25,A5 MC empírico α=0.80,2026-05-23,60,55,True,0,,
+M4 deriva del taller,25,2026-03-25,A6 MC QRF+conformal α=0.80,2026-05-22,59,55,True,0,0.51,0.846
+M4 deriva del taller,25,2026-03-25,A7 MC QRF+conformal α*,2026-05-25,62,55,True,0,,
+M4 deriva del taller,23,2026-08-05,A0 criterio del cotizador (real),2026-09-25,52,52,True,0,,
+M4 deriva del taller,23,2026-08-05,A5 MC empírico α=0.80,2026-10-02,59,52,True,0,,
+M4 deriva del taller,23,2026-08-05,A6 MC QRF+conformal α=0.80,2026-10-08,65,52,True,0,0.085,0.832
+M4 deriva del taller,23,2026-08-05,A7 MC QRF+conformal α*,2026-10-12,69,52,True,0,,
