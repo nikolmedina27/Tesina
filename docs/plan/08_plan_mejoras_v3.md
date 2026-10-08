@@ -100,7 +100,7 @@ compara con el motor de un solo proyecto cuando hay un único proyecto (mismo re
 
 ---
 
-## C. Tableros fijos (ejecutivos)
+## C. Tableros fijos (ejecutivos) · ✅ hecha (v3.2, 8/10/2026)
 
 **Objetivo**: pantallas de **diseño fijo** (no configurables) que la gerencia abre o que se dejan en un televisor
 de planta, con lo esencial en un vistazo.

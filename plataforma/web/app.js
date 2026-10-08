@@ -147,7 +147,7 @@ function renderLogin() {
 /* El menú agrupa las vistas por lo que hace cada persona: decidir (Cotizar), gestionar (Proyectos), la planta (registro y gemelo 3D) y datos. */
 const ROLES = { cotizador: ['cotizador', 'jefe_taller'], planta: ['jefe_taller', 'supervisor', 'calidad', 'mantenimiento'], importar: ['jefe_taller', 'cotizador'], usuarios: ['__solo_gerencia__'] };
 const GRUPOS = [
-  { k: 'inicio', t: 'Inicio', ic: 'inicio', subs: [['inicio', 'Tablero']] },
+  { k: 'inicio', t: 'Inicio', ic: 'inicio', subs: [['inicio', 'Resumen'], ['tgerencia', 'Gerencia'], ['tproduccion', 'Producción'], ['tmensual', 'Informe mensual'], ['tv', 'Modo TV']] },
   { k: 'cotizador', t: 'Cotizar', ic: 'cotizador', subs: [['cotizador', 'Cotizador de plazos']] },
   { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['programacion', 'Programación'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
   { k: 'planta', t: 'Planta', ic: 'planta3d', subs: [['planta3d', 'Gemelo 3D'], ['planta', 'Registro diario']] },
@@ -214,14 +214,14 @@ function shell(activo, migas, acciones = '') {
   const gAct = grupoDe(activo);
   const nav = GRUPOS.filter(g => subsVisibles(g).length).map(g => {
     const v = subsVisibles(g), on = g === gAct;
-    return `<a href="#/${v[0][0]}" class="${on ? 'activo' : ''}" ${on ? 'aria-current="page"' : ''}>${ic(g.ic, 16)}${g.t}${g.k === 'proyectos' ? `<span class="cont ${S.bloq ? '' : 'oculto'}" id="cbloq" title="Tareas bloqueadas">${S.bloq || ''}</span>` : ''}</a>` +
+    return `<a href="#/${g.k === 'inicio' ? '' : v[0][0]}" class="${on ? 'activo' : ''}" ${on ? 'aria-current="page"' : ''}>${ic(g.ic, 16)}${g.t}${g.k === 'proyectos' ? `<span class="cont ${S.bloq ? '' : 'oculto'}" id="cbloq" title="Tareas bloqueadas">${S.bloq || ''}</span>` : ''}</a>` +
       (on && v.length > 1 ? `<div class="sub">${v.map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${t}</a>`).join('')}</div>` : '');
   }).join('');
   const oscuro = TEMA.efectivo() === 'oscuro';
   $('#app').innerHTML = `
   <div class="layout">
     <aside class="lat">
-      <div class="marca"><img src="/static/img/logo-steelser.png" alt="Steelser" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C.">
+      <div class="marca"><img src="/static/img/logo-steelser.png" alt="Steelser" onclick="location.hash='#/'" title="SteelPlan · Steelser S.A.C.">
         <button class="icono-btn" id="bocultar" title="Ocultar barra ( [ )">${ic('panel', 16)}</button></div>
       <button class="buscarbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 15)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
       <nav class="nav">${nav}</nav>
@@ -335,7 +335,7 @@ async function vInicio() {
   const dk = Object.entries(d.disponibilidad);
   chart($('#gdisp'), { grid: { left: 190, right: 40, top: 10, bottom: 20 }, tooltip: { valueFormatter: v => v + ' %' },
     xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } }, yAxis: { type: 'category', data: dk.map(x => x[0]) },
-    series: [{ type: 'bar', data: dk.map(x => ({ value: +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] >= .9 ? C.verde : x[1] >= .75 ? C.acento : C.rojo, borderRadius: 0 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
+    series: [{ type: 'bar', data: dk.map(x => ({ value: x[1] == null ? null : +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] == null ? C.borde : x[1] >= .9 ? C.verde : x[1] >= .75 ? C.acento : C.rojo, borderRadius: 0 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
       markLine: { symbol: 'none', data: [{ xAxis: 90 }], lineStyle: { type: 'dashed', color: C.verde }, label: { formatter: 'meta 90 %' } } }] });
 }
 const kpi = (t, v, s, cls, icono) => `<div class="kpi ${cls}">${ic(icono, 60, 'class="fondo"')}<div class="t">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
@@ -1251,6 +1251,8 @@ async function vConfig() {
 async function ruta() {
   if (!S.me) return renderLogin();
   limpiarP3();
+  limpiarTV();
+  if (!location.hash.slice(2)) { const t = TABLERO_ROL[S.me.rol] || 'inicio'; if (t !== 'inicio') { location.replace('#/' + t); return; } }   // tablero de cada rol al entrar
   const [path, qs = ''] = (location.hash.slice(2) || 'inicio').split('?');
   const [v, a, b] = path.split('/');
   try {
@@ -1259,6 +1261,10 @@ async function ruta() {
     if (v === 'proyectos') return await vProyectos(a === 'hist' ? 'hist' : 'curso');
     if (v === 'gantt') return await vGantt();
     if (v === 'programacion') return await vProgramacion(qs);
+    if (v === 'tgerencia') return await vTGerencia();
+    if (v === 'tproduccion') return await vTProduccion();
+    if (v === 'tmensual') return await vTMensual(qs);
+    if (v === 'tv') return await vTV();
     if (v === 'reporte') return await vReporte(a, qs);
     if (v === 'cotizador' && puedeVer('cotizador')) return await vCotizador();
     if (v === 'config') return await vConfig();

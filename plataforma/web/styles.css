@@ -519,3 +519,37 @@ body { font-variant-numeric: tabular-nums; }
 /* ---------- v3.1: programación de la cartera ---------- */
 .tarjeta.propuesta { border-color: var(--acento-m); }
 .tarjeta.propuesta > h3 { background: var(--acento-s); }
+
+/* ---------- v3.2: tableros fijos ---------- */
+.miniq { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.miniq .mq { display: grid; gap: 2px; padding: 10px; border: 1px solid var(--borde); border-left: 3px solid var(--texto-3); color: var(--texto); }
+.miniq .mq.v { border-left-color: var(--verde); } .miniq .mq.a { border-left-color: var(--ambar); } .miniq .mq.r { border-left-color: var(--rojo); }
+.miniq .mq span { font-size: 12px; color: var(--texto-2); } .miniq .mq em { font-style: normal; font-weight: 700; font-size: 18px; }
+body.modo-tv { overflow: hidden; }
+.tv { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto; background: var(--bg); color: var(--texto); font-size: 22px; }
+.tv header { display: flex; align-items: center; gap: 22px; padding: 14px 28px; border-bottom: 1px solid var(--borde); }
+.tv header img { height: 34px; }
+:root[data-tema="oscuro"] .tv header img { filter: brightness(1.7) saturate(1.15); }
+.tv header h1 { margin: 0; font-size: 30px; flex: 1; }
+.tv .reloj { font-size: 24px; font-variant-numeric: tabular-nums; color: var(--texto-2); }
+.tv .puntos { display: flex; gap: 8px; } .tv .puntos i { width: 10px; height: 10px; border-radius: 50%; background: var(--borde-2); } .tv .puntos i.on { background: var(--acento); }
+.tv main { padding: 24px 28px; overflow: hidden; }
+.tvq { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); height: 100%; }
+.tvq .tq { border: 1px solid var(--borde); border-left: 10px solid var(--texto-3); padding: 22px 26px; display: grid; align-content: center; gap: 6px; }
+.tvq .tq.v { border-left-color: var(--verde); } .tvq .tq.a { border-left-color: var(--ambar); } .tvq .tq.r { border-left-color: var(--rojo); background: var(--rojo-s); }
+.tvq .tq b { font-size: 30px; } .tvq .tq span { font-size: 24px; color: var(--texto-2); } .tvq .tq em { font-style: normal; font-size: 64px; font-weight: 700; line-height: 1.1; }
+.tvq .tq small { font-size: 18px; color: var(--texto-3); }
+.tvt { width: 100%; border-collapse: collapse; font-size: 26px; }
+.tvt th { text-align: left; font-size: 18px; color: var(--texto-3); font-weight: 600; padding: 10px 14px; border-bottom: 2px solid var(--borde); }
+.tvt td { padding: 18px 14px; border-bottom: 1px solid var(--borde); } .tvt td small { display: block; font-size: 17px; color: var(--texto-2); }
+.tvt .badge { font-size: 22px; padding: 2px 14px; }
+.tvh { display: grid; gap: 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tvh section { border: 1px solid var(--borde); padding: 16px 22px; } .tvh h2 { margin: 0 0 10px; font-size: 22px; color: var(--texto-2); } .tvh p { margin: 6px 0; }
+.tvh .grande { font-size: 56px; font-weight: 700; }
+.tv footer { border-top: 1px solid var(--borde); overflow: hidden; white-space: nowrap; }
+.tv .cinta { padding: 12px 0; background: var(--ambar-s); color: var(--ambar); font-weight: 600; }
+.tv .cinta.ok { background: var(--verde-s); color: var(--verde); }
+.tv .cinta span { display: inline-block; padding-left: 100%; animation: cinta 40s linear infinite; }
+.tv .cinta.ok span { animation: none; padding-left: 28px; }
+@keyframes cinta { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .tv .cinta span { animation: none; padding-left: 28px; white-space: normal; } }

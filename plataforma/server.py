@@ -219,7 +219,7 @@ def dashboard(u=Depends(usuario_actual), h=Depends(hist), p=Depends(plat)):
     disp = {}
     for m in MAQ_NOMBRE:
         par = [dict(r) for r in p.execute('SELECT inicio, fin, planificada, causa FROM parada WHERE maquina=? AND fin>=?', (m, d30))]
-        disp[m] = indicadores_mant(par, d30, manana)['dk'] or 1.0
+        disp[m] = indicadores_mant(par, d30, manana)['dk'] if r0 else None       # sin registro de paradas: sin dato
     feed = [dict(r) for r in p.execute('''SELECT a.*, u.nombre, u.color FROM actividad a LEFT JOIN usuario u ON u.id=a.usuario_id
                                           ORDER BY a.id DESC LIMIT 12''')]
     criticas = [dict(r) for r in p.execute('''SELECT t.id, t.titulo, t.tipo, t.prioridad, t.fecha_limite, u.nombre responsable
@@ -919,7 +919,7 @@ def _ops_maquinas(p):
 
 
 from . import mantenimiento as _mant                                   # noqa: E402
-_mant.registrar(app, plat, usuario_actual, requiere, actividad, CAUSAS, _ops_maquinas)
+_MANT = _mant.registrar(app, plat, usuario_actual, requiere, actividad, CAUSAS, _ops_maquinas)
 
 
 # ------------------------------------------------------------------ programación automática de la cartera (v3.1)
@@ -937,3 +937,18 @@ def _cartera(p):
 
 from . import programacion as _prog                                   # noqa: E402
 _ocupacion = _prog.registrar(app, plat, usuario_actual, requiere, actividad, Motor, _cartera, mtbf_actual, MAQ_NOMBRE)
+
+
+# ------------------------------------------------------------------ tableros fijos (v3.2)
+def _semana_actual(p, r):
+    """Fila de la semana de producción en curso de un proyecto (plan vs. real), o None si todavía no empezó."""
+    c, *_ = _curva(p, r)
+    fila = next((s for s in semanas(c) if s['en_curso']), None)
+    if not fila:
+        return None
+    return {k: fila[k] for k in ('plan_kg', 'real_kg', 'plan_hh', 'real_hh', 'spi_kg', 'spi_hh', 'al')} | dict(tiene_piezas=c['spi_kg'] is not None)
+
+
+from . import tableros as _tab                                         # noqa: E402
+_tab.registrar(app, plat, hist, usuario_actual, lambda p: lista_activos(u=None, p=p), _semana_actual,
+               lambda p: bandeja(u=None, p=p), _MANT['resumen_maquinas'])

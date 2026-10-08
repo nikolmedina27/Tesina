@@ -1,8 +1,8 @@
 /* SteelPlan · service worker.
    Guarda la "cáscara" (HTML, JS, CSS, librerías) para que la app abra rápido y sin internet en la tablet.
    La API (/api/...) siempre va a la red: los datos de planta nunca se sirven desde caché. */
-const VERSION = 'steelplan-v3.1';
-const CASCARA = ['/', '/static/app.js', '/static/mant.js', '/static/prog.js', '/static/styles.css', '/static/icono.svg', '/static/icono.png', '/static/img/logo-steelser.png', '/static/img/marca.png', '/static/gemelo3d.js', '/static/gemelo_modelos.js',
+const VERSION = 'steelplan-v3.2';
+const CASCARA = ['/', '/static/app.js', '/static/mant.js', '/static/prog.js', '/static/tab.js', '/static/styles.css', '/static/icono.svg', '/static/icono.png', '/static/img/logo-steelser.png', '/static/img/marca.png', '/static/gemelo3d.js', '/static/gemelo_modelos.js',
   '/static/vendor/frappe-gantt.css', '/static/vendor/frappe-gantt.min.js', '/static/vendor/echarts.min.js', '/manifest.webmanifest'];
 
 self.addEventListener('install', e => {

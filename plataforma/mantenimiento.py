@@ -121,6 +121,10 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
         r0 = inicio_registro(p)
         return max(d, r0) if r0 else d
 
+    def sin_dato(p, i):
+        """Si la planta todavía no registró ninguna parada, no hay disponibilidad que informar (no es 100 %)."""
+        return i if inicio_registro(p) else i | dict(dk=None, mtbf_h=None, mttr_h=None)
+
     def ultima_ejecucion(p, plan_id):
         r = p.execute("SELECT MAX(COALESCE(fin, cerrado_en)) FROM orden_mantenimiento WHERE plan_id=? AND estado='CERRADA'", (plan_id,)).fetchone()
         return r[0][:10] if r and r[0] else None
@@ -147,7 +151,7 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
 
     def resumen_maquina(p, m, hoy, ahora):
         par = paradas_de(p, m['nombre'], str(date.today() - timedelta(days=400)))
-        i30 = indicadores(par, desde(p, 30), str(date.today() + timedelta(days=1)), m['horas_turno'] or 8, m['turnos'] or 1)
+        i30 = sin_dato(p, indicadores(par, desde(p, 30), str(date.today() + timedelta(days=1)), m['horas_turno'] or 8, m['turnos'] or 1))
         abierta = next((x for x in par if x['inicio'] <= ahora < x['fin']), None)
         en_curso = p.execute("SELECT id, titulo, tipo FROM orden_mantenimiento WHERE maquina_id=? AND estado='EN_CURSO' ORDER BY tipo='CORRECTIVO' DESC",
                              (m['id'],)).fetchone()
@@ -165,11 +169,14 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
                         semaforo=semaforo(i30['dk'], vencidas, estado == 'PARADA'))
 
     # ---------------------------------------------------------------- máquinas
+    def resumen_todas(p):
+        hoy, ahora = str(date.today()), _ahora()
+        return [resumen_maquina(p, m, hoy, ahora) for m in maquinas(p)]
+
     @app.get('/api/mant/maquinas')
     def lista_maquinas(u=Depends(usuario_actual), p=Depends(plat)):
         generar_ordenes(p)
-        hoy, ahora = str(date.today()), _ahora()
-        out = [resumen_maquina(p, m, hoy, ahora) for m in maquinas(p)]
+        out = resumen_todas(p)
         dks = [m['indicadores_30d']['dk'] for m in out if m['indicadores_30d']['dk'] is not None]
         return dict(maquinas=out, meta_dk=META_DK, resumen=dict(
             dk_promedio=round(float(np.mean(dks)), 4) if dks else None,
@@ -186,7 +193,7 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
         par = paradas_de(p, m['nombre'])
         ht, tu = m['horas_turno'] or 8, m['turnos'] or 1
         manana = str(hoy + timedelta(days=1))
-        ventanas = {k: indicadores(par, desde(p, d), manana, ht, tu) | dict(desde=desde(p, d)) for k, d in (('30d', 30), ('90d', 90), ('365d', 365))}
+        ventanas = {k: sin_dato(p, indicadores(par, desde(p, d), manana, ht, tu)) | dict(desde=desde(p, d)) for k, d in (('30d', 30), ('90d', 90), ('365d', 365))}
         planes = []
         for pl in p.execute('SELECT * FROM plan_mantenimiento WHERE maquina_id=? ORDER BY activo DESC, id', (mid,)):
             pl = dict(pl)
@@ -194,7 +201,7 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
             vence, falta = proximo_vencimiento(pl, ult, str(hoy))
             planes.append(pl | dict(ultima=ult, vence=vence, dias_para_vencer=falta))
         ordenes = [dict(r) for r in p.execute('SELECT * FROM orden_mantenimiento WHERE maquina_id=? ORDER BY COALESCE(fin, programada_para, creado_en) DESC', (mid,))]
-        return dict(maquina=resumen_maquina(p, m, str(hoy), _ahora()), indicadores=ventanas, dk_mensual=dk_mensual(par, str(hoy), 12, ht, tu, inicio_registro(p)), inicio_registro=inicio_registro(p),
+        return dict(maquina=resumen_maquina(p, m, str(hoy), _ahora()), indicadores=ventanas, dk_mensual=dk_mensual(par, str(hoy), 12, ht, tu, inicio_registro(p) or str(hoy + timedelta(days=1))), inicio_registro=inicio_registro(p),
                     paradas=[x | dict(horas=round((datetime.fromisoformat(x['fin']) - datetime.fromisoformat(x['inicio'])).total_seconds() / 3600, 1))
                              for x in reversed(par)], ordenes=ordenes, planes=planes, meta_dk=META_DK)
 
@@ -405,3 +412,5 @@ def registrar(app, plat, usuario_actual, requiere, actividad, causas, ops_maquin
             if x['fin'] > a and x['inicio'] < b:
                 items.append(dict(x, tipo='proyecto'))
         return dict(desde=str(ini), hasta=str(fin), ahora=ahora, maquinas=[m['nombre'] for m in ms], items=items)
+
+    return dict(resumen_maquinas=resumen_todas, generar_ordenes=generar_ordenes)
