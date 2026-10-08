@@ -273,7 +273,8 @@ def registrar(app, plat, usuario_actual, requiere, actividad, motor, cartera, mt
         time.sleep(60)
         while True:
             try:
-                p = next(plat())
+                gen = plat()                             # se guarda el generador: si se descarta, cierra la conexión
+                p = next(gen)
                 try:
                     pr = ultimo(p, 'PROPUESTO')
                     ap = ultimo(p, 'APROBADO')
@@ -286,7 +287,7 @@ def registrar(app, plat, usuario_actual, requiere, actividad, motor, cartera, mt
                         elif datetime.now().hour >= 21 and str(ref['creado_en'])[:10] < hoy:
                             calcular(p, (ap or {}).get('regla', 'penalidad'), 'automático: recálculo nocturno')
                 finally:
-                    p.close()
+                    gen.close()
             except Exception as e:                       # el vigilante nunca debe tumbar el servidor
                 print('programación automática:', e)
             time.sleep(600)
