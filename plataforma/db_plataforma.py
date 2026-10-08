@@ -22,6 +22,7 @@ ROLES = {
     'jefe_taller': 'Jefe de taller (programa, registra tareo y paradas)',
     'supervisor': 'Supervisor / contratista (registra su tareo y sus tareas)',
     'calidad': 'Calidad (liberaciones y no conformidades)',
+    'mantenimiento': 'Mantenimiento (órdenes, plan preventivo y fichas de máquinas)',
 }
 
 ESQUEMA = '''
@@ -95,6 +96,23 @@ CREATE TABLE IF NOT EXISTS pronostico (
 CREATE TABLE IF NOT EXISTS pieza_cambio (
     id INTEGER PRIMARY KEY, pieza_id INTEGER NOT NULL REFERENCES pieza(id), etapa TEXT NOT NULL, antes TEXT, despues TEXT,
     usuario_id INTEGER REFERENCES usuario(id), creado_en TEXT DEFAULT CURRENT_TIMESTAMP);
+-- v3: mantenimiento de máquinas (fichas, plan preventivo y órdenes); las paradas siguen en `parada`
+CREATE TABLE IF NOT EXISTS maquina (
+    id INTEGER PRIMARY KEY, nombre TEXT UNIQUE NOT NULL, centro TEXT, marca TEXT, modelo TEXT, anio INTEGER,
+    criticidad TEXT DEFAULT 'A' CHECK (criticidad IN ('A','B','C')), horas_turno REAL DEFAULT 8, turnos INTEGER DEFAULT 1,
+    descripcion TEXT, activa INTEGER NOT NULL DEFAULT 1, creado_en TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS plan_mantenimiento (
+    id INTEGER PRIMARY KEY, maquina_id INTEGER NOT NULL REFERENCES maquina(id), tarea TEXT NOT NULL,
+    frecuencia_dias INTEGER, frecuencia_horas REAL, duracion_h REAL NOT NULL DEFAULT 1, responsable TEXT,
+    desde TEXT, activo INTEGER NOT NULL DEFAULT 1, origen TEXT DEFAULT 'manual', creado_en TEXT DEFAULT CURRENT_TIMESTAMP,
+    CHECK (frecuencia_dias IS NOT NULL OR frecuencia_horas IS NOT NULL));
+CREATE TABLE IF NOT EXISTS orden_mantenimiento (
+    id INTEGER PRIMARY KEY, maquina_id INTEGER NOT NULL REFERENCES maquina(id), plan_id INTEGER REFERENCES plan_mantenimiento(id),
+    tipo TEXT NOT NULL CHECK (tipo IN ('PREVENTIVO','CORRECTIVO','PREDICTIVO')),
+    estado TEXT NOT NULL DEFAULT 'PENDIENTE' CHECK (estado IN ('PENDIENTE','EN_CURSO','CERRADA','ANULADA')),
+    titulo TEXT NOT NULL, descripcion TEXT, programada_para TEXT, duracion_h REAL, inicio TEXT, fin TEXT, tecnico TEXT,
+    repuestos TEXT, costo REAL, parada_id INTEGER REFERENCES parada(id), creado_por INTEGER REFERENCES usuario(id),
+    creado_en TEXT DEFAULT CURRENT_TIMESTAMP, cerrado_en TEXT);
 '''
 
 # columnas agregadas en v2 a tablas que ya existían (migración sin perder datos)
@@ -104,7 +122,34 @@ COLUMNAS_V2 = {
                         ('resultado_cot', 'TEXT'), ('plazo_competidor', 'REAL'), ('motivo_perdida', 'TEXT')],
     # v2.1: bandeja de RFI / no conformidades
     'tarea': [('imputable', 'TEXT'), ('dias_impacto', 'REAL'), ('conjunto', 'TEXT'), ('fecha_cierre', 'TEXT')],
+    # v3: una parada puede venir de (o generar) una orden de mantenimiento
+    'parada': [('orden_id', 'INTEGER')],
 }
+
+# v3: fichas de las 4 máquinas de habilitado y un plan preventivo SUGERIDO (frecuencias típicas de fabricante;
+# validar con la empresa). Se siembran una sola vez, también en BD que ya existían.
+MAQUINAS_INICIALES = [
+    ('Sierra Cinta Kaltenbach', 'Habilitado · corte de perfiles', 'Kaltenbach', 'A',
+     [('Inspección y tensado de la hoja, limpieza de viruta y refrigerante', 6, 1.0),
+      ('Lubricación general y revisión del sistema hidráulico', 26, 3.0)]),
+    ('Cizalladora Punzonadora Pedimax', 'Habilitado · corte y punzonado', 'Pedimax', 'A',
+     [('Lubricación y revisión de punzones y matrices', 6, 1.0), ('Revisión del sistema hidráulico y cuchillas', 26, 3.0)]),
+    ('Mesa CNC', 'Habilitado · corte de planchas', None, 'A',
+     [('Cambio de consumibles y limpieza de la mesa', 6, 1.5), ('Calibración de ejes y limpieza de rieles', 26, 3.0)]),
+    ('Roscadora RIDGID', 'Habilitado · roscado de barra', 'RIDGID', 'B',
+     [('Limpieza, cambio de aceite de corte y revisión de peines', 12, 0.5), ('Revisión eléctrica y del motor', 78, 2.0)]),
+]
+
+
+def _sembrar_maquinas(con):
+    if con.execute('SELECT COUNT(*) FROM maquina').fetchone()[0]:
+        return
+    hoy = str(date.today())
+    for nombre, centro, marca, crit, planes in MAQUINAS_INICIALES:
+        mid = con.execute('INSERT INTO maquina (nombre, centro, marca, criticidad) VALUES (?,?,?,?)', (nombre, centro, marca, crit)).lastrowid
+        con.executemany('''INSERT INTO plan_mantenimiento (maquina_id, tarea, frecuencia_dias, duracion_h, desde, origen)
+                           VALUES (?,?,?,?,?, 'sugerido')''', [(mid, t, f, h, hoy) for t, f, h in planes])
+    con.commit()
 
 
 def _migrar(con):
@@ -151,6 +196,7 @@ def inicializar():
     con.executescript(ESQUEMA)
     _migrar(con)
     con.commit()
+    _sembrar_maquinas(con)
     if con.execute('SELECT COUNT(*) FROM usuario').fetchone()[0] == 0:
         demo = [('gerencia', 'Gerencia (demo)', 'gerencia', 'Gerencia'),
                 ('cotizador', 'Cotizador (demo)', 'cotizador', 'Comercial'),

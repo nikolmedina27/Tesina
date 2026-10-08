@@ -24,10 +24,11 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from dss.c2_modelo import dataset, PhiQRF
 from dss.c3_montecarlo import Cotizador, Proyecto, alpha_optimo, MTBF_DEFECTO, TAUS
-from dss.crp_engine import programar, WEEKMASK, N_PROC
+from dss.crp_engine import programar, WEEKMASK, N_PROC, MAQUINAS as MAQUINAS_CRP
 from dss.datos import TIPOS, cuadrilla, dias_externos, mtbf_estimado
 from dss.simulador import MAQ_NOMBRE
 from . import db_plataforma as dbp
+from dss.mantenimiento import indicadores as indicadores_mant
 from .avance import ETAPAS, curva_s, error_orden_etapas, resumen_piezas, semanas
 from .formato import LISTAS
 from .importador import importar, tipo_modelo
@@ -211,12 +212,14 @@ def dashboard(u=Depends(usuario_actual), h=Depends(hist), p=Depends(plat)):
     activos = [dict(r) for r in p.execute("SELECT * FROM proyecto_activo WHERE estado='EN_CURSO'")]
     tareas = dict(p.execute('SELECT estado, COUNT(*) FROM tarea GROUP BY estado').fetchall())
     hh7 = p.execute("SELECT COALESCE(SUM(hh),0) FROM tareo WHERE fecha >= ?", (str(date.today() - timedelta(days=7)),)).fetchone()[0]
-    paradas30 = p.execute("SELECT maquina, COUNT(*) n, SUM((julianday(fin)-julianday(inicio))*24) horas FROM parada "
-                          "WHERE inicio >= ? GROUP BY maquina", (str(date.today() - timedelta(days=30)),)).fetchall()
-    horas_prog = 8 * 26
-    disp = {m: 1.0 for m in MAQ_NOMBRE}
-    for r in paradas30:
-        disp[r['maquina']] = max(0.0, 1 - (r['horas'] or 0) / horas_prog)
+    # Dₖ de 30 días con el mismo cálculo que la vista Mantenimiento (dss/mantenimiento.py)
+    d30, manana = str(date.today() - timedelta(days=30)), str(date.today() + timedelta(days=1))
+    r0 = p.execute('SELECT MIN(inicio) FROM parada').fetchone()[0]       # antes del primer registro no hay dato
+    d30 = max(d30, r0[:10]) if r0 else d30
+    disp = {}
+    for m in MAQ_NOMBRE:
+        par = [dict(r) for r in p.execute('SELECT inicio, fin, planificada, causa FROM parada WHERE maquina=? AND fin>=?', (m, d30))]
+        disp[m] = indicadores_mant(par, d30, manana)['dk'] or 1.0
     feed = [dict(r) for r in p.execute('''SELECT a.*, u.nombre, u.color FROM actividad a LEFT JOIN usuario u ON u.id=a.usuario_id
                                           ORDER BY a.id DESC LIMIT 12''')]
     criticas = [dict(r) for r in p.execute('''SELECT t.id, t.titulo, t.tipo, t.prioridad, t.fecha_limite, u.nombre responsable
@@ -749,11 +752,13 @@ def ver_paradas(u=Depends(usuario_actual), p=Depends(plat)):
 
 
 @app.post('/api/paradas')
-def registrar_parada(d: Parada, u=Depends(requiere('jefe_taller', 'supervisor', 'calidad')), p=Depends(plat)):
+def registrar_parada(d: Parada, u=Depends(requiere('jefe_taller', 'supervisor', 'calidad', 'mantenimiento')), p=Depends(plat)):
     if d.maquina not in MAQ_NOMBRE or d.causa not in CAUSAS:
         raise HTTPException(422, 'Máquina o causa no válida')
     if d.fin <= d.inicio:
         raise HTTPException(422, 'El fin debe ser posterior al inicio')
+    if d.fin.replace('T', ' ')[:16] > (datetime.now() + timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M'):
+        raise HTTPException(422, 'El fin no puede ser futuro: si la máquina sigue parada, usa «Reportar falla» en Mantenimiento')
     p.execute('INSERT INTO parada (maquina, inicio, fin, planificada, causa, proyecto_id, observacion, registrado_por) VALUES (?,?,?,?,?,?,?,?)',
               (d.maquina, d.inicio, d.fin, int(d.planificada), d.causa, d.proyecto_id, d.observacion, u['id']))
     actividad(p, u, 'parada', f'Registró parada de {d.maquina}: {d.causa}', d.proyecto_id)
@@ -888,3 +893,26 @@ from . import planta as _planta                                        # noqa: E
 _planta.registrar(app, hist, usuario_actual, requiere, Motor, HIST)
 from . import gemelo as _gemelo                                        # noqa: E402
 _gemelo.registrar(app, hist, usuario_actual)
+
+
+# ------------------------------------------------------------------ mantenimiento de máquinas (v3)
+PROCESO_MAQUINA = dict(zip(MAQUINAS_CRP, MAQ_NOMBRE))       # proceso 0-based que usa cada máquina de habilitado
+
+
+def _ops_maquinas(p):
+    """Operaciones del plan P50 de los proyectos en curso sobre las 4 máquinas (para el Gantt de máquinas)."""
+    cot = Motor.get()
+    out = []
+    for r in p.execute("SELECT * FROM proyecto_activo WHERE estado IN ('EN_CURSO','PAUSADO')").fetchall():
+        hh_p50, _, av = _avance(p, r, cot)
+        for j, (a, b) in enumerate(_programa(r, cot, hh_p50)):
+            if j not in PROCESO_MAQUINA or a is None or b is None or hh_p50[j] < 0.5:
+                continue
+            out.append(dict(maquina=PROCESO_MAQUINA[j], inicio=f'{dia(r["inicio"], a)} 08:00', fin=f'{dia(r["inicio"], max(b - 1, a))} 16:00',
+                            titulo=f'{r["codigo"]} · {PROCESOS[j]}', detalle=f'{round(float(hh_p50[j]))} HH P50 · avance {round(100 * float(av[j]))} %',
+                            proyecto=r['codigo'], ref=f'proyecto:{r["id"]}', avance=round(100 * float(av[j]))))
+    return out
+
+
+from . import mantenimiento as _mant                                   # noqa: E402
+_mant.registrar(app, plat, usuario_actual, requiere, actividad, CAUSAS, _ops_maquinas)

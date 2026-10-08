@@ -11,7 +11,7 @@ los **tableros fijos** muestran lo que producen ambos. Por eso el orden de const
 
 ---
 
-## A. Vista de mantenimiento de máquinas (primero)
+## A. Vista de mantenimiento de máquinas (primero) · ✅ hecha (v3.0, 8/10/2026)
 
 **Objetivo**: que el jefe de taller vea en una pantalla el estado de las 4 máquinas, su historia y lo que viene,
 y que cada parada y cada mantenimiento alimente Dₖ, MTBF y MTTR reales (hoy Dₖ sale de paradas sueltas o simuladas).
@@ -140,7 +140,11 @@ Las pruebas (`tests/`) y la documentación (`diseno/07`, `CLAUDE.md`) se actuali
 - Turnos reales por máquina y feriados de la planta.
 - Hasta tenerlos, todo funciona con los datos demo marcados como tales.
 
-## Decisiones que el equipo debe confirmar
+## Decisiones del equipo
+
+Confirmadas el 8/10/2026: prioridad por **penalidad en riesgo**; el programador **puede proponer** mover un preventivo, y solo se mueve con aprobación. Sin respuesta (se usa la interpretación de abajo): "fecha julio" y "día · 2 días".
+
+### Lista original
 
 1. "Fecha julio": se interpreta como **ventana mensual** (comprometer el último día hábil del mes); confirmar si
    prefieren otra fecha dentro del mes.

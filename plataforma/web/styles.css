@@ -484,3 +484,34 @@ body { font-variant-numeric: tabular-nums; }
   .kpi .v { font-size: 24px; }
 }
 @media print { .tabbar { display: none !important; } }
+
+/* ---------- v3: mantenimiento de máquinas ---------- */
+.btn.roj { background: var(--rojo-s); border-color: var(--rojo); color: var(--rojo); }
+.btn.roj:hover { background: var(--rojo); color: #fff; }
+.pestanas a { padding: 8px 12px; color: var(--texto-2); font-weight: 500; font-size: 13px; border-bottom: 2px solid transparent; white-space: nowrap; }
+.pestanas a:hover { color: var(--texto); }
+.pestanas a.activo { color: var(--acento); border-color: var(--acento); font-weight: 600; }
+.pestanas a svg { vertical-align: -3px; margin-right: 4px; }
+.maqs { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-bottom: 12px; }
+.maq { background: var(--panel); border: 1px solid var(--borde); padding: 14px; display: grid; gap: 12px; cursor: pointer; }
+.maq:hover, .maq:focus-visible { border-color: var(--acento-m); outline: none; }
+.maq header { display: flex; gap: 10px; align-items: center; }
+.maq header > div:nth-child(2) { flex: 1; min-width: 0; }
+.maq header b { display: block; font-size: 14px; line-height: 1.25; }
+.maq .ico { width: 38px; height: 38px; display: grid; place-items: center; background: var(--acento-s); color: var(--acento); flex: none; }
+.maq .sem { width: 10px; height: 10px; }
+.maq .estado { min-height: 20px; }
+.maq .dk .v { font-size: 26px; font-weight: 700; letter-spacing: -.5px; margin-right: 8px; }
+.maq .dk .v.ver { color: var(--verde); } .maq .dk .v.nar { color: var(--ambar); } .maq .dk .v.roj { color: var(--rojo); }
+.barra.dkb { position: relative; height: 6px; margin-top: 6px; overflow: visible; }
+.barra.dkb > s { position: absolute; top: -3px; width: 2px; height: 12px; background: var(--texto-2); }
+.maq dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0; border-top: 1px solid var(--borde); padding-top: 10px; }
+.maq dt { font-size: 11px; color: var(--texto-3); } .maq dd { margin: 0; font-weight: 600; }
+.maq footer { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 12px; border-top: 1px solid var(--borde); padding-top: 10px; }
+.maq footer button { margin-left: auto; }
+.filtros { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 14px; }
+.filtros label { display: grid; gap: 3px; font-size: 11px; color: var(--texto-2); }
+.filtros input, .filtros select { height: 28px; }
+.detg h4 { margin: 8px 0 4px; font-size: 14px; }
+.lateral .botones { display: flex; gap: 8px; flex-wrap: wrap; }
+.tabla tr.inactivo td { opacity: .55; }

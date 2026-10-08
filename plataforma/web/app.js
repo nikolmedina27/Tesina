@@ -48,6 +48,7 @@ const P = {
   semana: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2"/>',
   panel: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/>',
   chev: '<path d="M9 6l6 6-6 6"/>',
+  llave: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5l-6 6a1.5 1.5 0 0 0 2.1 2.1l6-6a4 4 0 0 0 5-5.4l-2.5 2.5-2.1-.6-.6-2.1z"/>',
   imprimir: '<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="1"/><path d="M7 14h10v7H7z"/>',
 };
 const ic = (n, s = 18, extra = '') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${P[n] || ''}</svg>`;
@@ -144,12 +145,13 @@ function renderLogin() {
 
 /* ---------- estructura ---------- */
 /* El menú agrupa las vistas por lo que hace cada persona: decidir (Cotizar), gestionar (Proyectos), la planta (registro y gemelo 3D) y datos. */
-const ROLES = { cotizador: ['cotizador', 'jefe_taller'], planta: ['jefe_taller', 'supervisor', 'calidad'], importar: ['jefe_taller', 'cotizador'], usuarios: ['__solo_gerencia__'] };
+const ROLES = { cotizador: ['cotizador', 'jefe_taller'], planta: ['jefe_taller', 'supervisor', 'calidad', 'mantenimiento'], importar: ['jefe_taller', 'cotizador'], usuarios: ['__solo_gerencia__'] };
 const GRUPOS = [
   { k: 'inicio', t: 'Inicio', ic: 'inicio', subs: [['inicio', 'Tablero']] },
   { k: 'cotizador', t: 'Cotizar', ic: 'cotizador', subs: [['cotizador', 'Cotizador de plazos']] },
   { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
   { k: 'planta', t: 'Planta', ic: 'planta3d', subs: [['planta3d', 'Gemelo 3D'], ['planta', 'Registro diario']] },
+  { k: 'mant', t: 'Mantenimiento', ic: 'llave', subs: [['mant', 'Máquinas'], ['mantgantt', 'Gantt de máquinas'], ['mantparadas', 'Paradas'], ['mantordenes', 'Órdenes y plan']] },
   { k: 'datos', t: 'Datos', ic: 'hoja', subs: [['importar', 'Importar formato único'], ['usuarios', 'Usuarios']] },
 ];
 const puede = roles => !roles || S.me.rol === 'gerencia' || roles.includes(S.me.rol);
@@ -1257,6 +1259,11 @@ async function ruta() {
     if (v === 'cotizador' && puedeVer('cotizador')) return await vCotizador();
     if (v === 'config') return await vConfig();
     if (v === 'planta3d') return await vPlanta3D();
+    if (v === 'mant') return await vMant();
+    if (v === 'maquina') return await vMaquina(a);
+    if (v === 'mantgantt') return await vMantGantt();
+    if (v === 'mantparadas') return await vMantParadas(qs);
+    if (v === 'mantordenes') return await vMantOrdenes(qs);
     if (v === 'planta' && puedeVer('planta')) return await vPlanta(qs);
     if (v === 'tareas') return await vTareas(qs);
     if (v === 'bandeja') return await vBandeja();
