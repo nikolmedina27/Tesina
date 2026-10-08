@@ -25,23 +25,23 @@ Un sistema de apoyo a la decisión (DSS) que, en vez de una fecha única, entreg
 | C3 | Programación y Monte Carlo | Motor de capacidad finita día a día (13 procesos, 4 máquinas, contratistas) × 1 000 réplicas → fecha para un nivel de confianza α | `dss/crp_engine.py`, `dss/c3_montecarlo.py` |
 | C4 | Lazo cerrado | Reentrenar si el modelo se desvía | pendiente (`dss/c4_lazo.py`) |
 
-El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal. La vista **Planta 3D** muestra la planta de Steelser en 3D (máquinas, personal, lotes de piezas, material en stock, todo clicable) y permite probar decisiones de gestión —más personas, segundo turno, horas extra— evaluadas con el QRF y el Monte Carlo; hoy funciona en modo retrospectivo con datos simulados.
+El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal. La vista **Planta 3D** es un **gemelo digital de la planta** de Steelser: simulación de eventos discretos hora a hora, con máquinas detalladas y animadas (sierra cinta, cizalla-punzonadora, mesa de plasma, roscadora), puentes grúa, cuadrillas de contratistas, camiones, material en stock, ciclo de día y noche y el contenido de cada lote de piezas, todo clicable. Sirve de banco de pruebas para comparar políticas de cotización y de gestión sobre la historia 2019-2026; hoy funciona con datos simulados calibrados a las fechas reales.
 
 ## Estado y advertencias
 
 - **No hay horas reales todavía.** La columna "HH estimadas" del Excel de la empresa es el ratio vigente multiplicado por las toneladas, no un dato medido. Entrenar con ella sería fuga de información, así que C2 y C3 se desarrollan sobre **datos simulados** (5 escenarios anclados a los 25 proyectos reales). Los resultados no son evidencia real y así deben declararse.
-- Resultado actual (simulado): con α = 0.80 la fecha se cumple 76–84 %. Un colchón fijo de días iguala al Monte Carlo en la relación cumplimiento–plazo; lo que aporta el Monte Carlo es una **probabilidad calibrada e interpretable**. Detalle en [docs/analisis/04_resultados_banco_pruebas.md](docs/analisis/04_resultados_banco_pruebas.md).
+- Resultado actual (simulado, sobre el gemelo): anclado al plan del cotizador, el DSS con α = 0.80 cumple 80 % —calibrado— sin alargar el plazo, y avisa con AUC 0.83 de los atrasos en el último cuarto del plazo. Pero un colchón fijo bien afinado cumple lo mismo con menos esfuerzo, y la gestión con palancas de capacidad **no mejora** las fechas porque el atraso viene de proveedores y pintura. Detalle en [docs/analisis/09_resultados_gemelo.md](docs/analisis/09_resultados_gemelo.md) y ruta hacia una revista en [docs/plan/06_alcance_q1.md](docs/plan/06_alcance_q1.md).
 - Estado de la tesis: TF1 entregado; en camino a TF2 y a un paper.
 
 ## Estructura del repositorio
 
 ```
-dss/            motor CRP, modelo de φ (C2), Monte Carlo (C3), what-if y búsqueda de escenarios, estudio retrospectivo, simulador de datos y de planta
+dss/            motor CRP, modelo de φ (C2), Monte Carlo (C3), what-if, gemelo de eventos discretos (dss/gemelo/), estudios retrospectivos, simuladores de datos
 plataforma/     SteelPlan: servidor FastAPI, BD operativa, importador, interfaz web (web/)
 app/            cotizador Streamlit (prototipo anterior, para análisis)
 scripts/        construcción de la BD, experimentos 1-4, generadores del Excel, utilidades
 sql/            esquema de la BD histórica (fuente de verdad)
-tests/          39 pruebas (pytest)
+tests/          49 pruebas (pytest)
 data/           resultados de los experimentos (CSV); las BD se generan localmente
 lanzador/       accesos directos de SteelPlan (Windows y Linux)
 docs/           tesis en Markdown, análisis, diseño, plan y guías (índice en docs/README.md)
@@ -56,7 +56,7 @@ git clone https://github.com/nikolmedina27/Tesina.git
 cd Tesina
 python3 -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
-python -m pytest tests -q                              # debe dar 39 passed (algunas se omiten si falta la BD)
+python -m pytest tests -q                              # debe dar 49 passed (algunas se omiten si falta la BD)
 ```
 
 Para construir la base de datos y abrir la plataforma hacen falta los archivos de la empresa en `extras/`, que **no están en el repositorio** (son confidenciales). Pídelos a las autoras y luego:
@@ -64,6 +64,8 @@ Para construir la base de datos y abrir la plataforma hacen falta los archivos d
 ```bash
 python scripts/build_db.py                             # crea data/steelser.db
 python -m dss.simulador                                # datos simulados
+python -m dss.simulador_planta                         # layout de la planta
+python scripts/exp6_gemelo.py                          # gemelo de eventos discretos y 8 políticas (~6 min)
 python -m uvicorn plataforma.server:app --port 8600    # http://localhost:8600
 ```
 

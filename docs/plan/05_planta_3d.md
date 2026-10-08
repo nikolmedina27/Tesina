@@ -1,6 +1,6 @@
 # 05 · Planta 3D para gestionar con QRF y Monte Carlo (propuesta)
 
-> Estado: **implementado en su versión retrospectiva con datos simulados** (ver «Estado de implementación»). Amplía el alcance aprobado (C1–C4): requiere visto bueno del asesor antes de entrar a la tesis. Referencia visual: tablero isométrico tipo "WareTrack" (escena 3D movible, KPIs arriba, panel lateral al hacer clic, seguimiento abajo).
+> Estado: **superado por el gemelo de eventos discretos** ([diseno/08](../diseno/08_gemelo_planta.md), [plan/06](06_alcance_q1.md)). La vista 3D de este plan (replay del CRP) se reemplazó por el Gemelo 3D, cuya «verdad» no sale del motor del DSS; `plataforma/web/planta3d.js` se eliminó. Se conserva como registro del diseño original y de lo que dejó: `dss/whatif.py`, `dss/multiproyecto.py` y `plataforma/planta.py`. Antes: implementado en su versión retrospectiva con datos simulados (ver «Estado de implementación»). Amplía el alcance aprobado (C1–C4): requiere visto bueno del asesor antes de entrar a la tesis. Referencia visual: tablero isométrico tipo "WareTrack" (escena 3D movible, KPIs arriba, panel lateral al hacer clic, seguimiento abajo).
 
 ## Estado de implementación (retrospectivo, datos simulados)
 
@@ -8,7 +8,7 @@
 |---|---|---|
 | 1 · Motor de decisión | ✅ What-if y búsqueda automática con semillas comunes (`dss/whatif.py`), palancas en el motor (`mult`, `mult_desde`, `avance0` en `dss/crp_engine.py`), motor multi-proyecto con máquinas compartidas por prioridad (`dss/multiproyecto.py`, probado pero aún sin interfaz), criticidad por sensibilidad. ⏳ Convergencia de R, correlación en el multi-proyecto, costos reales de las palancas | `tests/test_whatif.py`, `tests/test_multiproyecto.py` |
 | 2 · Modelo de planta | ✅ Layout por plantilla, personal, asignaciones, material y lotes simulados en SQL (`dss/simulador_planta.py`). ⏳ Editor 2D, plano medido, tabla operativa en `plataforma.db` | `tests/test_planta.py` |
-| 3 · Escena 3D | ✅ `plataforma/web/planta3d.js` + vista *Planta 3D* en SteelPlan: clic, panel, línea de tiempo, techos y etiquetas. ⏳ Modo «Riesgo» por colores, arrastrar cuadrillas | verificado en el navegador |
+| 3 · Escena 3D | ✅ (reemplazada por `plataforma/web/gemelo3d.js`) vista *Planta 3D* en SteelPlan: clic, panel, línea de tiempo, techos y etiquetas. ⏳ Modo «Riesgo» por colores, arrastrar cuadrillas | verificado en el navegador |
 | 4 · Gestión | 🟡 Palancas, evaluar, sugerir y probar en la escena. ⏳ Arrastrar y soltar, guardar decisiones (`decision`) | `plataforma/planta.py` |
 | 5 · Validación | 🟡 Estudio retrospectivo con 6 políticas (`dss/retrospectivo.py`, `scripts/exp5_retrospectivo.py`, [analisis/08](../analisis/08_retrospectivo_planta3d.md)). ⏳ Datos reales, piloto en paralelo, experimento 2D vs. 3D con usuarios | `data/exp5_*.csv` |
 

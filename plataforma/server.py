@@ -886,3 +886,5 @@ def crear_usr(d: NuevoUsuario, u=Depends(requiere('gerencia')), p=Depends(plat))
 # ------------------------------------------------------------------ planta 3D retrospectiva (datos simulados)
 from . import planta as _planta                                        # noqa: E402
 _planta.registrar(app, hist, usuario_actual, requiere, Motor, HIST)
+from . import gemelo as _gemelo                                        # noqa: E402
+_gemelo.registrar(app, hist, usuario_actual)

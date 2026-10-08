@@ -52,19 +52,20 @@ flowchart LR
 | **RFI y NC** (v2.1) | Bandeja de RFI, no conformidades, bloqueos y cambios de alcance: abiertas, vencidas, días abierta, días promedio de cierre, **imputable a** (cliente, Steelser, proveedor, contratista, fuerza mayor), días de impacto y pieza afectada | Bandeja de entrada |
 | **Buscador Ctrl+K** (v2.1) | Paleta de comandos: proyectos en curso e históricos, tareas (por texto o STL-n), piezas por marca o perfil, vistas y acciones; flechas + Enter | Linear command menu |
 
-### Planta 3D (retrospectivo, datos simulados)
+### Gemelo 3D de la planta (datos simulados)
 
-Vista nueva del menú: la planta de Steelser en 3D (three.js, copia local en `vendor/three/`) donde se reproduce cómo se ejecutaron los 25 proyectos y se prueban decisiones evaluadas con QRF + Monte Carlo. Diseño y alcance en [plan/05](../plan/05_planta_3d.md); resultados en [analisis/08](../analisis/08_retrospectivo_planta3d.md).
+Vista del menú *Planta 3D*: la planta de Steelser en 3D (three.js, copia local en `vendor/three/`), reconstruida **hora a hora** desde el gemelo de eventos discretos. Diseño en [08](08_gemelo_planta.md); resultados en [analisis/09](../analisis/09_resultados_gemelo.md); alcance en [plan/06](../plan/06_alcance_q1.md).
 
 | Parte | Qué hace |
 |---|---|
-| Escena | Naves, máquinas, mesas, puestos, racks, grúas, muelles y oficinas generados desde `sim_planta_elemento`; personal, lotes de piezas (en proceso o en cola) y material en stock del día elegido. Se rota, acerca y desplaza con el mouse; techos y etiquetas se pueden ocultar |
-| Línea de tiempo | Selector de mundo simulado y proyecto, control deslizante por día (lunes a sábado), reproducción ×0.5 a ×4. Abajo, el seguimiento del proyecto por etapa con lotes en proceso y en cola |
-| Panel Objeto | Clic en una máquina, mesa, puesto, rack, lote, paquete de material o persona: carga contra capacidad, trabajo asignado, personal, piezas en cola, contenido de racks (perfil, kg, OT, colada) y, con el botón *Calcular con Monte Carlo*, cuántos días ahorraría el proyecto si ese proceso tuviera 25 % más capacidad |
-| Panel Gestión | Palancas (más personas, segundo turno, horas extra, expeditar un servicio externo), *Evaluar escenario* (plan actual contra escenario con las mismas semillas, más «qué habría pasado» con la ejecución simulada) y *Sugerir* (búsqueda automática; cada sugerencia se puede probar en la escena) |
-| Panel Qué habría pasado | Resultado del estudio retrospectivo: 6 políticas sobre los 25 proyectos |
+| Escena | Naves, 4 máquinas detalladas y animadas (sierra cinta con volantes y banda, cizalla-punzonadora con ariete, mesa de plasma con pórtico y chispas, roscadora con mandril; torre de luces verde/ámbar/roja), 2 puentes grúa que trasladan cada lote, 6 mesas de armado, 8 puestos de soldeo con arco, zonas de limpieza, racks con material, patios, 3 muelles con camiones, oficinas, comedor y garita. Personal con el color de su contratista, soldadores con arco y esmerilado, trabajadores en espera en el comedor. Ciclo de día y noche (la luz cambia con la hora; los turnos extra se ven de noche) |
+| Control del tiempo | Política (A0 como se hizo, B1 regla del jefe, D3 y D4 DSS), proyecto, control deslizante por hora, reproducción de 1 h/s a 3 días/s, vistas rápidas (general, naves, máquinas, patio, muelles, oficinas), doble clic para volar a un objeto; el techo se abre al acercarse |
+| Seguimiento | Por etapa del proyecto seleccionado: lotes en proceso, en cola y entregados; fecha comprometida y fecha de término de la política elegida |
+| Panel Objeto | **Máquina**: estado (operando, libre, en falla y su causa), lote que trabaja, utilización y disponibilidad de 14 días, paradas recientes. **Estación**: lote, personas, hora de término. **Lote**: marcas con perfil, kg, longitud y agujeros; tiempo en cada etapa; no conformidad y cambio de alcance. **Persona**, **camión** (carga, salida y regreso), **grúa** (qué lleva y adónde), **material** (stock por proyecto y pedidos) |
+| Panel Proyecto | Cómo habría terminado con cada política (compromiso, término, días tarde, costo de palancas), curva de kg entregados por política y palancas aplicadas |
+| Panel Resultados | Tabla de las 8 políticas y alerta temprana del DSS |
 
-API (`plataforma/planta.py`, todas leen `steelser.db` y no escriben): `GET /api/planta/modelo`, `/proyectos`, `/estado?mundo&fecha[&pid_esc&palancas]`, `/sensibilidad`, `/retro`; `POST /api/planta/escenario` y `/sugerir` (roles cotizador, jefe de taller y gerencia). El modelo de horas es el del escenario M2 entrenado con los 25 proyectos: para la demostración incluye al proyecto que se evalúa; el estudio riguroso (`scripts/exp5_retrospectivo.py`) usa solo lo anterior a cada proyecto.
+API (`plataforma/gemelo.py`, solo lectura de `steelser.db`): `GET /api/gemelo/meta`, `/estado?t&politica`, `/lote/{id}`, `/maquina/{k}`, `/proyecto/{pid}`. Si faltan las tablas, responde 503 con la instrucción `py scripts/exp6_gemelo.py`. `plataforma/planta.py` (what-if y búsqueda sobre el CRP) queda como API heredada sin interfaz.
 
 ### Permisos por rol
 
@@ -130,7 +131,7 @@ API (`plataforma/planta.py`, todas leen `steelser.db` y no escriben): `GET /api/
 | **v1 (hecha)** | Cuentas y roles, tablero, proyectos, Gantt, cotizador, crear proyecto, re-pronóstico, tareo, paradas, tareas tipo Linear, accesos directos |
 | **v2 (hecha)** | Importar el formato único (validar e importar, idempotente, con errores por fila), avance físico ponderado por pieza, curva S de kg y HH con índice de avance, compras, servicios externos y eventos, HH estimadas por el cotizador junto al P50 |
 | **v2.1 (hecha)** | Reporte semanal imprimible (PDF desde el navegador), semanas de producción, historial de re-pronósticos, bandeja de RFI/NC con imputabilidad, buscador Ctrl+K, librerías locales (sin internet), PWA, marcar etapas de pieza en la interfaz con trazabilidad |
-| **v2.2 (hecha)** | Planta 3D retrospectiva con datos simulados: escena, línea de tiempo, what-if y búsqueda automática de escenarios, resultados del estudio retrospectivo |
+| **v2.2 (hecha)** | Gemelo 3D de la planta con datos simulados: escena detallada hora a hora, políticas, paneles de máquina, lote y proyecto, resultados |
 | v2.3 | Registro sin conexión en la tablet (cola local que se sincroniza), envío del reporte semanal por correo, adjuntar fotos a RFI/NC, pesos de etapa editables desde la interfaz |
 | v3 | Contratistas y valorizaciones, costo real vs cotizado, trazabilidad de material, notificaciones, reentrenamiento C4 desde la interfaz |
 | v4 | Multiempresa (`empresa_id`), PostgreSQL, Keycloak, despliegue con HTTPS |

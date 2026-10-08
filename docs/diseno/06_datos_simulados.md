@@ -99,7 +99,9 @@ El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo,
 
 También recalcula las HH del ratio vigente (toneladas × ratio) y los días por proceso. Guarda un respaldo en `data/steelser_antes_reconstruccion.db` (`--forzar` vuelve a empezar desde él). Es una reconstrucción **declarada como simulada**: sirve para probar el pipeline, no es la base original.
 
-## Planta, personal, material y lotes simulados (para la vista 3D)
+> **El gemelo de eventos discretos** (`dss/gemelo/`, tablas `gem_*`, mundo 6) es ahora la fuente principal de datos simulados y de la vista 3D: ver [08](08_gemelo_planta.md). Lo que sigue describe los datos de planta del estudio retrospectivo anterior.
+
+## Planta, personal, material y lotes simulados (estudio retrospectivo anterior)
 
 `py -m dss.simulador_planta` (después de `dss.simulador`) crea, para los 5 mundos, todo lo que la escena 3D muestra. Todo es SIMULADO y cada tabla lleva `origen = 'SIMULADO'` donde aplica.
 

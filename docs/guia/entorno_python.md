@@ -41,8 +41,9 @@ Reconstruir todo desde cero (requiere `extras/`):
 ```bash
 python scripts/build_db.py             # 1. BD desde extras/ (borra las tablas sim_*)
 python -m dss.simulador                # 2. datos simulados (~30 s)
-python -m dss.simulador_planta         # 3. planta, personal, material y lotes simulados (vista 3D)
-python -m pytest tests -q              # 4. pruebas (39; algunas se omiten sin la BD)
+python -m dss.simulador_planta         # 3. layout de la planta
+python scripts/exp6_gemelo.py          # 4. gemelo de eventos discretos y 8 políticas (~6 min); crea las tablas gem_* de la vista 3D
+python -m pytest tests -q              # 5. pruebas (49; algunas se omiten sin la BD)
 ```
 
 Interfaces:
@@ -61,7 +62,8 @@ python scripts/exp3_frontera.py        # frontera cumplimiento-plazo con cuadril
 python scripts/exp3_frontera.py plan   # igual, con las cuadrillas del cotizador
 python scripts/exp4_ablacion.py        # ablaciones, colchón fijo y 5 escenarios (~30 min)
 python scripts/calibrar_solapes.py     # recalibrar los solapes del motor CRP (~5 min)
-python scripts/exp5_retrospectivo.py   # retrospectivo: cómo se hizo vs. con el DSS, 6 políticas (~8 min con 5 núcleos)
+python scripts/exp6_gemelo.py          # gemelo de eventos discretos (estudio principal)
+python scripts/exp5_retrospectivo.py   # retrospectivo anterior con el CRP como verdad, 6 políticas (~8 min con 5 núcleos)
 python scripts/exp5_retrospectivo.py --costo 2   # sensibilidad al costo de las palancas
 ```
 

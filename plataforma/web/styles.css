@@ -331,3 +331,10 @@ kbd { font: 11px/1 var(--fuente); padding: 3px 5px; border-radius: 4px; border: 
 .p3-res.nuevo { border-color: var(--celeste); background: #f6fbff; } .p3-res.cf { border-color: var(--verde); background: var(--verde-cl); }
 .p3-res.sug { border-left: 4px solid var(--naranja); } .p3-res .p3-f { font-size: 12px; }
 .p3-res .btn { margin-top: 8px; }
+
+/* ---------- Gemelo 3D: vistas rápidas y detalles ---------- */
+.p3d-vistas { position: absolute; right: 12px; top: 74px; display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: 60%; z-index: 3; }
+.p3d-vistas button { border: 1px solid rgba(255,255,255,.7); background: rgba(255,255,255,.92); color: var(--acero); border-radius: 14px; padding: 5px 11px; cursor: pointer; font-size: 12px; font-weight: 600; box-shadow: var(--sombra); }
+.p3d-vistas button:hover { background: var(--celeste-cl); color: var(--azul); }
+.p3d-et.zona { font-weight: 500; font-size: 10px; opacity: .92; }
+.p3d-izq .p3d-ctl select { max-width: 200px; }

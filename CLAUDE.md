@@ -81,7 +81,7 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 - **Fuente única del formato**: `plataforma/formato.py` (HOJAS y LISTAS). Si se cambia una columna, se cambia ahí; el generador y el importador la leen. Tablas nuevas en `plataforma.db` se agregan en `ESQUEMA` y las columnas nuevas en `COLUMNAS_V2` (migración sin perder datos).
 - Ejemplo lleno DEMO: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx`, no versionado (`py scripts/generar_ejemplo_importacion.py`).
 - **v2.1**: reporte semanal imprimible (`#/reporte/{id}`, PDF desde el navegador), pestaña Semanas (ciclos lunes–sábado, `avance.semanas`), historial de re-pronósticos (tabla `pronostico`; mide alertas tempranas en el piloto), bandeja RFI y NC (`/api/bandeja`; columnas `imputable`, `dias_impacto`, `conjunto`, `fecha_cierre` en `tarea`), buscador Ctrl+K (`/api/buscar`), marcar etapas de pieza desde la interfaz (`/api/piezas/etapa`, trazado en `pieza_cambio`; el orden de etapas está en `avance.error_orden_etapas`, compartido con el importador), librerías locales en `plataforma/web/vendor/` y PWA (`sw.js`, `manifest.webmanifest`; el service worker solo se activa en localhost o HTTPS).
-- **v2.2 · Planta 3D** (vista del menú; `plataforma/planta.py`, `plataforma/web/planta3d.js`, three.js local en `vendor/three/`): reproduce la ejecución de los 25 proyectos en 3D con datos SIMULADOS y permite probar palancas de gestión (what-if y búsqueda automática, `dss/whatif.py`). Solo lee `steelser.db`; no toca `plataforma.db`. Diseño en `docs/plan/05_planta_3d.md`, resultados en `docs/analisis/08_retrospectivo_planta3d.md`. El servidor manda `Cache-Control: no-cache` para la interfaz; si cambias rutas de la API hay que reiniciar el servidor (las rutas se registran al arrancar). Al cambiar `app.js`/`styles.css` conviene subir `?v=` en `index.html` y `VERSION` en `sw.js`.
+- **v2.2 · Gemelo 3D** (vista del menú *Planta 3D*; `plataforma/gemelo.py`, `plataforma/web/gemelo3d.js`, three.js local en `vendor/three/`): reconstruye hora a hora la planta de Steelser a partir del **gemelo de eventos discretos** (`dss/gemelo/`) con datos SIMULADOS: máquinas detalladas y animadas, puentes grúa, cuadrillas, camiones, material, ciclo día/noche, contenido de cada lote. Solo lee `steelser.db` (tablas `gem_*`); no toca `plataforma.db`. Diseño en `docs/diseno/08_gemelo_planta.md`, resultados en `docs/analisis/09_resultados_gemelo.md`, alcance y ruta Q1 en `docs/plan/06_alcance_q1.md`. `plataforma/planta.py` queda como API heredada (what-if sobre el CRP; sin interfaz). El servidor manda `Cache-Control: no-cache` para la interfaz; si cambias rutas de la API hay que reiniciarlo (se registran al arrancar). Al cambiar `app.js`/`styles.css` conviene subir `?v=` en `index.html` y `VERSION` en `sw.js`.
 - `creado_en` de SQLite está en UTC; para días o fechas locales usar `date(col,'localtime')`.
 - Puntos de mejora retrospectivo → prospectivo: `docs/analisis/07_de_retrospectivo_a_prospectivo.md`.
 
@@ -107,10 +107,13 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 | `dss/whatif.py` | Palancas de gestión (personas, segundo turno, horas extra, expeditar), evaluación con semillas comunes, búsqueda automática por etapas y sensibilidad por proceso; costos de palancas = SUPUESTOS (`COSTOS`) |
 | `dss/multiproyecto.py` | Varios proyectos comparten las 4 máquinas por prioridad (probado; aún sin interfaz) |
 | `dss/retrospectivo.py` | `Retro` vuelve a programar un proyecto con la verdad simulada; 6 políticas (A0 como se hizo … A5 sistema completo); resultado = fecha real + diferencia causada por la decisión |
-| `dss/simulador_planta.py` | Planta (100 × 50 m), personal, asignaciones diarias, material y lotes SIMULADOS (`sim_planta_elemento`, `sim_lote`, …) |
+| `dss/simulador_planta.py` | Layout de la planta (100 × 50 m; lo usa el gemelo) y datos de planta del estudio retrospectivo anterior (`sim_planta_elemento`, `sim_lote`, …) |
+| `dss/gemelo/` | **Gemelo de eventos discretos** hora a hora: `calendario` (turnos, feriados, ventanas por recurso), `generador` (38 proyectos, 9 162 lotes, paradas, proveedores, RFIs; modelo oculto de φ), `motor` (flujo por lote, 4 máquinas, 2 grúas, mesas, puestos, cuadrillas con ausentismo, camiones; palancas), `calibrar` (ritmo por proyecto → reproduce fechas reales), `calibrar_dss` (solapes del CRP con el tareo de los 13 proyectos fuera de la muestra), `politicas` (A0, B1, C1, D0–D4), `exportar` (tablas `gem_*` y mundo 6) |
 | `app/streamlit_app.py` | Cotizador web (`py -m streamlit run app/streamlit_app.py`; también `.claude/launch.json`) |
 | `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py`, `exp4_ablacion.py` | Experimentos; resultados en `data/*.csv`. exp1 y exp4 usan los 5 escenarios; exp2 y exp3 se corrieron con 4 |
-| `tests/` | 39 pruebas (`py -m pytest tests -q`; las que necesitan la BD se omiten si falta): motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas de producción y orden de etapas |
+| `scripts/exp5_retrospectivo.py` | Retrospectivo con el CRP como verdad (histórico, circular; ver `analisis/08`) |
+| `scripts/exp6_gemelo.py` | **Estudio principal**: calibra el gemelo, corre la historia 2019-2026 con 8 políticas y mide alerta temprana (`data/exp6_*.csv`, tablas `gem_*`) |
+| `tests/` | 49 pruebas (`py -m pytest tests -q`; las que necesitan la BD se omiten si falta): motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas de producción y orden de etapas |
 
 Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ reales), C4 (`c4_lazo`: Md, PICP, alertas), ablaciones A2–A4 y sensibilidades, módulo del formato único en Excel. Ver `docs/diseno/01_arquitectura_dss.md`.
 
@@ -124,6 +127,7 @@ Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ rea
 - GBM cuantílico (competidor tipo Bekci) subcubre el intervalo de HH (0.62–0.69); QRF + conformal queda en 0.78–0.81.
 
 - **Experimento 5 (retrospectivo, `analisis/08`; base reconstruida)**: A0 como se hizo: OTD 76 %, penalidad 1.2 % del presupuesto. DSS solo con la fecha (α = 0.80 / α\*): 100 % pero +18 % / +26 % de plazo; con el costo comercial del plazo (supuesto 0.08 %/día) no supera a A0 (IC cruzan 0). DSS gestionando (palancas): evita los atrasos pero gasta en palancas ≈ lo que ahorra (1.1–1.2 % vs 1.2 %); depende del costo de las palancas (supuesto). Interviene en 25/25 porque el pronóstico es pesimista (+2 a +3 d; cree 31 % de cumplimiento de la fecha original cuando fue 76 %). Conclusión coherente con `04`: sin datos reales no hay ventaja demostrada.
+- **Experimento 6 (gemelo de eventos discretos, `analisis/09`)**: la «verdad» ya no sale del motor del DSS. Anclado al plan del cotizador y con esperas de compras aprendidas: fecha α = 0.80 cumple 80 % (calibrado) con +0.8 % de plazo; α\* cumple 88 % con +8.6 %; un **colchón fijo** de +7 d lab. cumple 100 % con +12 % y es el mejor en costo ajustado. **La gestión con palancas no sirve** (regla del jefe 9.6 % de costo sin mejora; DSS gestión 1.3 % sin mejora): el atraso viene de pintura externa y material, no de la planta (riesgo de modelo). **Alerta temprana**: AUC 0.55 / 0.68 / 0.68 / 0.83 por cuartil del plazo. Ninguna diferencia frente a A0 es distinguible de cero (N = 25). Alcance y ruta a Q1 en `docs/plan/06_alcance_q1.md`.
 
 ## Datos simulados (banco de pruebas)
 
@@ -132,8 +136,8 @@ Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`do
 - Hallazgo: el ratio es correcto en promedio; el problema es la **dispersión** por proyecto (±5–11 % en HH totales, ±14–16 % por proceso).
 - La carga del taller (WIP) ya está modelada de forma simplificada (ventana 20–50 % de la duración, κ = 0.5, toneladas imputadas en 13 proyectos); son supuestos sin sensibilidad todavía.
 - Las paradas de máquina, los plazos externos y las variables del plano son supuestos del simulador, no mediciones.
-- Orden de regeneración: `py scripts/build_db.py` (o `py scripts/reconstruir_muestra.py` si falta `extras/`), luego `py -m dss.simulador`, `py -m dss.simulador_planta` y `py scripts/exp5_retrospectivo.py` (build_db borra todas las tablas `sim_*`).
-- La planta 3D (layout, personal, material, lotes) también es SIMULADA: plantilla funcional de 100 × 50 m, no un plano medido.
+- Orden de regeneración: `py scripts/build_db.py` (o `py scripts/reconstruir_muestra.py` si falta `extras/`), luego `py -m dss.simulador`, `py -m dss.simulador_planta` y `py scripts/exp6_gemelo.py` (build_db borra las tablas `sim_*` y `gem_*`).
+- La planta 3D y el gemelo (`gem_*`) también son SIMULADOS: plantilla funcional de 100 × 50 m, personal anónimo, proveedores, paradas y HH inventados y calibrados a las fechas reales; no es un plano medido.
 
 ## Comandos
 
@@ -146,8 +150,9 @@ py scripts/docx_a_md.py                 # regenerar docs/tesis/ desde el Word
 py -m dss.simulador                     # generar datos simulados (después de build_db)
 py -m pytest tests -q                   # pruebas
 py -m streamlit run app/streamlit_app.py  # cotizador web
-py -m dss.simulador_planta              # planta, personal, material y lotes simulados (vista 3D)
-py scripts/exp5_retrospectivo.py        # cómo se hizo vs. con el DSS (~8 min); acepta --costo 2 (sensibilidad)
+py -m dss.simulador_planta              # layout de la planta y datos del retrospectivo anterior
+py scripts/exp6_gemelo.py               # gemelo de eventos discretos + 8 políticas (~6 min con 6 núcleos); crea las tablas gem_* que usa el Gemelo 3D
+py scripts/exp5_retrospectivo.py        # retrospectivo anterior con el CRP como verdad (~8 min); acepta --costo 2
 py scripts/exp1_prediccion.py           # experimentos (varios minutos cada uno); exp3_frontera.py acepta "plan"
 ```
 

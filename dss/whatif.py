@@ -47,14 +47,17 @@ class Palanca:
                 'horas_extra': f'Horas extra en {n}', 'expeditar': f'Expeditar {n}'}[self.tipo]
 
 
-def candidatas():
-    """Palancas que la búsqueda automática prueba (una por una y luego combinadas)."""
+def candidatas(compras=False, ejecutables=False):
+    """Palancas que la búsqueda automática prueba (una por una y luego combinadas). `compras`: agrega expeditar la
+    compra de material; `ejecutables`: solo las que la planta puede ejecutar (sin horas extra en oficinas ni despacho)."""
     c = []
     for j in CONTRATISTAS:
         c += [Palanca('personas', j, 1), Palanca('personas', j, 2)]
     c += [Palanca('turno2', j) for j in MAQUINAS]
-    c += [Palanca('horas_extra', j) for j in INTERNOS + CONTRATISTAS]
+    c += [Palanca('horas_extra', j) for j in (CONTRATISTAS if ejecutables else INTERNOS + CONTRATISTAS)]
     c += [Palanca('expeditar', j) for j in EXTERNOS]
+    if compras:
+        c.append(Palanca('expeditar', 1))
     return c
 
 
@@ -115,11 +118,11 @@ class Evaluacion:
                     costo=self.costo, total=self.total, dias_medios=self.dias_medios, fecha_alpha=self.fecha_alpha)
 
 
-def _evaluar(cot, proy, palancas, fecha_obj, R, semilla, mtbf, restante, mult_desde, costos, escala_costo, alpha, p_pen):
+def _evaluar(cot, proy, palancas, fecha_obj, R, semilla, mtbf, restante, mult_desde, costos, escala_costo, alpha, p_pen, esperas=None):
     crew = proy.cuadrilla if proy.cuadrilla is not None else cuadrilla_tipica(cot.par_cuad, proy.ton)
     mult = multiplicadores(palancas, crew) if palancas else None
     res = cot.cotizar(proy, R=R, alpha=alpha, mtbf=mtbf, semilla=semilla, restante=restante,
-                      mult=mult, mult_desde=mult_desde)
+                      mult=mult, mult_desde=mult_desde, esperas=esperas)
     prob = res.prob_cumplir(fecha_obj)
     pen = 100.0 * p_pen * float(res.dias_atraso(fecha_obj).mean())          # % del presupuesto
     costo = 0.0
@@ -141,7 +144,8 @@ def evaluar(cot, proy, palancas, fecha_obj, R=1000, semilla=1, mtbf=None, restan
 
 
 def buscar(cot, proy, fecha_obj, R=1000, semilla=1, mtbf=None, restante=None, mult_desde=0, costos=None,
-           escala_costo=1.0, alpha=0.8, p_pen=P_PENALIDAD, n_finalistas=6, max_palancas=3):
+           escala_costo=1.0, alpha=0.8, p_pen=P_PENALIDAD, n_finalistas=6, max_palancas=3, compras=False, ejecutables=False,
+           esperas=None):
     """Búsqueda automática: prueba cada palanca sola con pocas réplicas, descarta las malas, combina las
     mejores de forma voraz y re-evalúa a los finalistas con todas las réplicas. Todos los escenarios usan la
     misma semilla (números aleatorios comunes). Devuelve la lista de evaluaciones ordenada por costo total
@@ -149,10 +153,10 @@ def buscar(cot, proy, fecha_obj, R=1000, semilla=1, mtbf=None, restante=None, mu
     from .c3_montecarlo import MTBF_DEFECTO
     mtbf = MTBF_DEFECTO if mtbf is None else mtbf
     kw = dict(fecha_obj=fecha_obj, semilla=semilla, mtbf=mtbf, restante=restante, mult_desde=mult_desde,
-              costos=costos, escala_costo=escala_costo, alpha=alpha, p_pen=p_pen)
+              costos=costos, escala_costo=escala_costo, alpha=alpha, p_pen=p_pen, esperas=esperas)
     R1 = max(150, R // 5)
     base = _evaluar(cot, proy, [], R=R1, **kw)
-    primera = [_evaluar(cot, proy, [p], R=R1, **kw) for p in candidatas()]
+    primera = [_evaluar(cot, proy, [p], R=R1, **kw) for p in candidatas(compras, ejecutables)]
     primera.sort(key=lambda e: e.total)
     mejores = [e for e in primera if e.total < base.total][:n_finalistas]
     vistos = {tuple(e.palancas) for e in mejores}

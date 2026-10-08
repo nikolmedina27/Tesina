@@ -1,5 +1,7 @@
 # 08 · Estudio retrospectivo: cómo se hizo y qué habría pasado con el DSS
 
+> **Sustituido por [09](09_resultados_gemelo.md).** Este estudio usa el CRP como «verdad» (circular); se conserva para reproducir `exp5`. El resultado principal es el de 09.
+
 > **Todo es SIMULADO.** Es un banco de pruebas retrospectivo: la «verdad» de cada proyecto sale de los mundos simulados (`sim_*`), condicionados a la duración real de los 25 proyectos. No es evidencia sobre Steelser y así debe declararse. La BD de esta PC además es una **reconstrucción** (ver [diseno/06](../diseno/06_datos_simulados.md)): las cuadrillas por proceso son simuladas, por eso estos números **no** coinciden con los de [04](04_resultados_banco_pruebas.md), que salen de la BD original.
 
 ## Qué se hizo

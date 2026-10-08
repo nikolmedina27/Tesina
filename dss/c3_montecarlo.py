@@ -134,21 +134,32 @@ class Cotizador:
         self.par_cuad = modelo_cuadrilla(con)
         self.par_ext = modelo_dias_externos(con)
         self.carga = CargaTaller(con, self.dias_cal)
+        self.escala = 1.0                       # factor de ritmo del proyecto (anclaje a la estimación del cotizador)
+        self.lam = LAM_DEFECTO                  # solapes del CRP; el gemelo los recalibra con el tareo (dss/gemelo/calibrar_dss.py)
 
-    def cotizar(self, proy, R=1000, alpha=0.8, mtbf=MTBF_DEFECTO, semilla=1, lam=LAM_DEFECTO, carga_extra=0.0,
-                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None, mult=None, mult_desde=0):
+    def cotizar(self, proy, R=1000, alpha=0.8, mtbf=MTBF_DEFECTO, semilla=1, lam=None, carga_extra=0.0,
+                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None, mult=None, mult_desde=0, esperas=None):
         """`sin_disponibilidad`, `sin_carga` y `rho` (valor fijo) son para las ablaciones del experimento 4.
         `restante` (13,): fracción de trabajo que falta por proceso (re-pronóstico de un proyecto en curso,
-        con `proy.inicio` = hoy). `mult` (13,) son las palancas de gestión del what-if (ver dss/whatif.py)."""
+        con `proy.inicio` = hoy). `mult` (13,) son las palancas de gestión del what-if (ver dss/whatif.py). `esperas`: dict con 'ing' y 'compra', arrays
+        (R,) de días laborables que faltan de ingeniería (con RFIs) y de espera de material; reemplazan las HH de esos dos
+        procesos por la espera (aprendida de las compras pasadas)."""
         rng = np.random.default_rng(semilla)
+        lam = self.lam if lam is None else lam
         hh_ratio = proy.ton * self.rv.loc[proy.tipo].values
         crew = proy.cuadrilla if proy.cuadrilla is not None else cuadrilla(self.par_cuad, proy.ton)
         q_phi, rho_est = self.predictor.cuantiles(proy, TAUS)
         phi = muestrear_phi(q_phi, rho_est if rho is None else rho, R, rng)
         hh = hh_ratio * phi
+        if esperas is not None:
+            if 'ing' in esperas:
+                hh[:, 0] = np.asarray(esperas['ing'], float)[:R] * 8.0 * crew[0]
+            if 'compra' in esperas:
+                hh[:, 1] = np.asarray(esperas['compra'], float)[:R] * 8.0 * crew[1]
+        hh = hh * self.escala
         ext_base = proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton)
         avance0 = None if restante is None else 1.0 - np.clip(np.asarray(restante, float), 0.0, 1.0)
-        ext = ext_base * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
+        ext = ext_base * self.escala * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
         u = np.minimum(self.carga.u(proy.inicio, excluir=proy.id, T=T_DIAS) + carga_extra, 0.9)
         if sin_carga:
             u = np.zeros_like(u)

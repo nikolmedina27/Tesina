@@ -78,10 +78,11 @@ dss/
   c4_lazo.py              # ⏳ Md, PICP, alertas de reentrenamiento
   whatif.py               # ✅ palancas de gestión, evaluación con semillas comunes, búsqueda automática, sensibilidad
   multiproyecto.py        # ✅ varios proyectos comparten las máquinas por prioridad
-  retrospectivo.py        # ✅ cómo se hizo vs. qué habría pasado (6 políticas)
+  retrospectivo.py        # ✅ retrospectivo con el CRP como verdad (histórico)
+  gemelo/                 # ✅ gemelo de eventos discretos hora a hora (verdad independiente del DSS): motor, generador, calibrar, políticas
   simulador_planta.py     # ✅ planta, personal, material y lotes simulados (vista 3D)
-scripts/                  # ✅ build_db, reconstruir_muestra, docx_a_md, calibrar_solapes, exp1-exp5, generadores del Excel
-tests/                    # ✅ 39 pruebas (motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas)
+scripts/                  # ✅ build_db, reconstruir_muestra, docx_a_md, calibrar_solapes, exp1-exp6, generadores del Excel
+tests/                    # ✅ 49 pruebas (motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, gemelo, importador, semanas)
 ```
 
 `economia.py` (α\*, penalidad esperada) quedó dentro de `c3_montecarlo.py` (`alpha_optimo`, `Resultado.penalidad_esperada`).
