@@ -2,6 +2,10 @@
 
 Frontend tipo ERP (estructura Odoo, colores SAP Fiori celeste, iconografía metalmecánica) para gestionar los proyectos y cotizar plazos. Reemplaza al prototipo Streamlit como interfaz principal; Streamlit queda como herramienta de análisis.
 
+## Navegación
+
+El menú superior tiene 5 grupos y, bajo él, una sub-navegación del grupo activo: **Inicio**, **Cotizar** (el núcleo del DSS), **Proyectos** (lista, Gantt, tareas, RFI y NC), **Planta** (Gemelo 3D y registro diario de tareo y paradas) y **Datos** (importar el formato único y usuarios). Los grupos se filtran por rol. El buscador Ctrl+K sigue siendo un atajo global a cualquier vista.
+
 ## 1. Cómo se abre (el "enlace")
 
 | Forma | Cómo | Quién |

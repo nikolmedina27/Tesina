@@ -123,13 +123,19 @@ function renderLogin() {
 }
 
 /* ---------- estructura ---------- */
-const MENU = [
-  ['inicio', 'Inicio', null], ['proyectos', 'Proyectos', null], ['gantt', 'Gantt', null],
-  ['cotizador', 'Cotizador', ['cotizador', 'jefe_taller']], ['planta3d', 'Planta 3D', null], ['planta', 'Planta', ['jefe_taller', 'supervisor', 'calidad']],
-  ['tareas', 'Tareas', null], ['bandeja', 'RFI y NC', null], ['importar', 'Importar', ['jefe_taller', 'cotizador']], ['usuarios', 'Usuarios', ['__solo_gerencia__']],
+/* El menú agrupa las vistas por lo que hace cada persona: decidir (Cotizar), gestionar (Proyectos), la planta (registro y gemelo 3D) y datos. */
+const ROLES = { cotizador: ['cotizador', 'jefe_taller'], planta: ['jefe_taller', 'supervisor', 'calidad'], importar: ['jefe_taller', 'cotizador'], usuarios: ['__solo_gerencia__'] };
+const GRUPOS = [
+  { k: 'inicio', t: 'Inicio', ic: 'inicio', subs: [['inicio', 'Tablero']] },
+  { k: 'cotizador', t: 'Cotizar', ic: 'cotizador', subs: [['cotizador', 'Cotizador de plazos']] },
+  { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
+  { k: 'planta', t: 'Planta', ic: 'planta3d', subs: [['planta3d', 'Gemelo 3D'], ['planta', 'Registro diario']] },
+  { k: 'datos', t: 'Datos', ic: 'engranaje', subs: [['importar', 'Importar formato único'], ['usuarios', 'Usuarios']] },
 ];
 const puede = roles => !roles || S.me.rol === 'gerencia' || roles.includes(S.me.rol);
-const puedeVer = k => puede((MENU.find(x => x[0] === k) || [])[2]);
+const puedeVer = k => puede(ROLES[k]);
+const subsVisibles = g => g.subs.filter(([k]) => puedeVer(k));
+const grupoDe = k => GRUPOS.find(g => g.subs.some(([x]) => x === k));
 const MARCAN_PIEZAS = ['jefe_taller', 'supervisor', 'calidad'];
 function shell(activo, migas, acciones = '') {
   S.charts.forEach(c => c.dispose()); S.charts = [];
@@ -137,12 +143,13 @@ function shell(activo, migas, acciones = '') {
   $('#app').innerHTML = `
   <header class="shell">
     <div class="marca" onclick="location.hash='#/inicio'"><span class="logo">${ic('viga', 18)}</span>SteelPlan</div>
-    <nav class="menu">${MENU.filter(m => puede(m[2])).map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${ic(k, 17)}${t}</a>`).join('')}</nav>
+    <nav class="menu">${GRUPOS.filter(g => subsVisibles(g).length).map(g => `<a href="#/${subsVisibles(g)[0][0]}" class="${g === grupoDe(activo) ? 'activo' : ''}">${ic(g.ic, 17)}${g.t}</a>`).join('')}</nav>
     <button class="kbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 16)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
     <div class="usuario" id="umenu">${avatar(S.me.nombre, S.me.color)}<div><div>${esc(S.me.nombre)}</div><div class="rol">${esc(S.me.rol_nombre.split(' (')[0])}</div></div>
       <div class="desplegable oculto" id="udrop"><div class="nota" style="padding:8px 10px">${esc(S.me.rol_nombre)}<br>Área: ${esc(S.me.area || '—')}</div>
       <button id="bsalir">${ic('salir', 16)} Cerrar sesión</button></div></div>
   </header>
+  ${(() => { const g = grupoDe(activo), v = g ? subsVisibles(g) : []; return v.length > 1 ? `<div class="subnav">${v.map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${t}</a>`).join('')}</div>` : ''; })()}
   <div class="control"><div class="migas">${migas}</div><div class="acciones">${acciones}</div></div>
   <main class="contenido" id="main">${cargando()}</main>`;
   $('#umenu').onclick = e => { e.stopPropagation(); $('#udrop').classList.toggle('oculto'); };
@@ -156,7 +163,7 @@ function shell(activo, migas, acciones = '') {
 function paleta() {
   if ($('.paleta')) return;
   const acciones = [
-    ...MENU.filter(m => puede(m[2])).map(([k, t]) => ({ tipo: 'Ir a', titulo: t, ruta: '#/' + k, icono: k })),
+    ...GRUPOS.flatMap(g => subsVisibles(g).map(([k, t]) => ({ tipo: 'Ir a', titulo: g.subs.length > 1 ? `${g.t} · ${t}` : t, ruta: '#/' + k, icono: k === 'planta3d' ? 'planta3d' : g.ic }))),
     ...(puedeVer('cotizador') ? [{ tipo: 'Acción', titulo: 'Nueva cotización', ruta: '#/cotizador', icono: 'cotizador' }] : []),
     ...(puede(['jefe_taller', 'supervisor']) ? [{ tipo: 'Acción', titulo: 'Registrar tareo de hoy', ruta: '#/planta', icono: 'planta' }] : []),
     ...S.cat.proyectos.map(p => ({ tipo: 'Reporte semanal', titulo: `${p.codigo} · ${p.nombre}`, ruta: `#/reporte/${p.id}`, icono: 'reporte' })),
@@ -200,8 +207,8 @@ document.addEventListener('keydown', e => {
 async function vInicio() {
   const m = shell('inicio', `${ic('inicio', 20)} Tablero`);
   const d = await api('/api/dashboard');
-  const apps = [['proyectos', 'Proyectos', '#0a6ed1'], ['gantt', 'Gantt', '#1a9898'], ['cotizador', 'Cotizador', '#e9730c'],
-    ['planta', 'Planta', '#5b738b'], ['tareas', 'Tareas', '#925ace'], ['bandeja', 'RFI y NC', '#bb0000'], ['importar', 'Importar Excel', '#107e3e'], ['usuarios', 'Usuarios', '#c0399f']]
+  const apps = [['cotizador', 'Cotizar', '#e9730c'], ['proyectos', 'Proyectos', '#0a6ed1'], ['planta3d', 'Gemelo 3D', '#1a9898'], ['planta', 'Registro diario', '#5b738b'],
+    ['tareas', 'Tareas', '#925ace'], ['bandeja', 'RFI y NC', '#bb0000'], ['importar', 'Importar Excel', '#107e3e'], ['usuarios', 'Usuarios', '#c0399f']]
     .filter(a => puedeVer(a[0]));
   const t = d.tareas || {};
   const abiertas = (t.BACKLOG || 0) + (t.POR_HACER || 0) + (t.EN_CURSO || 0) + (t.REVISION || 0);
@@ -948,7 +955,7 @@ async function vPlanta3D() {
     <div class="p3d-izq">
       <div class="p3d-lienzo" id="p3l"></div>
       <div class="p3d-kpis" id="p3k"></div>
-      <div class="p3d-vistas" id="p3v"><button data-v="general">General</button><button data-v="navea">Nave A</button><button data-v="maquinas">Máquinas</button><button data-v="naveb">Nave B</button><button data-v="patio">Patio</button><button data-v="muelles">Muelles</button><button data-v="oficina">Oficinas</button></div>
+      <select class="p3d-vistas" id="p3v" title="Ir a una zona de la planta"><option value="" disabled selected>Ir a…</option><option value="general">Vista general</option><option value="navea">Nave A · habilitado</option><option value="maquinas">Máquinas</option><option value="naveb">Nave B · armado y soldeo</option><option value="patio">Patio de acopio</option><option value="muelles">Muelles</option><option value="oficina">Oficinas</option></select>
       <div class="p3d-abajo"><div class="p3d-seguim" id="p3s"></div>
       <div class="p3d-ctl">
         <select id="p3pol" title="Política (cómo se gestionó)">${pols.map(k => `<option value="${k}">${k} · ${nombrePol(k)}</option>`).join('')}</select>
@@ -957,7 +964,7 @@ async function vPlanta3D() {
         <input type="range" id="p3r" min="0" max="100" value="0" step="1">
         <b id="p3f" style="min-width:150px;text-align:right"></b>
         <select id="p3vel" title="Velocidad"><option value="1">1 h/s</option><option value="3" selected>3 h/s</option><option value="8">8 h/s</option><option value="24">1 día/s</option><option value="72">3 días/s</option></select>
-        <label class="p3-chk"><input type="checkbox" id="p3t" checked> Techos</label><label class="p3-chk"><input type="checkbox" id="p3e" checked> Etiquetas</label>
+        <label class="p3-chk"><input type="checkbox" id="p3t" checked> Techos</label><label class="p3-chk"><input type="checkbox" id="p3e" checked> Etiquetas</label><label class="p3-chk" title="Oculta paneles e indicadores; al hacer clic en un objeto vuelven"><input type="checkbox" id="p3lim"> Modo limpio</label>
       </div></div>
     </div>
     <aside class="p3d-der tarjeta">
@@ -966,7 +973,7 @@ async function vPlanta3D() {
     </aside>
   </div>`;
   try {
-    P3.escena = (await import('/static/gemelo3d.js?v=1')).crearGemelo($('#p3l'), meta, { alSeleccionar: (ref, obj) => { st.sel = ref; st.obj = obj; st.pestana = 'objeto'; pestanas(); panel(); } });
+    P3.escena = (await import('/static/gemelo3d.js?v=1')).crearGemelo($('#p3l'), meta, { alSeleccionar: (ref, obj) => { st.sel = ref; st.obj = obj; st.pestana = 'objeto'; if (ref && $('#p3lim').checked) { $('#p3lim').checked = false; $('.p3d').classList.remove('limpio'); } pestanas(); panel(); } });
   } catch (e) { $('#p3l').innerHTML = `<div class="vacio" style="padding:40px">${ic('alerta', 30)}<p>No se pudo iniciar la escena 3D: ${esc(e.message)}</p></div>`; return; }
   const pestanas = () => $$('.p3d-tabs button').forEach(b => b.classList.toggle('activo', b.dataset.t === st.pestana));
 
@@ -1060,7 +1067,9 @@ async function vPlanta3D() {
 
   /* ----- controles ----- */
   $$('.p3d-tabs button').forEach(b => b.onclick = () => { st.pestana = b.dataset.t; pestanas(); panel(); });
-  $$('#p3v button').forEach(b => b.onclick = () => P3.escena.vista(b.dataset.v));
+  $('#p3v').onchange = e => { P3.escena.vista(e.target.value); e.target.selectedIndex = 0; };
+  $('#p3lim').onchange = e => $('.p3d').classList.toggle('limpio', e.target.checked);
+  $('#p3s').onclick = () => $('#p3s').classList.toggle('abierto');
   $('#p3pol').onchange = e => { st.pol = e.target.value; ajustarSlider(); cargar(st.t); if (st.pestana !== 'objeto') panel(); };
   $('#p3p').onchange = e => { st.pid = +e.target.value; ajustarSlider(); cargar(Math.floor(tDeFecha(P().ini, 9) + 24 * 12)); if (st.pestana !== 'objeto') panel(); };
   $('#p3r').oninput = e => cargar(+e.target.value);

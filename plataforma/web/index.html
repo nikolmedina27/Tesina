@@ -10,13 +10,13 @@
   <link rel="apple-touch-icon" href="/static/icono.png">
   <!-- librerías locales (vendor/): la plataforma funciona en la red de planta sin internet -->
   <link rel="stylesheet" href="/static/vendor/frappe-gantt.css">
-  <link rel="stylesheet" href="/static/styles.css?v=2.2">
+  <link rel="stylesheet" href="/static/styles.css?v=2.3">
 </head>
 <body>
   <div id="app"></div>
   <script src="/static/vendor/frappe-gantt.min.js"></script>
   <script src="/static/vendor/echarts.min.js"></script>
-  <script src="/static/app.js?v=2.2"></script>
+  <script src="/static/app.js?v=2.3"></script>
   <script>
     // el service worker solo se registra en contexto seguro (localhost o HTTPS)
     if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('/sw.js').catch(() => {});
