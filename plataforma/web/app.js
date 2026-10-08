@@ -25,6 +25,8 @@ const P = {
   usuarios: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.5-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.6c2.6.1 4.6 1.8 5.3 4.6"/>',
   salir: '<path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4M6 12h10"/>',
   viga: '<path d="M4 5h16M4 19h16M12 5v14M8 5v2M16 5v2M8 17v2M16 17v2"/>',
+  sol: '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
+  luna: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
   engranaje: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
   alerta: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
   reloj: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -47,7 +49,7 @@ const P = {
 };
 const ic = (n, s = 18, extra = '') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${P[n] || ''}</svg>`;
 
-const ESTADOS = [['BACKLOG', 'Backlog', '#8a96a3'], ['POR_HACER', 'Por hacer', '#5b738b'], ['EN_CURSO', 'En curso', '#0a6ed1'], ['REVISION', 'En revisión', '#e9730c'], ['HECHO', 'Hecho', '#107e3e']];
+const ESTADOS = [['BACKLOG', 'Backlog', '#8a96a3'], ['POR_HACER', 'Por hacer', '#5b738b'], ['EN_CURSO', 'En curso', '#2f6fb8'], ['REVISION', 'En revisión', '#c98a2b'], ['HECHO', 'Hecho', '#2e9e6b']];
 const PRIO = { 1: ['Urgente', 'var(--rojo)'], 2: ['Alta', 'var(--naranja)'], 3: ['Media', 'var(--azul)'], 4: ['Baja', 'var(--gris)'] };
 const TIPOS_T = { TAREA: ['Tarea', 'b-az'], BLOQUEO: ['Bloqueo', 'b-roj'], NO_CONFORMIDAD: ['No conformidad', 'b-nar'], RFI: ['RFI cliente', 'b-mor'], CAMBIO_ALCANCE: ['Cambio de alcance', 'b-gris'], COMPRA: ['Compra', 'b-ver'] };
 const CAT = { maquina: ['Máquina', '#8ec5ff'], contratista: ['Contratista', '#ffc58a'], externo: ['Servicio externo', '#d6c4f0'], interno: ['Interno', '#c3ccd5'] };
@@ -63,7 +65,25 @@ async function api(url, opt = {}) {
 }
 function toast(msg, err) { const t = document.createElement('div'); t.className = 'toast' + (err ? ' err' : ''); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3800); }
 const cargando = () => '<div class="cargando"><div class="spin"></div></div>';
-function chart(el, option) { const c = echarts.init(el); c.setOption(option); S.charts.push(c); return c; }
+/* ---------- tema (claro, oscuro, sistema) y preferencias locales ---------- */
+const TEMA = {
+  pref() { try { return localStorage.getItem('sp_tema') || 'sistema'; } catch { return 'sistema'; } },
+  efectivo() { const p = this.pref(); return p === 'sistema' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro') : p; },
+  aplicar() { document.documentElement.dataset.tema = this.efectivo(); const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = this.efectivo() === 'oscuro' ? '#101113' : '#ffffff'; },
+  fijar(v) { try { localStorage.setItem('sp_tema', v); } catch { } this.aplicar(); },
+};
+const PREFS = {
+  get(k, d) { try { const v = JSON.parse(localStorage.getItem('sp_prefs') || '{}'); return k in v ? v[k] : d; } catch { return d; } },
+  set(k, x) { try { const v = JSON.parse(localStorage.getItem('sp_prefs') || '{}'); v[k] = x; localStorage.setItem('sp_prefs', JSON.stringify(v)); } catch { } },
+};
+TEMA.aplicar();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (TEMA.pref() === 'sistema') { TEMA.aplicar(); if (S.me) ruta(); } });
+echarts.registerTheme('sp-oscuro', { backgroundColor: 'transparent', textStyle: { color: '#a1a4ad' }, bar: { label: { color: '#e9eaed', textBorderWidth: 0 } }, line: { label: { color: '#e9eaed', textBorderWidth: 0 } }, markLine: { label: { color: '#a1a4ad', textBorderWidth: 0 } }, title: { textStyle: { color: '#e9eaed' } }, legend: { textStyle: { color: '#a1a4ad' } },
+  tooltip: { backgroundColor: '#17181c', borderColor: '#34363d', textStyle: { color: '#e9eaed' } },
+  categoryAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisTick: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } },
+  valueAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } },
+  timeAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } } });
+function chart(el, option) { const c = echarts.init(el, TEMA.efectivo() === 'oscuro' ? 'sp-oscuro' : null); c.setOption(option); S.charts.push(c); return c; }
 window.addEventListener('resize', () => S.charts.forEach(c => c.resize()));
 
 /* ---------- Gantt ---------- */
@@ -73,7 +93,7 @@ function gantt(el, tareas, o = {}) {
   const t = tareas.map(x => ({ id: x.id, name: x.name, start: x.start, end: x.end, progress: x.progress || 0, dependencies: x.dependencies || '', custom_class: 'cat-' + (x.categoria || '') }));
   try {
     return new Gantt(el.querySelector('svg'), t, {
-      view_mode: o.modo || 'Week', language: 'es', bar_height: 20, padding: 14, date_format: 'YYYY-MM-DD',
+      view_mode: o.modo || 'Week', language: 'es', bar_height: 18, bar_corner_radius: 0, padding: 14, date_format: 'YYYY-MM-DD',
       custom_popup_html: task => {
         const x = tareas.find(y => y.id === task.id) || {};
         return `<div class="pop"><b>${esc(x.name)}</b><br>${fmtCorta(x.start)} → ${fmtCorta(x.end)}${x.hh != null ? `<br>${fmtNum(x.hh)} HH` : ''}${x.progress ? `<br>Avance ${x.progress} %` : ''}${o.extra ? o.extra(x) : ''}</div>`;
@@ -84,34 +104,23 @@ function gantt(el, tareas, o = {}) {
 }
 const leyendaCat = () => `<div class="leyenda">${Object.values(CAT).map(([n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}</div>`;
 
-/* ---------- ilustración metalmecánica (cercha + grúa) ---------- */
-function cercha(w = 560, h = 230) {
-  const n = 10, x0 = 30, x1 = w - 30, yb = h - 40, yt = 70, dx = (x1 - x0) / n;
-  let s = `<svg viewBox="0 0 ${w} ${h}" class="cercha" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">`;
-  s += `<path d="M${x0} ${yb}H${x1}M${x0} ${yb}L${w / 2} ${yt}L${x1} ${yb}"/>`;
-  for (let i = 1; i < n; i++) { const x = x0 + i * dx; const yt_ = yb - (yb - yt) * (1 - Math.abs(x - w / 2) / (w / 2 - x0)); s += `<path d="M${x} ${yb}V${yt_}"/>`; if (i < n) s += `<path d="M${x} ${yb}L${x + (x < w / 2 ? dx : -dx)} ${yb - (yb - yt) * (1 - Math.abs(x + (x < w / 2 ? dx : -dx) - w / 2) / (w / 2 - x0))}" stroke-opacity=".7"/>`; }
-  s += `<path d="M${x0} ${yb}V${h - 6}M${x1} ${yb}V${h - 6}" stroke-width="4"/><path d="M${w - 150} 20H${w - 40}M${w - 120} 20V${yt + 26}" stroke="#e9730c" stroke-width="3"/><path d="M${w - 126} ${yt + 26}a6 6 0 1 0 12 0" stroke="#e9730c" stroke-width="3"/></svg>`;
-  return s;
-}
-
 /* ---------- login ---------- */
 function renderLogin() {
   S.charts.forEach(c => c.dispose()); S.charts = [];
   $('#app').innerHTML = `
   <div class="login">
     <section class="hero">
-      <div><div class="marca" style="margin-bottom:28px"><span class="logo">${ic('viga', 20)}</span>SteelPlan <small>· Steelser S.A.C.</small></div>
+      <div><img class="logo-g" src="/static/img/logo-steelser.png" alt="Steelser">
         <h1>Fechas de entrega realistas para estructuras metálicas</h1>
-        <p>Cotiza con probabilidad de cumplimiento, sigue cada proyecto en Gantt, registra el tareo y las paradas de planta, y coordina al equipo en un solo lugar.</p></div>
-      ${cercha()}
-      <p class="nota" style="color:#cfe3f7">Prototipo de tesis · UPC Ingeniería Industrial · el modelo usa datos simulados hasta cargar los tareos reales.</p>
+        <p>Cotiza con probabilidad de cumplimiento, sigue cada proyecto, registra el tareo y las paradas de planta y observa la planta en un gemelo 3D, en un solo lugar.</p></div>
+      <p class="nota">SteelPlan · Prototipo de tesis · UPC Ingeniería Industrial · el modelo usa datos simulados hasta cargar los tareos reales.</p>
     </section>
     <section class="panel"><form class="caja" id="flogin">
       <h2>Iniciar sesión</h2><span class="nota">Cada persona entra con su propia cuenta y rol.</span>
       <label>Usuario<input name="usuario" autocomplete="username" required autofocus></label>
       <label>Clave<input name="clave" type="password" autocomplete="current-password" required></label>
       <div class="error" id="lerr"></div>
-      <button class="btn prim" style="justify-content:center">Entrar</button>
+      <button class="btn prim" style="justify-content:center;height:32px">Entrar</button>
       <span class="nota">Cuentas de demostración: ver <code>data/credenciales_demo.txt</code> en la PC del servidor.</span>
     </form></section>
   </div>`;
@@ -140,22 +149,37 @@ const MARCAN_PIEZAS = ['jefe_taller', 'supervisor', 'calidad'];
 function shell(activo, migas, acciones = '') {
   S.charts.forEach(c => c.dispose()); S.charts = [];
   $$('body > .velo, body > .lateral, body > .modal, body > .paleta').forEach(e => e.remove());   // paneles abiertos de la vista anterior
+  document.body.classList.remove('nav-abierto');
+  const gAct = grupoDe(activo);
+  const nav = GRUPOS.filter(g => subsVisibles(g).length).map(g => {
+    const v = subsVisibles(g), on = g === gAct;
+    return `<a href="#/${v[0][0]}" class="${on ? 'activo' : ''}">${ic(g.ic, 16)}${g.t}</a>` +
+      (on && v.length > 1 ? `<div class="sub">${v.map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${t}</a>`).join('')}</div>` : '');
+  }).join('');
+  const oscuro = TEMA.efectivo() === 'oscuro';
   $('#app').innerHTML = `
-  <header class="shell">
-    <div class="marca" onclick="location.hash='#/inicio'"><span class="logo">${ic('viga', 18)}</span>SteelPlan</div>
-    <nav class="menu">${GRUPOS.filter(g => subsVisibles(g).length).map(g => `<a href="#/${subsVisibles(g)[0][0]}" class="${g === grupoDe(activo) ? 'activo' : ''}">${ic(g.ic, 17)}${g.t}</a>`).join('')}</nav>
-    <button class="kbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 16)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
-    <div class="usuario" id="umenu">${avatar(S.me.nombre, S.me.color)}<div><div>${esc(S.me.nombre)}</div><div class="rol">${esc(S.me.rol_nombre.split(' (')[0])}</div></div>
-      <div class="desplegable oculto" id="udrop"><div class="nota" style="padding:8px 10px">${esc(S.me.rol_nombre)}<br>Área: ${esc(S.me.area || '—')}</div>
-      <button id="bsalir">${ic('salir', 16)} Cerrar sesión</button></div></div>
-  </header>
-  ${(() => { const g = grupoDe(activo), v = g ? subsVisibles(g) : []; return v.length > 1 ? `<div class="subnav">${v.map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${t}</a>`).join('')}</div>` : ''; })()}
-  <div class="control"><div class="migas">${migas}</div><div class="acciones">${acciones}</div></div>
-  <main class="contenido" id="main">${cargando()}</main>`;
-  $('#umenu').onclick = e => { e.stopPropagation(); $('#udrop').classList.toggle('oculto'); };
-  document.onclick = () => $('#udrop') && $('#udrop').classList.add('oculto');
+  <div class="layout">
+    <aside class="lat">
+      <div class="marca" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C."><img src="/static/img/logo-steelser.png" alt="Steelser"><small>SteelPlan</small></div>
+      <button class="buscarbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 15)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
+      <nav class="nav">${nav}</nav>
+      <div class="pie">
+        <a href="#/config" class="${activo === 'config' ? 'activo' : ''}">${ic('engranaje', 16)}Configuración</a>
+        <div class="usuario">${avatar(S.me.nombre, S.me.color)}<div class="quien"><b title="${esc(S.me.rol_nombre)}">${esc(S.me.nombre.split(' (')[0])}</b><span class="rol">${esc(S.me.rol_nombre.split(' (')[0])}</span></div>
+          <button class="icono-btn" id="btema" title="${oscuro ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}">${ic(oscuro ? 'sol' : 'luna', 16)}</button>
+          <button class="icono-btn" id="bsalir" title="Cerrar sesión">${ic('salir', 16)}</button></div>
+      </div>
+    </aside>
+    <div class="principal">
+      <div class="control"><div class="migas"><button class="icono-btn hamb" id="bhamb" title="Menú">${ic('lista', 18)}</button>${migas}</div><div class="acciones">${acciones}</div></div>
+      <main class="contenido" id="main">${cargando()}</main>
+    </div>
+  </div>`;
   $('#bsalir').onclick = async () => { await api('/api/logout', { method: 'POST' }); S.me = null; renderLogin(); };
+  $('#btema').onclick = () => { TEMA.fijar(TEMA.efectivo() === 'oscuro' ? 'claro' : 'oscuro'); ruta(); };
   $('#bk').onclick = paleta;
+  $('#bhamb').onclick = () => document.body.classList.toggle('nav-abierto');
+  $('.lat').onclick = e => { if (e.target.closest('a')) document.body.classList.remove('nav-abierto'); };
   return $('#main');
 }
 
@@ -164,6 +188,7 @@ function paleta() {
   if ($('.paleta')) return;
   const acciones = [
     ...GRUPOS.flatMap(g => subsVisibles(g).map(([k, t]) => ({ tipo: 'Ir a', titulo: g.subs.length > 1 ? `${g.t} · ${t}` : t, ruta: '#/' + k, icono: k === 'planta3d' ? 'planta3d' : g.ic }))),
+    { tipo: 'Ir a', titulo: 'Configuración', ruta: '#/config', icono: 'engranaje' },
     ...(puedeVer('cotizador') ? [{ tipo: 'Acción', titulo: 'Nueva cotización', ruta: '#/cotizador', icono: 'cotizador' }] : []),
     ...(puede(['jefe_taller', 'supervisor']) ? [{ tipo: 'Acción', titulo: 'Registrar tareo de hoy', ruta: '#/planta', icono: 'planta' }] : []),
     ...S.cat.proyectos.map(p => ({ tipo: 'Reporte semanal', titulo: `${p.codigo} · ${p.nombre}`, ruta: `#/reporte/${p.id}`, icono: 'reporte' })),
@@ -207,13 +232,13 @@ document.addEventListener('keydown', e => {
 async function vInicio() {
   const m = shell('inicio', `${ic('inicio', 20)} Tablero`);
   const d = await api('/api/dashboard');
-  const apps = [['cotizador', 'Cotizar', '#e9730c'], ['proyectos', 'Proyectos', '#0a6ed1'], ['planta3d', 'Gemelo 3D', '#1a9898'], ['planta', 'Registro diario', '#5b738b'],
-    ['tareas', 'Tareas', '#925ace'], ['bandeja', 'RFI y NC', '#bb0000'], ['importar', 'Importar Excel', '#107e3e'], ['usuarios', 'Usuarios', '#c0399f']]
+  const apps = [['cotizador', 'Cotizar', '#c98a2b'], ['proyectos', 'Proyectos', '#2f6fb8'], ['planta3d', 'Gemelo 3D', '#1a9898'], ['planta', 'Registro diario', '#5b738b'],
+    ['tareas', 'Tareas', '#925ace'], ['bandeja', 'RFI y NC', '#c4453b'], ['importar', 'Importar Excel', '#2e9e6b'], ['usuarios', 'Usuarios', '#c0399f']]
     .filter(a => puedeVer(a[0]));
   const t = d.tareas || {};
   const abiertas = (t.BACKLOG || 0) + (t.POR_HACER || 0) + (t.EN_CURSO || 0) + (t.REVISION || 0);
   m.innerHTML = `
-  <section class="banda">${cercha(640, 200)}
+  <section class="banda">
     <h1>Hola, ${esc(S.me.nombre.split(' (')[0])}</h1><p>Gestión de proyectos de estructuras metálicas · ${new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
     <div class="apps">${apps.map(([k, n, c]) => `<div class="app" onclick="location.hash='#/${k}'"><div class="ic" style="background:${c}">${ic(k, 24)}</div><span>${n}</span></div>`).join('')}</div>
   </section>
@@ -233,13 +258,13 @@ async function vInicio() {
   </div>`;
   chart($('#gotd'), { grid: { left: 40, right: 20, top: 20, bottom: 28 }, tooltip: { trigger: 'axis' },
     xAxis: { type: 'category', data: d.otd_anual.map(r => r.anio) }, yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } },
-    series: [{ type: 'bar', data: d.otd_anual.map(r => ({ value: r.otd_pct, itemStyle: { color: r.otd_pct >= 85 ? '#107e3e' : r.otd_pct >= 70 ? '#0a6ed1' : '#e9730c', borderRadius: [4, 4, 0, 0] } })), barWidth: '55%',
-      label: { show: true, position: 'top', formatter: '{c} %' }, markLine: { symbol: 'none', lineStyle: { color: '#107e3e', type: 'dashed' }, data: [{ yAxis: 85 }], label: { formatter: 'meta' } } }] });
+    series: [{ type: 'bar', data: d.otd_anual.map(r => ({ value: r.otd_pct, itemStyle: { color: r.otd_pct >= 85 ? '#2e9e6b' : r.otd_pct >= 70 ? '#2f6fb8' : '#c98a2b', borderRadius: 0 } })), barWidth: '55%',
+      label: { show: true, position: 'top', formatter: '{c} %' }, markLine: { symbol: 'none', lineStyle: { color: '#2e9e6b', type: 'dashed' }, data: [{ yAxis: 85 }], label: { formatter: 'meta' } } }] });
   const dk = Object.entries(d.disponibilidad);
   chart($('#gdisp'), { grid: { left: 190, right: 40, top: 10, bottom: 20 }, tooltip: { valueFormatter: v => v + ' %' },
     xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } }, yAxis: { type: 'category', data: dk.map(x => x[0]) },
-    series: [{ type: 'bar', data: dk.map(x => ({ value: +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] >= .9 ? '#107e3e' : x[1] >= .75 ? '#0a6ed1' : '#bb0000', borderRadius: 4 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
-      markLine: { symbol: 'none', data: [{ xAxis: 90 }], lineStyle: { type: 'dashed', color: '#107e3e' }, label: { formatter: 'meta 90 %' } } }] });
+    series: [{ type: 'bar', data: dk.map(x => ({ value: +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] >= .9 ? '#2e9e6b' : x[1] >= .75 ? '#2f6fb8' : '#c4453b', borderRadius: 0 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
+      markLine: { symbol: 'none', data: [{ xAxis: 90 }], lineStyle: { type: 'dashed', color: '#2e9e6b' }, label: { formatter: 'meta 90 %' } } }] });
   const act = await api('/api/proyectos_activos');
   $('#tact').innerHTML = tablaActivos(act.filter(a => a.estado === 'EN_CURSO'));
 }
@@ -452,13 +477,13 @@ async function tabSemanas(id) {
   chart($('#gsem'), { grid: { left: 60, right: 50, top: 30, bottom: 40 }, tooltip: { trigger: 'axis' }, legend: { bottom: 0 },
     xAxis: { type: 'category', data: s.map(x => 'S' + x.n) }, yAxis: [{ type: 'value', name: 'kg' }, { type: 'value', name: 'HH', splitLine: { show: false } }],
     series: [{ name: 'kg plan', type: 'bar', data: s.map(x => x.plan_kg), itemStyle: { color: '#c3ccd5' } },
-      ...(d.tiene_piezas ? [{ name: 'kg real', type: 'bar', data: s.map(x => x.real_kg), itemStyle: { color: '#0a6ed1' } }] : []),
+      ...(d.tiene_piezas ? [{ name: 'kg real', type: 'bar', data: s.map(x => x.real_kg), itemStyle: { color: '#2f6fb8' } }] : []),
       { name: 'HH plan', type: 'line', yAxisIndex: 1, data: s.map(x => x.plan_hh), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-      { name: 'HH real', type: 'line', yAxisIndex: 1, data: s.map(x => x.real_hh), itemStyle: { color: '#e9730c' }, lineStyle: { color: '#e9730c', width: 2 } }] });
+      { name: 'HH real', type: 'line', yAxisIndex: 1, data: s.map(x => x.real_hh), itemStyle: { color: '#c98a2b' }, lineStyle: { color: '#c98a2b', width: 2 } }] });
   if (hp.length) chart($('#ghp'), { grid: { left: 50, right: 20, top: 20, bottom: 30 }, tooltip: { trigger: 'axis', valueFormatter: v => v + ' %' },
     xAxis: { type: 'category', data: hp.map(x => fmtCorta(x.fecha)) }, yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } },
-    series: [{ type: 'line', data: hp.map(x => ({ value: +(100 * x.prob_cumplir).toFixed(1), itemStyle: { color: { VERDE: '#107e3e', AMBAR: '#e9730c', ROJO: '#bb0000' }[x.semaforo] } })),
-      lineStyle: { color: '#0a6ed1' }, symbolSize: 9 }] });
+    series: [{ type: 'line', data: hp.map(x => ({ value: +(100 * x.prob_cumplir).toFixed(1), itemStyle: { color: { VERDE: '#2e9e6b', AMBAR: '#c98a2b', ROJO: '#c4453b' }[x.semaforo] } })),
+      lineStyle: { color: '#2f6fb8' }, symbolSize: 9 }] });
 }
 
 async function tabCurva(id) {
@@ -474,12 +499,12 @@ async function tabCurva(id) {
     <p class="nota">Plan: el programa P50 de la cotización repartido por etapas (habilitado, armado, soldeo, liberación, granallado, pintura, despacho) con sus pesos. Real: cada pieza suma su peso × peso de la etapa en la fecha en que se completó.</p></div></div>
   <div class="tarjeta"><h3>Curva S · horas-hombre (P50 cotizado vs. tareo)</h3><div class="cuerpo"><div class="grafico bajo" id="gch"></div></div></div>`;
   const x = c.fechas.map(f => f.slice(5).split('-').reverse().join('/'));
-  const marcas = [{ name: 'hoy', xAxis: c.hoy.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#e9730c' } }];
-  if (c.comprometida && c.fechas.includes(c.comprometida)) marcas.push({ name: 'comprometida', xAxis: c.comprometida.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#bb0000' } });
+  const marcas = [{ name: 'hoy', xAxis: c.hoy.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c98a2b' } }];
+  if (c.comprometida && c.fechas.includes(c.comprometida)) marcas.push({ name: 'comprometida', xAxis: c.comprometida.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c4453b' } });
   const op = (plan, real, unidad) => ({ grid: { left: 60, right: 20, top: 30, bottom: 40 }, tooltip: { trigger: 'axis', valueFormatter: v => v == null ? '—' : fmtNum(v) + ' ' + unidad },
     legend: { bottom: 0 }, xAxis: { type: 'category', data: x, boundaryGap: false }, yAxis: { type: 'value', name: unidad },
     series: [{ name: 'Planificado (P50)', type: 'line', data: plan, showSymbol: false, itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', width: 2, color: '#5b738b' } },
-      { name: 'Real', type: 'line', data: real, showSymbol: false, connectNulls: false, itemStyle: { color: '#0a6ed1' }, lineStyle: { width: 3, color: '#0a6ed1' }, areaStyle: { color: 'rgba(27,144,255,.15)' },
+      { name: 'Real', type: 'line', data: real, showSymbol: false, connectNulls: false, itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' }, areaStyle: { color: 'rgba(27,144,255,.15)' },
         markLine: { symbol: 'none', label: { formatter: p => p.name }, data: marcas } }] });
   chart($('#gcs'), op(c.plan_kg, c.real_kg, 'kg'));
   chart($('#gch'), op(c.plan_hh, c.real_hh, 'HH'));
@@ -567,7 +592,7 @@ async function vGantt() {
   const anios = [...new Set(d.historico.map(r => r.anio))].sort((a, b) => b - a);
   $('#gan').innerHTML += anios.map(a => `<option value="${a}">${a}</option>`).join('');
   $('#gan').value = d.activos.length ? 'activos' : String(anios[0]);
-  m.innerHTML = `<div class="tarjeta"><h3>Proyectos en el tiempo <span class="leyenda" style="margin:0"><span><i style="background:#9bd3ae"></i>Cumplió</span><span><i style="background:#f2a3a3"></i>Con retraso</span><span><i style="background:#1b90ff"></i>En curso</span></span></h3>
+  m.innerHTML = `<div class="tarjeta"><h3>Proyectos en el tiempo <span class="leyenda" style="margin:0"><span><i style="background:#9bd3ae"></i>Cumplió</span><span><i style="background:#f2a3a3"></i>Con retraso</span><span><i style="background:#5b95dc"></i>En curso</span></span></h3>
     <div class="cuerpo"><div class="gantt-wrap" id="gt"></div><p class="nota">Barra = inicio → entrega real (histórico) o → entrega comprometida (en curso). Clic en una barra para abrir el proyecto.</p></div></div>`;
   let modo = 'Month';
   const dib = () => {
@@ -648,16 +673,16 @@ function resultadoCot(r, s) {
     xAxis: { type: 'category', data: c.map(x => x.fecha.slice(5).split('-').reverse().join('/')) },
     yAxis: [{ type: 'value', max: 100, name: 'P(cumplir) %', axisLabel: { formatter: '{value}' } }, { type: 'value', name: 'USD', splitLine: { show: false } }],
     series: [
-      { name: 'Probabilidad de cumplir', type: 'line', smooth: true, showSymbol: false, data: c.map(x => +(100 * x.prob).toFixed(1)), itemStyle: { color: '#0a6ed1' }, lineStyle: { width: 3, color: '#0a6ed1' }, areaStyle: { color: 'rgba(27,144,255,.12)' },
+      { name: 'Probabilidad de cumplir', type: 'line', smooth: true, showSymbol: false, data: c.map(x => +(100 * x.prob).toFixed(1)), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' }, areaStyle: { color: 'rgba(27,144,255,.12)' },
         markLine: { symbol: 'none', label: { formatter: p => p.name }, data: [
-          { name: 'recomendada', xAxis: r.fecha_recomendada.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#107e3e' } },
-          { name: 'método actual', xAxis: r.fecha_metodo_actual.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#bb0000' } },
+          { name: 'recomendada', xAxis: r.fecha_recomendada.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#2e9e6b' } },
+          { name: 'método actual', xAxis: r.fecha_metodo_actual.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c4453b' } },
           ...(r.pedida ? [{ name: 'pedida', xAxis: r.pedida.fecha.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#925ace' } }] : [])].filter(x => c.some(y => y.fecha.slice(5).split('-').reverse().join('/') === x.xAxis)) } },
-      { name: 'Penalidad esperada', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.pen), itemStyle: { color: '#bb0000' }, lineStyle: { type: 'dashed', color: '#bb0000' } },
-      { name: 'Costo total (penalidad + plazo largo)', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.costo), itemStyle: { color: '#e9730c' }, lineStyle: { color: '#e9730c', width: 2 } },
+      { name: 'Penalidad esperada', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.pen), itemStyle: { color: '#c4453b' }, lineStyle: { type: 'dashed', color: '#c4453b' } },
+      { name: 'Costo total (penalidad + plazo largo)', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.costo), itemStyle: { color: '#c98a2b' }, lineStyle: { color: '#c98a2b', width: 2 } },
     ] });
   chart($('#ghist'), { grid: { left: 40, right: 10, top: 10, bottom: 40 }, tooltip: {}, xAxis: { type: 'category', data: r.histograma_fechas.map(f => f.slice(5).split('-').reverse().join('/')) },
-    yAxis: { type: 'value', name: 'réplicas' }, series: [{ type: 'bar', data: r.histograma, itemStyle: { color: '#1b90ff', borderRadius: [3, 3, 0, 0] } }] });
+    yAxis: { type: 'value', name: 'réplicas' }, series: [{ type: 'bar', data: r.histograma, itemStyle: { color: '#5b95dc', borderRadius: [3, 3, 0, 0] } }] });
   gantt($('#gcot'), r.gantt);
   const bc = $('#bcrear');
   if (bc) bc.onclick = () => modalProyecto(r, s);
@@ -910,9 +935,9 @@ async function vReporte(id, qs = '') {
     xAxis: { type: 'category', data: s.map(x => 'S' + x.n) }, yAxis: { type: 'value', name: d.avance_fisico != null ? 'kg' : 'HH' },
     series: d.avance_fisico != null
       ? [{ name: 'Plan kg', type: 'line', data: s.map(x => x.plan_kg_acum), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-        { name: 'Real kg', type: 'line', data: s.map(x => x.real_kg_acum), itemStyle: { color: '#0a6ed1' }, lineStyle: { width: 3, color: '#0a6ed1' } }]
+        { name: 'Real kg', type: 'line', data: s.map(x => x.real_kg_acum), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' } }]
       : [{ name: 'Plan HH', type: 'line', data: s.map(x => x.plan_hh_acum), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-        { name: 'Real HH', type: 'line', data: s.map(x => x.real_hh_acum), itemStyle: { color: '#0a6ed1' }, lineStyle: { width: 3, color: '#0a6ed1' } }] });
+        { name: 'Real HH', type: 'line', data: s.map(x => x.real_hh_acum), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' } }] });
 }
 
 /* =====================================================================  USUARIOS */
@@ -1015,7 +1040,7 @@ async function vPlanta3D() {
       h += fila('Lotes esperando habilitado', cola) + '</div><h5>Últimos 14 días</h5><div id="p3ch" style="height:170px"></div><div id="p3pm"></div>';
       setTimeout(async () => { const d = await api(`/api/gemelo/maquina/${ref.k}?t=${st.t}&politica=${st.pol}`); if (!$('#p3ch')) return;
         const c = chart($('#p3ch'), { grid: { left: 36, right: 8, top: 14, bottom: 22 }, tooltip: { trigger: 'axis' }, legend: { top: 0, right: 0, itemWidth: 10, textStyle: { fontSize: 10 } }, xAxis: { type: 'category', data: d.dias.map(x => x.fecha.slice(5)), axisLabel: { fontSize: 9 } }, yAxis: { type: 'value', max: 24, axisLabel: { fontSize: 9 } },
-          series: [{ name: 'Horas trabajadas', type: 'bar', stack: 'a', data: d.dias.map(x => x.uso_h), itemStyle: { color: '#1b90ff' } }, { name: 'Horas en parada', type: 'bar', stack: 'a', data: d.dias.map(x => x.parada_h), itemStyle: { color: '#e74c3c' } }] }); P3.charts.push(c);
+          series: [{ name: 'Horas trabajadas', type: 'bar', stack: 'a', data: d.dias.map(x => x.uso_h), itemStyle: { color: '#5b95dc' } }, { name: 'Horas en parada', type: 'bar', stack: 'a', data: d.dias.map(x => x.parada_h), itemStyle: { color: '#e74c3c' } }] }); P3.charts.push(c);
         const uso = d.dias.reduce((a, x) => a + x.uso_h, 0), disp = d.dias.reduce((a, x) => a + 8 - Math.min(8, x.parada_h), 0);
         $('#p3pm').innerHTML = `<div class="p3-fs">${fila('Utilización (14 d, turno de 8 h)', pct(Math.min(1, uso / (8 * 14))))}${fila('Disponibilidad (14 d)', pct(disp / (8 * 14)))}${fila('Operaciones hasta hoy', fmtNum(d.operaciones))}</div>` + (d.paradas.length ? `<h5>Paradas recientes</h5>${d.paradas.slice(-5).map(p => `<div class="p3-i"><span style="color:var(--gris)">${horaTxt(p.t_ini)}</span><b>${esc(p.causa)}</b><span>${dur(p.horas)} de trabajo</span></div>`).join('')}` : ''); }, 30);
       return h;
@@ -1049,7 +1074,7 @@ async function vPlanta3D() {
       <h5>Cómo habría terminado con cada política</h5><table class="tabla p3-t"><tr><th>Política</th><th>Compromiso</th><th>Terminó</th><th>Tarde</th><th>Palancas</th></tr>${d.politicas.map(r => `<tr><td>${esc(r.politica.slice(0, 2))} ${esc(NOM_POL[r.politica.slice(0, 2)] || '')}</td><td>${fmtCorta(r.compromiso)}</td><td>${fmtCorta(r.fin)}</td><td style="color:${r.tarde > 0 ? 'var(--rojo)' : 'var(--verde)'}">${r.tarde}</td><td>${r.costo ? fmtNum(r.costo, 1) + ' %' : '—'}</td></tr>`).join('')}</table>
       <h5>Avance acumulado entregado (kg)</h5><div id="p3cu" style="height:210px"></div>`;
     if (d.palancas.length) h += `<h5>Palancas aplicadas (DSS y regla)</h5>${d.palancas.slice(0, 12).map(p => `<div class="p3-i"><span>${esc(p.politica.slice(0, 2))} · ${horaTxt(p.t).slice(0, 10)}</span><b>${esc(p.tipo)} ${esc(NOMBRE_PROC_G[p.proceso] || p.proceso)}</b><span>${fmtNum(p.costo, 1)} %</span></div>`).join('')}`;
-    setTimeout(() => { if (!$('#p3cu')) return; const cols = { A0: '#5b738b', B1: '#e9730c', D3: '#925ace', D4: '#107e3e' }; const c = chart($('#p3cu'), { grid: { left: 48, right: 10, top: 24, bottom: 24 }, tooltip: { trigger: 'axis' }, legend: { top: 0, textStyle: { fontSize: 10 } }, xAxis: { type: 'value', min: 'dataMin', axisLabel: { fontSize: 9, formatter: v => horaTxt(v).slice(0, 5) } }, yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
+    setTimeout(() => { if (!$('#p3cu')) return; const cols = { A0: '#5b738b', B1: '#c98a2b', D3: '#925ace', D4: '#2e9e6b' }; const c = chart($('#p3cu'), { grid: { left: 48, right: 10, top: 24, bottom: 24 }, tooltip: { trigger: 'axis' }, legend: { top: 0, textStyle: { fontSize: 10 } }, xAxis: { type: 'value', min: 'dataMin', axisLabel: { fontSize: 9, formatter: v => horaTxt(v).slice(0, 5) } }, yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
       series: Object.entries(d.curvas).map(([k, v]) => ({ name: k + ' ' + (NOM_POL[k] || ''), type: 'line', step: 'end', showSymbol: false, data: v.t.map((t, i) => [t, v.kg[i]]), lineStyle: { color: cols[k], width: 2 }, itemStyle: { color: cols[k] } })) }); P3.charts.push(c); }, 30);
     return h + `<p class="nota">${esc(d.aviso)}</p>`;
   }
@@ -1083,7 +1108,41 @@ async function vPlanta3D() {
   };
   $('#p3t').onchange = e => P3.escena.techos(e.target.checked); $('#p3e').onchange = e => P3.escena.etiquetas(e.target.checked);
   $('#p3pol').value = st.pol; $('#p3p').value = st.pid; ajustarSlider();
+  $('#p3t').checked = PREFS.get('techos', true); P3.escena.techos($('#p3t').checked); $('#p3e').checked = PREFS.get('etiquetas', true); P3.escena.etiquetas($('#p3e').checked);
+  st.vel = PREFS.get('vel', 3); $('#p3vel').value = String(st.vel); if (PREFS.get('limpio', false)) { $('#p3lim').checked = true; $('.p3d').classList.add('limpio'); }
   await cargar(Math.floor(tDeFecha(P().ini, 9) + 24 * 12)); panel();
+}
+
+/* =====================================================================  CONFIGURACIÓN */
+async function vConfig() {
+  const m = shell('config', `${ic('engranaje', 18)} Configuración`);
+  const pref = TEMA.pref();
+  const op = (k, t) => `<button class="tema-op ${pref === k ? 'activo' : ''}" data-tema="${k}"><i class="${k}"></i><span>${t}</span></button>`;
+  const inter = (id, on) => `<input type="checkbox" class="interruptor" id="${id}" ${on ? 'checked' : ''}>`;
+  m.innerHTML = `<div class="config grid">
+    <div class="tarjeta"><h3>Apariencia</h3><div class="cuerpo">
+      <div class="fila"><div><b>Tema</b><span class="nota">Claro, oscuro o el que use tu sistema. Se recuerda en este navegador.</span></div><div class="temas">${op('claro', 'Claro')}${op('oscuro', 'Oscuro')}${op('sistema', 'Sistema')}</div></div>
+    </div></div>
+    <div class="tarjeta"><h3>Gemelo 3D</h3><div class="cuerpo">
+      <div class="fila"><div><b>Mostrar techos de las naves</b><span class="nota">Al acercar la cámara el techo se abre solo.</span></div>${inter('c-techos', PREFS.get('techos', true))}</div>
+      <div class="fila"><div><b>Mostrar etiquetas</b><span class="nota">Nombres de naves, máquinas y zonas sobre la escena.</span></div>${inter('c-etiquetas', PREFS.get('etiquetas', true))}</div>
+      <div class="fila"><div><b>Velocidad de reproducción inicial</b></div><select id="c-vel">${[['1', '1 h por segundo'], ['3', '3 h por segundo'], ['8', '8 h por segundo'], ['24', '1 día por segundo'], ['72', '3 días por segundo']].map(([v, t]) => `<option value="${v}" ${String(PREFS.get('vel', 3)) === v ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+      <div class="fila"><div><b>Modo limpio al abrir</b><span class="nota">Oculta paneles e indicadores y deja solo la escena y la barra de tiempo.</span></div>${inter('c-limpio', PREFS.get('limpio', false))}</div>
+    </div></div>
+    <div class="tarjeta"><h3>Cuenta</h3><div class="cuerpo">
+      <div class="fila"><div><b>${esc(S.me.nombre)}</b><span class="nota">Usuario ${esc(S.me.usuario)} · ${esc(S.me.rol_nombre)} · Área: ${esc(S.me.area || '—')}</span></div><button class="btn" id="c-salir">${ic('salir', 15)} Cerrar sesión</button></div>
+    </div></div>
+    <div class="tarjeta"><h3>Acerca de SteelPlan</h3><div class="cuerpo">
+      <div class="fila"><div><b>SteelPlan para Steelser S.A.C.</b><span class="nota">Plataforma de cotización probabilística de fechas, gestión de proyectos y gemelo digital de la planta. Prototipo de la tesis de Ingeniería Industrial (UPC).</span></div><img src="/static/img/marca.png" alt="" style="height:34px"></div>
+      <div class="fila"><div><b>Datos</b><span class="nota">Los modelos, el gemelo 3D y los resultados usan datos <b>simulados</b> calibrados a las fechas reales de la Tabla 3, hasta cargar los tareos reales con el formato único.</span></div></div>
+      <div class="fila"><div><b>Atajos</b><span class="nota"><kbd>Ctrl</kbd> <kbd>K</kbd> abre el buscador de proyectos, tareas, piezas y vistas.</span></div></div>
+    </div></div></div>`;
+  $$('.tema-op').forEach(b => b.onclick = () => { TEMA.fijar(b.dataset.tema); ruta(); });
+  $('#c-techos').onchange = e => PREFS.set('techos', e.target.checked);
+  $('#c-etiquetas').onchange = e => PREFS.set('etiquetas', e.target.checked);
+  $('#c-limpio').onchange = e => PREFS.set('limpio', e.target.checked);
+  $('#c-vel').onchange = e => PREFS.set('vel', +e.target.value);
+  $('#c-salir').onclick = async () => { await api('/api/logout', { method: 'POST' }); S.me = null; renderLogin(); };
 }
 
 /* =====================================================================  ruteo */
@@ -1099,6 +1158,7 @@ async function ruta() {
     if (v === 'gantt') return await vGantt();
     if (v === 'reporte') return await vReporte(a, qs);
     if (v === 'cotizador' && puedeVer('cotizador')) return await vCotizador();
+    if (v === 'config') return await vConfig();
     if (v === 'planta3d') return await vPlanta3D();
     if (v === 'planta' && puedeVer('planta')) return await vPlanta(qs);
     if (v === 'tareas') return await vTareas(qs);

@@ -2,9 +2,11 @@
 
 Frontend tipo ERP (estructura Odoo, colores SAP Fiori celeste, iconografía metalmecánica) para gestionar los proyectos y cotizar plazos. Reemplaza al prototipo Streamlit como interfaz principal; Streamlit queda como herramienta de análisis.
 
-## Navegación
+## Diseño y navegación
 
-El menú superior tiene 5 grupos y, bajo él, una sub-navegación del grupo activo: **Inicio**, **Cotizar** (el núcleo del DSS), **Proyectos** (lista, Gantt, tareas, RFI y NC), **Planta** (Gemelo 3D y registro diario de tareo y paradas) y **Datos** (importar el formato único y usuarios). Los grupos se filtran por rol. El buscador Ctrl+K sigue siendo un atajo global a cualquier vista.
+Estilo minimalista tipo Linear: barra lateral fija con el logo de Steelser, buscador (Ctrl+K), cinco grupos y, al final, **Configuración** y el usuario; bordes rectos, líneas finas, paleta neutra con el azul del logo y densidad compacta. **Modo claro y oscuro** (o el del sistema), que se elige en Configuración o con el botón de la barra lateral y se recuerda en el navegador; los gráficos y el Gantt cambian con el tema. En pantallas angostas la barra lateral se abre con un botón de menú. Configuración también guarda las preferencias del Gemelo 3D (techos, etiquetas, velocidad y modo limpio) y muestra la cuenta y datos de la versión.
+
+Los cinco grupos, con la sub-navegación del grupo activo en la barra lateral: **Inicio**, **Cotizar** (el núcleo del DSS), **Proyectos** (lista, Gantt, tareas, RFI y NC), **Planta** (Gemelo 3D y registro diario de tareo y paradas) y **Datos** (importar el formato único y usuarios). Los grupos se filtran por rol. El buscador Ctrl+K sigue siendo un atajo global a cualquier vista.
 
 ## 1. Cómo se abre (el "enlace")
 
