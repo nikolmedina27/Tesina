@@ -61,8 +61,9 @@ def layout():
     el('grua', 'Puente grúa B (10 t)', 72.5, 15, 42, 3, 8.0, capacidad=10, nave='B')
     for i, (x, z) in enumerate([(5, 24), (5, 20), (5, 16)], 1):
         el('rack', f'Rack de perfiles R{i}', x, z, 2.2, 8, 3.5, capacidad=12000)
-    for nombre, x, p in zip(MAQ_NOMBRE, (12, 22, 32, 41), (3, 4, 5, 6)):
-        el('maquina', nombre, x, 6, 4.0 if p != 5 else 7.0, 3.0 if p != 5 else 4.0, 2.2, proceso=p, centro=nombre, cap=8.0)
+    # cada máquina incluye sus mesas de rodillos y equipos auxiliares; van en fila a lo largo de la pared sur de la nave A
+    for nombre, x, p, w, d in zip(MAQ_NOMBRE, (6.5, 17.2, 27.0, 36.4), (3, 4, 5, 6), (11.0, 8.6, 8.4, 8.0), (3.4, 3.0, 6.6, 3.4)):
+        el('maquina', nombre, x, 6, w, d, 3.2, proceso=p, centro=nombre, cap=8.0)
     for i in range(6):
         el('mesa', f'Mesa de armado M{i + 1}', 56 + (i % 3) * 11, 7 + (i // 3) * 9, 8, 4, 1.0, proceso=8, cap=3)
     for i in range(8):

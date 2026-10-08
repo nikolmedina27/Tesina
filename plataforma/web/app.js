@@ -67,7 +67,7 @@ async function api(url, opt = {}) {
   return j;
 }
 function toast(msg, err) { const t = document.createElement('div'); t.className = 'toast' + (err ? ' err' : ''); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3800); }
-const cargando = () => '<div class="cargando"><div class="spin"></div></div>';
+const cargando = () => '<div class="esq" aria-busy="true"><i></i><i></i><i></i></div>';
 /* ---------- tema (claro, oscuro, sistema) y preferencias locales ---------- */
 const TEMA = {
   pref() { try { return localStorage.getItem('sp_tema') || 'sistema'; } catch { return 'sistema'; } },
@@ -86,7 +86,15 @@ echarts.registerTheme('sp-oscuro', { backgroundColor: 'transparent', textStyle: 
   categoryAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisTick: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } },
   valueAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } },
   timeAxis: { axisLine: { lineStyle: { color: '#34363d' } }, axisLabel: { color: '#a1a4ad' }, splitLine: { lineStyle: { color: '#26272d' } } } });
-function chart(el, option) { const c = echarts.init(el, TEMA.efectivo() === 'oscuro' ? 'sp-oscuro' : null); c.setOption(option); S.charts.push(c); return c; }
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* colores de los gráficos: salen de los tokens de styles.css (siguen el tema claro u oscuro) */
+const C = { get verde() { return css('--verde'); }, get acento() { return css('--acento'); }, get acentoM() { return css('--acento-m'); }, get ambar() { return css('--ambar'); },
+  get rojo() { return css('--rojo'); }, get morado() { return css('--morado'); }, get gris() { return css('--texto-2'); }, get borde() { return css('--borde-2'); } };
+echarts.registerTheme('sp-claro', { backgroundColor: 'transparent', textStyle: { color: '#5c6068' },
+  categoryAxis: { axisLine: { lineStyle: { color: '#d2d4d9' } }, axisTick: { show: false }, splitLine: { show: false } },
+  valueAxis: { axisLine: { show: false }, axisTick: { show: false }, splitLine: { lineStyle: { color: '#eceef1' } } },
+  timeAxis: { axisLine: { lineStyle: { color: '#d2d4d9' } }, splitLine: { lineStyle: { color: '#eceef1' } } } });
+function chart(el, option) { const c = echarts.init(el, TEMA.efectivo() === 'oscuro' ? 'sp-oscuro' : 'sp-claro'); c.setOption(option); S.charts.push(c); return c; }
 window.addEventListener('resize', () => S.charts.forEach(c => c.resize()));
 
 /* ---------- Gantt ---------- */
@@ -115,8 +123,8 @@ function renderLogin() {
     <section class="hero">
       <div><img class="logo-g" src="/static/img/logo-steelser.png" alt="Steelser">
         <h1>Fechas de entrega realistas para estructuras metálicas</h1>
-        <p>Cotiza con probabilidad de cumplimiento, sigue cada proyecto, registra el tareo y las paradas de planta y observa la planta en un gemelo 3D, en un solo lugar.</p></div>
-      <p class="nota">SteelPlan · Prototipo de tesis · UPC Ingeniería Industrial · el modelo usa datos simulados hasta cargar los tareos reales.</p>
+        <p>Cotiza, sigue cada proyecto y observa la planta en un solo lugar.</p></div>
+      <p class="nota">Prototipo de tesis · UPC Ingeniería Industrial · datos simulados hasta cargar los tareos reales.</p>
     </section>
     <section class="panel"><form class="caja" id="flogin">
       <h2>Iniciar sesión</h2><span class="nota">Cada persona entra con su propia cuenta y rol.</span>
@@ -164,6 +172,7 @@ document.addEventListener('keydown', e => {
 });
 S.exp = new Set(); S.actT = 0;
 const PA_TABS = [['res', 'Resumen y Gantt', 'gantt'], ['pie', 'Piezas y avance', 'viga'], ['cur', 'Curva S', 'curva'], ['sem', 'Semanas', 'semana'], ['log', 'Compras y eventos', 'camion']];
+const SEM_T = { v: 'En camino', a: 'En riesgo', r: 'Atraso probable', n: 'Sin pronóstico' };
 function semActivo(a) {
   if (a.estado === 'PAUSADO') return 'n';
   const venc = a.fecha_comprometida && a.fecha_comprometida.slice(0, 10) < hoyISO() && (a.avance_fisico ?? a.avance) < 100;
@@ -184,7 +193,7 @@ function pintarActivos() {
       const abierto = a.id === idAct || S.exp.has(a.id), av = a.avance_fisico ?? a.avance;
       const tab = (k, t, i, href) => `<a href="${href}" class="${a.id === idAct && tabAct === k ? 'activo' : ''}">${ic(i, 14)}${t}</a>`;
       return `<div class="pa ${abierto ? 'abierto' : ''}"><a class="pa-h ${a.id === idAct && !abierto ? 'activo' : ''}" href="#/proyecto/a/${a.id}" title="${esc(a.nombre)}">
-        <span class="chev" data-pa="${a.id}">${ic('chev', 12)}</span><i class="sem ${semActivo(a)}"></i><span class="cod">${esc(a.codigo)}</span>${av != null ? `<em>${Math.round(av)} %</em>` : ''}</a>` +
+        <span class="chev" data-pa="${a.id}">${ic('chev', 12)}</span><i class="sem ${semActivo(a)}" role="img" aria-label="${SEM_T[semActivo(a)]}" title="${SEM_T[semActivo(a)]}"></i><span class="cod">${esc(a.codigo)}</span>${av != null ? `<em>${Math.round(av)} %</em>` : ''}</a>` +
         (abierto ? `<div class="sub">${PA_TABS.map(([k, t, i]) => tab(k, t, i, `#/proyecto/a/${a.id}${k === 'res' ? '' : '?tab=' + k}`)).join('')}${tab('tar', 'Tareas', 'tareas', `#/tareas?p=${a.id}`)}</div>` : '') + `</div>`;
     }).join('') || '<div class="nota vacio-lat">Sin proyectos en curso</div>') +
     (lista.length > mostrar.length ? `<a class="vermas" href="#/proyectos">Ver todos (${lista.length})…</a>` : '');
@@ -194,6 +203,7 @@ async function refrescarActivos() {
   if (Date.now() - S.actT < 10000) return;
   S.actT = Date.now();
   try { S.activos = await api('/api/proyectos_activos'); pintarActivos(); } catch (e) { S.actT = 0; }
+  try { S.bloq = (await api('/api/tareas')).filter(t => t.tipo === 'BLOQUEO' && t.estado !== 'HECHO').length; const c = $('#cbloq'); if (c) { c.textContent = S.bloq || ''; c.classList.toggle('oculto', !S.bloq); } } catch (e) { }
 }
 function shell(activo, migas, acciones = '') {
   S.charts.forEach(c => c.dispose()); S.charts = [];
@@ -202,14 +212,14 @@ function shell(activo, migas, acciones = '') {
   const gAct = grupoDe(activo);
   const nav = GRUPOS.filter(g => subsVisibles(g).length).map(g => {
     const v = subsVisibles(g), on = g === gAct;
-    return `<a href="#/${v[0][0]}" class="${on ? 'activo' : ''}">${ic(g.ic, 16)}${g.t}</a>` +
+    return `<a href="#/${v[0][0]}" class="${on ? 'activo' : ''}" ${on ? 'aria-current="page"' : ''}>${ic(g.ic, 16)}${g.t}${g.k === 'proyectos' ? `<span class="cont ${S.bloq ? '' : 'oculto'}" id="cbloq" title="Tareas bloqueadas">${S.bloq || ''}</span>` : ''}</a>` +
       (on && v.length > 1 ? `<div class="sub">${v.map(([k, t]) => `<a href="#/${k}" class="${k === activo ? 'activo' : ''}">${t}</a>`).join('')}</div>` : '');
   }).join('');
   const oscuro = TEMA.efectivo() === 'oscuro';
   $('#app').innerHTML = `
   <div class="layout">
     <aside class="lat">
-      <div class="marca"><img src="/static/img/logo-steelser.png" alt="Steelser" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C."><small>SteelPlan</small>
+      <div class="marca"><img src="/static/img/logo-steelser.png" alt="Steelser" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C.">
         <button class="icono-btn" id="bocultar" title="Ocultar barra ( [ )">${ic('panel', 16)}</button></div>
       <button class="buscarbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 15)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
       <nav class="nav">${nav}</nav>
@@ -225,12 +235,18 @@ function shell(activo, migas, acciones = '') {
       <div class="control"><div class="migas"><button class="icono-btn hamb" id="bhamb" title="Mostrar menú ( [ )">${ic('panel', 18)}</button>${migas}</div><div class="acciones">${acciones}</div></div>
       <main class="contenido" id="main">${cargando()}</main>
     </div>
+    <nav class="tabbar">
+      <a href="#/proyectos" class="${grupoDe(activo)?.k === 'proyectos' && activo !== 'tareas' ? 'activo' : ''}">${ic('proyectos', 20)}<span>Proyectos</span></a>
+      <a href="#/tareas" class="${activo === 'tareas' ? 'activo' : ''}">${ic('tareas', 20)}<span>Tareas</span></a>
+      ${puedeVer('planta') ? `<a href="#/planta" class="${activo === 'planta' ? 'activo' : ''}">${ic('planta', 20)}<span>Registro</span></a>` : ''}
+      <button id="btb">${ic('buscar', 20)}<span>Buscar</span></button>
+    </nav>
   </div>`;
   $('#bsalir').onclick = async () => { await api('/api/logout', { method: 'POST' }); S.me = null; renderLogin(); };
   $('#btema').onclick = () => { TEMA.fijar(TEMA.efectivo() === 'oscuro' ? 'claro' : 'oscuro'); ruta(); };
   $('#bconf').onclick = () => { location.hash = '#/config'; };
   $('#busr').onclick = e => { e.stopPropagation(); $('#musr').classList.toggle('oculto'); };
-  $('#bk').onclick = paleta;
+  $('#bk').onclick = paleta; $('#btb').onclick = paleta;
   $('#bocultar').onclick = alternarLateral;
   $('#bhamb').onclick = alternarLateral;
   $('.lat').onclick = e => { if (e.target.closest('a')) document.body.classList.remove('nav-abierto'); };
@@ -287,45 +303,40 @@ document.addEventListener('keydown', e => {
 async function vInicio() {
   const m = shell('inicio', `${ic('inicio', 20)} Tablero`);
   const d = await api('/api/dashboard');
-  const apps = [['cotizador', 'Cotizar', '#c98a2b'], ['proyectos', 'Proyectos', '#2f6fb8'], ['planta3d', 'Gemelo 3D', '#1a9898'], ['planta', 'Registro diario', '#5b738b'],
-    ['tareas', 'Tareas', '#925ace'], ['bandeja', 'RFI y NC', '#c4453b'], ['importar', 'Importar Excel', '#2e9e6b'], ['usuarios', 'Usuarios', '#c0399f']]
-    .filter(a => puedeVer(a[0]));
+  const act = await api('/api/proyectos_activos');
   const t = d.tareas || {};
   const abiertas = (t.BACKLOG || 0) + (t.POR_HACER || 0) + (t.EN_CURSO || 0) + (t.REVISION || 0);
+  const enCurso = act.filter(a => a.estado === 'EN_CURSO');
   m.innerHTML = `
-  <section class="banda">
-    <h1>Hola, ${esc(S.me.nombre.split(' (')[0])}</h1><p>Gestión de proyectos de estructuras metálicas · ${new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
-    <div class="apps">${apps.map(([k, n, c]) => `<div class="app" onclick="location.hash='#/${k}'"><div class="ic" style="background:${c}">${ic(k, 24)}</div><span>${n}</span></div>`).join('')}</div>
-  </section>
+  <section class="saludo"><h1>Hola, ${esc(S.me.nombre.split(' (')[0].split(' ')[0])}</h1><p>${new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p></section>
   <div class="kpis">
-    ${kpi('Cumplimiento histórico', d.historico.otd + ' %', `${d.historico.proyectos - d.historico.atrasados} de ${d.historico.proyectos} proyectos 2019-2026`, d.historico.otd >= 85 ? 'ver' : 'nar', 'check')}
-    ${kpi('Proyectos con retraso', d.historico.atrasados, `retraso promedio ${d.historico.retraso_prom} días`, 'roj', 'alerta')}
-    ${kpi('Proyectos en curso', d.activos.length, 'seguimiento prospectivo', '', 'proyectos')}
-    ${kpi('HH registradas (7 días)', fmtNum(d.hh_7d), 'tareo de planta', 'mor', 'reloj')}
+    ${kpi('Proyectos en curso', enCurso.length, 'seguimiento prospectivo', '', 'proyectos')}
+    ${kpi('Cumplimiento histórico', d.historico.otd + ' %', `${d.historico.proyectos - d.historico.atrasados} de ${d.historico.proyectos} proyectos · meta 85 %`, d.historico.otd >= 85 ? 'ver' : 'nar', 'check')}
     ${kpi('Tareas abiertas', abiertas, `${t.EN_CURSO || 0} en curso · ${t.REVISION || 0} en revisión`, 'nar', 'tareas')}
+    ${kpi('HH registradas (7 días)', fmtNum(d.hh_7d), 'tareo de planta', '', 'reloj')}
+  </div>
+  <div class="tarjeta" style="margin-bottom:14px"><h3>Proyectos en curso ${puede(['cotizador']) ? `<a class="btn peq" href="#/cotizador">${ic('mas', 14)} Nuevo</a>` : ''}</h3><div class="cuerpo scroll" id="tact">${tablaActivos(enCurso)}</div></div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="tarjeta"><h3>${ic('alerta', 17)} Atención</h3><div class="cuerpo">${d.criticas.length ? `<table class="tabla">${d.criticas.map(c => `<tr class="clic" onclick="location.hash='#/tareas'"><td><span class="badge ${TIPOS_T[c.tipo][1]}">${TIPOS_T[c.tipo][0]}</span></td><td>${esc(c.titulo)}</td><td class="nota">${esc(c.responsable || '')}</td></tr>`).join('')}</table>` : '<div class="vacio">Sin alertas por ahora</div>'}</div></div>
+    <div class="tarjeta"><h3>Actividad reciente</h3><div class="cuerpo scroll"><ul class="feed">${d.actividad.map(a => `<li>${avatar(a.nombre, a.color, 1)}<div>${esc(a.detalle)}<small>${esc(a.nombre || '')} · ${esc(String(a.creado_en).slice(0, 16))}</small></div></li>`).join('') || '<li class="nota">Sin actividad</li>'}</ul></div></div>
   </div>
   <div class="grid g2">
     <div class="tarjeta"><h3>Cumplimiento de entregas por año <span class="nota">meta 85 %</span></h3><div class="cuerpo"><div class="grafico bajo" id="gotd"></div></div></div>
-    <div class="tarjeta"><h3>Disponibilidad de máquinas · últimos 30 días <span class="nota">registrada en Planta</span></h3><div class="cuerpo"><div class="grafico bajo" id="gdisp"></div></div></div>
-    <div class="tarjeta"><h3>Proyectos en curso</h3><div class="cuerpo scroll" id="tact">${cargando()}</div></div>
-    <div class="tarjeta"><h3>${ic('alerta', 17)} Atención</h3><div class="cuerpo">${d.criticas.length ? `<table class="tabla">${d.criticas.map(c => `<tr class="clic" onclick="location.hash='#/tareas'"><td><span class="badge ${TIPOS_T[c.tipo][1]}">${TIPOS_T[c.tipo][0]}</span></td><td>${esc(c.titulo)}</td><td class="nota">${esc(c.responsable || '')}</td></tr>`).join('')}</table>` : '<div class="vacio">Sin alertas</div>'}</div></div>
-    <div class="tarjeta" style="grid-column:1/-1"><h3>Actividad reciente del equipo</h3><div class="cuerpo"><ul class="feed">${d.actividad.map(a => `<li>${avatar(a.nombre, a.color, 1)}<div>${esc(a.detalle)}<small>${esc(a.nombre || '')} · ${esc(String(a.creado_en).slice(0, 16))}</small></div></li>`).join('') || '<li class="nota">Sin actividad</li>'}</ul></div></div>
+    <div class="tarjeta"><h3>Disponibilidad de máquinas · 30 días <span class="nota">registrada en Planta</span></h3><div class="cuerpo"><div class="grafico bajo" id="gdisp"></div></div></div>
   </div>`;
   chart($('#gotd'), { grid: { left: 40, right: 20, top: 20, bottom: 28 }, tooltip: { trigger: 'axis' },
     xAxis: { type: 'category', data: d.otd_anual.map(r => r.anio) }, yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } },
-    series: [{ type: 'bar', data: d.otd_anual.map(r => ({ value: r.otd_pct, itemStyle: { color: r.otd_pct >= 85 ? '#2e9e6b' : r.otd_pct >= 70 ? '#2f6fb8' : '#c98a2b', borderRadius: 0 } })), barWidth: '55%',
-      label: { show: true, position: 'top', formatter: '{c} %' }, markLine: { symbol: 'none', lineStyle: { color: '#2e9e6b', type: 'dashed' }, data: [{ yAxis: 85 }], label: { formatter: 'meta' } } }] });
+    series: [{ type: 'bar', data: d.otd_anual.map(r => ({ value: r.otd_pct, itemStyle: { color: r.otd_pct >= 85 ? C.verde : C.acento, borderRadius: 0 } })), barWidth: '55%',
+      label: { show: true, position: 'top', formatter: '{c} %' }, markLine: { symbol: 'none', lineStyle: { color: C.verde, type: 'dashed' }, data: [{ yAxis: 85 }], label: { formatter: 'meta' } } }] });
   const dk = Object.entries(d.disponibilidad);
   chart($('#gdisp'), { grid: { left: 190, right: 40, top: 10, bottom: 20 }, tooltip: { valueFormatter: v => v + ' %' },
     xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } }, yAxis: { type: 'category', data: dk.map(x => x[0]) },
-    series: [{ type: 'bar', data: dk.map(x => ({ value: +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] >= .9 ? '#2e9e6b' : x[1] >= .75 ? '#2f6fb8' : '#c4453b', borderRadius: 0 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
-      markLine: { symbol: 'none', data: [{ xAxis: 90 }], lineStyle: { type: 'dashed', color: '#2e9e6b' }, label: { formatter: 'meta 90 %' } } }] });
-  const act = await api('/api/proyectos_activos');
-  $('#tact').innerHTML = tablaActivos(act.filter(a => a.estado === 'EN_CURSO'));
+    series: [{ type: 'bar', data: dk.map(x => ({ value: +(100 * x[1]).toFixed(1), itemStyle: { color: x[1] >= .9 ? C.verde : x[1] >= .75 ? C.acento : C.rojo, borderRadius: 0 } })), barWidth: 16, label: { show: true, position: 'right', formatter: '{c} %' },
+      markLine: { symbol: 'none', data: [{ xAxis: 90 }], lineStyle: { type: 'dashed', color: C.verde }, label: { formatter: 'meta 90 %' } } }] });
 }
 const kpi = (t, v, s, cls, icono) => `<div class="kpi ${cls}">${ic(icono, 60, 'class="fondo"')}<div class="t">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
 function tablaActivos(act) {
-  if (!act.length) return '<div class="vacio">No hay proyectos en curso. Créalos desde el Cotizador.</div>';
+  if (!act.length) return `<div class="vacio">${ic('proyectos', 28)}<p>No hay proyectos en curso.</p>${puede(['cotizador']) ? `<a class="btn prim" href="#/cotizador">${ic('mas', 15)} Crear desde una cotización</a>` : ''}</div>`;
   return `<table class="tabla"><tr><th>OT</th><th>Proyecto</th><th>Entrega comprometida</th><th>Avance HH</th><th>Avance físico (kg)</th><th></th></tr>${act.map(a => `
     <tr class="clic" onclick="location.hash='#/proyecto/a/${a.id}'"><td><b>${esc(a.codigo)}</b>${a.es_demo ? ' <span class="badge b-nar">DEMO</span>' : ''}</td>
     <td>${esc(a.nombre)}<div class="nota">${esc(a.cliente || '')} · ${fmtNum(a.ton)} t</div></td><td>${fmtFecha(a.fecha_comprometida)}<div class="nota">${a.prob_cumplir != null ? 'P(cumplir) cotizada ' + pct(a.prob_cumplir) : 'importado del Excel'}</div></td>
@@ -403,10 +414,10 @@ async function vProyectoAct(id, qs = '') {
   const tareas = await api('/api/tareas?proyecto_id=' + id);
   m.innerHTML = `
   ${p.es_demo ? `<div class="aviso">${ic('alerta', 16)} Proyecto de DEMOSTRACIÓN creado al instalar la plataforma.</div>` : ''}
-  <div class="kpis">${kpi(esc(p.codigo), `<span style="font-size:17px">${esc(p.nombre)}</span>`, `${esc(p.cliente || '')} · ${fmtNum(p.ton)} t · ${esc(p.tipo.split(' /')[0])}`, '', 'proyectos')}
-    ${kpi('Entrega comprometida', fmtCorta(p.fecha_comprometida), p.prob_cumplir != null ? `cotizada con P(cumplir) ${pct(p.prob_cumplir)}` : 'proyecto importado del Excel', 'mor', 'reloj')}
-    ${kpi('Avance por HH', pct(avance), `${fmtNum(d.procesos.reduce((s, r) => s + r.hh_reg, 0))} HH registradas`, 'nar', 'reloj')}
-    ${kpi('Tareas abiertas', tareas.filter(t => t.estado !== 'HECHO').length, `${tareas.filter(t => t.tipo === 'BLOQUEO' && t.estado !== 'HECHO').length} bloqueos`, 'roj', 'tareas')}</div>
+  <div class="pcab"><div class="pcab-t"><div class="cod"><i class="sem ${semActivo({ ...p, avance: avance * 100 })}"></i>${esc(p.codigo)}</div><h1>${esc(p.nombre)}</h1><span class="nota">${esc(p.cliente || '')} · ${fmtNum(p.ton)} t · ${esc(p.tipo.split(' /')[0])}</span></div>
+    <div class="pcab-d"><div><span>Entrega comprometida</span><b>${fmtCorta(p.fecha_comprometida)}</b><small>${p.prob_cumplir != null ? 'cotizada con P(cumplir) ' + pct(p.prob_cumplir) : 'importado del Excel'}</small></div>
+      <div><span>Avance por HH</span><b>${pct(avance)}</b><small>${fmtNum(d.procesos.reduce((s, r) => s + r.hh_reg, 0))} HH registradas</small></div>
+      <div><span>Tareas abiertas</span><b>${tareas.filter(t => t.estado !== 'HECHO').length}</b><small>${tareas.filter(t => t.tipo === 'BLOQUEO' && t.estado !== 'HECHO').length} bloqueos</small></div></div></div>
   <div id="pron"></div>
   <div class="pestanas" id="ptabs"><button class="activo" data-t="res">${ic('gantt', 15)} Resumen y Gantt</button><button data-t="pie">${ic('viga', 15)} Piezas y avance</button>
     <button data-t="cur">${ic('curva', 15)} Curva S</button><button data-t="sem">${ic('semana', 15)} Semanas</button><button data-t="log">${ic('camion', 15)} Compras, servicios y eventos</button></div>
@@ -531,14 +542,14 @@ async function tabSemanas(id) {
   const s = d.semanas;
   chart($('#gsem'), { grid: { left: 60, right: 50, top: 30, bottom: 40 }, tooltip: { trigger: 'axis' }, legend: { bottom: 0 },
     xAxis: { type: 'category', data: s.map(x => 'S' + x.n) }, yAxis: [{ type: 'value', name: 'kg' }, { type: 'value', name: 'HH', splitLine: { show: false } }],
-    series: [{ name: 'kg plan', type: 'bar', data: s.map(x => x.plan_kg), itemStyle: { color: '#c3ccd5' } },
-      ...(d.tiene_piezas ? [{ name: 'kg real', type: 'bar', data: s.map(x => x.real_kg), itemStyle: { color: '#2f6fb8' } }] : []),
-      { name: 'HH plan', type: 'line', yAxisIndex: 1, data: s.map(x => x.plan_hh), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-      { name: 'HH real', type: 'line', yAxisIndex: 1, data: s.map(x => x.real_hh), itemStyle: { color: '#c98a2b' }, lineStyle: { color: '#c98a2b', width: 2 } }] });
+    series: [{ name: 'kg plan', type: 'bar', data: s.map(x => x.plan_kg), itemStyle: { color: C.borde } },
+      ...(d.tiene_piezas ? [{ name: 'kg real', type: 'bar', data: s.map(x => x.real_kg), itemStyle: { color: C.acento } }] : []),
+      { name: 'HH plan', type: 'line', yAxisIndex: 1, data: s.map(x => x.plan_hh), itemStyle: { color: C.gris }, lineStyle: { type: 'dashed', color: C.gris } },
+      { name: 'HH real', type: 'line', yAxisIndex: 1, data: s.map(x => x.real_hh), itemStyle: { color: C.ambar }, lineStyle: { color: C.ambar, width: 2 } }] });
   if (hp.length) chart($('#ghp'), { grid: { left: 50, right: 20, top: 20, bottom: 30 }, tooltip: { trigger: 'axis', valueFormatter: v => v + ' %' },
     xAxis: { type: 'category', data: hp.map(x => fmtCorta(x.fecha)) }, yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } },
-    series: [{ type: 'line', data: hp.map(x => ({ value: +(100 * x.prob_cumplir).toFixed(1), itemStyle: { color: { VERDE: '#2e9e6b', AMBAR: '#c98a2b', ROJO: '#c4453b' }[x.semaforo] } })),
-      lineStyle: { color: '#2f6fb8' }, symbolSize: 9 }] });
+    series: [{ type: 'line', data: hp.map(x => ({ value: +(100 * x.prob_cumplir).toFixed(1), itemStyle: { color: { VERDE: C.verde, AMBAR: C.ambar, ROJO: C.rojo }[x.semaforo] } })),
+      lineStyle: { color: C.acento }, symbolSize: 9 }] });
 }
 
 async function tabCurva(id) {
@@ -554,12 +565,12 @@ async function tabCurva(id) {
     <p class="nota">Plan: el programa P50 de la cotización repartido por etapas (habilitado, armado, soldeo, liberación, granallado, pintura, despacho) con sus pesos. Real: cada pieza suma su peso × peso de la etapa en la fecha en que se completó.</p></div></div>
   <div class="tarjeta"><h3>Curva S · horas-hombre (P50 cotizado vs. tareo)</h3><div class="cuerpo"><div class="grafico bajo" id="gch"></div></div></div>`;
   const x = c.fechas.map(f => f.slice(5).split('-').reverse().join('/'));
-  const marcas = [{ name: 'hoy', xAxis: c.hoy.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c98a2b' } }];
-  if (c.comprometida && c.fechas.includes(c.comprometida)) marcas.push({ name: 'comprometida', xAxis: c.comprometida.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c4453b' } });
+  const marcas = [{ name: 'hoy', xAxis: c.hoy.slice(5).split('-').reverse().join('/'), lineStyle: { color: C.ambar } }];
+  if (c.comprometida && c.fechas.includes(c.comprometida)) marcas.push({ name: 'comprometida', xAxis: c.comprometida.slice(5).split('-').reverse().join('/'), lineStyle: { color: C.rojo } });
   const op = (plan, real, unidad) => ({ grid: { left: 60, right: 20, top: 30, bottom: 40 }, tooltip: { trigger: 'axis', valueFormatter: v => v == null ? '—' : fmtNum(v) + ' ' + unidad },
     legend: { bottom: 0 }, xAxis: { type: 'category', data: x, boundaryGap: false }, yAxis: { type: 'value', name: unidad },
-    series: [{ name: 'Planificado (P50)', type: 'line', data: plan, showSymbol: false, itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', width: 2, color: '#5b738b' } },
-      { name: 'Real', type: 'line', data: real, showSymbol: false, connectNulls: false, itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' }, areaStyle: { color: 'rgba(27,144,255,.15)' },
+    series: [{ name: 'Planificado (P50)', type: 'line', data: plan, showSymbol: false, itemStyle: { color: C.gris }, lineStyle: { type: 'dashed', width: 2, color: C.gris } },
+      { name: 'Real', type: 'line', data: real, showSymbol: false, connectNulls: false, itemStyle: { color: C.acento }, lineStyle: { width: 3, color: C.acento }, areaStyle: { color: 'rgba(27,144,255,.15)' },
         markLine: { symbol: 'none', label: { formatter: p => p.name }, data: marcas } }] });
   chart($('#gcs'), op(c.plan_kg, c.real_kg, 'kg'));
   chart($('#gch'), op(c.plan_hh, c.real_hh, 'HH'));
@@ -728,16 +739,16 @@ function resultadoCot(r, s) {
     xAxis: { type: 'category', data: c.map(x => x.fecha.slice(5).split('-').reverse().join('/')) },
     yAxis: [{ type: 'value', max: 100, name: 'P(cumplir) %', axisLabel: { formatter: '{value}' } }, { type: 'value', name: 'USD', splitLine: { show: false } }],
     series: [
-      { name: 'Probabilidad de cumplir', type: 'line', smooth: true, showSymbol: false, data: c.map(x => +(100 * x.prob).toFixed(1)), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' }, areaStyle: { color: 'rgba(27,144,255,.12)' },
+      { name: 'Probabilidad de cumplir', type: 'line', smooth: true, showSymbol: false, data: c.map(x => +(100 * x.prob).toFixed(1)), itemStyle: { color: C.acento }, lineStyle: { width: 3, color: C.acento }, areaStyle: { color: 'rgba(27,144,255,.12)' },
         markLine: { symbol: 'none', label: { formatter: p => p.name }, data: [
-          { name: 'recomendada', xAxis: r.fecha_recomendada.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#2e9e6b' } },
-          { name: 'método actual', xAxis: r.fecha_metodo_actual.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#c4453b' } },
-          ...(r.pedida ? [{ name: 'pedida', xAxis: r.pedida.fecha.slice(5).split('-').reverse().join('/'), lineStyle: { color: '#925ace' } }] : [])].filter(x => c.some(y => y.fecha.slice(5).split('-').reverse().join('/') === x.xAxis)) } },
-      { name: 'Penalidad esperada', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.pen), itemStyle: { color: '#c4453b' }, lineStyle: { type: 'dashed', color: '#c4453b' } },
-      { name: 'Costo total (penalidad + plazo largo)', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.costo), itemStyle: { color: '#c98a2b' }, lineStyle: { color: '#c98a2b', width: 2 } },
+          { name: 'recomendada', xAxis: r.fecha_recomendada.slice(5).split('-').reverse().join('/'), lineStyle: { color: C.verde } },
+          { name: 'método actual', xAxis: r.fecha_metodo_actual.slice(5).split('-').reverse().join('/'), lineStyle: { color: C.rojo } },
+          ...(r.pedida ? [{ name: 'pedida', xAxis: r.pedida.fecha.slice(5).split('-').reverse().join('/'), lineStyle: { color: C.morado } }] : [])].filter(x => c.some(y => y.fecha.slice(5).split('-').reverse().join('/') === x.xAxis)) } },
+      { name: 'Penalidad esperada', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.pen), itemStyle: { color: C.rojo }, lineStyle: { type: 'dashed', color: C.rojo } },
+      { name: 'Costo total (penalidad + plazo largo)', type: 'line', yAxisIndex: 1, showSymbol: false, data: c.map(x => x.costo), itemStyle: { color: C.ambar }, lineStyle: { color: C.ambar, width: 2 } },
     ] });
   chart($('#ghist'), { grid: { left: 40, right: 10, top: 10, bottom: 40 }, tooltip: {}, xAxis: { type: 'category', data: r.histograma_fechas.map(f => f.slice(5).split('-').reverse().join('/')) },
-    yAxis: { type: 'value', name: 'réplicas' }, series: [{ type: 'bar', data: r.histograma, itemStyle: { color: '#5b95dc', borderRadius: [3, 3, 0, 0] } }] });
+    yAxis: { type: 'value', name: 'réplicas' }, series: [{ type: 'bar', data: r.histograma, itemStyle: { color: C.acento, borderRadius: [3, 3, 0, 0] } }] });
   gantt($('#gcot'), r.gantt);
   const bc = $('#bcrear');
   if (bc) bc.onclick = () => modalProyecto(r, s);
@@ -989,10 +1000,10 @@ async function vReporte(id, qs = '') {
   chart($('#grep'), { animation: false, grid: { left: 60, right: 20, top: 20, bottom: 40 }, legend: { bottom: 0 }, tooltip: { trigger: 'axis' },
     xAxis: { type: 'category', data: s.map(x => 'S' + x.n) }, yAxis: { type: 'value', name: d.avance_fisico != null ? 'kg' : 'HH' },
     series: d.avance_fisico != null
-      ? [{ name: 'Plan kg', type: 'line', data: s.map(x => x.plan_kg_acum), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-        { name: 'Real kg', type: 'line', data: s.map(x => x.real_kg_acum), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' } }]
-      : [{ name: 'Plan HH', type: 'line', data: s.map(x => x.plan_hh_acum), itemStyle: { color: '#5b738b' }, lineStyle: { type: 'dashed', color: '#5b738b' } },
-        { name: 'Real HH', type: 'line', data: s.map(x => x.real_hh_acum), itemStyle: { color: '#2f6fb8' }, lineStyle: { width: 3, color: '#2f6fb8' } }] });
+      ? [{ name: 'Plan kg', type: 'line', data: s.map(x => x.plan_kg_acum), itemStyle: { color: C.gris }, lineStyle: { type: 'dashed', color: C.gris } },
+        { name: 'Real kg', type: 'line', data: s.map(x => x.real_kg_acum), itemStyle: { color: C.acento }, lineStyle: { width: 3, color: C.acento } }]
+      : [{ name: 'Plan HH', type: 'line', data: s.map(x => x.plan_hh_acum), itemStyle: { color: C.gris }, lineStyle: { type: 'dashed', color: C.gris } },
+        { name: 'Real HH', type: 'line', data: s.map(x => x.real_hh_acum), itemStyle: { color: C.acento }, lineStyle: { width: 3, color: C.acento } }] });
 }
 
 /* =====================================================================  USUARIOS */
@@ -1035,6 +1046,8 @@ async function vPlanta3D() {
     <div class="p3d-izq">
       <div class="p3d-lienzo" id="p3l"></div>
       <div class="p3d-kpis" id="p3k"></div>
+      <div class="p3d-modos" id="p3m"><button data-m="2d" title="Plano 2D (tecla 2)">2D</button><button data-m="3d" class="activo" title="Perspectiva 3D (tecla 3)">3D</button><button data-m="caminata" title="Caminar por la planta (tecla C)">Caminar</button><button data-a="rotar" title="Rotación automática (tecla R)">⟳</button><button data-a="ayuda" title="Atajos de teclado (tecla H)">?</button></div>
+      <div class="p3d-insp oculto" id="p3i"></div>
       <select class="p3d-vistas" id="p3v" title="Ir a una zona de la planta"><option value="" disabled selected>Ir a…</option><option value="general">Vista general</option><option value="navea">Nave A · habilitado</option><option value="maquinas">Máquinas</option><option value="naveb">Nave B · armado y soldeo</option><option value="patio">Patio de acopio</option><option value="muelles">Muelles</option><option value="oficina">Oficinas</option></select>
       <div class="p3d-abajo"><div class="p3d-seguim" id="p3s"></div>
       <div class="p3d-ctl">
@@ -1053,9 +1066,36 @@ async function vPlanta3D() {
     </aside>
   </div>`;
   try {
-    P3.escena = (await import('/static/gemelo3d.js?v=1')).crearGemelo($('#p3l'), meta, { alSeleccionar: (ref, obj) => { st.sel = ref; st.obj = obj; st.pestana = 'objeto'; if (ref && $('#p3lim').checked) { $('#p3lim').checked = false; $('.p3d').classList.remove('limpio'); } pestanas(); panel(); } });
+    P3.escena = (await import('/static/gemelo3d.js?v=2.6b')).crearGemelo($('#p3l'), meta, {
+      alSeleccionar: (ref, obj) => { st.sel = ref; st.obj = obj; st.pestana = 'objeto'; if (ref && $('#p3lim').checked) { $('#p3lim').checked = false; $('.p3d').classList.remove('limpio'); } pestanas(); panel(); },
+      alCambiarModo: mo => $$('#p3m [data-m]').forEach(b => b.classList.toggle('activo', b.dataset.m === mo)),
+      alCambiarAyuda: v => $('#p3m [data-a=ayuda]').classList.toggle('activo', v),
+      alInspeccionar: info => inspector(info), alParte: id => inspector(P3.info, id),
+      accion: a => accionTecla(a) });
   } catch (e) { $('#p3l').innerHTML = `<div class="vacio" style="padding:40px">${ic('alerta', 30)}<p>No se pudo iniciar la escena 3D: ${esc(e.message)}</p></div>`; return; }
   const pestanas = () => $$('.p3d-tabs button').forEach(b => b.classList.toggle('activo', b.dataset.t === st.pestana));
+
+  /* ----- inspección de máquinas y atajos de la escena ----- */
+  function inspector(info, parte) {
+    const c = $('#p3i'); if (!c) return; P3.info = info;
+    if (!info) { c.classList.add('oculto'); c.innerHTML = ''; return; }
+    c.classList.remove('oculto');
+    c.innerHTML = `<div class="p3i-t"><b>${esc(info.nombre)}</b><button id="p3i-x" title="Cerrar (Esc)">×</button></div>
+      <div class="p3i-ctl"><label>Vista explosionada <input type="range" id="p3i-e" min="0" max="1" step="0.01" value="${info.expl}"></label><label class="p3-chk"><input type="checkbox" id="p3i-r" ${info.xray ? 'checked' : ''}> Rayos X</label></div>
+      <div class="p3i-l">${info.partes.map(p => `<button class="p3i-p ${p.id === parte ? 'activo' : ''}" data-id="${p.id}"><b>${esc(p.nombre)}</b>${p.id === parte ? `<span>${esc(p.descr)}</span>` : ''}</button>`).join('')}</div>`;
+    $('#p3i-x').onclick = () => P3.escena.inspeccionar(null);
+    $('#p3i-e').oninput = e => P3.escena.explotar(+e.target.value);
+    $('#p3i-r').onchange = e => P3.escena.rayosX(e.target.checked);
+    $$('#p3i .p3i-p').forEach(b => b.onclick = () => { P3.escena.resaltarParte(b.dataset.id); inspector(info, b.dataset.id); });
+  }
+  function accionTecla(a) {
+    const click = id => { const e = $(id); if (e) e.click(); };
+    if (a === 'techos') { const e = $('#p3t'); e.checked = !e.checked; e.onchange({ target: e }); }
+    else if (a === 'etiquetas') { const e = $('#p3e'); e.checked = !e.checked; e.onchange({ target: e }); }
+    else if (a === 'limpio') { const e = $('#p3lim'); e.checked = !e.checked; e.onchange({ target: e }); }
+    else if (a === 'play') click('#p3play'); else if (a === 'atras') click('#p3ant'); else if (a === 'adelante') click('#p3sig');
+    else if (a === 'lento' || a === 'rapido') { const v = $('#p3vel'), i = Math.max(0, Math.min(v.options.length - 1, v.selectedIndex + (a === 'rapido' ? 1 : -1))); v.selectedIndex = i; v.onchange({ target: v }); }
+  }
 
   /* ----- tiempo y estado ----- */
   const rango = () => { const p = P(), r = res(st.pol, p.pid) || res('A0', p.pid); return [tDeFecha(p.ini, 0) - 24, tDeFecha(r ? r.fin : p.fr, 24) + 48]; };
@@ -1084,7 +1124,7 @@ async function vPlanta3D() {
   const fila = (k, v) => `<div class="p3-f"><span>${k}</span><b>${v}</b></div>`;
   const dur = h => h < 1 ? `${Math.round(h * 60)} min` : h < 48 ? `${h.toFixed(1)} h` : `${(h / 24).toFixed(1)} d`;
   async function detalle(ref) {
-    if (!ref) return `<div class="p3-vacio">${ic('planta3d', 34)}<p>Haz clic en una máquina, mesa, puesto, lote de piezas, camión, persona o grúa. Doble clic para acercarte.</p><p class="nota">Arrastra para rotar, rueda para acercar, clic derecho para mover. ${esc(meta.aviso)}</p></div>`;
+    if (!ref) return `<div class="p3-vacio">${ic('planta3d', 34)}<p>Haz clic en una máquina, mesa, puesto, lote de piezas, camión, persona o grúa. Doble clic para acercarte.</p><p class="nota">Arrastra para rotar, rueda para acercar, clic derecho para mover. Teclas: <kbd>2</kbd> plano 2D, <kbd>3</kbd> 3D, <kbd>C</kbd> caminar, <kbd>H</kbd> todos los atajos. ${esc(meta.aviso)}</p></div>`;
     const e = st.estado;
     if (ref.tipo === 'maquina') {
       const op = e.ops.find(o => o.recurso === 'maq' + ref.k), par = e.paradas.find(p => p.maquina === ref.k), L = op && e.lotes.find(l => l.id === op.lote_id);
@@ -1092,10 +1132,11 @@ async function vPlanta3D() {
       let h = `<h4>${esc(ref.etiqueta)}</h4><span class="badge ${par ? 'b-roj' : op ? 'b-ver' : 'b-gris'}">${par ? 'EN FALLA' : op ? 'operando' : 'libre'}</span><div class="p3-fs">`;
       if (par) h += fila('Causa', esc(par.causa)) + fila('Parada desde', horaTxt(par.t_ini)) + fila('Vuelve', horaTxt(par.t_fin));
       if (op && L) h += fila('Trabajando', `${esc(L.elemento)} ${esc(L.perfil)}`) + fila('Lote', `${fmtNum(L.kg)} kg · ${L.n_piezas} piezas`) + fila('Termina', horaTxt(op.t_fin)) + fila('Operación', esc(op.tipo));
-      h += fila('Lotes esperando habilitado', cola) + '</div><h5>Últimos 14 días</h5><div id="p3ch" style="height:170px"></div><div id="p3pm"></div>';
+      h += fila('Lotes esperando habilitado', cola) + '</div><button class="btn peq prim" id="p3-insp">Inspeccionar componentes</button><h5>Últimos 14 días</h5><div id="p3ch" style="height:170px"></div><div id="p3pm"></div>';
+      setTimeout(() => { const b = $('#p3-insp'); if (b) b.onclick = () => P3.escena.inspeccionar(ref.k); }, 0);
       setTimeout(async () => { const d = await api(`/api/gemelo/maquina/${ref.k}?t=${st.t}&politica=${st.pol}`); if (!$('#p3ch')) return;
         const c = chart($('#p3ch'), { grid: { left: 36, right: 8, top: 14, bottom: 22 }, tooltip: { trigger: 'axis' }, legend: { top: 0, right: 0, itemWidth: 10, textStyle: { fontSize: 10 } }, xAxis: { type: 'category', data: d.dias.map(x => x.fecha.slice(5)), axisLabel: { fontSize: 9 } }, yAxis: { type: 'value', max: 24, axisLabel: { fontSize: 9 } },
-          series: [{ name: 'Horas trabajadas', type: 'bar', stack: 'a', data: d.dias.map(x => x.uso_h), itemStyle: { color: '#5b95dc' } }, { name: 'Horas en parada', type: 'bar', stack: 'a', data: d.dias.map(x => x.parada_h), itemStyle: { color: '#e74c3c' } }] }); P3.charts.push(c);
+          series: [{ name: 'Horas trabajadas', type: 'bar', stack: 'a', data: d.dias.map(x => x.uso_h), itemStyle: { color: C.acento } }, { name: 'Horas en parada', type: 'bar', stack: 'a', data: d.dias.map(x => x.parada_h), itemStyle: { color: '#e74c3c' } }] }); P3.charts.push(c);
         const uso = d.dias.reduce((a, x) => a + x.uso_h, 0), disp = d.dias.reduce((a, x) => a + 8 - Math.min(8, x.parada_h), 0);
         $('#p3pm').innerHTML = `<div class="p3-fs">${fila('Utilización (14 d, turno de 8 h)', pct(Math.min(1, uso / (8 * 14))))}${fila('Disponibilidad (14 d)', pct(disp / (8 * 14)))}${fila('Operaciones hasta hoy', fmtNum(d.operaciones))}</div>` + (d.paradas.length ? `<h5>Paradas recientes</h5>${d.paradas.slice(-5).map(p => `<div class="p3-i"><span style="color:var(--gris)">${horaTxt(p.t_ini)}</span><b>${esc(p.causa)}</b><span>${dur(p.horas)} de trabajo</span></div>`).join('')}` : ''); }, 30);
       return h;
@@ -1129,7 +1170,7 @@ async function vPlanta3D() {
       <h5>Cómo habría terminado con cada política</h5><table class="tabla p3-t"><tr><th>Política</th><th>Compromiso</th><th>Terminó</th><th>Tarde</th><th>Palancas</th></tr>${d.politicas.map(r => `<tr><td>${esc(r.politica.slice(0, 2))} ${esc(NOM_POL[r.politica.slice(0, 2)] || '')}</td><td>${fmtCorta(r.compromiso)}</td><td>${fmtCorta(r.fin)}</td><td style="color:${r.tarde > 0 ? 'var(--rojo)' : 'var(--verde)'}">${r.tarde}</td><td>${r.costo ? fmtNum(r.costo, 1) + ' %' : '—'}</td></tr>`).join('')}</table>
       <h5>Avance acumulado entregado (kg)</h5><div id="p3cu" style="height:210px"></div>`;
     if (d.palancas.length) h += `<h5>Palancas aplicadas (DSS y regla)</h5>${d.palancas.slice(0, 12).map(p => `<div class="p3-i"><span>${esc(p.politica.slice(0, 2))} · ${horaTxt(p.t).slice(0, 10)}</span><b>${esc(p.tipo)} ${esc(NOMBRE_PROC_G[p.proceso] || p.proceso)}</b><span>${fmtNum(p.costo, 1)} %</span></div>`).join('')}`;
-    setTimeout(() => { if (!$('#p3cu')) return; const cols = { A0: '#5b738b', B1: '#c98a2b', D3: '#925ace', D4: '#2e9e6b' }; const c = chart($('#p3cu'), { grid: { left: 48, right: 10, top: 24, bottom: 24 }, tooltip: { trigger: 'axis' }, legend: { top: 0, textStyle: { fontSize: 10 } }, xAxis: { type: 'value', min: 'dataMin', axisLabel: { fontSize: 9, formatter: v => horaTxt(v).slice(0, 5) } }, yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
+    setTimeout(() => { if (!$('#p3cu')) return; const cols = { A0: C.gris, B1: C.ambar, D3: C.morado, D4: C.verde }; const c = chart($('#p3cu'), { grid: { left: 48, right: 10, top: 24, bottom: 24 }, tooltip: { trigger: 'axis' }, legend: { top: 0, textStyle: { fontSize: 10 } }, xAxis: { type: 'value', min: 'dataMin', axisLabel: { fontSize: 9, formatter: v => horaTxt(v).slice(0, 5) } }, yAxis: { type: 'value', axisLabel: { fontSize: 9 } },
       series: Object.entries(d.curvas).map(([k, v]) => ({ name: k + ' ' + (NOM_POL[k] || ''), type: 'line', step: 'end', showSymbol: false, data: v.t.map((t, i) => [t, v.kg[i]]), lineStyle: { color: cols[k], width: 2 }, itemStyle: { color: cols[k] } })) }); P3.charts.push(c); }, 30);
     return h + `<p class="nota">${esc(d.aviso)}</p>`;
   }
@@ -1148,6 +1189,7 @@ async function vPlanta3D() {
   /* ----- controles ----- */
   $$('.p3d-tabs button').forEach(b => b.onclick = () => { st.pestana = b.dataset.t; pestanas(); panel(); });
   $('#p3v').onchange = e => { P3.escena.vista(e.target.value); e.target.selectedIndex = 0; };
+  $$('#p3m button').forEach(b => b.onclick = () => { if (b.dataset.m) P3.escena.modo(b.dataset.m); else if (b.dataset.a === 'rotar') { P3.escena.rotar(); b.classList.toggle('activo'); } else P3.escena.ayuda(); });
   $('#p3lim').onchange = e => $('.p3d').classList.toggle('limpio', e.target.checked);
   $('#p3s').onclick = () => $('#p3s').classList.toggle('abierto');
   $('#p3pol').onchange = e => { st.pol = e.target.value; ajustarSlider(); cargar(st.t); if (st.pestana !== 'objeto') panel(); };

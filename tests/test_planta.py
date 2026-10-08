@@ -21,6 +21,12 @@ def test_layout_dentro_del_predio_y_con_las_4_maquinas():
     assert next(e for e in E if e['tipo'] == 'terreno')['ancho'] * next(e for e in E if e['tipo'] == 'terreno')['largo'] == 5000
 
 
+def test_maquinas_no_se_solapan_entre_si():
+    maq = sorted((e for e in layout() if e['tipo'] == 'maquina'), key=lambda e: e['x'])
+    for a, b in zip(maq, maq[1:]):
+        assert a['x'] + a['ancho'] / 2 <= b['x'] - b['ancho'] / 2, (a['nombre'], b['nombre'])
+
+
 def test_calendario_ida_y_vuelta():
     for f in ['2021-02-19', '2024-12-28', '2026-09-25']:
         assert de_idx(a_idx(f)) == f
