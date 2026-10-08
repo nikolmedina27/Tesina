@@ -14,7 +14,7 @@ Ordenados por prioridad. **P0 bloquea el modelo**: sin esos datos no hay tesis d
 
 **Si los tareos no distinguen proceso**: repartir las HH semanales de cada cuadrilla entre armado, soldeo y limpieza en proporción a los kg avanzados por proceso esa semana (del control por pieza). Declarar el método en la tesis y marcar la fuente como "reconstruido".
 
-**Si para algún proyecto no hay ningún registro de horas**: excluirlo de C2 (pero mantenerlo en la línea base de OTD). Es preferible 18 proyectos reales que 25 sintéticos.
+**Si para algún proyecto no hay ningún registro de horas por proceso**: excluirlo del entrenamiento de C2, pero mantener su resultado y fechas reales en la línea base de OTD. Es preferible entrenar con 18 proyectos que tengan tareos reales que imputar horas sintéticas para completar 25.
 
 ## P1 · Necesarios para el CRP (C3)
 

@@ -1,15 +1,15 @@
 # 06 · Datos simulados (banco de pruebas)
 
-> **Todo lo de este documento es SIMULADO.** Sirve para construir y probar el pipeline (C1→C4) antes de tener los tareos reales. No es evidencia empírica sobre Steelser y así debe declararse en la tesis y en cualquier paper. En la BD, las tablas `sim_*` están separadas de las reales y cada fila lleva `origen = 'SIMULADO'`.
+> **Este documento describe el banco de pruebas simulado**, no la procedencia de toda la base histórica. Los proyectos, fechas y resultados agregados de Steelser son registros reales. Las tablas `sim_*` contienen variables generadas para probar el pipeline (C1→C4) y no deben confundirse con observaciones de producción. La BD actual aún no contiene HH reales por proceso; la columna de HH estimadas deriva del ratio vigente.
 
 ## Qué es real y qué es simulado
 
 | Real (se respeta) | Simulado |
 |---|---|
-| 25 proyectos 2021–2026: toneladas, tipo, fecha de inicio, fin planificado y **fin real** | HH reales por proceso (la variable objetivo de C2) |
-| Cuadrilla y días planificados por proceso | Paradas de las 4 máquinas (disponibilidad Dₖ diaria) |
-| Ratio vigente (HH estimadas) | Plazos de los 2 servicios externos |
-| Los 6 atrasos reales de la muestra | Variables del plano: n° de piezas, % planchas, m² de pintura, montaje, contratista |
+| Proyectos, fechas históricas y resultados observados en Tabla 3 y en la muestra de Steelser | HH por proceso generadas para los mundos sintéticos (la BD actual no tiene HH reales por proceso) |
+| Ratios vigentes y HH estimadas calculadas con esos ratios | Paradas de las 4 máquinas (disponibilidad Dₖ diaria) cuando no hay bitácora histórica disponible |
+| Retrasos históricos observados | Plazos externos y variables de plano generadas para los escenarios |
+| Otros campos de planificación que constan en los archivos fuente | Cualquier contrafactual calibrado para comparar políticas |
 
 ## Cómo se generan (`dss/simulador.py`)
 
@@ -91,13 +91,13 @@ El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo,
 
 ## Si falta `extras/`: reconstrucción de la muestra
 
-`data/steelser.db` puede haberse creado sin los Excel de la empresa (son confidenciales y no están en el repo). En ese caso las 25 obras salen con 93 t cada una y cuadrillas de 1 a 4 personas, y el motor las programa en ~170 días cuando las duraciones reales son de 40 a 80: la simulación no tiene sentido. `py scripts/reconstruir_muestra.py` lo corrige (y no hace nada si la BD ya tiene toneladas distintas por proyecto, es decir, datos reales):
+Si una instalación carece de los Excel de la empresa (confidenciales y no incluidos en el repo), `py scripts/reconstruir_muestra.py` ofrece una reconstrucción auxiliar para probar el motor. No reemplaza los archivos fuente ni debe describirse como la procedencia de los registros históricos reales. La reconstrucción estima algunos campos de proceso y guarda respaldo antes de cambiar la BD:
 
 | Se conserva (real) | Se toma de la documentación | Se simula |
 |---|---|---|
 | Tipo de estructura y fechas de inicio, fin planificado y fin real (Tabla 3) | Toneladas de cada proyecto (tabla de verificación de arriba, calculada con la BD original) | Cuadrilla por proceso: un factor por proyecto se calibra para que el motor reproduzca la duración real con φ = 1 (error medio 0.4 días, máximo 2) |
 
-También recalcula las HH del ratio vigente (toneladas × ratio) y los días por proceso. Guarda un respaldo en `data/steelser_antes_reconstruccion.db` (`--forzar` vuelve a empezar desde él). Es una reconstrucción **declarada como simulada**: sirve para probar el pipeline, no es la base original.
+También recalcula las HH del ratio vigente (toneladas × ratio) y los días por proceso. Guarda un respaldo en `data/steelser_antes_reconstruccion.db` (`--forzar` vuelve a empezar desde él). Esta reconstrucción es un recurso técnico para una instalación sin fuentes; no implica que los registros históricos de proyectos y fechas sean inventados.
 
 > **El gemelo de eventos discretos** (`dss/gemelo/`, tablas `gem_*`, mundo 6) es ahora la fuente principal de datos simulados y de la vista 3D: ver [08](08_gemelo_planta.md). Lo que sigue describe los datos de planta del estudio retrospectivo anterior.
 

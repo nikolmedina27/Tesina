@@ -1,6 +1,6 @@
 # 08 · Gemelo de la planta (simulación de eventos discretos)
 
-> **Todo es SIMULADO.** El gemelo reproduce la historia 2019–2026 de Steelser con datos inventados pero realistas, calibrados a las fechas reales de la Tabla 3. Sirve para evaluar el DSS contra una «verdad» que **no sale del mismo motor que el DSS**, y para animar la planta en 3D. Cuando lleguen los tareos reales, cada tabla simulada se reemplaza por su equivalente real (sección 6).
+> **El gemelo es simulado; la historia usada para anclarlo es real.** Los proyectos y fechas de 2019–2026 proceden de los registros históricos de Steelser. La escena genera eventos, lotes y datos de proceso para evaluar políticas y animar la planta; esas variables generadas no son mediciones. Los tareos reales por proceso permitirán validar y sustituir las variables simuladas (sección 6).
 
 ## Por qué existe
 

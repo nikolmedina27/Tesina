@@ -26,7 +26,7 @@ Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que 
 | [analisis/05_literatura_papers.md](analisis/05_literatura_papers.md) | Los 27 papers de `papers/`: qué herramientas usan, cuáles se parecen a las nuestras, antecedentes externos y errores de la tesis ([mapeo CSV](analisis/papers_mapeo.csv)) |
 | [analisis/06_ruta_q1_y_ampliacion_bd.md](analisis/06_ruta_q1_y_ampliacion_bd.md) | Ruta a Q1 según la literatura y qué agregar a la BD (con DDL probado) |
 | [analisis/09_resultados_gemelo.md](analisis/09_resultados_gemelo.md) | **Resultados principales**: el DSS evaluado contra el gemelo de eventos discretos (8 políticas, alerta temprana, riesgo de modelo, qué cambia con datos reales) |
-| [analisis/08_retrospectivo_planta3d.md](analisis/08_retrospectivo_planta3d.md) | Estudio retrospectivo con datos simulados: cómo se hizo vs. qué habría pasado con el DSS (6 políticas, palancas de gestión, sensibilidad al costo) y sus límites |
+| [analisis/08_retrospectivo_planta3d.md](analisis/08_retrospectivo_planta3d.md) | Estudio retrospectivo: línea base histórica real y contrafactuales simulados (6 políticas, palancas de gestión, sensibilidad al costo) y sus límites |
 | [analisis/07_de_retrospectivo_a_prospectivo.md](analisis/07_de_retrospectivo_a_prospectivo.md) | Puntos de mejora: qué es retrospectivo, qué ya es prospectivo, diseño del piloto y métricas nuevas para Q1 |
 
 ## Diseño de la solución
@@ -40,7 +40,7 @@ Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que 
 | [diseno/05_simulacion_montecarlo_crp.md](diseno/05_simulacion_montecarlo_crp.md) | Algoritmo del Monte Carlo día a día sobre el CRP |
 | [diseno/07_plataforma_web.md](diseno/07_plataforma_web.md) | Plataforma SteelPlan: enlace y accesos directos, arquitectura, módulos, roles, sus Excel → módulos, funciones tipo Linear, proyectos de GitHub, hoja de ruta |
 | [diseno/08_gemelo_planta.md](diseno/08_gemelo_planta.md) | Gemelo de la planta: flujo por lote, recursos y calendarios, azar común, calibración, tablas `gem_*`, API y 3D, cómo reemplazarlo por datos reales |
-| [diseno/06_datos_simulados.md](diseno/06_datos_simulados.md) | Banco de pruebas SIMULADO anclado a los 25 proyectos: motor, 4 mundos, verificación, limitaciones |
+| [diseno/06_datos_simulados.md](diseno/06_datos_simulados.md) | Banco de pruebas simulado anclado a proyectos históricos reales: motor, 4 mundos, verificación y limitaciones |
 
 ## Plan
 

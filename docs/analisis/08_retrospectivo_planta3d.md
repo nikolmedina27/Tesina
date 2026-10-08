@@ -2,11 +2,11 @@
 
 > **Sustituido por [09](09_resultados_gemelo.md).** Este estudio usa el CRP como «verdad» (circular); se conserva para reproducir `exp5`. El resultado principal es el de 09.
 
-> **Todo es SIMULADO.** Es un banco de pruebas retrospectivo: la «verdad» de cada proyecto sale de los mundos simulados (`sim_*`), condicionados a la duración real de los 25 proyectos. No es evidencia sobre Steelser y así debe declararse. La BD de esta PC además es una **reconstrucción** (ver [diseno/06](../diseno/06_datos_simulados.md)): las cuadrillas por proceso son simuladas, por eso estos números **no** coinciden con los de [04](04_resultados_banco_pruebas.md), que salen de la BD original.
+> **Base histórica real; contrafactual simulado.** Los proyectos, sus fechas históricas y los resultados observados de la muestra proceden de registros reales de Steelser. Para estimar qué habría pasado bajo decisiones distintas, este experimento genera horas por proceso, paradas y escenarios en `sim_*`; esos contrafactuales sí son simulados y no deben presentarse como ejecuciones observadas. Las horas reales por proceso no están disponibles en la BD actual. La reconstrucción descrita en [diseno/06](../diseno/06_datos_simulados.md) es una ruta auxiliar para instalaciones sin los archivos fuente, no una descripción de la procedencia de toda la historia del proyecto.
 
 ## Qué se hizo
 
-Para cada proyecto, en orden cronológico y **solo con lo que se sabía a su fecha de inicio** (proyectos terminados antes para entrenar el QRF, paradas registradas hasta ese día, carga del taller), se aplican 6 políticas y se mide el resultado contra la ejecución simulada:
+Para cada proyecto, en orden cronológico y **solo con lo que se sabía a su fecha de inicio** (proyectos terminados antes para entrenar el QRF y el escenario de paradas y carga del taller), se aplican 6 políticas. A0 representa la ejecución histórica real; las políticas alternativas se comparan mediante contrafactuales simulados:
 
 | | Política | Qué decide el DSS | Ejecución |
 |---|---|---|---|
@@ -17,7 +17,7 @@ Para cada proyecto, en orden cronológico y **solo con lo que se sabía a su fec
 | A4 | Fecha original + re-pronóstico al 40 % | A los 40 % del plazo, con el avance real, re-pronostica y corrige si compensa | Palanca desde ese día |
 | A5 | Sistema completo | Fecha α\* y re-pronóstico al 40 % | Palanca desde ese día |
 
-**Cómo se calcula «qué habría pasado»**: `dss/retrospectivo.py` vuelve a programar el proyecto con la verdad del mundo (HH reales simuladas, paradas, carga del taller, plazos externos). Con la ejecución sin decisión reproduce la duración real con 0.2 a 0.4 días de error medio por mundo (máximo 2 días). Con una palanca el resultado es *fecha real + (duración con palanca − duración sin palanca)*: se ancla a lo que realmente pasó y solo se toma de la simulación la diferencia que causa la decisión.
+**Cómo se calcula «qué habría pasado»**: `dss/retrospectivo.py` vuelve a programar el proyecto con variables generadas para el escenario (HH por proceso, paradas, carga del taller y plazos externos). La ejecución A0 conserva el resultado histórico real. La reproducción del escenario sin decisión se calibra contra esa duración real; con una palanca, el resultado es *fecha real + (duración con palanca − duración sin palanca)*. Por tanto, el punto de partida es observado, pero la diferencia atribuida a la decisión es simulada.
 
 **Palancas** (`dss/whatif.py`): más personas en armado, soldeo o limpieza; segundo turno en una máquina; horas extra; expeditar un servicio externo. La búsqueda prueba cada una sola con pocas réplicas, combina las mejores y reevalúa con todas, siempre con las mismas semillas. Todo en % del presupuesto: penalidad = 1 % por día.
 
@@ -69,7 +69,7 @@ Los 6 proyectos atrasados de A0 se retrasaron 4, 4, 4, 5, 5 y 8 días. Resultado
 
 ## Límites (declararlos)
 
-- Mundo simulado y base reconstruida; los 5 mundos comparten los mismos 25 proyectos reales: **no son 5 evidencias independientes**.
+- Los 5 mundos comparten los mismos 25 proyectos históricos reales: **no son 5 evidencias independientes**. Las horas por proceso, las paradas y los efectos de palancas del contrafactual son simulados.
 - N = 25 (los IC de proporciones son de ±16 puntos); A0 tiene solo 6 atrasos.
 - Costos de palancas y costo comercial del plazo son supuestos sin datos de la empresa.
 - Las palancas suponen que sumar personas aumenta la capacidad en proporción y que el efecto es inmediato; no modelan disponibilidad de contratistas ni curva de aprendizaje.
@@ -80,12 +80,11 @@ Los 6 proyectos atrasados de A0 se retrasaron 4, 4, 4, 5, 5 y 8 días. Resultado
 
 1. Corregir el sesgo del pronóstico y calibrar por tamaño (conformal condicional, ver `04`) y volver a correr: debería bajar las intervenciones innecesarias de A3 y A4.
 2. Pedir a la empresa los costos reales de acelerar (prima de contratistas, hora extra, segundo turno) y las cotizaciones ganadas y perdidas (para el costo comercial del plazo).
-3. Con tareos reales, repetir con datos reales y pasar a un piloto en paralelo (*shadow mode*).
+3. Cuando se incorporen tareos reales por proceso, sustituir las variables generadas y volver a evaluar los contrafactuales; hasta entonces, informar por separado los resultados observados y los simulados.
 
 ## Reproducir
 
 ```bash
-py scripts/reconstruir_muestra.py   # solo si falta extras/
 py -m dss.simulador
 py -m dss.simulador_planta
 py scripts/exp5_retrospectivo.py              # ≈ 8 min con 5 núcleos; escribe data/exp5_*.csv y sim_retro_resultado

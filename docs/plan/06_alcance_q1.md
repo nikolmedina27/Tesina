@@ -7,7 +7,7 @@
 | Ataque | Estado |
 |---|---|
 | «La verdad sale del mismo motor que el DSS» (circularidad) | **Resuelto en simulación**: gemelo de eventos discretos hora a hora, independiente del planificador diario, con azar común entre políticas |
-| «N = 25 proyectos, sin datos reales» | **Sin resolver.** Es el bloqueo. Con N = 25 los IC de proporciones son de ±16 puntos; detectar +10 puntos de cumplimiento exige ≈ 70–80 proyectos |
+| «N = 25 proyectos, sin horas reales por proceso» | **Parcialmente resuelto**: la historia de proyectos y fechas es real; faltan tareos históricos por proceso para validar el modelo de HH y algunos contrafactuales. Con N = 25 los IC de proporciones son de ±16 puntos; detectar +10 puntos de cumplimiento exige ≈ 70–80 proyectos |
 | «El DSS no supera a un colchón fijo» | **Cierto en el gemelo.** Hay que replantear la contribución (sección 2) |
 | «QRF, Monte Carlo, conformal, gemelo y 3D no son nuevos» | Cierto; Mehdiyev et al. 2025 ya usa QRF en manufactura. La novedad solo puede ser la integración y el hallazgo |
 | «La gestión recomendada no funciona» | **Hallazgo propio**: el modelo de planificación omite lo que domina el plazo (proveedores, pintura). Es riesgo de modelo, y es publicable |

@@ -1,12 +1,12 @@
 # 07 · De un análisis retrospectivo a uno prospectivo (puntos de mejora)
 
-Todo lo hecho hasta ahora mira **hacia atrás**: datos históricos (y simulados), backtest de proyectos ya terminados. Una revista Q1 en operaciones pide evidencia de que el artefacto funciona **hacia adelante**, en uso real. Este documento lista qué es retrospectivo, qué ya es prospectivo y qué falta.
+El análisis retrospectivo usa la historia real de proyectos y fechas de Steelser. Algunos modelos y contrafactuales (por ejemplo, horas por proceso y paradas cuando no hay registros observados) son simulados. Una revista Q1 en operaciones también pide evidencia de que el artefacto funciona **hacia adelante**, en uso real. Este documento lista qué es retrospectivo, qué ya es prospectivo y qué falta.
 
 ## 1. Diagnóstico
 
 | Pieza | Hoy | Límite |
 |---|---|---|
-| Línea base (68.4 % de cumplimiento) | Retrospectiva (Tabla 3) | Correcta, pero no dice qué pasaría con el sistema |
+| Línea base (68.4 % de cumplimiento) | Retrospectiva con fechas históricas reales (Tabla 3) | Describe lo observado; por sí sola no dice qué pasaría con el sistema |
 | Modelo de horas (C2) | Entrenado con datos simulados | Sin horas reales no hay evidencia |
 | Fechas (C3) | Backtest *rolling origin* sobre los 25 | Contrafactual: nadie cotizó con esas fechas |
 | Disponibilidad | Supuesta (paradas simuladas) | No hay bitácora real |
@@ -59,7 +59,7 @@ Además conviene documentar las iteraciones del diseño (v1 → v2 → v3) como 
 ## 4. Qué cambia en la tesis
 
 1. **Objetivo específico nuevo o reformulado**: "validar prospectivamente el modelo mediante un piloto de N semanas con cotización en paralelo y re-pronóstico semanal".
-2. **Capítulo de resultados en dos partes**: (a) retrospectivo, con backtest sobre datos reales reconstruidos; (b) prospectivo, con el piloto.
+2. **Capítulo de resultados en dos partes**: (a) retrospectivo, separando observaciones históricas reales de contrafactuales simulados; (b) prospectivo, con el piloto.
 3. **Limitación explícita** si el piloto cierra pocos proyectos: reportar las métricas por proceso y por semana, que sí tienen tamaño suficiente.
 
 ## 5. Cronograma sugerido

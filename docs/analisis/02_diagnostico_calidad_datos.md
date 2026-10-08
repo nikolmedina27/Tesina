@@ -1,6 +1,6 @@
 # 02 · Diagnóstico de calidad de datos e inconsistencias
 
-**Conclusión principal: con los datos actuales no se puede entrenar el modelo.** La variable objetivo (HH reales por proceso) no existe todavía en ningún archivo. Este documento explica por qué y qué corregir en la tesis.
+**Conclusión principal: con los datos actuales no se puede entrenar el modelo de HH por proceso.** Los proyectos, fechas y resultados históricos son reales; lo que falta en la BD es la variable objetivo medida (HH reales por proceso). Este documento explica por qué y qué corregir en la tesis.
 
 ## 1. Las "HH estimadas" son el ratio vigente, no horas reales
 

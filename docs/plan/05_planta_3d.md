@@ -167,7 +167,7 @@ Total sin piloto: **≈ 11–12 semanas**. Orden no negociable: la Fase 1 primer
 |---|---|
 | El alcance no entra en TF2 | Tesis = Fases 1–2 + 3 básica; paper = 3 completa, 4 y 5 |
 | Expectativa de "personal en vivo" | Declarar en la interfaz que la escena viene del plan y del último registro |
-| Sin horas reales | Todo con datos simulados declarados; priorizar el registro de tareo |
+| Sin tareos reales por proceso | La historia de proyectos y fechas sí es real; las variables de operación generadas deben declararse como simuladas y se prioriza registrar tareos |
 | Rendimiento en tablet | Low-poly, instancias, límite de objetos, modo 2D de respaldo |
 | Costos de palancas desconocidos | Supuestos explícitos + análisis de sensibilidad |
 | El 3D distrae del núcleo | Cada vista 3D debe mostrar un número de C2/C3; si no, no entra |

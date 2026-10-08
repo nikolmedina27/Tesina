@@ -1,8 +1,8 @@
 # 04 · Resultados en el banco de pruebas (datos SIMULADOS)
 
-> **Todos estos resultados salen de datos simulados** ([diseno/06](../diseno/06_datos_simulados.md)). Muestran que el pipeline funciona y cómo se comporta el método bajo supuestos conocidos. **No son evidencia sobre Steelser.** Se regeneran con `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py` y `exp4_ablacion.py` (resultados en `data/*.csv`). Los experimentos 2 y 3 se corrieron con los 4 primeros escenarios; el 1 y el 4 incluyen el escenario M5 (disponibilidad ≈ 80 %).
+> **Los resultados de este banco corresponden a escenarios simulados** ([diseno/06](../diseno/06_datos_simulados.md)) y describen el comportamiento del método bajo esos supuestos; no estiman por sí solos el desempeño observado de Steelser. Los proyectos y resultados históricos usados para anclar escenarios sí son reales. Se regeneran con `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py` y `exp4_ablacion.py` (resultados en `data/*.csv`). Los experimentos 2 y 3 se corrieron con los 4 primeros escenarios; el 1 y el 4 incluyen el escenario M5 (disponibilidad ≈ 80 %).
 
-> Para el estudio retrospectivo «cómo se hizo vs. qué habría pasado» (palancas de gestión, 6 políticas, base reconstruida) ver [08](08_retrospectivo_planta3d.md). Sus números no coinciden con los de este documento porque usa la BD reconstruida de la PC de Paolo.
+> Para el estudio retrospectivo «cómo se hizo vs. qué habría pasado» (palancas de gestión, 6 políticas) ver [08](08_retrospectivo_planta3d.md). La línea base A0 usa los resultados históricos reales; los contrafactuales usan horas por proceso, paradas y palancas simuladas. Las diferencias entre informes corresponden a sus supuestos y configuraciones de análisis.
 
 ## Resumen en cinco líneas
 

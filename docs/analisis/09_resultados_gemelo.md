@@ -1,6 +1,6 @@
 # 09 · Resultados: el DSS evaluado contra el gemelo de eventos discretos
 
-> **Todo es SIMULADO.** La «verdad» es el gemelo hora a hora de [diseno/08](../diseno/08_gemelo_planta.md), calibrado a las fechas reales de la Tabla 3. Sirve para probar el pipeline y para saber qué esperar con datos reales; no es evidencia sobre Steelser. Reemplaza al estudio retrospectivo de [08](08_retrospectivo_planta3d.md), cuya «verdad» salía del mismo motor que el DSS (circular).
+> **Resultados contrafactuales simulados, anclados a historia real.** Los 38 proyectos y sus fechas históricas proceden de registros de Steelser. El gemelo hora a hora de [diseno/08](../diseno/08_gemelo_planta.md) genera eventos y datos de proceso calibrados a esas fechas; por ello, las comparaciones de políticas y las alertas son resultados del modelo, no observaciones de cómo habría operado la planta. Reemplaza al estudio retrospectivo de [08](08_retrospectivo_planta3d.md), cuya «verdad» salía del mismo motor que el DSS (circular).
 
 ## Qué se hizo
 

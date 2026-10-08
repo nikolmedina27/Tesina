@@ -1,6 +1,6 @@
 # 04 · Kit para la empresa (Steelser S.A.C.)
 
-Todo lo que hay que llevar y pedir para pasar de datos simulados a datos reales y empezar el piloto.
+Todo lo que hay que llevar y pedir para completar los registros operativos por proceso, validar los componentes simulados con observaciones y empezar el piloto. La historia de proyectos y fechas ya es real.
 
 ## Qué se lleva
 
