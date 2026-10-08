@@ -12,7 +12,7 @@ if %errorlevel%==0 goto abrir
 
 echo Iniciando SteelPlan...
 start "SteelPlan - servidor (no cerrar)" /min "%PY%" -m uvicorn plataforma.server:app --host 127.0.0.1 --port 8600
-powershell -NoProfile -Command "for ($i=0; $i -lt 40; $i++) { try { Invoke-WebRequest -UseBasicParsing '%URL%/api/docs' -TimeoutSec 2 | Out-Null; exit 0 } catch { Start-Sleep -Milliseconds 750 } }; exit 1"
+powershell -NoProfile -Command "for ($i=0; $i -lt 80; $i++) { try { Invoke-WebRequest -UseBasicParsing '%URL%/api/docs' -TimeoutSec 2 | Out-Null; exit 0 } catch { Start-Sleep -Milliseconds 750 } }; exit 1"
 if not %errorlevel%==0 (
   echo No se pudo iniciar el servidor. Revise la ventana "SteelPlan - servidor".
   pause
