@@ -1,15 +1,33 @@
 [Desktop Entry]
-# Lanzador para Linux (GNOME/KDE/XFCE/Hyprland).
+# Lanzador para Linux (GNOME/KDE/XFCE/Hyprland). No se copia a mano: `lanzador/instalar_linux.sh` reemplaza
+# RUTA_PROYECTO por la ruta absoluta de esta copia y lo instala en ~/.local/share/applications/.
 Type=Application
 Version=1.0
 Name=SteelPlan
 GenericName=Gestión de proyectos metalmecánicos
-Comment=Cotiza plazos con probabilidad, Gantt, tareo y tareas del equipo (Steelser S.A.C.)
-Exec=/home/paolo/Projects/Tesina/scripts/steelplan-launch.sh
-TryExec=/home/paolo/Projects/Tesina/scripts/steelplan-launch.sh
-Icon=/home/paolo/Projects/Tesina/plataforma/web/icono.png
+Comment=Cotiza plazos, programa la cartera, mantenimiento de máquinas, Gantt, curva S y tableros (Steelser S.A.C.)
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh"
+TryExec=RUTA_PROYECTO/scripts/steelplan-launch.sh
+Icon=RUTA_PROYECTO/plataforma/web/icono.png
 Terminal=false
 Categories=Office;ProjectManagement;
-Keywords=gantt;cotizacion;metalmecanica;erp;steelplan;
+Keywords=gantt;cotizacion;metalmecanica;erp;steelplan;mantenimiento;programacion;
 StartupNotify=true
 StartupWMClass=SteelPlan
+Actions=produccion;programacion;mantenimiento;tv;
+
+[Desktop Action produccion]
+Name=Tablero de producción
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh" --ruta=tproduccion
+
+[Desktop Action programacion]
+Name=Programación de la cartera
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh" --ruta=programacion
+
+[Desktop Action mantenimiento]
+Name=Mantenimiento de máquinas
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh" --ruta=mant
+
+[Desktop Action tv]
+Name=Modo TV (pantalla de planta)
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh" --ruta=tv
