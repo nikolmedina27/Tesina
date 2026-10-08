@@ -1,14 +1,15 @@
 [Desktop Entry]
-# Lanzador para Linux (GNOME/KDE/XFCE). Copiar a ~/.local/share/applications/ o al escritorio y
-# ajustar RUTA_PROYECTO. En Windows usar el acceso directo "SteelPlan" creado en el escritorio.
+# Lanzador para Linux (GNOME/KDE/XFCE/Hyprland).
 Type=Application
 Version=1.0
 Name=SteelPlan
 GenericName=Gestión de proyectos metalmecánicos
 Comment=Cotiza plazos con probabilidad, Gantt, tareo y tareas del equipo (Steelser S.A.C.)
-Exec=sh -c 'cd "$HOME/RUTA_PROYECTO" && (curl -s -o /dev/null http://localhost:8600/api/docs || (python3 -m uvicorn plataforma.server:app --host 127.0.0.1 --port 8600 >/tmp/steelplan.log 2>&1 &) ) ; sleep 4; xdg-open http://localhost:8600'
-Icon=RUTA_PROYECTO/plataforma/web/icono.png
+Exec=/home/paolo/Projects/Tesina/scripts/steelplan-launch.sh
+TryExec=/home/paolo/Projects/Tesina/scripts/steelplan-launch.sh
+Icon=/home/paolo/Projects/Tesina/plataforma/web/icono.png
 Terminal=false
 Categories=Office;ProjectManagement;
-Keywords=gantt;cotizacion;metalmecanica;erp;
+Keywords=gantt;cotizacion;metalmecanica;erp;steelplan;
 StartupNotify=true
+StartupWMClass=SteelPlan
