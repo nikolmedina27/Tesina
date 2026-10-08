@@ -12,6 +12,8 @@ Complementa [03_potencial_q1.md](03_potencial_q1.md) con lo que mostró la liter
 | Hay antecedente de fecha confiable con capacidad: Mundt & Lödding 2025 (colchón fijo) y Keskinocak & Tayur | Compararse contra ellos (colchón fijo y regla P50 + colchón) |
 | Disponibilidad real 69–78 % (Hollerweger) | Mi simulación asumió ≈ 90 %: hacer **sensibilidad con Dₖ entre 0.70 y 0.90** |
 | Ninguno de los 27 reporta cobertura de intervalos salvo May | La **calibración** (PICP, Brier) es un diferenciador fácil de defender |
+| **Experimento 4**: un colchón fijo (plan con carga del taller + N días) iguala al Monte Carlo en la frontera cumplimiento-plazo; la carga del taller es la pieza que más aporta; el GBM cuantílico (estilo Bekci) subcubre (0.62–0.69) | **No basar el paper en "la distribución mejora el plazo"**. Basarlo en (1) calibración interpretable y con cobertura garantizada, (2) la carga del taller, (3) cola de confiabilidad alta (Dₖ y ρ) y (4) comparar siempre contra el colchón fijo |
+| La calibración falla por tamaño: proyectos chicos cumplen 67 % cuando se promete 80 % | **Aporte metodológico concreto a desarrollar**: conformal condicional por tamaño (Mondrian) o puntajes normalizados, con la misma prueba de cobertura por tercil |
 
 ## 2. Qué sugiero para llegar a Q1
 

@@ -22,7 +22,7 @@
 5. **Carga del taller** (`dss/datos.py::CargaTaller`): las 4 máquinas son únicas y las comparten los proyectos simultáneos. Cada proyecto previo (de los 38 de la Tabla 3) ocupa las máquinas entre el 20 % y el 50 % de su duración con sus HH de habilitado (ratio de su tipo; 13 proyectos fuera de la muestra no tienen toneladas y se imputan con 93 t). El proyecto nuevo recibe disponibilidad efectiva D · (1 − κ·u) con κ = 0.5 y u ≤ 0.9. Solo cargan los proyectos iniciados **antes**, así la regla es causal. κ, la ventana y la imputación son **supuestos**.
 6. **Condicionamiento a lo real (ABC)**: para cada proyecto se sortean 3 000 "verdades" (φ y plazos externos), se programan con las paradas simuladas de su fecha y la carga del taller, y se elige la que reproduce la **duración real del proyecto**. Aceptación con tolerancia ±1 día: 14–25 %.
 
-## Los 4 mundos
+## Los 5 mundos
 
 | Mundo | Idea | σ por proceso | ρ | Qué prueba |
 |---|---|---|---|---|
@@ -30,6 +30,7 @@
 | M2 sesgo sistemático | Sesgo por tipo y proceso (a priori) | 0.15 | 0.5 | Caso típico del problema |
 | M3 no lineal y colas pesadas | Umbrales e interacciones, errores t(4) | 0.12 | 0.5 | Ventaja de QRF sobre regresión lineal |
 | M4 deriva del taller | Como M2; desde 2024 contratista más lento (+15 % en armado/soldeo/limpieza) y MTBF ×0.6 | 0.15 | 0.5 | El lazo cerrado C4 |
+| M5 disponibilidad baja | Como M2 con paradas frecuentes: Dₖ medio 80.5 % (72–88 % por máquina); la celda CNC de Hollerweger et al. tuvo 69–78 % | 0.15 | 0.5 | Sensibilidad a la disponibilidad real |
 
 Resultado realizado (tras condicionar a los datos reales):
 
@@ -39,6 +40,9 @@ Resultado realizado (tras condicionar a los datos reales):
 | M2 | 0.994 | 0.141 | 0.096 | 31.3 (23.0–47.2) |
 | M3 | 0.986 | 0.143 | 0.105 | 31.0 (22.5–43.9) |
 | M4 | 1.001 | 0.161 | 0.112 | 31.5 (21.7–47.4) |
+| M5 | 0.952 | 0.150 | 0.112 | 30.0 (21.7–43.8) |
+
+Con paradas más frecuentes (M5) la máquina rinde menos horas por día, así que para reproducir las mismas duraciones reales el φ medio baja a 0.95: el ratio vigente queda sobreestimado. Es consecuencia del condicionamiento, no un dato.
 
 ## Hallazgo: el problema es la dispersión, no el sesgo medio
 
@@ -55,7 +59,7 @@ Lectura: el ratio vigente es correcto **en promedio**, pero cada proyecto se des
 
 ## Verificación por proyecto (días laborables, lunes a sábado)
 
-El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo, reproduce la duración real de los 25 proyectos con residuo 0 en M2, M3 y M4. En M1 (donde φ casi no varía y por tanto no puede absorber el atraso) el residuo medio es 0.12 días y un proyecto queda a 3 días.
+El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo, reproduce la duración real de los 25 proyectos con residuo 0 en M2, M3, M4 y M5 (la tabla de abajo muestra M1–M4). En M1 (donde φ casi no varía y por tanto no puede absorber el atraso) el residuo medio es 0.12 días y un proyecto queda a 3 días.
 
 | # | Año | Cliente | t | Retraso real (d) | Días lab. plan | Días lab. real | Simulado (M1-M4) | φ M1 | φ M2 | φ M3 | φ M4 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -89,7 +93,7 @@ El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo,
 
 ```bash
 py scripts/build_db.py        # recrea la BD (borra las tablas sim_*)
-py -m dss.simulador           # genera los 4 mundos y las guarda en sim_*
+py -m dss.simulador           # genera los 5 mundos y las guarda en sim_*
 py -m pytest tests -q         # pruebas del motor
 ```
 

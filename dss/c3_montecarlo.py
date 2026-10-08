@@ -136,8 +136,10 @@ class Cotizador:
         self.carga = CargaTaller(con, self.dias_cal)
 
     def cotizar(self, proy, R=1000, alpha=0.8, mtbf=MTBF_DEFECTO, semilla=1, lam=LAM_DEFECTO, carga_extra=0.0,
-                sin_disponibilidad=False, sin_carga=False, rho=None):
-        """`sin_disponibilidad`, `sin_carga` y `rho` (valor fijo) son para las ablaciones del experimento 4."""
+                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None):
+        """`sin_disponibilidad`, `sin_carga` y `rho` (valor fijo) son para las ablaciones del experimento 4.
+        `restante` (13,): fracción de trabajo que falta por proceso (re-pronóstico de un proyecto en curso,
+        con `proy.inicio` = hoy)."""
         rng = np.random.default_rng(semilla)
         hh_ratio = proy.ton * self.rv.loc[proy.tipo].values
         crew = proy.cuadrilla if proy.cuadrilla is not None else cuadrilla(self.par_cuad, proy.ton)
@@ -145,6 +147,10 @@ class Cotizador:
         phi = muestrear_phi(q_phi, rho_est if rho is None else rho, R, rng)
         hh = hh_ratio * phi
         ext_base = proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton)
+        if restante is not None:
+            restante = np.clip(np.asarray(restante, float), 0.0, 1.0)
+            hh = hh * np.maximum(restante, 1e-6)
+            ext_base = ext_base * np.maximum(restante[[6, 11]], 0.05)
         ext = ext_base * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
         u = np.minimum(self.carga.u(proy.inicio, excluir=proy.id, T=T_DIAS) + carga_extra, 0.9)
         if sin_carga:
@@ -155,7 +161,12 @@ class Cotizador:
         n = np.nan_to_num(o['fin'], nan=T_DIAS).astype(int)
         base = np.busday_offset(np.datetime64(proy.inicio, 'D'), 0, roll='forward', weekmask=WEEKMASK)
         fechas = np.busday_offset(base, n - 1, weekmask=WEEKMASK)
-        return Resultado(proy, base, fechas, n, hh, alpha)
+        res = Resultado(proy, base, fechas, n, hh, alpha)
+        # programa de la réplica mediana (para dibujar el Gantt)
+        r_med = int(np.argsort(n)[len(n) // 2])
+        res.programa = [(None if np.isnan(a) else int(a), None if np.isnan(b) else int(b))
+                        for a, b in zip(o['ini'][r_med], o['fin_proc'][r_med])]
+        return res
 
     def fecha_con_colchon(self, proy, mtbf=MTBF_DEFECTO, lam=LAM_DEFECTO, semilla=1):
         """Alternativa determinista (estilo Mundt & Lödding): plan con la mediana de φ, disponibilidad esperada y

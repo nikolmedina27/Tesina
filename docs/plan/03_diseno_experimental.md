@@ -8,9 +8,11 @@ Cómo demostrar que el DSS es mejor que la práctica actual, con el rigor que pi
 |---|---|---|---|
 | 1 · Predicción de HH (LOPO) | ✅ sobre datos simulados | `scripts/exp1_prediccion.py` | `data/exp1_resultados.csv`, [analisis/04](../analisis/04_resultados_banco_pruebas.md) |
 | 2 · Backtest de cotización | ✅ sobre datos simulados (variantes A0, A5, A6, A7) | `scripts/exp2_backtest.py`, `exp3_frontera.py` | `data/exp2_backtest.csv`, `data/exp3_frontera*.csv` |
-| 2 · Ablación A1–A4 (sin Monte Carlo, sin Dₖ, sin carga del taller, ρ = 0) | ⏳ pendiente | — | — |
+| 2 · Ablación y competidor de colchón fijo (sin conformal, sin Dₖ, sin carga del taller, ρ = 0, sin variables) | ✅ sobre datos simulados, 5 escenarios | `scripts/exp4_ablacion.py` | `data/exp4_ablacion*.csv`, [analisis/04](../analisis/04_resultados_banco_pruebas.md) |
 | 3 · Piloto prospectivo (*shadow mode*) | ⏳ requiere cotizaciones reales | — | — |
-| 4 · Sensibilidad (R, ρ, Dₖ, α, κ de la carga del taller) | ⏳ pendiente | — | — |
+| 4 · Sensibilidad: Dₖ | ✅ escenario M5 (≈ 80 %) | `dss/simulador.py` | idem |
+| 4 · Sensibilidad: R, ρ, α, κ de la carga del taller, σ de plazos externos, c_o | ⏳ pendiente | — | — |
+| 5 · Calibración condicional por tamaño (conformal Mondrian) | ⏳ pendiente; motivado por el experimento 4 | — | — |
 
 Los experimentos 1 y 2 usan **datos simulados**; sus resultados validan el pipeline, no el desempeño en Steelser.
 

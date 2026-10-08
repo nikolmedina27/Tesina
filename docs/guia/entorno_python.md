@@ -34,6 +34,7 @@ py scripts/exp1_prediccion.py          # predicción de HH, leave-one-project-ou
 py scripts/exp2_backtest.py            # backtest de fechas, variantes A0/A5/A6/A7 (~10 min)
 py scripts/exp3_frontera.py            # frontera cumplimiento-plazo con cuadrilla típica (~10 min)
 py scripts/exp3_frontera.py plan       # igual, con las cuadrillas del cotizador
+py scripts/exp4_ablacion.py            # ablaciones, colchón fijo y 5 escenarios (~30 min)
 py scripts/calibrar_solapes.py         # recalibrar los solapes del motor CRP (~5 min)
 ```
 

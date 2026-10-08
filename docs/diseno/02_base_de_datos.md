@@ -67,11 +67,11 @@ erDiagram
 ### Simuladas (no están en `sql/schema.sql`; las crea `py -m dss.simulador`)
 | Tabla | Filas | Contenido |
 |---|---|---|
-| `sim_mundo` | 4 | Escenarios M1–M4 y sus parámetros |
+| `sim_mundo` | 5 | Escenarios M1–M5 y sus parámetros |
 | `sim_feature` | 25 | Variables del plano simuladas por proyecto |
-| `sim_proyecto_proceso` | 1 300 | HH reales simuladas, φ y fechas por proceso (columna `origen = 'SIMULADO'`) |
-| `sim_parada` | 4 233 | Paradas simuladas de las 4 máquinas |
-| `sim_verificacion` | 100 | Duración simulada vs. real por proyecto y escenario |
+| `sim_proyecto_proceso` | 1 625 | HH reales simuladas, φ y fechas por proceso (columna `origen = 'SIMULADO'`) |
+| `sim_parada` | 6 895 | Paradas simuladas de las 4 máquinas |
+| `sim_verificacion` | 125 | Duración simulada vs. real por proyecto y escenario |
 
 `py scripts/build_db.py` borra estas tablas; regenerarlas con `py -m dss.simulador`. Detalle en [06_datos_simulados.md](06_datos_simulados.md).
 

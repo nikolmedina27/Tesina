@@ -11,3 +11,8 @@ quantile-forest>=1.3
 streamlit>=1.38
 plotly>=5.22
 pytest>=8.0
+
+# Plataforma web SteelPlan
+fastapi>=0.115
+uvicorn[standard]>=0.30
+itsdangerous>=2.2

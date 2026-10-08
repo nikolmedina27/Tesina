@@ -25,6 +25,7 @@ Generados con `py scripts/docx_a_md.py`. No editar a mano.
 | [analisis/04_resultados_banco_pruebas.md](analisis/04_resultados_banco_pruebas.md) | Resultados de C2 y C3 sobre datos simulados: error de HH, cobertura, frontera cumplimiento-plazo |
 | [analisis/05_literatura_papers.md](analisis/05_literatura_papers.md) | Los 27 papers de `papers/`: qué herramientas usan, cuáles se parecen a las nuestras, antecedentes externos y errores de la tesis ([mapeo CSV](analisis/papers_mapeo.csv)) |
 | [analisis/06_ruta_q1_y_ampliacion_bd.md](analisis/06_ruta_q1_y_ampliacion_bd.md) | Ruta a Q1 según la literatura y qué agregar a la BD (con DDL probado) |
+| [analisis/07_de_retrospectivo_a_prospectivo.md](analisis/07_de_retrospectivo_a_prospectivo.md) | Puntos de mejora: qué es retrospectivo, qué ya es prospectivo, diseño del piloto y métricas nuevas para Q1 |
 
 ## Diseño de la solución
 
@@ -35,6 +36,7 @@ Generados con `py scripts/docx_a_md.py`. No editar a mano.
 | [diseno/03_formato_unico_registro.md](diseno/03_formato_unico_registro.md) | Formato único Excel (tareo, fechas, paradas, servicios externos) |
 | [diseno/04_modelo_matematico.md](diseno/04_modelo_matematico.md) | Ecuaciones 4–19 (las que faltan en el Word + nuevas) |
 | [diseno/05_simulacion_montecarlo_crp.md](diseno/05_simulacion_montecarlo_crp.md) | Algoritmo del Monte Carlo día a día sobre el CRP |
+| [diseno/07_plataforma_web.md](diseno/07_plataforma_web.md) | Plataforma SteelPlan: enlace y accesos directos, arquitectura, módulos, roles, sus Excel → módulos, funciones tipo Linear, proyectos de GitHub, hoja de ruta |
 | [diseno/06_datos_simulados.md](diseno/06_datos_simulados.md) | Banco de pruebas SIMULADO anclado a los 25 proyectos: motor, 4 mundos, verificación, limitaciones |
 
 ## Plan
@@ -44,6 +46,7 @@ Generados con `py scripts/docx_a_md.py`. No editar a mano.
 | [plan/01_datos_a_recolectar.md](plan/01_datos_a_recolectar.md) | Qué datos faltan, prioridad, fuente y checklist para la empresa |
 | [plan/02_hoja_de_ruta.md](plan/02_hoja_de_ruta.md) | Fases, entregables, tareas inmediatas y riesgos |
 | [plan/03_diseno_experimental.md](plan/03_diseno_experimental.md) | Hipótesis, validación LOPO, backtest, ablación, piloto |
+| [plan/04_kit_empresa.md](plan/04_kit_empresa.md) | Kit para Steelser: agenda, cuentas, solicitud de datos, piloto prospectivo, correo modelo; Excel en `entregables/` |
 
 ## Guía
 

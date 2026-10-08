@@ -9,5 +9,6 @@ data/*.db
 # PDFs de la literatura: no versionar (tamano y derechos de autor)
 papers/*.pdf
 
-# confidencial (declaracion jurada)
-extras/
+# Plataforma: credenciales y clave de sesion locales (nunca versionar)
+data/credenciales_demo.txt
+data/secret.key

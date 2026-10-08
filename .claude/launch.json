@@ -4,8 +4,15 @@
     {
       "name": "cotizador",
       "runtimeExecutable": "C:\\Users\\SHIRLEY MEDINA\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-      "runtimeArgs": ["-m", "streamlit", "run", "app/streamlit_app.py", "--server.port", "8501", "--server.headless", "true", "--browser.gatherUsageStats", "false"],
-      "port": 8501
+      "runtimeArgs": ["-c", "import os, sys; from streamlit.web import cli; sys.argv = ['streamlit', 'run', 'app/streamlit_app.py', '--server.port', os.environ.get('PORT', '8501'), '--server.headless', 'true', '--browser.gatherUsageStats', 'false']; sys.exit(cli.main())"],
+      "port": 8501,
+      "autoPort": true
+    },
+    {
+      "name": "plataforma",
+      "runtimeExecutable": "C:\\Users\\SHIRLEY MEDINA\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "runtimeArgs": ["-m", "uvicorn", "plataforma.server:app", "--port", "8600"],
+      "port": 8600
     }
   ]
 }

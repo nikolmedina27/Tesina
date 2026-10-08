@@ -49,7 +49,10 @@ data/*.csv                resultados de los experimentos 1-3 (versionados)
 sql/schema.sql            esquema de la BD real: fuente de verdad (las tablas sim_* las crea dss/simulador.py)
 scripts/                  build_db, docx_a_md, calibrar_solapes, exp1_prediccion, exp2_backtest, exp3_frontera
 dss/                      código del DSS (ver "Estado del código")
-app/streamlit_app.py      cotizador web
+plataforma/               plataforma web SteelPlan (FastAPI + SPA)
+lanzador/                 .bat, .desktop, ícono y script de accesos directos
+entregables/              Excel del formato único para la empresa
+app/streamlit_app.py      cotizador Streamlit (prototipo anterior, para análisis)
 tests/                    pruebas (pytest)
 .claude/launch.json       configuración para abrir el cotizador en el navegador de la app
 docs/README.md            índice de toda la documentación
@@ -60,13 +63,30 @@ docs/plan/                datos a recolectar, hoja de ruta, diseño experimental
 docs/guia/                entorno Python y comandos
 ```
 
+## Plataforma web SteelPlan (`plataforma/`)
+
+Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gantt, gráficos ECharts). Detalle en `docs/diseno/07_plataforma_web.md`.
+- Abrir: acceso directo **SteelPlan** del escritorio (`lanzador/iniciar_plataforma.bat`) o `py -m uvicorn plataforma.server:app --port 8600` → `http://localhost:8600`. Red local: `lanzador/iniciar_red_local.bat`. Linux: `lanzador/SteelPlan.desktop`. Recrear accesos directos: `lanzador/crear_acceso_directo.ps1`.
+- `plataforma/server.py` (FastAPI, sesión por cookie, permisos por rol), `plataforma/db_plataforma.py` (BD operativa), `plataforma/web/` (SPA vanilla JS: index.html, app.js, styles.css).
+- **Dos BD**: `data/steelser.db` (histórico, la recrea `build_db.py`) y `data/plataforma.db` (usuarios, proyectos en curso, tareo, paradas, tareas; **nunca se recrea**). No mezclar.
+- Roles: gerencia, cotizador, jefe_taller, supervisor, calidad. Cuentas demo y sus claves en `data/credenciales_demo.txt` (ignorado por git; no copiar las claves en documentos ni respuestas). Proyecto `OT-DEMO-001` marcado `es_demo`.
+- Prospectivo: re-pronóstico de proyectos en curso (`Cotizador.cotizar(..., restante=...)`), MTBF desde paradas registradas tras 60 días, cotización guardada antes de ejecutar.
+- El modelo de horas de la plataforma se entrena con el escenario simulado M2; la interfaz lo advierte.
+- Kit para la empresa: `docs/plan/04_kit_empresa.md` y `entregables/Formato_Unico_Steelser_v1.xlsx` (`py scripts/generar_formato_unico.py`).
+- **v2**: importación del formato único (vista Importar; `plataforma/importador.py`, validar = misma transacción revertida, idempotente), avance físico ponderado por pieza y curva S (`plataforma/avance.py`; pesos por etapa 70 % fierro negro / 20 % recubrimiento / 10 % despacho, de su hoja REPORTE_DE_HABILITADO), pestañas Piezas, Curva S y Compras-servicios-eventos en el proyecto.
+- **Fuente única del formato**: `plataforma/formato.py` (HOJAS y LISTAS). Si se cambia una columna, se cambia ahí; el generador y el importador la leen. Tablas nuevas en `plataforma.db` se agregan en `ESQUEMA` y las columnas nuevas en `COLUMNAS_V2` (migración sin perder datos).
+- Ejemplo lleno DEMO: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx` (`py scripts/generar_ejemplo_importacion.py`).
+- **v2.1**: reporte semanal imprimible (`#/reporte/{id}`, PDF desde el navegador), pestaña Semanas (ciclos lunes–sábado, `avance.semanas`), historial de re-pronósticos (tabla `pronostico`; mide alertas tempranas en el piloto), bandeja RFI y NC (`/api/bandeja`; columnas `imputable`, `dias_impacto`, `conjunto`, `fecha_cierre` en `tarea`), buscador Ctrl+K (`/api/buscar`), marcar etapas de pieza desde la interfaz (`/api/piezas/etapa`, trazado en `pieza_cambio`; el orden de etapas está en `avance.error_orden_etapas`, compartido con el importador), librerías locales en `plataforma/web/vendor/` y PWA (`sw.js`, `manifest.webmanifest`; el service worker solo se activa en localhost o HTTPS).
+- `creado_en` de SQLite está en UTC; para días o fechas locales usar `date(col,'localtime')`.
+- Puntos de mejora retrospectivo → prospectivo: `docs/analisis/07_de_retrospectivo_a_prospectivo.md`.
+
 ## Literatura (`papers/`)
 
 27 PDFs renombrados a su título (mapeo en `docs/analisis/papers_mapeo.csv`; script `scripts/renombrar_papers.py`). Los PDFs **no se versionan en git** (tamaño y derechos de autor). Análisis en `docs/analisis/05_literatura_papers.md` y ruta a Q1 con ampliación de BD en `06_ruta_q1_y_ampliacion_bd.md`. Hallazgos:
 - Ninguno de los 27 usa QRF, calibración conformal ni Monte Carlo con penalidad; ninguno junta ML de horas + capacidad + incertidumbre.
 - **El experto es base fuerte**: Rokoss (planificación RMSE 5.87 vs ML 5.56 días) y Roblek (el plan humano gana) coinciden con nuestro banco de pruebas.
 - Antecedentes externos a tratar: Bekci et al. 2022 (arXiv, lead time probabilístico para cotizar), Keskinocak & Tayur (cotización de fechas), Mundt & Lödding 2025 (fecha confiable con colchón fijo).
-- Disponibilidad real de una celda CNC: 69–78 % (Hollerweger); mi simulador asumió ≈ 90 %. Pendiente: sensibilidad con Dₖ 0.70–0.90.
+- Disponibilidad real de una celda CNC: 69–78 % (Hollerweger); los escenarios M1–M4 asumen ≈ 92 %. El escenario M5 (≈ 80 %) cubre la sensibilidad: el método no se degrada si las paradas se registran.
 - La tesis tiene dos citas mal resumidas (Hajj Chehade, Rokoss); ver `analisis/02` #13–#15.
 
 ## Estado del código
@@ -79,8 +99,8 @@ docs/guia/                entorno Python y comandos
 | `dss/c2_modelo.py` | `PhiEmpirico` y `PhiQRF` (QRF + calibración conformal agrupada por proyecto); predicen φ = HH_real / HH_ratio |
 | `dss/c3_montecarlo.py` | `Cotizador.cotizar()`: φ con dependencia gaussiana entre procesos, paradas aleatorias, carga del taller, plazos externos → `Resultado` (fecha α, P(cumplir), penalidad esperada, curva); `alpha_optimo()` tipo newsvendor |
 | `app/streamlit_app.py` | Cotizador web (`py -m streamlit run app/streamlit_app.py`; también `.claude/launch.json`) |
-| `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py` | Experimentos; resultados en `data/*.csv` |
-| `tests/` | 10 pruebas (`py -m pytest tests -q`) |
+| `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py`, `exp4_ablacion.py` | Experimentos; resultados en `data/*.csv`. exp1 y exp4 usan los 5 escenarios; exp2 y exp3 se corrieron con 4 |
+| `tests/` | 15 pruebas (`py -m pytest tests -q`): motor CRP, C3, importador, semanas de producción y orden de etapas |
 
 Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ reales), C4 (`c4_lazo`: Md, PICP, alertas), ablaciones A2–A4 y sensibilidades, módulo del formato único en Excel. Ver `docs/diseno/01_arquitectura_dss.md`.
 
@@ -89,10 +109,13 @@ Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ rea
 - C2: QRF baja el error de HH vs. el ratio donde hay sesgo o no linealidad (p. ej. M2: 7.4 → 5.4 % por proyecto); conformal deja P10-P90 en ≈ 0.80.
 - C3: fecha α = 0.80 se cumple 76-84 %; α* = 0.93 (con p = 1 %/día, perder 0.5 pts de prob. por día, margen 16 %) da 84-96 %.
 - **El DSS NO supera al cotizador a igual plazo**: necesita +4 a +7 % de plazo para igual cumplimiento (76 %). La meta de la tesis "OTD ≥ 85 % con lead time +5 %" no se alcanza; reformular como frontera cumplimiento-plazo + penalidad esperada. Con N = 25 los IC (±16 pts) se traslapan. Solo datos reales pueden cambiar esto.
+- **Experimento 4 (5 escenarios, 125 cotizaciones)**: un **colchón fijo** (plan determinista con carga del taller + N días) iguala al Monte Carlo en la frontera (6.3 % vs 6.9 % de plazo extra para 80 % de cumplimiento; 9.9 % vs 12.8 % para 90 %). La pieza que más aporta es la **carga del taller** (+2.2 pts si se quita); Dₖ y ρ importan en la cola (sin ellos 15 % de las remuestras no llega a 90 %); el conformal no cambia la frontera. La ventaja del Monte Carlo es la **calibración interpretable** (α = 0.8 → 83 % observado).
+- **Punto débil abierto**: la calibración es marginal, no por tamaño: con α = 0.80 los proyectos chicos cumplen 67 %, los medianos 85 %, los grandes 100 %. Siguiente mejora: conformal condicional por tamaño.
+- GBM cuantílico (competidor tipo Bekci) subcubre el intervalo de HH (0.62–0.69); QRF + conformal queda en 0.78–0.81.
 
 ## Datos simulados (banco de pruebas)
 
-Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`docs/diseno/06_datos_simulados.md`): tablas `sim_*`, 4 mundos (M1 ratio casi correcto, M2 sesgo, M3 no lineal/colas, M4 deriva), condicionados a la duración real de los 25 proyectos. Reglas:
+Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`docs/diseno/06_datos_simulados.md`): tablas `sim_*`, 5 mundos (M1 ratio casi correcto, M2 sesgo, M3 no lineal/colas, M4 deriva, M5 disponibilidad ≈ 80 %), condicionados a la duración real de los 25 proyectos. Reglas:
 - Nunca presentarlos como datos reales; declararlos en tesis y paper. Las tablas reales (`proyecto_proceso.hh_real`) siguen vacías.
 - Hallazgo: el ratio es correcto en promedio; el problema es la **dispersión** por proyecto (±5–11 % en HH totales, ±14–16 % por proceso).
 - La carga del taller (WIP) ya está modelada de forma simplificada (ventana 20–50 % de la duración, κ = 0.5, toneladas imputadas en 13 proyectos); son supuestos sin sensibilidad todavía.

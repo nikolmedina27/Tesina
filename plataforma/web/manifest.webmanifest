@@ -1,0 +1,15 @@
+{
+  "name": "SteelPlan · Steelser",
+  "short_name": "SteelPlan",
+  "description": "Cotización de plazos, avance por pieza y registro de planta para estructuras metálicas",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f6f7",
+  "theme_color": "#0a6ed1",
+  "icons": [
+    { "src": "/static/icono.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "/static/icono.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

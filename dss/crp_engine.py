@@ -79,4 +79,4 @@ def dias_laborables(inicio, n):
 def n_dias_laborables(inicio, fin):
     """Días laborables en [inicio, fin] (lunes a sábado)."""
     return int(np.busday_count(np.datetime64(inicio, 'D'),
-                               np.datetime64(fin, 'D') + 1, weekmask=WEEKMASK))
+                               np.datetime64(fin, 'D') + np.timedelta64(1, 'D'), weekmask=WEEKMASK))
