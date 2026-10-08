@@ -39,7 +39,7 @@ El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una
 dss/            motor CRP, modelo de φ (C2), Monte Carlo (C3), what-if, gemelo de eventos discretos (dss/gemelo/), estudios retrospectivos, simuladores de datos
 plataforma/     SteelPlan: servidor FastAPI, BD operativa, importador, interfaz web (web/)
 app/            cotizador Streamlit (prototipo anterior, para análisis)
-scripts/        construcción de la BD, experimentos 1-4, generadores del Excel, utilidades
+scripts/        construcción de la BD, experimentos 1-6, generadores del Excel, utilidades
 sql/            esquema de la BD histórica (fuente de verdad)
 tests/          50 pruebas (pytest)
 data/           resultados de los experimentos (CSV); las BD se generan localmente
@@ -56,7 +56,7 @@ git clone https://github.com/nikolmedina27/Tesina.git
 cd Tesina
 python3 -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
-python -m pytest tests -q                              # debe dar 49 passed (algunas se omiten si falta la BD)
+python -m pytest tests -q                              # debe dar 50 passed (algunas se omiten si falta la BD)
 ```
 
 Para construir la base de datos y abrir la plataforma hacen falta los archivos de la empresa en `extras/`, que **no están en el repositorio** (son confidenciales). Pídelos a las autoras y luego:
