@@ -39,11 +39,12 @@ button { font-family: inherit; }
 .lat .marca img { height: 22px; width: auto; display: block; }
 :root[data-tema="oscuro"] .lat .marca img, :root[data-tema="oscuro"] .login img.logo-g { filter: brightness(1.7) saturate(1.15); }
 .lat .marca small { color: var(--texto-3); font-size: 11px; margin-left: auto; letter-spacing: .04em; text-transform: uppercase; }
+.lat .marca img { cursor: pointer; }
 .buscarbtn { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 9px; border: 1px solid var(--borde); background: var(--panel); color: var(--texto-3); cursor: pointer; font-size: 13px; border-radius: var(--radio-c); text-align: left; }
 .buscarbtn:hover { border-color: var(--borde-2); color: var(--texto-2); }
 .buscarbtn span { flex: 1; }
 kbd { font: 10px/1 var(--fuente); padding: 2px 5px; border: 1px solid var(--borde-2); border-radius: var(--radio-c); color: var(--texto-3); background: var(--bg-2); }
-.nav { display: flex; flex-direction: column; gap: 1px; flex: 1; }
+.nav { display: flex; flex-direction: column; gap: 1px; flex: none; }
 .nav a, .lat .pie a { display: flex; align-items: center; gap: 9px; height: 28px; padding: 0 9px; color: var(--texto-2); border-radius: var(--radio-c); font-weight: 500; white-space: nowrap; }
 .nav a svg, .lat .pie a svg { flex: none; opacity: .85; }
 .nav a:hover, .lat .pie a:hover { background: var(--hover); color: var(--texto); }
@@ -52,11 +53,46 @@ kbd { font: 10px/1 var(--fuente); padding: 2px 5px; border: 1px solid var(--bord
 .nav .sub { display: flex; flex-direction: column; margin: 1px 0 4px 17px; padding-left: 9px; border-left: 1px solid var(--borde-2); gap: 1px; }
 .nav .sub a { height: 26px; font-weight: 400; color: var(--texto-2); }
 .nav .sub a.activo { color: var(--acento); background: var(--acento-s); font-weight: 600; }
-.lat .pie { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--borde); padding-top: 8px; }
-.usuario { display: flex; align-items: center; gap: 9px; padding: 4px 6px; }
-.usuario .quien { flex: 1; min-width: 0; line-height: 1.25; }
-.usuario .quien b { display: block; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.usuario .rol { font-size: 11px; color: var(--texto-3); }
+.lat .pie { position: relative; display: flex; align-items: center; gap: 2px; border-top: 1px solid var(--borde); padding-top: 8px; }
+.lat .pie .icono-btn.activo { background: var(--hover); color: var(--acento); }
+.usuario { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 2px 6px; border: 0; background: none; cursor: pointer; text-align: left; color: var(--texto); border-radius: var(--radio-c); }
+.usuario:hover { background: var(--hover); }
+.usuario .quien { flex: 1; min-width: 0; line-height: 1.2; }
+.usuario .quien b { display: block; font-weight: 600; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.usuario .rol { font-size: 10.5px; color: var(--texto-3); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.menu-usr { position: absolute; left: 30px; right: 0; bottom: 44px; background: var(--panel); border: 1px solid var(--borde-2); box-shadow: var(--sombra-pop); padding: 6px; z-index: 5; display: grid; gap: 4px; }
+.menu-usr .nota { padding: 2px 6px; font-size: 11px; }
+.menu-usr button { display: flex; align-items: center; gap: 8px; height: 28px; border: 0; background: none; color: var(--texto-2); cursor: pointer; padding: 0 6px; border-radius: var(--radio-c); font-size: 13px; }
+.menu-usr button:hover { background: var(--hover); color: var(--texto); }
+/* proyectos activos */
+.actsec { flex: 1; min-height: 0; overflow-y: auto; border-top: 1px solid var(--borde); padding-top: 8px; display: flex; flex-direction: column; gap: 1px; }
+.acth { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 2px 9px; font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--texto-3); font-weight: 600; }
+.acth b { font-weight: 500; margin-left: 4px; }
+.acth .icono-btn { width: 22px; height: 22px; }
+.pa-h { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 9px 0 3px; color: var(--texto-2); border-radius: var(--radio-c); font-weight: 500; white-space: nowrap; }
+.pa-h:hover { background: var(--hover); color: var(--texto); }
+.pa-h.activo { background: var(--hover); color: var(--texto); font-weight: 600; }
+.pa-h .cod { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pa-h em { font-style: normal; font-size: 11px; color: var(--texto-3); font-variant-numeric: tabular-nums; }
+.pa-h .chev { width: 18px; height: 18px; display: grid; place-items: center; color: var(--texto-3); transition: transform .12s; flex: none; }
+.pa-h .chev:hover { color: var(--texto); }
+.pa.abierto > .pa-h .chev { transform: rotate(90deg); }
+.pa.abierto > .pa-h { color: var(--texto); }
+.sem { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--texto-3); }
+.sem.v { background: var(--verde); } .sem.a { background: var(--ambar); } .sem.r { background: var(--rojo); }
+.pa .sub { margin: 1px 0 4px 11px; padding-left: 8px; border-left: 1px solid var(--borde-2); display: flex; flex-direction: column; gap: 1px; }
+.pa .sub a { display: flex; align-items: center; gap: 8px; height: 25px; padding: 0 8px; color: var(--texto-2); font-size: 12px; border-radius: var(--radio-c); white-space: nowrap; }
+.pa .sub a svg { flex: none; opacity: .8; }
+.pa .sub a:hover { background: var(--hover); color: var(--texto); }
+.pa .sub a.activo { color: var(--acento); background: var(--acento-s); font-weight: 600; }
+.vermas { padding: 4px 9px 0 22px; font-size: 12px; color: var(--texto-3); }
+.vacio-lat { padding: 4px 9px; }
+/* barra oculta (escritorio) */
+@media (min-width: 901px) {
+  body.lat-oculta .layout { grid-template-columns: minmax(0, 1fr); }
+  body.lat-oculta .lat { display: none; }
+  body.lat-oculta .hamb { display: grid; }
+}
 .icono-btn { width: 28px; height: 28px; display: grid; place-items: center; border: 0; background: none; color: var(--texto-2); cursor: pointer; border-radius: var(--radio-c); }
 .icono-btn:hover { background: var(--hover); color: var(--texto); }
 .avatar { width: 24px; height: 24px; border-radius: var(--radio-c); display: grid; place-items: center; font-weight: 600; font-size: 10px; color: #fff; flex: none; }

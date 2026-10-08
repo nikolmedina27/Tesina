@@ -27,6 +27,7 @@ const P = {
   viga: '<path d="M4 5h16M4 19h16M12 5v14M8 5v2M16 5v2M8 17v2M16 17v2"/>',
   sol: '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
   luna: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  tuerca: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   engranaje: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
   alerta: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
   reloj: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -45,6 +46,8 @@ const P = {
   bandeja: '<path d="M3 13l3-8h12l3 8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M3 13h5l1 3h6l1-3h5"/>',
   reporte: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
   semana: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2"/>',
+  panel: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/>',
+  chev: '<path d="M9 6l6 6-6 6"/>',
   imprimir: '<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="1"/><path d="M7 14h10v7H7z"/>',
 };
 const ic = (n, s = 18, extra = '') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${P[n] || ''}</svg>`;
@@ -139,13 +142,59 @@ const GRUPOS = [
   { k: 'cotizador', t: 'Cotizar', ic: 'cotizador', subs: [['cotizador', 'Cotizador de plazos']] },
   { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
   { k: 'planta', t: 'Planta', ic: 'planta3d', subs: [['planta3d', 'Gemelo 3D'], ['planta', 'Registro diario']] },
-  { k: 'datos', t: 'Datos', ic: 'engranaje', subs: [['importar', 'Importar formato único'], ['usuarios', 'Usuarios']] },
+  { k: 'datos', t: 'Datos', ic: 'hoja', subs: [['importar', 'Importar formato único'], ['usuarios', 'Usuarios']] },
 ];
 const puede = roles => !roles || S.me.rol === 'gerencia' || roles.includes(S.me.rol);
 const puedeVer = k => puede(ROLES[k]);
 const subsVisibles = g => g.subs.filter(([k]) => puedeVer(k));
 const grupoDe = k => GRUPOS.find(g => g.subs.some(([x]) => x === k));
 const MARCAN_PIEZAS = ['jefe_taller', 'supervisor', 'calidad'];
+/* ---------- barra lateral: ocultar y proyectos activos ---------- */
+const movil = () => matchMedia('(max-width: 900px)').matches;
+function alternarLateral() {
+  if (movil()) return document.body.classList.toggle('nav-abierto');
+  const o = document.body.classList.toggle('lat-oculta');
+  try { localStorage.setItem('sp_lat', o ? '0' : '1'); } catch (e) { }
+  S.charts.forEach(c => c.resize()); window.dispatchEvent(new Event('resize'));
+}
+try { if (localStorage.getItem('sp_lat') === '0') document.body.classList.add('lat-oculta'); } catch (e) { }
+document.addEventListener('click', () => { const m = $('#musr'); if (m) m.classList.add('oculto'); });
+document.addEventListener('keydown', e => {
+  if (e.key === '[' && S.me && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) && !e.target.isContentEditable) alternarLateral();
+});
+S.exp = new Set(); S.actT = 0;
+const PA_TABS = [['res', 'Resumen y Gantt', 'gantt'], ['pie', 'Piezas y avance', 'viga'], ['cur', 'Curva S', 'curva'], ['sem', 'Semanas', 'semana'], ['log', 'Compras y eventos', 'camion']];
+function semActivo(a) {
+  if (a.estado === 'PAUSADO') return 'n';
+  const venc = a.fecha_comprometida && a.fecha_comprometida.slice(0, 10) < hoyISO() && (a.avance_fisico ?? a.avance) < 100;
+  if (venc) return 'r';
+  if (a.prob_cumplir == null) return 'n';
+  return a.prob_cumplir >= .8 ? 'v' : a.prob_cumplir >= .6 ? 'a' : 'r';
+}
+function pintarActivos() {
+  const el = $('#actsec'); if (!el) return;
+  const lista = (S.activos || S.cat.proyectos.map(p => ({ ...p, estado: 'EN_CURSO' }))).filter(a => a.estado === 'EN_CURSO' || a.estado === 'PAUSADO');
+  const [path, qs = ''] = (location.hash.slice(2) || 'inicio').split('?');
+  const [v, a1, id] = path.split('/'), prm = new URLSearchParams(qs);
+  const idAct = v === 'proyecto' && a1 === 'a' ? +id : v === 'tareas' && prm.get('p') ? +prm.get('p') : null;
+  const tabAct = v === 'proyecto' && a1 === 'a' ? (prm.get('tab') || 'res') : v === 'tareas' ? 'tar' : null;
+  const mostrar = lista.slice(0, 8);
+  el.innerHTML = `<div class="acth"><span>Proyectos activos <b>${lista.length}</b></span>${puede(['cotizador']) ? `<a class="icono-btn" href="#/cotizador" title="Nuevo desde cotización">${ic('mas', 14)}</a>` : ''}</div>` +
+    (mostrar.map(a => {
+      const abierto = a.id === idAct || S.exp.has(a.id), av = a.avance_fisico ?? a.avance;
+      const tab = (k, t, i, href) => `<a href="${href}" class="${a.id === idAct && tabAct === k ? 'activo' : ''}">${ic(i, 14)}${t}</a>`;
+      return `<div class="pa ${abierto ? 'abierto' : ''}"><a class="pa-h ${a.id === idAct && !abierto ? 'activo' : ''}" href="#/proyecto/a/${a.id}" title="${esc(a.nombre)}">
+        <span class="chev" data-pa="${a.id}">${ic('chev', 12)}</span><i class="sem ${semActivo(a)}"></i><span class="cod">${esc(a.codigo)}</span>${av != null ? `<em>${Math.round(av)} %</em>` : ''}</a>` +
+        (abierto ? `<div class="sub">${PA_TABS.map(([k, t, i]) => tab(k, t, i, `#/proyecto/a/${a.id}${k === 'res' ? '' : '?tab=' + k}`)).join('')}${tab('tar', 'Tareas', 'tareas', `#/tareas?p=${a.id}`)}</div>` : '') + `</div>`;
+    }).join('') || '<div class="nota vacio-lat">Sin proyectos en curso</div>') +
+    (lista.length > mostrar.length ? `<a class="vermas" href="#/proyectos">Ver todos (${lista.length})…</a>` : '');
+  $$('.chev', el).forEach(c => c.onclick = e => { e.preventDefault(); e.stopPropagation(); const i = +c.dataset.pa; S.exp.has(i) ? S.exp.delete(i) : S.exp.add(i); pintarActivos(); });
+}
+async function refrescarActivos() {
+  if (Date.now() - S.actT < 10000) return;
+  S.actT = Date.now();
+  try { S.activos = await api('/api/proyectos_activos'); pintarActivos(); } catch (e) { S.actT = 0; }
+}
 function shell(activo, migas, acciones = '') {
   S.charts.forEach(c => c.dispose()); S.charts = [];
   $$('body > .velo, body > .lateral, body > .modal, body > .paleta').forEach(e => e.remove());   // paneles abiertos de la vista anterior
@@ -160,26 +209,32 @@ function shell(activo, migas, acciones = '') {
   $('#app').innerHTML = `
   <div class="layout">
     <aside class="lat">
-      <div class="marca" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C."><img src="/static/img/logo-steelser.png" alt="Steelser"><small>SteelPlan</small></div>
+      <div class="marca"><img src="/static/img/logo-steelser.png" alt="Steelser" onclick="location.hash='#/inicio'" title="SteelPlan · Steelser S.A.C."><small>SteelPlan</small>
+        <button class="icono-btn" id="bocultar" title="Ocultar barra ( [ )">${ic('panel', 16)}</button></div>
       <button class="buscarbtn" id="bk" title="Buscar (Ctrl+K)">${ic('buscar', 15)}<span>Buscar</span><kbd>Ctrl K</kbd></button>
       <nav class="nav">${nav}</nav>
+      <div class="actsec" id="actsec"></div>
       <div class="pie">
-        <a href="#/config" class="${activo === 'config' ? 'activo' : ''}">${ic('engranaje', 16)}Configuración</a>
-        <div class="usuario">${avatar(S.me.nombre, S.me.color)}<div class="quien"><b title="${esc(S.me.rol_nombre)}">${esc(S.me.nombre.split(' (')[0])}</b><span class="rol">${esc(S.me.rol_nombre.split(' (')[0])}</span></div>
-          <button class="icono-btn" id="btema" title="${oscuro ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}">${ic(oscuro ? 'sol' : 'luna', 16)}</button>
-          <button class="icono-btn" id="bsalir" title="Cerrar sesión">${ic('salir', 16)}</button></div>
+        <button class="icono-btn ${activo === 'config' ? 'activo' : ''}" id="bconf" title="Configuración">${ic('tuerca', 16)}</button>
+        <button class="usuario" id="busr" title="Cuenta">${avatar(S.me.nombre, S.me.color)}<div class="quien"><b>${esc(S.me.nombre.split(' (')[0])}</b><span class="rol">${esc(S.me.rol_nombre.split(' (')[0])}</span></div></button>
+        <button class="icono-btn" id="btema" title="${oscuro ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}">${ic(oscuro ? 'sol' : 'luna', 16)}</button>
+        <div class="menu-usr oculto" id="musr"><div class="nota">${esc(S.me.rol_nombre)}</div><button id="bsalir">${ic('salir', 15)} Cerrar sesión</button></div>
       </div>
     </aside>
     <div class="principal">
-      <div class="control"><div class="migas"><button class="icono-btn hamb" id="bhamb" title="Menú">${ic('lista', 18)}</button>${migas}</div><div class="acciones">${acciones}</div></div>
+      <div class="control"><div class="migas"><button class="icono-btn hamb" id="bhamb" title="Mostrar menú ( [ )">${ic('panel', 18)}</button>${migas}</div><div class="acciones">${acciones}</div></div>
       <main class="contenido" id="main">${cargando()}</main>
     </div>
   </div>`;
   $('#bsalir').onclick = async () => { await api('/api/logout', { method: 'POST' }); S.me = null; renderLogin(); };
   $('#btema').onclick = () => { TEMA.fijar(TEMA.efectivo() === 'oscuro' ? 'claro' : 'oscuro'); ruta(); };
+  $('#bconf').onclick = () => { location.hash = '#/config'; };
+  $('#busr').onclick = e => { e.stopPropagation(); $('#musr').classList.toggle('oculto'); };
   $('#bk').onclick = paleta;
-  $('#bhamb').onclick = () => document.body.classList.toggle('nav-abierto');
+  $('#bocultar').onclick = alternarLateral;
+  $('#bhamb').onclick = alternarLateral;
   $('.lat').onclick = e => { if (e.target.closest('a')) document.body.classList.remove('nav-abierto'); };
+  pintarActivos(); refrescarActivos();
   return $('#main');
 }
 
@@ -188,7 +243,7 @@ function paleta() {
   if ($('.paleta')) return;
   const acciones = [
     ...GRUPOS.flatMap(g => subsVisibles(g).map(([k, t]) => ({ tipo: 'Ir a', titulo: g.subs.length > 1 ? `${g.t} · ${t}` : t, ruta: '#/' + k, icono: k === 'planta3d' ? 'planta3d' : g.ic }))),
-    { tipo: 'Ir a', titulo: 'Configuración', ruta: '#/config', icono: 'engranaje' },
+    { tipo: 'Ir a', titulo: 'Configuración', ruta: '#/config', icono: 'tuerca' },
     ...(puedeVer('cotizador') ? [{ tipo: 'Acción', titulo: 'Nueva cotización', ruta: '#/cotizador', icono: 'cotizador' }] : []),
     ...(puede(['jefe_taller', 'supervisor']) ? [{ tipo: 'Acción', titulo: 'Registrar tareo de hoy', ruta: '#/planta', icono: 'planta' }] : []),
     ...S.cat.proyectos.map(p => ({ tipo: 'Reporte semanal', titulo: `${p.codigo} · ${p.nombre}`, ruta: `#/reporte/${p.id}`, icono: 'reporte' })),
@@ -562,7 +617,7 @@ async function vImportar() {
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(typeof j.detail === 'string' ? j.detail : r.statusText);
       reporteImportacion(j);
-      if (modo === 'importar') { toast(`Importado: ${j.cambios} registros`); S.cat = await api('/api/catalogos'); setTimeout(() => vImportar(), 2500); }
+      if (modo === 'importar') { toast(`Importado: ${j.cambios} registros`); S.cat = await api('/api/catalogos'); S.actT = 0; setTimeout(() => vImportar(), 2500); }
     } catch (e) { $('#rep').innerHTML = `<div class="tarjeta"><div class="cuerpo vacio">${ic('alerta', 30)}<p>${esc(e.message)}</p></div></div>`; }
     finally { $$('#bval, #bimp').forEach(b => b.disabled = false); }
   };
@@ -709,7 +764,7 @@ function modalProyecto(r, s) {
     const prob = r.curva.find(x => x.fecha === fecha)?.prob ?? r.prob;
     const j = await api('/api/proyectos_activos', { method: 'POST', body: { codigo: f.get('codigo'), cliente: f.get('cliente'), nombre: f.get('nombre'), cotizacion: s,
       fecha_comprometida: fecha, alpha: r.alpha, prob_cumplir: prob, programa: r.programa, hh_p50: r.hh.map(h => h.p50) } });
-    S.cat = await api('/api/catalogos'); toast('Proyecto creado'); location.hash = '#/proyecto/a/' + j.id;
+    S.cat = await api('/api/catalogos'); S.actT = 0; toast('Proyecto creado'); location.hash = '#/proyecto/a/' + j.id;
   }, 'Crear proyecto');
 }
 
@@ -1115,7 +1170,7 @@ async function vPlanta3D() {
 
 /* =====================================================================  CONFIGURACIÓN */
 async function vConfig() {
-  const m = shell('config', `${ic('engranaje', 18)} Configuración`);
+  const m = shell('config', `${ic('tuerca', 18)} Configuración`);
   const pref = TEMA.pref();
   const op = (k, t) => `<button class="tema-op ${pref === k ? 'activo' : ''}" data-tema="${k}"><i class="${k}"></i><span>${t}</span></button>`;
   const inter = (id, on) => `<input type="checkbox" class="interruptor" id="${id}" ${on ? 'checked' : ''}>`;
@@ -1169,7 +1224,7 @@ async function ruta() {
   } catch (e) { if (e.message !== 'Sesión expirada') { const m = $('#main'); if (m) m.innerHTML = `<div class="tarjeta"><div class="cuerpo vacio">${ic('alerta', 30)}<p>${esc(e.message)}</p></div></div>`; } }
 }
 async function arrancar() {
-  try { S.me = await api('/api/me'); S.cat = await api('/api/catalogos'); } catch { S.me = null; }
+  try { S.me = await api('/api/me'); S.cat = await api('/api/catalogos'); S.actT = 0; } catch { S.me = null; }
   ruta();
 }
 window.addEventListener('hashchange', ruta);
