@@ -66,18 +66,18 @@ Meta de tiempo de respuesta comercial (QLT): cotización con fecha en menos de 2
 ## Módulos del código (✅ existe · ⏳ pendiente)
 
 ```
-app/
-  streamlit_app.py        # ✅ cotizador (pantalla Cotizar); ⏳ pantallas Planta · Modelo · Indicadores
+app/streamlit_app.py      # ✅ cotizador Streamlit (prototipo; la interfaz principal es plataforma/)
+plataforma/               # ✅ SteelPlan: FastAPI + SPA (ver 07_plataforma_web.md)
 dss/
   crp_engine.py           # ✅ motor día a día vectorizado: 13 procesos, precedencias, solapes
   datos.py                # ✅ acceso a BD, ratio vigente, cuadrillas, carga del taller, MTBF
-  simulador.py            # ✅ datos SIMULADOS (4 mundos) anclados a los 25 proyectos
-  c1_datos.py             # ⏳ importar formato único, depurar, Io, Dₖ reales
+  simulador.py            # ✅ datos SIMULADOS (5 mundos) anclados a los 25 proyectos
+  c1_datos.py             # ⏳ importar formato único, depurar, Io, Dₖ reales (el importador de la plataforma cubre la carga)
   c2_modelo.py            # ✅ PhiEmpirico, PhiQRF + conformal agrupado por proyecto
   c3_montecarlo.py        # ✅ Cotizador, muestreo de φ/paradas, Resultado, α* newsvendor
   c4_lazo.py              # ⏳ Md, PICP, alertas de reentrenamiento
-scripts/                  # ✅ build_db, docx_a_md, calibrar_solapes, exp1/exp2/exp3
-tests/                    # ✅ 10 pruebas (motor CRP y C3)
+scripts/                  # ✅ build_db, docx_a_md, calibrar_solapes, exp1-exp4, generadores del Excel
+tests/                    # ✅ 15 pruebas (motor CRP, C3, importador, semanas)
 ```
 
 `economia.py` (α\*, penalidad esperada) quedó dentro de `c3_montecarlo.py` (`alpha_optimo`, `Resultado.penalidad_esperada`).

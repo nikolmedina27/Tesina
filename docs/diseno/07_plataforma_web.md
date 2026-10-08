@@ -8,7 +8,7 @@ Frontend tipo ERP (estructura Odoo, colores SAP Fiori celeste, iconografía meta
 |---|---|---|
 | Acceso directo en el escritorio | **SteelPlan** (inicia el servidor si no está corriendo y abre el navegador) y **SteelPlan (enlace)** (solo abre `http://localhost:8600`) | La PC donde vive la BD |
 | Red local de la planta | `lanzador/iniciar_red_local.bat` → otras PCs y tablets abren `http://IP-DE-LA-PC:8600` | Jefe de taller, supervisores, calidad |
-| Linux | `lanzador/SteelPlan.desktop` (ajustar la ruta) | Opcional |
+| Linux | `lanzador/SteelPlan.desktop` (editar las rutas absolutas de `Exec` e `Icon`) y `scripts/steelplan-launch.sh` | Opcional |
 | Internet (futuro) | Servidor con HTTPS, dominio propio, respaldos y datos anonimizados o con autorización expresa | Etapa 2 (SaaS para pymes) |
 
 Los accesos directos se recrean con `powershell -ExecutionPolicy Bypass -File lanzador\crear_acceso_directo.ps1`. La documentación de la API está en `http://localhost:8600/api/docs`.
@@ -109,25 +109,7 @@ flowchart LR
 | Ctrl+K, atajos | Buscador global de OT, tareas y piezas | ✅ v2.1 |
 | Notificaciones (Slack) | Avisos por correo o WhatsApp cuando una tarea se asigna, se bloquea o el semáforo pasa a rojo | ⏳ v3 |
 
-## 6. Proyectos de GitHub que se pueden sumar
-
-Estrellas aproximadas según las fuentes consultadas en octubre de 2026 (cambian a diario; verificar antes de citar).
-
-| Proyecto | Estrellas | Licencia | Cómo usarlo aquí | Decisión |
-|---|---|---|---|---|
-| [frappe/gantt](https://github.com/frappe/gantt) | ≈ 4.7–6 k | MIT | Gantt de la plataforma | ✅ **ya integrado** |
-| [apache/echarts](https://github.com/apache/echarts) | ≈ 66.8 k | Apache-2.0 | Gráficos (curva plazo-riesgo, cumplimiento, disponibilidad) | ✅ **ya integrado** |
-| [makeplane/plane](https://github.com/makeplane/plane) | ≈ 47–58 k | AGPL-3.0 | Alternativa abierta a Linear/Jira. Referencia de diseño para ciclos, triage y vistas | Inspiración; integrarlo como servicio aparte obliga a publicar cambios (AGPL) |
-| [frappe/erpnext](https://github.com/frappe/erpnext) | ≈ 33.5 k | GPL-3.0 | ERP con manufactura, órdenes de trabajo y estaciones; modelo de referencia para OT, BOM y compras | Referencia de modelo de datos |
-| [odoo/odoo](https://github.com/odoo/odoo) | ≈ 42.6 k | LGPL-3.0 (comunidad) | Estructura de vistas (lista, kanban, Gantt, panel de control) | Referencia de experiencia de usuario |
-| [opf/openproject](https://github.com/opf/openproject) | ≈ 15.3 k | GPL-3.0 | Gantt con dependencias, línea base y control de tiempos | Referencia para línea base y EVM |
-| [nocodb/nocodb](https://github.com/nocodb/nocodb) | ≈ 65 k | AGPL/Sustainable | Interfaz tipo hoja de cálculo sobre la BD para cargar datos históricos | Útil para la etapa de digitación de tareos antiguos |
-| [keycloak/keycloak](https://github.com/keycloak/keycloak) | ≈ 30–36 k | Apache-2.0 | Inicio de sesión único y gestión de identidades | Etapa 2 (multiempresa) |
-| [Huly y Focalboard](https://openalternative.co/compare/focalboard/vs/huly) | Huly ≈ 25.9 k, Focalboard ≈ 26.2 k | EPL / MIT-AGPL | Tableros y colaboración de equipo | Inspiración |
-
-**Criterio**: no se adopta un ERP completo (Odoo/ERPNext) porque el aporte de la tesis es el motor de plazos y su integración con el registro de planta; se toman librerías permisivas (MIT, Apache) y se usa lo demás como referencia de diseño.
-
-## 7. Hoja de ruta de la plataforma
+## 6. Hoja de ruta de la plataforma
 
 | Versión | Contenido |
 |---|---|
@@ -138,7 +120,7 @@ Estrellas aproximadas según las fuentes consultadas en octubre de 2026 (cambian
 | v3 | Contratistas y valorizaciones, costo real vs cotizado, trazabilidad de material, notificaciones, reentrenamiento C4 desde la interfaz |
 | v4 | Multiempresa (`empresa_id`), PostgreSQL, Keycloak, despliegue con HTTPS |
 
-## 8. Importación del formato único (v2)
+## 7. Importación del formato único (v2)
 
 - **Una sola definición** del formato en `plataforma/formato.py`: la usan el generador del Excel (`scripts/generar_formato_unico.py`) y el importador (`plataforma/importador.py`), así nunca se desalinean.
 - **Validaciones por fila**:
@@ -162,30 +144,14 @@ Estrellas aproximadas según las fuentes consultadas en octubre de 2026 (cambian
 
   Viene de su hoja `REPORTE_DE_HABILITADO`; son parámetros, a validar con la empresa.
 - **Curva S planificada**: reparte el peso de las piezas según la ventana de cada etapa en el programa P50 (habilitado = procesos 3–5, armado = 8, soldeo = 9, liberación = 10, granallado y pintura = 12, despacho = 13).
-- **Ejemplo lleno para la demo**: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx` (`py scripts/generar_ejemplo_importacion.py`), con 81 partidas y 42 t, todo marcado DEMO.
+- **Ejemplo lleno para la demo**: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx` (no versionado; se genera con `python scripts/generar_ejemplo_importacion.py`), con 81 partidas y 42 t, todo marcado DEMO.
 
-## 9. Ejecutar y probar
+## 8. Ejecutar y probar
 
 ```bash
-py -m pip install fastapi "uvicorn[standard]" itsdangerous
-py -m uvicorn plataforma.server:app --port 8600
+python -m pip install -r requirements.txt
+python -m uvicorn plataforma.server:app --port 8600     # http://localhost:8600
+python -m pytest tests -q                               # incluye importador y semanas
 ```
 
-Pruebas manuales hechas (7 de octubre de 2026):
-- Las 9 vistas cargan.
-- El Gantt dibuja los 13 procesos.
-- La cotización de 1 000 réplicas responde en 0.5 s.
-- El re-pronóstico del proyecto DEMO da ámbar (79 %).
-- El tareo con fecha futura se rechaza.
-- El supervisor recibe 403 al cotizar y al ver usuarios.
-- El texto con HTML en una tarea se muestra como texto (sin XSS).
-
-Pruebas de la v2 (7 de octubre de 2026):
-- **Automáticas** (`tests/test_importador.py`, 3 pruebas):
-  - errores por fila (fecha futura, OT inexistente, valor fuera de lista, horas fuera de rango, etapas fuera de orden);
-  - validar no escribe;
-  - reimportar no duplica;
-  - avance y curva S correctos.
-- **HTTP**: el ejemplo DEMO valida e importa sin errores (101 registros) y reimportado no duplica. Un archivo que no es Excel recibe 422 y el supervisor recibe 403 al importar.
-- **Interfaz**: las pestañas Piezas, Curva S y Logística y la vista Importar funcionan (arrastrar archivo → validar), sin desborde horizontal a 800 px.
-
+Las pruebas automáticas del importador (`tests/test_importador.py`) cubren errores por fila, que validar no escribe, que reimportar no duplica y el avance con la curva S. Al crear `plataforma.db` por primera vez se generan las cuentas demo (claves en `data/credenciales_demo.txt`).

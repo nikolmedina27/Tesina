@@ -57,6 +57,7 @@ entregables/              Excel generados (no versionados; se regeneran con scri
 app/streamlit_app.py      cotizador Streamlit (prototipo anterior, para análisis)
 tests/                    pruebas (pytest)
 .claude/launch.json       configuración para abrir el cotizador en el navegador de la app
+README.md                 presentación del proyecto e instalación para colaboradores
 docs/README.md            índice de toda la documentación
 docs/tesis/               tesis convertida por capítulos (generada)
 docs/analisis/            inventario de datos, diagnóstico, potencial Q1
@@ -126,7 +127,7 @@ Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`do
 
 ## Comandos
 
-Python 3.12 instalado para el usuario (`%LOCALAPPDATA%\Programs\Python\Python312`). Usar `py` si `python` abre la Microsoft Store.
+Python 3.12. En Windows (equipo de Shirley) está en `%LOCALAPPDATA%\Programs\Python\Python312` y se usa `py` si `python` abre la Microsoft Store; en Linux (equipo de Paolo) hay un `.venv/` en la raíz (`.venv/bin/python`). Los comandos de abajo usan `py`: en Linux sustituir por `python`. Instalación y guía para colaboradores en `README.md` y `docs/guia/entorno_python.md`.
 
 ```bash
 py -m pip install -r requirements.txt   # dependencias

@@ -1,6 +1,6 @@
 # Documentación del proyecto
 
-Toda la tesis y el diseño del DSS en Markdown: no hace falta abrir el Word.
+Toda la tesis y el diseño del DSS en Markdown: no hace falta abrir el Word. Para una visión general del proyecto y cómo instalarlo, ver el [README de la raíz](../README.md).
 
 ## Tesis (convertida del Word, `extras/Tesis_TF1_Steelser.docx`)
 
@@ -13,7 +13,7 @@ Toda la tesis y el diseño del DSS en Markdown: no hace falta abrir el Word.
 | [tesis/04_caso_estudio_anexos.md](tesis/04_caso_estudio_anexos.md) | Anexos: Steelser S.A.C., procesos, SIPOC, layout, Tabla 3 (38 proyectos), causas, indicadores |
 | [tesis/05_referencias.md](tesis/05_referencias.md) | Lista de referencias (incompleta, ver análisis 02) |
 
-Generados con `py scripts/docx_a_md.py`. No editar a mano.
+Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que no está en el repo). No editar a mano.
 
 ## Análisis
 

@@ -1,53 +1,71 @@
 # Guía · Entorno de trabajo
 
-## Estado actual de esta PC
+## Requisitos
 
-- **Python 3.12.10** instalado (winget, `Python.Python.3.12`, usuario) en `%LOCALAPPDATA%\Programs\Python\Python312\`. Está en el PATH de las terminales **nuevas**; `py` también funciona.
-- **Git 2.55** instalado (winget, `Git.Git`). El repositorio es local, rama `main`. No hay remoto configurado.
-- Librerías: `pandas`, `openpyxl`, `pdfplumber`, `numpy`, `scipy`, `scikit-learn`, `quantile-forest`, `streamlit`, `plotly`, `pytest` (todas en `requirements.txt`).
-- SQLite 3.49 viene incluido con Python (módulo `sqlite3`).
+- **Python 3.12** (probado con 3.12.10 en Windows y 3.12.14 en Linux). SQLite viene incluido en Python.
+- **Git** y acceso de colaborador al repositorio.
+- Nada más: no hay servicios externos ni Docker.
 
-> `python-docx` quedó instalado pero **no funciona**: a su dependencia `lxml` le falta el binario `etree` (probablemente lo bloqueó el antivirus). No hace falta: `scripts/docx_a_md.py` y `scripts/build_db.py` leen el Word con la librería estándar.
+En los comandos de esta documentación se usa `python`. En Windows, si `python` abre la Microsoft Store, usar `py` o desactivar el alias en *Configuración → Aplicaciones → Alias de ejecución de aplicaciones*. En Linux, usar `python3` o el del entorno virtual.
 
-Si `python` abre la Microsoft Store en vez de Python, usar `py` o desactivar el alias en *Configuración → Aplicaciones → Configuración avanzada de aplicaciones → Alias de ejecución de aplicaciones*.
-
-## Instalar todo lo del proyecto
+## Instalar
 
 ```bash
-py -m pip install -r requirements.txt
+git clone https://github.com/nikolmedina27/Tesina.git
+cd Tesina
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+python -m pip install -r requirements.txt
 ```
+
+`python-docx` no se usa: `scripts/docx_a_md.py` y `scripts/build_db.py` leen el Word con la librería estándar (`zipfile` + `xml.etree`).
+
+## Qué datos hay al clonar y qué no
+
+El repositorio solo trae código, Markdown y los resultados de los experimentos (`data/*.csv`). **No** trae:
+
+| Falta | Por qué | Cómo se obtiene |
+|---|---|---|
+| `extras/` (Word de la tesis, 3 Excel, PDF de cotización) | Confidencial (declaración jurada con Steelser) | Pedirlos a las autoras; se colocan en `extras/` y git los ignora |
+| `data/steelser.db` | Se regenera | `python scripts/build_db.py` (necesita `extras/`) |
+| `papers/` (27 PDFs) | Tamaño y derechos de autor | Carpeta local; el mapeo está en `docs/analisis/papers_mapeo.csv` |
+| `entregables/*.xlsx` | Se generan | `python scripts/generar_formato_unico.py` y `python scripts/generar_ejemplo_importacion.py` |
+| `data/plataforma.db`, `data/credenciales_demo.txt`, `data/secret.key` | Datos locales de la plataforma | Se crean solos al iniciar la plataforma |
+
+Los Word, Excel y PDF de trabajo no van en el repo: viven fuera de él (`~/Documents/shirley docs/` en la PC de Paolo). `.gitignore` los bloquea.
 
 ## Comandos
 
-Orden para reconstruir todo desde cero:
+Reconstruir todo desde cero (requiere `extras/`):
 
 ```bash
-py scripts/build_db.py                 # 1. BD desde extras/ (borra las tablas sim_*)
-py -m dss.simulador                    # 2. datos simulados (~30 s)
-py -m pytest tests -q                  # 3. pruebas
+python scripts/build_db.py             # 1. BD desde extras/ (borra las tablas sim_*)
+python -m dss.simulador                # 2. datos simulados (~30 s)
+python -m pytest tests -q              # 3. pruebas (15)
+```
+
+Interfaces:
+
+```bash
+python -m uvicorn plataforma.server:app --port 8600   # plataforma SteelPlan -> http://localhost:8600
+python -m streamlit run app/streamlit_app.py          # cotizador Streamlit (prototipo)
 ```
 
 Experimentos (cada uno tarda varios minutos; resultados en `data/*.csv`):
 
 ```bash
-py scripts/exp1_prediccion.py          # predicción de HH, leave-one-project-out (~10 min)
-py scripts/exp2_backtest.py            # backtest de fechas, variantes A0/A5/A6/A7 (~10 min)
-py scripts/exp3_frontera.py            # frontera cumplimiento-plazo con cuadrilla típica (~10 min)
-py scripts/exp3_frontera.py plan       # igual, con las cuadrillas del cotizador
-py scripts/exp4_ablacion.py            # ablaciones, colchón fijo y 5 escenarios (~30 min)
-py scripts/calibrar_solapes.py         # recalibrar los solapes del motor CRP (~5 min)
+python scripts/exp1_prediccion.py      # predicción de HH, leave-one-project-out (~10 min)
+python scripts/exp2_backtest.py        # backtest de fechas, variantes A0/A5/A6/A7 (~10 min)
+python scripts/exp3_frontera.py        # frontera cumplimiento-plazo con cuadrilla típica (~10 min)
+python scripts/exp3_frontera.py plan   # igual, con las cuadrillas del cotizador
+python scripts/exp4_ablacion.py        # ablaciones, colchón fijo y 5 escenarios (~30 min)
+python scripts/calibrar_solapes.py     # recalibrar los solapes del motor CRP (~5 min)
 ```
 
-Cotizador web:
+Regenerar la tesis en Markdown desde el Word (`docs/tesis/`):
 
 ```bash
-py -m streamlit run app/streamlit_app.py
-```
-
-Regenerar la tesis en Markdown desde el Word:
-
-```bash
-py scripts/docx_a_md.py
+python scripts/docx_a_md.py
 ```
 
 Abrir la BD con interfaz gráfica: [DB Browser for SQLite](https://sqlitebrowser.org/) y abrir `data/steelser.db`.
@@ -55,15 +73,23 @@ Abrir la BD con interfaz gráfica: [DB Browser for SQLite](https://sqlitebrowser
 ## Si se actualiza el Word de la tesis
 
 1. Reemplazar `extras/Tesis_TF1_Steelser.docx` (mismo nombre).
-2. `py scripts/docx_a_md.py` → regenera `docs/tesis/`.
-3. `py scripts/build_db.py` y `py -m dss.simulador` → vuelven a leer la Tabla 3.
+2. `python scripts/docx_a_md.py` regenera `docs/tesis/`.
+3. `python scripts/build_db.py` y `python -m dss.simulador` vuelven a leer la Tabla 3.
 
-## Git
+Las correcciones de la tesis se hacen en el Word, no en `docs/tesis/`.
 
-Un commit por bloque de trabajo. `data/*.db` está en `.gitignore` (se regenera). **`extras/` contiene datos confidenciales de la empresa: no subir el repositorio a GitHub ni a ningún remoto sin anonimizar o sin permiso de Steelser.**
+## Trabajo en equipo con Git
+
+- El repo es `https://github.com/nikolmedina27/Tesina` (público). Los colaboradores con permiso de escritura suben directo a `main`, que no tiene protección.
+- Antes de empezar y antes de subir: `git pull --rebase`.
+- Un commit por bloque de trabajo, con mensaje en español.
+- **Nunca subir `extras/`, bases de datos, Word, Excel ni PDF** (están en `.gitignore`). Los datos de Steelser son confidenciales.
+- Si un cambio es grande o riesgoso, trabajar en una rama y abrir un pull request.
 
 ## Convenciones
 
-- Los originales viven en `extras/` y no se editan; todo lo derivado se regenera con scripts.
-- Documentación en Markdown en `docs/`; diagramas en Mermaid (se ven en VS Code con la extensión *Markdown Preview Mermaid Support* y en GitHub).
-- El esquema de la BD se cambia en `sql/schema.sql`, nunca directamente en el archivo `.db`. Las tablas `sim_*` las define `dss/simulador.py`.
+- Idioma de trabajo: español (documentación, comentarios, nombres de tablas y columnas).
+- Los originales de la empresa viven en `extras/` y no se editan; todo lo derivado se regenera con scripts.
+- Documentación en Markdown dentro de `docs/`; diagramas en Mermaid (se ven en GitHub y en VS Code con *Markdown Preview Mermaid Support*).
+- El esquema de la BD se cambia en `sql/schema.sql`, nunca directamente en el `.db`. Las tablas `sim_*` las define `dss/simulador.py`.
+- Toda simulación fija y guarda la semilla.
