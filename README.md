@@ -25,7 +25,7 @@ Un sistema de apoyo a la decisión (DSS) que, en vez de una fecha única, entreg
 | C3 | Programación y Monte Carlo | Motor de capacidad finita día a día (13 procesos, 4 máquinas, contratistas) × 1 000 réplicas → fecha para un nivel de confianza α | `dss/crp_engine.py`, `dss/c3_montecarlo.py` |
 | C4 | Lazo cerrado | Reentrenar si el modelo se desvía | pendiente (`dss/c4_lazo.py`) |
 
-El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal. La vista **Planta 3D** es un **gemelo digital de la planta** de Steelser: simulación de eventos discretos hora a hora, con máquinas detalladas y animadas (sierra cinta, cizalla-punzonadora, mesa de plasma, roscadora), puentes grúa, cuadrillas de contratistas, camiones, material en stock, ciclo de día y noche y el contenido de cada lote de piezas, todo clicable. Sirve de banco de pruebas para comparar políticas de cotización y de gestión sobre la historia 2019-2026; hoy funciona con datos simulados calibrados a las fechas reales.
+El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal. La vista **Planta 3D** es un **gemelo digital de la planta** de Steelser: simulación de eventos discretos hora a hora, con máquinas con componentes (sierra cinta, cizalla-punzonadora, mesa de plasma, roscadora; inspección, vista explosionada y rayos X), puentes grúa, personas que caminan, camiones, material en stock, ciclo de día y noche y el contenido de cada lote de piezas, todo clicable. Cámara 2D/3D/caminata con atajos (2, 3, C, R, H). Sirve de banco de pruebas para comparar políticas de cotización y de gestión sobre la historia 2019-2026; hoy funciona con datos simulados calibrados a las fechas reales.
 
 ## Estado y advertencias
 
@@ -41,7 +41,7 @@ plataforma/     SteelPlan: servidor FastAPI, BD operativa, importador, interfaz 
 app/            cotizador Streamlit (prototipo anterior, para análisis)
 scripts/        construcción de la BD, experimentos 1-4, generadores del Excel, utilidades
 sql/            esquema de la BD histórica (fuente de verdad)
-tests/          49 pruebas (pytest)
+tests/          50 pruebas (pytest)
 data/           resultados de los experimentos (CSV); las BD se generan localmente
 lanzador/       accesos directos de SteelPlan (Windows y Linux)
 docs/           tesis en Markdown, análisis, diseño, plan y guías (índice en docs/README.md)

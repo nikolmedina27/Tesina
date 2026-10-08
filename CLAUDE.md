@@ -70,7 +70,7 @@ docs/guia/                entorno Python y comandos
 ## Plataforma web SteelPlan (`plataforma/`)
 
 Interfaz principal: estilo minimalista tipo Linear (barra lateral, bordes rectos, paleta neutra con el azul del logo de Steelser, **modo claro y oscuro**), Gantt frappe-gantt, gráficos ECharts. Detalle en `docs/diseno/07_plataforma_web.md`.
-- Abrir: acceso directo **SteelPlan** del escritorio (`lanzador/iniciar_plataforma.bat`) o `py -m uvicorn plataforma.server:app --port 8600` → `http://localhost:8600`. Red local: `lanzador/iniciar_red_local.bat`. Linux: `lanzador/SteelPlan.desktop`. Recrear accesos directos: `lanzador/crear_acceso_directo.ps1`.
+- Abrir: acceso directo **SteelPlan** del escritorio (`lanzador/iniciar_plataforma.bat`) o `py -m uvicorn plataforma.server:app --port 8600` → `http://localhost:8600`. Red local: `lanzador/iniciar_red_local.bat`. Linux: `lanzador/SteelPlan.desktop` + `scripts/steelplan-launch.sh` (llevan la ruta de la PC de Paolo; otro usuario debe editarlas). Recrear accesos directos: `lanzador/crear_acceso_directo.ps1`.
 - `plataforma/server.py` (FastAPI, sesión por cookie, permisos por rol), `plataforma/db_plataforma.py` (BD operativa), `plataforma/web/` (SPA vanilla JS: index.html, app.js, styles.css).
 - **Dos BD**: `data/steelser.db` (histórico, la recrea `build_db.py`) y `data/plataforma.db` (usuarios, proyectos en curso, tareo, paradas, tareas; **nunca se recrea**). No mezclar.
 - **Diseño (v2.4)**: tokens de color en `:root` y `:root[data-tema="oscuro"]` de `styles.css` (los nombres antiguos `--azul`, `--gris`… son alias); `--radio: 0`. El tema (claro, oscuro, sistema) y las preferencias del Gemelo 3D se guardan en `localStorage` (`sp_tema`, `sp_prefs`) y se cambian en la vista **Configuración** (`#/config`) o con el botón de la barra lateral. El logo está en `plataforma/web/img/` (extraído del logo de Steelser). Gráficos: tema `sp-oscuro` registrado en `app.js`.
@@ -115,7 +115,7 @@ Interfaz principal: estilo minimalista tipo Linear (barra lateral, bordes rectos
 | `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py`, `exp4_ablacion.py` | Experimentos; resultados en `data/*.csv`. exp1 y exp4 usan los 5 escenarios; exp2 y exp3 se corrieron con 4 |
 | `scripts/exp5_retrospectivo.py` | Retrospectivo con el CRP como verdad (histórico, circular; ver `analisis/08`) |
 | `scripts/exp6_gemelo.py` | **Estudio principal**: calibra el gemelo, corre la historia 2019-2026 con 8 políticas y mide alerta temprana (`data/exp6_*.csv`, tablas `gem_*`) |
-| `tests/` | 50 pruebas (`py -m pytest tests -q`; las que necesitan la BD se omiten si falta): motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas de producción y orden de etapas |
+| `tests/` | 50 pruebas (`py -m pytest tests -q`; las que necesitan la BD se omiten si falta): motor CRP, multi-proyecto, what-if, C3, planta, gemelo, retrospectivo, importador, semanas de producción y orden de etapas |
 
 Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ reales), C4 (`c4_lazo`: Md, PICP, alertas), ablaciones A2–A4 y sensibilidades, módulo del formato único en Excel. Ver `docs/diseno/01_arquitectura_dss.md`.
 

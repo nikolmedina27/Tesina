@@ -139,7 +139,9 @@ API (`plataforma/gemelo.py`, solo lectura de `steelser.db`): `GET /api/gemelo/me
 | **v2 (hecha)** | Importar el formato único (validar e importar, idempotente, con errores por fila), avance físico ponderado por pieza, curva S de kg y HH con índice de avance, compras, servicios externos y eventos, HH estimadas por el cotizador junto al P50 |
 | **v2.1 (hecha)** | Reporte semanal imprimible (PDF desde el navegador), semanas de producción, historial de re-pronósticos, bandeja de RFI/NC con imputabilidad, buscador Ctrl+K, librerías locales (sin internet), PWA, marcar etapas de pieza en la interfaz con trazabilidad |
 | **v2.2 (hecha)** | Gemelo 3D de la planta con datos simulados: escena detallada hora a hora, políticas, paneles de máquina, lote y proyecto, resultados |
-| v2.3 | Registro sin conexión en la tablet (cola local que se sincroniza), envío del reporte semanal por correo, adjuntar fotos a RFI/NC, pesos de etapa editables desde la interfaz |
+| **v2.3 a v2.5 (hechas)** | Navegación en 5 grupos con barra lateral, rediseño minimalista con modo oscuro y Configuración, proyectos activos en la barra lateral |
+| **v2.6 (hecha)** | Gemelo 3D realista: cámaras 2D/3D/caminata con atajos, inspección de máquinas (componentes, despiece, rayos X), personas que caminan y camiones por la calle de servicio. Plan siguiente: [plan/07](../plan/07_realismo_3d.md) |
+| v2.7 (pendiente) | Registro sin conexión en la tablet (cola local que se sincroniza), envío del reporte semanal por correo, adjuntar fotos a RFI/NC, pesos de etapa editables desde la interfaz |
 | v3 | Contratistas y valorizaciones, costo real vs cotizado, trazabilidad de material, notificaciones, reentrenamiento C4 desde la interfaz |
 | v4 | Multiempresa (`empresa_id`), PostgreSQL, Keycloak, despliegue con HTTPS |
 
