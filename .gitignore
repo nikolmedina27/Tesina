@@ -12,3 +12,14 @@ papers/*.pdf
 # Plataforma: credenciales y clave de sesion locales (nunca versionar)
 data/credenciales_demo.txt
 data/secret.key
+
+# Documentos Word/Excel/PDF: viven fuera del repo (~/Documents/shirley docs)
+*.docx
+*.xlsx
+*.xls
+*.pdf
+*.pptx
+WORD final/
+entregables/
+extras/
+papers/

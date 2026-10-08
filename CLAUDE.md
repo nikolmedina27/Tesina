@@ -40,10 +40,12 @@ Potencial Q1: alto **si** se consiguen HH reales, se valida con backtest + pilot
 
 ## Estructura del repositorio
 
+**Este repo es solo código y Markdown.** Los Word, Excel y PDF viven fuera, en `~/Documents/shirley docs/` (Word de la tesis, `Papers/`, `entregables/`). `.gitignore` bloquea `*.docx`, `*.xlsx`, `*.xls`, `*.pdf` y `*.pptx`. Los documentos de trabajo se escriben en `docs/` como `.md`.
+
 ```
 CLAUDE.md                 este archivo
 requirements.txt          dependencias Python
-extras/                   ORIGINALES (no editar): Word de la tesis, 3 Excel, PDF de cotización ST087
+extras/                   ORIGINALES de la empresa (no editar; NO versionado, solo local): Word de la tesis, 3 Excel, PDF ST087
 data/steelser.db          BD SQLite generada (en .gitignore; no editar a mano)
 data/*.csv                resultados de los experimentos 1-3 (versionados)
 sql/schema.sql            esquema de la BD real: fuente de verdad (las tablas sim_* las crea dss/simulador.py)
@@ -51,7 +53,7 @@ scripts/                  build_db, docx_a_md, calibrar_solapes, exp1_prediccion
 dss/                      código del DSS (ver "Estado del código")
 plataforma/               plataforma web SteelPlan (FastAPI + SPA)
 lanzador/                 .bat, .desktop, ícono y script de accesos directos
-entregables/              Excel del formato único para la empresa
+entregables/              Excel generados (no versionados; se regeneran con scripts/generar_*.py)
 app/streamlit_app.py      cotizador Streamlit (prototipo anterior, para análisis)
 tests/                    pruebas (pytest)
 .claude/launch.json       configuración para abrir el cotizador en el navegador de la app
@@ -72,17 +74,17 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 - Roles: gerencia, cotizador, jefe_taller, supervisor, calidad. Cuentas demo y sus claves en `data/credenciales_demo.txt` (ignorado por git; no copiar las claves en documentos ni respuestas). Proyecto `OT-DEMO-001` marcado `es_demo`.
 - Prospectivo: re-pronóstico de proyectos en curso (`Cotizador.cotizar(..., restante=...)`), MTBF desde paradas registradas tras 60 días, cotización guardada antes de ejecutar.
 - El modelo de horas de la plataforma se entrena con el escenario simulado M2; la interfaz lo advierte.
-- Kit para la empresa: `docs/plan/04_kit_empresa.md` y `entregables/Formato_Unico_Steelser_v1.xlsx` (`py scripts/generar_formato_unico.py`).
+- Kit para la empresa: `docs/plan/04_kit_empresa.md`; el Excel `entregables/Formato_Unico_Steelser_v1.xlsx` no se versiona: se genera con `py scripts/generar_formato_unico.py` (la descarga `/api/plantilla` da 404 hasta generarlo).
 - **v2**: importación del formato único (vista Importar; `plataforma/importador.py`, validar = misma transacción revertida, idempotente), avance físico ponderado por pieza y curva S (`plataforma/avance.py`; pesos por etapa 70 % fierro negro / 20 % recubrimiento / 10 % despacho, de su hoja REPORTE_DE_HABILITADO), pestañas Piezas, Curva S y Compras-servicios-eventos en el proyecto.
 - **Fuente única del formato**: `plataforma/formato.py` (HOJAS y LISTAS). Si se cambia una columna, se cambia ahí; el generador y el importador la leen. Tablas nuevas en `plataforma.db` se agregan en `ESQUEMA` y las columnas nuevas en `COLUMNAS_V2` (migración sin perder datos).
-- Ejemplo lleno DEMO: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx` (`py scripts/generar_ejemplo_importacion.py`).
+- Ejemplo lleno DEMO: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx`, no versionado (`py scripts/generar_ejemplo_importacion.py`).
 - **v2.1**: reporte semanal imprimible (`#/reporte/{id}`, PDF desde el navegador), pestaña Semanas (ciclos lunes–sábado, `avance.semanas`), historial de re-pronósticos (tabla `pronostico`; mide alertas tempranas en el piloto), bandeja RFI y NC (`/api/bandeja`; columnas `imputable`, `dias_impacto`, `conjunto`, `fecha_cierre` en `tarea`), buscador Ctrl+K (`/api/buscar`), marcar etapas de pieza desde la interfaz (`/api/piezas/etapa`, trazado en `pieza_cambio`; el orden de etapas está en `avance.error_orden_etapas`, compartido con el importador), librerías locales en `plataforma/web/vendor/` y PWA (`sw.js`, `manifest.webmanifest`; el service worker solo se activa en localhost o HTTPS).
 - `creado_en` de SQLite está en UTC; para días o fechas locales usar `date(col,'localtime')`.
 - Puntos de mejora retrospectivo → prospectivo: `docs/analisis/07_de_retrospectivo_a_prospectivo.md`.
 
 ## Literatura (`papers/`)
 
-27 PDFs renombrados a su título (mapeo en `docs/analisis/papers_mapeo.csv`; script `scripts/renombrar_papers.py`). Los PDFs **no se versionan en git** (tamaño y derechos de autor). Análisis en `docs/analisis/05_literatura_papers.md` y ruta a Q1 con ampliación de BD en `06_ruta_q1_y_ampliacion_bd.md`. Hallazgos:
+27 PDFs renombrados a su título (mapeo en `docs/analisis/papers_mapeo.csv`; script `scripts/renombrar_papers.py`, que espera una carpeta local `papers/`). Los PDFs **no se versionan en git** (tamaño y derechos de autor) y se guardan en `~/Documents/shirley docs/Papers/`. Análisis en `docs/analisis/05_literatura_papers.md` y ruta a Q1 con ampliación de BD en `06_ruta_q1_y_ampliacion_bd.md`. Hallazgos:
 - Ninguno de los 27 usa QRF, calibración conformal ni Monte Carlo con penalidad; ninguno junta ML de horas + capacidad + incertidumbre.
 - **El experto es base fuerte**: Rokoss (planificación RMSE 5.87 vs ML 5.56 días) y Roblek (el plan humano gana) coinciden con nuestro banco de pruebas.
 - Antecedentes externos a tratar: Bekci et al. 2022 (arXiv, lead time probabilístico para cotizar), Keskinocak & Tayur (cotización de fechas), Mundt & Lödding 2025 (fecha confiable con colchón fijo).
@@ -137,7 +139,7 @@ py scripts/exp1_prediccion.py           # experimentos (varios minutos cada uno)
 ```
 
 `python-docx` está instalado pero roto (falta el binario de `lxml`); los scripts no lo usan, leen el `.docx` con `zipfile` + `xml.etree`.
-Git 2.55 instalado; repo local en `main`, sin remoto. **No subirlo a un remoto**: `extras/` es confidencial.
+Git instalado; `origin` = `https://github.com/nikolmedina27/Tesina.git` (público, `main` sin protección; Paolo es colaborador con escritura, no admin). `extras/` es confidencial: nunca debe entrar al historial (comprobado limpio hasta `e8a23d7`). Hacer `git pull --rebase` antes de empezar y de subir.
 
 ## Base de datos (data/steelser.db)
 
@@ -148,7 +150,8 @@ Vistas: `v_otd`, `v_hh_por_tipo`, `v_disponibilidad`.
 
 ## Reglas para trabajar en este proyecto
 
-- Nunca editar `extras/`. Si llega un archivo nuevo de la empresa, ponerlo en `extras/` y extender `scripts/build_db.py`.
+- Nunca editar `extras/`. Si llega un archivo nuevo de la empresa, ponerlo en `extras/` (local, ignorado por git: copiarlo desde `~/Documents/shirley docs/`) y extender `scripts/build_db.py`.
+- No agregar Word, Excel ni PDF al repo; van en `~/Documents/shirley docs/`. Las versiones de trabajo de la tesis y del paper se escriben en `.md` bajo `docs/`.
 - Cambios de esquema: en `sql/schema.sql` y luego `py scripts/build_db.py` (la BD se recrea desde cero).
 - `docs/tesis/` se regenera desde el Word; las correcciones de la tesis se hacen en el Word, no en esos `.md`.
 - No entrenar ni reportar modelos sobre `hh_ratio_vigente` como si fuera dato real.
