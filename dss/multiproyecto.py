@@ -17,7 +17,8 @@ def programar_multi(proyectos, disp, turnos_maq=None, lam=LAM_DEFECTO, dias_max=
     """Programa R réplicas de P proyectos que comparten las máquinas.
 
     proyectos  lista de dicts: hh (R, 13), cuadrilla (13,), ext (R, 2), inicio (int: día del calendario común),
-               prioridad (número menor = se atiende primero), mult (13, opcional: palancas de gestión)
+               prioridad (número menor = se atiende primero), mult (13, opcional: palancas de gestión),
+               avance0 (13, opcional: fracción ya hecha de cada proceso; un proyecto en curso solo programa lo que falta)
     disp       (T, 4) o (R, T, 4) disponibilidad diaria de las máquinas en el calendario común
     turnos_maq (4,) turnos por máquina (1 por defecto; 2 = segundo turno)
     Devuelve una lista (en el orden de entrada) de dicts: fin (R,) día absoluto de término, duracion (R,),
@@ -40,6 +41,15 @@ def programar_multi(proyectos, disp, turnos_maq=None, lam=LAM_DEFECTO, dias_max=
     ini = [np.full((R, N_PROC), np.nan) for _ in range(P)]
     fin = [np.full((R, N_PROC), np.nan) for _ in range(P)]
     uso = [np.zeros((R, T, 4)) for _ in range(P)] if guardar_uso else None
+    for i, p in enumerate(proyectos):                     # proyectos en curso: parten con lo ya avanzado (13,) o (R, 13)
+        if p.get('avance0') is None:
+            continue
+        a0 = np.broadcast_to(np.clip(np.asarray(p['avance0'], float), 0.0, 1.0), (R, N_PROC))
+        done[i] = hh[i] * a0
+        frac[i] = np.where(hh[i] > 0, a0, 1.0)
+        hecho = frac[i] >= 1 - 1e-9
+        ini[i] = np.where(hecho | (a0 > 0), float(inicio[i]), ini[i])
+        fin[i] = np.where(hecho, float(inicio[i]), fin[i])
 
     for t in range(min(T, dias_max)):
         d_t = disp[:, t, :] if disp.ndim == 3 else np.broadcast_to(disp[t], (R, 4))

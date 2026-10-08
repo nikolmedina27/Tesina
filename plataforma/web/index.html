@@ -14,14 +14,15 @@
     // el tema se aplica antes de pintar para que no parpadee
     try { const p = localStorage.getItem('sp_tema') || 'sistema'; document.documentElement.dataset.tema = p === 'sistema' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro') : p; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="/static/styles.css?v=3.0">
+  <link rel="stylesheet" href="/static/styles.css?v=3.1">
 </head>
 <body>
   <div id="app"></div>
   <script src="/static/vendor/frappe-gantt.min.js"></script>
   <script src="/static/vendor/echarts.min.js"></script>
-  <script src="/static/mant.js?v=3.0"></script>
-  <script src="/static/app.js?v=3.0"></script>
+  <script src="/static/mant.js?v=3.1"></script>
+  <script src="/static/prog.js?v=3.1"></script>
+  <script src="/static/app.js?v=3.1"></script>
   <script>
     // el service worker solo se registra en contexto seguro (localhost o HTTPS)
     if ('serviceWorker' in navigator && window.isSecureContext) navigator.serviceWorker.register('/sw.js').catch(() => {});

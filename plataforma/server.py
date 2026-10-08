@@ -320,7 +320,9 @@ def cotizar(s: SolicitudCotizacion, u=Depends(requiere('cotizador', 'jefe_taller
     cot = Motor.get()
     proy = Proyecto(s.tipo, s.ton, s.inicio, s.presupuesto, s.pct_planchas, s.piezas_por_t, s.m2_pint_t, s.montaje)
     alpha = s.alpha if s.alpha else alpha_optimo(s.penalidad, s.pierde_por_dia, s.margen)
-    res = cot.cotizar(proy, R=s.replicas, alpha=alpha, mtbf=mtbf_actual(p), semilla=7, carga_extra=s.carga_extra)
+    oc = _ocupacion(p, s.inicio)              # carga real: lo que toman los proyectos en curso según el plan aprobado
+    ocup = None if oc is None else np.clip(oc['frac'] + s.carga_extra, 0, 0.95)
+    res = cot.cotizar(proy, R=s.replicas, alpha=alpha, mtbf=mtbf_actual(p), semilla=7, carga_extra=s.carga_extra, ocupacion=ocup)
     out = _resultado_json(res, s, alpha, s.presupuesto)
     hh_ratio = s.ton * cot.rv.loc[s.tipo].values
     o = programar(hh_ratio[None], cuadrilla(cot.par_cuad, s.ton), np.ones((300, 4)), dias_externos(cot.par_ext, s.ton)[None])
@@ -330,6 +332,8 @@ def cotizar(s: SolicitudCotizacion, u=Depends(requiere('cotizador', 'jefe_taller
     if s.fecha_pedida:
         out['pedida'] = dict(fecha=s.fecha_pedida, prob=res.prob_cumplir(s.fecha_pedida),
                              penalidad=res.penalidad_esperada(s.fecha_pedida, s.penalidad))
+    out['carga_taller'] = (f'plan aprobado #{oc["plan_id"]} del {oc["aprobado_en"][:10]} (proyectos en curso)' if oc
+                           else 'histórica supuesta (no hay plan aprobado en Programación)')
     out['modelo'] = dict(entrenado_con=f'{Motor.n_entreno} proyectos SIMULADOS (escenario M{MUNDO_ENTRENAMIENTO})',
                          mtbf=[round(float(x), 1) for x in mtbf_actual(p)], fuente_mtbf=fuente_mtbf(p))
     return out
@@ -916,3 +920,20 @@ def _ops_maquinas(p):
 
 from . import mantenimiento as _mant                                   # noqa: E402
 _mant.registrar(app, plat, usuario_actual, requiere, actividad, CAUSAS, _ops_maquinas)
+
+
+# ------------------------------------------------------------------ programación automática de la cartera (v3.1)
+def _cartera(p):
+    """Proyectos en curso como entrada del programador: lo que falta de cada proceso y su fecha comprometida."""
+    from dss.programador import ProyectoPlan
+    cot = Motor.get()
+    out = []
+    for r in p.execute("SELECT * FROM proyecto_activo WHERE estado='EN_CURSO' ORDER BY id").fetchall():
+        _, _, av = _avance(p, r, cot)
+        out.append(ProyectoPlan(id=r['id'], codigo=r['codigo'], proy=_proy(r), compromiso=r['fecha_comprometida'], avance0=np.asarray(av, float),
+                                alpha=r['alpha'] or 0.8))
+    return out
+
+
+from . import programacion as _prog                                   # noqa: E402
+_ocupacion = _prog.registrar(app, plat, usuario_actual, requiere, actividad, Motor, _cartera, mtbf_actual, MAQ_NOMBRE)

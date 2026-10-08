@@ -113,6 +113,19 @@ CREATE TABLE IF NOT EXISTS orden_mantenimiento (
     titulo TEXT NOT NULL, descripcion TEXT, programada_para TEXT, duracion_h REAL, inicio TEXT, fin TEXT, tecnico TEXT,
     repuestos TEXT, costo REAL, parada_id INTEGER REFERENCES parada(id), creado_por INTEGER REFERENCES usuario(id),
     creado_en TEXT DEFAULT CURRENT_TIMESTAMP, cerrado_en TEXT);
+-- v3.1: programación automática de la cartera. Se guardan TODAS las versiones (propuestas, aprobadas, descartadas):
+-- son la línea base para contar reprogramaciones y medir si los avisos llegaron a tiempo.
+CREATE TABLE IF NOT EXISTS plan_version (
+    id INTEGER PRIMARY KEY, creado_en TEXT DEFAULT CURRENT_TIMESTAMP, motivo TEXT NOT NULL, regla TEXT NOT NULL,
+    estado TEXT NOT NULL DEFAULT 'PROPUESTO' CHECK (estado IN ('PROPUESTO','APROBADO','DESCARTADO','REEMPLAZADO')),
+    creado_por INTEGER REFERENCES usuario(id), aprobado_por INTEGER REFERENCES usuario(id), aprobado_en TEXT,
+    huella TEXT, resultado TEXT NOT NULL, cambios TEXT, avisos TEXT);
+CREATE TABLE IF NOT EXISTS plan_proyecto (
+    plan_id INTEGER NOT NULL REFERENCES plan_version(id), proyecto_id INTEGER, codigo TEXT, prioridad INTEGER,
+    compromiso TEXT, p50 TEXT, p80 TEXT, prob_cumplir REAL, penalidad REAL, PRIMARY KEY (plan_id, codigo));
+CREATE TABLE IF NOT EXISTS plan_linea (
+    plan_id INTEGER NOT NULL REFERENCES plan_version(id), proyecto_id INTEGER, codigo TEXT, proceso INTEGER,
+    inicio TEXT, fin TEXT, hh REAL, PRIMARY KEY (plan_id, codigo, proceso));
 '''
 
 # columnas agregadas en v2 a tablas que ya existían (migración sin perder datos)

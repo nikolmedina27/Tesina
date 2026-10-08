@@ -149,7 +149,7 @@ const ROLES = { cotizador: ['cotizador', 'jefe_taller'], planta: ['jefe_taller',
 const GRUPOS = [
   { k: 'inicio', t: 'Inicio', ic: 'inicio', subs: [['inicio', 'Tablero']] },
   { k: 'cotizador', t: 'Cotizar', ic: 'cotizador', subs: [['cotizador', 'Cotizador de plazos']] },
-  { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
+  { k: 'proyectos', t: 'Proyectos', ic: 'proyectos', subs: [['proyectos', 'Proyectos'], ['programacion', 'Programación'], ['gantt', 'Gantt'], ['tareas', 'Tareas'], ['bandeja', 'RFI y NC']] },
   { k: 'planta', t: 'Planta', ic: 'planta3d', subs: [['planta3d', 'Gemelo 3D'], ['planta', 'Registro diario']] },
   { k: 'mant', t: 'Mantenimiento', ic: 'llave', subs: [['mant', 'Máquinas'], ['mantgantt', 'Gantt de máquinas'], ['mantparadas', 'Paradas'], ['mantordenes', 'Órdenes y plan']] },
   { k: 'datos', t: 'Datos', ic: 'hoja', subs: [['importar', 'Importar formato único'], ['usuarios', 'Usuarios']] },
@@ -311,6 +311,7 @@ async function vInicio() {
   const enCurso = act.filter(a => a.estado === 'EN_CURSO');
   m.innerHTML = `
   <section class="saludo"><h1>Hola, ${esc(S.me.nombre.split(' (')[0].split(' ')[0])}</h1><p>${new Date().toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p></section>
+  <div id="avplan"></div>
   <div class="kpis">
     ${kpi('Proyectos en curso', enCurso.length, 'seguimiento prospectivo', '', 'proyectos')}
     ${kpi('Cumplimiento histórico', d.historico.otd + ' %', `${d.historico.proyectos - d.historico.atrasados} de ${d.historico.proyectos} proyectos · meta 85 %`, d.historico.otd >= 85 ? 'ver' : 'nar', 'check')}
@@ -326,6 +327,7 @@ async function vInicio() {
     <div class="tarjeta"><h3>Cumplimiento de entregas por año <span class="nota">meta 85 %</span></h3><div class="cuerpo"><div class="grafico bajo" id="gotd"></div></div></div>
     <div class="tarjeta"><h3>Disponibilidad de máquinas · 30 días <span class="nota">registrada en Planta</span></h3><div class="cuerpo"><div class="grafico bajo" id="gdisp"></div></div></div>
   </div>`;
+  avisoPlan($('#avplan'));
   chart($('#gotd'), { grid: { left: 40, right: 20, top: 20, bottom: 28 }, tooltip: { trigger: 'axis' },
     xAxis: { type: 'category', data: d.otd_anual.map(r => r.anio) }, yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value} %' } },
     series: [{ type: 'bar', data: d.otd_anual.map(r => ({ value: r.otd_pct, itemStyle: { color: r.otd_pct >= 85 ? C.verde : C.acento, borderRadius: 0 } })), barWidth: '55%',
@@ -420,7 +422,7 @@ async function vProyectoAct(id, qs = '') {
     <div class="pcab-d"><div><span>Entrega comprometida</span><b>${fmtCorta(p.fecha_comprometida)}</b><small>${p.prob_cumplir != null ? 'cotizada con P(cumplir) ' + pct(p.prob_cumplir) : 'importado del Excel'}</small></div>
       <div><span>Avance por HH</span><b>${pct(avance)}</b><small>${fmtNum(d.procesos.reduce((s, r) => s + r.hh_reg, 0))} HH registradas</small></div>
       <div><span>Tareas abiertas</span><b>${tareas.filter(t => t.estado !== 'HECHO').length}</b><small>${tareas.filter(t => t.tipo === 'BLOQUEO' && t.estado !== 'HECHO').length} bloqueos</small></div></div></div>
-  <div id="pron"></div>
+  <div id="avplan"></div><div id="pron"></div>
   <div class="pestanas" id="ptabs"><button class="activo" data-t="res">${ic('gantt', 15)} Resumen y Gantt</button><button data-t="pie">${ic('viga', 15)} Piezas y avance</button>
     <button data-t="cur">${ic('curva', 15)} Curva S</button><button data-t="sem">${ic('semana', 15)} Semanas</button><button data-t="log">${ic('camion', 15)} Compras, servicios y eventos</button></div>
   <div id="t-pie" class="oculto">${cargando()}</div><div id="t-cur" class="oculto">${cargando()}</div><div id="t-sem" class="oculto">${cargando()}</div><div id="t-log" class="oculto">${cargando()}</div>
@@ -433,6 +435,7 @@ async function vProyectoAct(id, qs = '') {
     <div class="tarjeta"><h3>Último tareo</h3><div class="cuerpo scroll"><table class="tabla"><tr><th>Fecha</th><th>Proceso</th><th class="num">Personas</th><th class="num">HH</th><th>Registró</th></tr>
       ${d.tareo.map(t => `<tr><td>${fmtCorta(t.fecha)}</td><td>${esc(S.cat.procesos[t.proceso - 1].nombre)}</td><td class="num">${t.n_personas}</td><td class="num">${fmtNum(t.hh)}</td><td class="nota">${esc(t.usuario || '')}</td></tr>`).join('') || '<tr><td colspan="5" class="vacio">Sin tareo</td></tr>'}</table></div></div>
   </div></div>`;
+  avisoPlan($('#avplan'), p.codigo);
   const cargadas = {};
   $$('#ptabs button').forEach(b => b.onclick = () => {
     $$('#ptabs button').forEach(x => x.classList.toggle('activo', x === b));
@@ -1255,6 +1258,7 @@ async function ruta() {
     if (v === 'proyecto' && a === 'a') return await vProyectoAct(b, qs);
     if (v === 'proyectos') return await vProyectos(a === 'hist' ? 'hist' : 'curso');
     if (v === 'gantt') return await vGantt();
+    if (v === 'programacion') return await vProgramacion(qs);
     if (v === 'reporte') return await vReporte(a, qs);
     if (v === 'cotizador' && puedeVer('cotizador')) return await vCotizador();
     if (v === 'config') return await vConfig();

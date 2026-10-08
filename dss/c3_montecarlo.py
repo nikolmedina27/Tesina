@@ -138,12 +138,14 @@ class Cotizador:
         self.lam = LAM_DEFECTO                  # solapes del CRP; el gemelo los recalibra con el tareo (dss/gemelo/calibrar_dss.py)
 
     def cotizar(self, proy, R=1000, alpha=0.8, mtbf=MTBF_DEFECTO, semilla=1, lam=None, carga_extra=0.0,
-                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None, mult=None, mult_desde=0, esperas=None):
+                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None, mult=None, mult_desde=0, esperas=None,
+                ocupacion=None):
         """`sin_disponibilidad`, `sin_carga` y `rho` (valor fijo) son para las ablaciones del experimento 4.
         `restante` (13,): fracción de trabajo que falta por proceso (re-pronóstico de un proyecto en curso,
         con `proy.inicio` = hoy). `mult` (13,) son las palancas de gestión del what-if (ver dss/whatif.py). `esperas`: dict con 'ing' y 'compra', arrays
         (R,) de días laborables que faltan de ingeniería (con RFIs) y de espera de material; reemplazan las HH de esos dos
-        procesos por la espera (aprendida de las compras pasadas)."""
+        procesos por la espera (aprendida de las compras pasadas). `ocupacion` (T, 4): fracción de cada máquina que ya
+        toman los proyectos en curso según el plan aprobado (programación de cartera); reemplaza a la carga histórica κ·u."""
         rng = np.random.default_rng(semilla)
         lam = self.lam if lam is None else lam
         hh_ratio = proy.ton * self.rv.loc[proy.tipo].values
@@ -164,7 +166,12 @@ class Cotizador:
         if sin_carga:
             u = np.zeros_like(u)
         d = np.ones((R, T_DIAS, 4)) if sin_disponibilidad else muestrear_disp(R, T_DIAS, mtbf, rng)
-        disp = CargaTaller.efectiva(d, u[None])
+        if ocupacion is not None and not sin_carga:
+            oc = np.zeros((T_DIAS, 4))
+            oc[:min(T_DIAS, len(ocupacion))] = np.clip(np.asarray(ocupacion, float)[:T_DIAS], 0.0, 0.95)
+            disp = d * (1.0 - oc[None])
+        else:
+            disp = CargaTaller.efectiva(d, u[None])
         o = programar(hh, crew, disp, ext, lam=lam, mult=mult, mult_desde=mult_desde, avance0=avance0)
         n = np.maximum(np.nan_to_num(o['fin'], nan=T_DIAS).astype(int), 1)
         base = np.busday_offset(np.datetime64(proy.inicio, 'D'), 0, roll='forward', weekmask=WEEKMASK)

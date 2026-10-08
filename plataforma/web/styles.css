@@ -515,3 +515,7 @@ body { font-variant-numeric: tabular-nums; }
 .detg h4 { margin: 8px 0 4px; font-size: 14px; }
 .lateral .botones { display: flex; gap: 8px; flex-wrap: wrap; }
 .tabla tr.inactivo td { opacity: .55; }
+
+/* ---------- v3.1: programación de la cartera ---------- */
+.tarjeta.propuesta { border-color: var(--acento-m); }
+.tarjeta.propuesta > h3 { background: var(--acento-s); }

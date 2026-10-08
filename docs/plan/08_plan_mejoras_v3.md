@@ -49,7 +49,9 @@ de prueba; un preventivo programado aparece en el Gantt de máquinas y reduce la
 
 ---
 
-## B. Programación automática de proyectos (núcleo)
+## B. Programación automática de proyectos (núcleo) · ✅ hecha (v3.1, 8/10/2026)
+
+> Implementado en `dss/programador.py`, `plataforma/programacion.py`, `plataforma/web/prog.js`. Diferencias con lo planeado: la readaptación revisa el estado cada 10 minutos (huella) además del recálculo nocturno; las paradas abiertas y las correctivas en curso también restan capacidad; la regla «menor holgura» no se implementó (penalidad y EDD cubren el caso).
 
 **Objetivo**: decir "este proyecto se entrega en **julio**" (o una fecha exacta, o "lo antes posible") y que el
 sistema **asigne solo** las fechas de inicio y fin de cada proceso de **todos** los proyectos, respetando la capacidad
