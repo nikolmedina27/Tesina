@@ -72,8 +72,10 @@ erDiagram
 | `sim_proyecto_proceso` | 1 625 | HH reales simuladas, φ y fechas por proceso (columna `origen = 'SIMULADO'`) |
 | `sim_parada` | 6 895 | Paradas simuladas de las 4 máquinas |
 | `sim_verificacion` | 125 | Duración simulada vs. real por proyecto y escenario |
+| `sim_planta_elemento`, `sim_personal`, `sim_cuadrilla`, `sim_asignacion`, `sim_material_lote`, `sim_lote`, `sim_lote_etapa` | 35 / 97 / ≈ 2 100 / ≈ 4 000 por mundo / ≈ 680 / ≈ 260 / ≈ 1 800 | Planta, personal, asignaciones diarias, material y lotes para la vista 3D (`py -m dss.simulador_planta`; detalle en [06](06_datos_simulados.md)) |
+| `sim_retro_resultado` | 750 | Resultado del estudio retrospectivo: 5 mundos × 25 proyectos × 6 políticas (`scripts/exp5_retrospectivo.py`) |
 
-`py scripts/build_db.py` borra estas tablas; regenerarlas con `py -m dss.simulador`. Detalle en [06_datos_simulados.md](06_datos_simulados.md).
+`py scripts/build_db.py` borra estas tablas; regenerarlas con `py -m dss.simulador` y `py -m dss.simulador_planta`. Detalle en [06_datos_simulados.md](06_datos_simulados.md).
 
 ### Vistas
 | Vista | Uso |

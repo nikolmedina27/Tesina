@@ -60,6 +60,16 @@ flowchart LR
 
 Los procesos se solapan: un sucesor puede empezar cuando su predecesor alcanza una fracción s de avance (relación inicio-inicio con desfase). Valores iniciales sugeridos hasta medirlos: habilitado → armado s = 0.30, armado → soldeo s = 0.20, soldeo → limpieza s = 0.30, limpieza → pintura s = 0.50. Validar con las fechas reales por proceso.
 
+## Extensiones del motor (decisiones de gestión y proyectos en curso)
+
+`dss/crp_engine.programar` admite tres parámetros opcionales, sin cambiar el algoritmo de abajo:
+
+- `mult` (13,) y `mult_desde`: multiplican la capacidad de cada proceso desde un día dado (más personas, segundo turno, horas extra, servicio externo expeditado). Son las palancas de `dss/whatif.py`.
+- `avance0` (13,): fracción de cada proceso ya hecha al empezar. Es lo que usa el re-pronóstico de un proyecto en curso (`Cotizador.cotizar(..., restante=...)`). Antes se escalaban las HH pendientes y cada proceso terminado tardaba un día en «registrarse», retrasando toda la cadena de precedencias.
+- `snapshot`: devuelve el avance por proceso al comenzar los días pedidos (estado del proyecto a mitad de camino).
+
+`dss/multiproyecto.py` programa varios proyectos a la vez: las 4 máquinas reparten su capacidad diaria por prioridad (los contratistas y los servicios externos no compiten entre proyectos).
+
 ## Algoritmo
 
 ```

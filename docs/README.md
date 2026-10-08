@@ -25,6 +25,7 @@ Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que 
 | [analisis/04_resultados_banco_pruebas.md](analisis/04_resultados_banco_pruebas.md) | Resultados de C2 y C3 sobre datos simulados: error de HH, cobertura, frontera cumplimiento-plazo |
 | [analisis/05_literatura_papers.md](analisis/05_literatura_papers.md) | Los 27 papers de `papers/`: qué herramientas usan, cuáles se parecen a las nuestras, antecedentes externos y errores de la tesis ([mapeo CSV](analisis/papers_mapeo.csv)) |
 | [analisis/06_ruta_q1_y_ampliacion_bd.md](analisis/06_ruta_q1_y_ampliacion_bd.md) | Ruta a Q1 según la literatura y qué agregar a la BD (con DDL probado) |
+| [analisis/08_retrospectivo_planta3d.md](analisis/08_retrospectivo_planta3d.md) | Estudio retrospectivo con datos simulados: cómo se hizo vs. qué habría pasado con el DSS (6 políticas, palancas de gestión, sensibilidad al costo) y sus límites |
 | [analisis/07_de_retrospectivo_a_prospectivo.md](analisis/07_de_retrospectivo_a_prospectivo.md) | Puntos de mejora: qué es retrospectivo, qué ya es prospectivo, diseño del piloto y métricas nuevas para Q1 |
 
 ## Diseño de la solución
@@ -47,6 +48,7 @@ Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que 
 | [plan/02_hoja_de_ruta.md](plan/02_hoja_de_ruta.md) | Fases, entregables, tareas inmediatas y riesgos |
 | [plan/03_diseno_experimental.md](plan/03_diseno_experimental.md) | Hipótesis, validación LOPO, backtest, ablación, piloto |
 | [plan/04_kit_empresa.md](plan/04_kit_empresa.md) | Kit para Steelser: agenda, cuentas, solicitud de datos, piloto prospectivo, correo modelo; Excel en `entregables/` |
+| [plan/05_planta_3d.md](plan/05_planta_3d.md) | Propuesta: planta 3D para gestionar (asignar, priorizar) evaluando cada decisión con QRF + Monte Carlo multi-proyecto; fases, datos, evaluación con usuarios |
 
 ## Guía
 

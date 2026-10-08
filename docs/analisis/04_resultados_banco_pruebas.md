@@ -2,6 +2,8 @@
 
 > **Todos estos resultados salen de datos simulados** ([diseno/06](../diseno/06_datos_simulados.md)). Muestran que el pipeline funciona y cómo se comporta el método bajo supuestos conocidos. **No son evidencia sobre Steelser.** Se regeneran con `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py` y `exp4_ablacion.py` (resultados en `data/*.csv`). Los experimentos 2 y 3 se corrieron con los 4 primeros escenarios; el 1 y el 4 incluyen el escenario M5 (disponibilidad ≈ 80 %).
 
+> Para el estudio retrospectivo «cómo se hizo vs. qué habría pasado» (palancas de gestión, 6 políticas, base reconstruida) ver [08](08_retrospectivo_planta3d.md). Sus números no coinciden con los de este documento porque usa la BD reconstruida de la PC de Paolo.
+
 ## Resumen en cinco líneas
 
 1. **C2 funciona**: el QRF reduce el error de HH frente al ratio vigente en los escenarios con sesgo o no linealidad, no lo empeora cuando el ratio ya es bueno (M1), y con la calibración conformal el intervalo P10–P90 alcanza cobertura ≈ 0.80.

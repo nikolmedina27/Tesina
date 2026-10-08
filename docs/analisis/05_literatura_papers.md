@@ -95,3 +95,12 @@ Búsqueda rápida en la web; falta una revisión sistemática en Scopus y WoS an
 5. Las cifras de Guerrero (77 estudios, ML en 6) y Bianchini (+7 % de rentabilidad) no pude confirmarlas en el texto extraído; revisarlas a mano.
 
 Las correcciones se hacen en el Word; aquí solo quedan documentadas.
+
+## 7. Papers nuevos (solo se leyó el resumen; no están entre los 27 analizados)
+
+| Paper | Qué aporta | Relación con nuestro trabajo |
+|---|---|---|
+| Mehdiyev, Majlatow & Fettke (2025), *Annals of Operations Research* 347: «Quantifying and explaining machine learning uncertainty in predictive process monitoring» | Quantile Regression Forest más SHAP en una empresa manufacturera mediana alemana: incertidumbre predictiva y qué variables la explican | **QRF no es novedad** en manufactura: citarlo. SHAP sobre el ancho del intervalo de φ es una extensión barata que le explica al cotizador por qué un proyecto es más incierto |
+| Flores-Gómez & Dauzère-Pérès (2026), *Annals of Operations Research*: «Makespan service level for the flexible job-shop scheduling problem under machine-related uncertainty» | Maximiza el *makespan service level* (probabilidad de terminar antes de un plazo) con incertidumbre ligada al estado de la máquina, que afecta a todas sus operaciones | Su *service level* es nuestro P(cumplir); su incertidumbre por máquina es parecida a muestrear Dₖ por día. Ellos optimizan el plan; nosotros lo simulamos y buscamos palancas de gestión |
+| Rokoss et al. (2024) | Ya estaba entre los 27 (fila 7) | — |
+

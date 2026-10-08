@@ -76,8 +76,12 @@ dss/
   c2_modelo.py            # ✅ PhiEmpirico, PhiQRF + conformal agrupado por proyecto
   c3_montecarlo.py        # ✅ Cotizador, muestreo de φ/paradas, Resultado, α* newsvendor
   c4_lazo.py              # ⏳ Md, PICP, alertas de reentrenamiento
-scripts/                  # ✅ build_db, docx_a_md, calibrar_solapes, exp1-exp4, generadores del Excel
-tests/                    # ✅ 15 pruebas (motor CRP, C3, importador, semanas)
+  whatif.py               # ✅ palancas de gestión, evaluación con semillas comunes, búsqueda automática, sensibilidad
+  multiproyecto.py        # ✅ varios proyectos comparten las máquinas por prioridad
+  retrospectivo.py        # ✅ cómo se hizo vs. qué habría pasado (6 políticas)
+  simulador_planta.py     # ✅ planta, personal, material y lotes simulados (vista 3D)
+scripts/                  # ✅ build_db, reconstruir_muestra, docx_a_md, calibrar_solapes, exp1-exp5, generadores del Excel
+tests/                    # ✅ 39 pruebas (motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas)
 ```
 
 `economia.py` (α\*, penalidad esperada) quedó dentro de `c3_montecarlo.py` (`alpha_optimo`, `Resultado.penalidad_esperada`).

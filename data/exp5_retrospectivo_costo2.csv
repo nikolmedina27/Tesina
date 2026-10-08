@@ -1,0 +1,751 @@
+mundo,cod,ini,politica,plan,real,commit,fin,tarde,cumple,penalidad,costo,total,lead,intervino,palancas,p_commit
+M1 ratio casi correcto,1,2021-02-20,A0 como se hizo,2021-05-13,2021-05-12,2021-05-13,2021-05-12,0,True,0.0,0.0,0.0,83,False,,0.142
+M1 ratio casi correcto,1,2021-02-20,A1 DSS fecha α=0.80,2021-05-13,2021-05-12,2021-06-03,2021-05-12,0,True,0.0,0.0,0.0,104,False,,0.801
+M1 ratio casi correcto,1,2021-02-20,A2 DSS fecha α*,2021-05-13,2021-05-12,2021-06-10,2021-05-12,0,True,0.0,0.0,0.0,111,False,,0.926
+M1 ratio casi correcto,1,2021-02-20,A3 fecha original + gestión al inicio,2021-05-13,2021-05-12,2021-05-13,2021-04-27,0,True,0.0,2.745661415656839,2.745661415656839,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.15166666666666667
+M1 ratio casi correcto,1,2021-02-20,A4 fecha original + re-pronóstico 40 %,2021-05-13,2021-05-12,2021-05-13,2021-05-03,0,True,0.0,2.0828512684063156,2.0828512684063156,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.19333333333333333
+M1 ratio casi correcto,1,2021-02-20,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-13,2021-05-12,2021-06-10,2021-05-12,0,True,0.0,0.0,0.0,111,False,,0.9483333333333334
+M1 ratio casi correcto,2,2021-02-19,A0 como se hizo,2021-05-10,2021-05-10,2021-05-10,2021-05-10,0,True,0.0,0.0,0.0,81,False,,0.289
+M1 ratio casi correcto,2,2021-02-19,A1 DSS fecha α=0.80,2021-05-10,2021-05-10,2021-05-24,2021-05-10,0,True,0.0,0.0,0.0,95,False,,0.824
+M1 ratio casi correcto,2,2021-02-19,A2 DSS fecha α*,2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.937
+M1 ratio casi correcto,2,2021-02-19,A3 fecha original + gestión al inicio,2021-05-10,2021-05-10,2021-05-10,2021-05-01,0,True,0.0,2.2680188724759267,2.2680188724759267,81,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.305
+M1 ratio casi correcto,2,2021-02-19,A4 fecha original + re-pronóstico 40 %,2021-05-10,2021-05-10,2021-05-10,2021-05-03,0,True,0.0,2.0698044395968043,2.0698044395968043,81,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.355
+M1 ratio casi correcto,2,2021-02-19,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.97
+M1 ratio casi correcto,3,2021-09-04,A0 como se hizo,2021-11-17,2021-11-16,2021-11-17,2021-11-16,0,True,0.0,0.0,0.0,75,False,,0.523
+M1 ratio casi correcto,3,2021-09-04,A1 DSS fecha α=0.80,2021-11-17,2021-11-16,2021-11-25,2021-11-16,0,True,0.0,0.0,0.0,83,False,,0.818
+M1 ratio casi correcto,3,2021-09-04,A2 DSS fecha α*,2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.934
+M1 ratio casi correcto,3,2021-09-04,A3 fecha original + gestión al inicio,2021-11-17,2021-11-16,2021-11-17,2021-11-08,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.48
+M1 ratio casi correcto,3,2021-09-04,A4 fecha original + re-pronóstico 40 %,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.078605531207352,2.078605531207352,75,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4066666666666667
+M1 ratio casi correcto,3,2021-09-04,A5 sistema completo (α* + re-pronóstico 40 %),2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.935
+M1 ratio casi correcto,4,2022-02-02,A0 como se hizo,2022-04-06,2022-04-06,2022-04-06,2022-04-06,0,True,0.0,0.0,0.0,64,False,,0.344
+M1 ratio casi correcto,4,2022-02-02,A1 DSS fecha α=0.80,2022-04-06,2022-04-06,2022-04-16,2022-04-06,0,True,0.0,0.0,0.0,74,False,,0.809
+M1 ratio casi correcto,4,2022-02-02,A2 DSS fecha α*,2022-04-06,2022-04-06,2022-04-22,2022-04-06,0,True,0.0,0.0,0.0,80,False,,0.935
+M1 ratio casi correcto,4,2022-02-02,A3 fecha original + gestión al inicio,2022-04-06,2022-04-06,2022-04-06,2022-03-30,0,True,0.0,2.0472798871187115,2.0472798871187115,64,True,+1 persona(s) en Soldeo + Expeditar Granallado y pintura (externo),0.31333333333333335
+M1 ratio casi correcto,4,2022-02-02,A4 fecha original + re-pronóstico 40 %,2022-04-06,2022-04-06,2022-04-06,2022-03-30,0,True,0.0,2.0,2.0,64,True,Expeditar Granallado y pintura (externo),0.345
+M1 ratio casi correcto,4,2022-02-02,A5 sistema completo (α* + re-pronóstico 40 %),2022-04-06,2022-04-06,2022-04-22,2022-04-06,0,True,0.0,0.0,0.0,80,False,,0.9383333333333334
+M1 ratio casi correcto,5,2022-01-03,A0 como se hizo,2022-03-15,2022-03-15,2022-03-15,2022-03-15,0,True,0.0,0.0,0.0,72,False,,0.435
+M1 ratio casi correcto,5,2022-01-03,A1 DSS fecha α=0.80,2022-03-15,2022-03-15,2022-03-24,2022-03-15,0,True,0.0,0.0,0.0,81,False,,0.823
+M1 ratio casi correcto,5,2022-01-03,A2 DSS fecha α*,2022-03-15,2022-03-15,2022-03-31,2022-03-15,0,True,0.0,0.0,0.0,88,False,,0.94
+M1 ratio casi correcto,5,2022-01-03,A3 fecha original + gestión al inicio,2022-03-15,2022-03-15,2022-03-15,2022-03-08,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.43666666666666665
+M1 ratio casi correcto,5,2022-01-03,A4 fecha original + re-pronóstico 40 %,2022-03-15,2022-03-15,2022-03-15,2022-03-08,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.3466666666666667
+M1 ratio casi correcto,5,2022-01-03,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-15,2022-03-15,2022-03-31,2022-03-15,0,True,0.0,0.0,0.0,88,False,,0.9033333333333333
+M1 ratio casi correcto,6,2022-01-07,A0 como se hizo,2022-03-08,2022-03-13,2022-03-08,2022-03-13,5,False,5.0,0.0,5.0,61,False,,0.12
+M1 ratio casi correcto,6,2022-01-07,A1 DSS fecha α=0.80,2022-03-08,2022-03-13,2022-03-19,2022-03-13,0,True,0.0,0.0,0.0,72,False,,0.808
+M1 ratio casi correcto,6,2022-01-07,A2 DSS fecha α*,2022-03-08,2022-03-13,2022-03-24,2022-03-13,0,True,0.0,0.0,0.0,77,False,,0.926
+M1 ratio casi correcto,6,2022-01-07,A3 fecha original + gestión al inicio,2022-03-08,2022-03-13,2022-03-08,2022-03-05,0,True,0.0,2.430586942240562,2.430586942240562,61,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.12666666666666668
+M1 ratio casi correcto,6,2022-01-07,A4 fecha original + re-pronóstico 40 %,2022-03-08,2022-03-13,2022-03-08,2022-03-07,0,True,0.0,2.4806006731310983,2.4806006731310983,61,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.005
+M1 ratio casi correcto,6,2022-01-07,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-08,2022-03-13,2022-03-24,2022-03-10,0,True,0.0,0.18899726955093027,0.18899726955093027,77,True,+2 persona(s) en Limpieza,0.7633333333333333
+M1 ratio casi correcto,7,2022-03-22,A0 como se hizo,2022-05-21,2022-05-21,2022-05-21,2022-05-21,0,True,0.0,0.0,0.0,61,False,,0.55
+M1 ratio casi correcto,7,2022-03-22,A1 DSS fecha α=0.80,2022-05-21,2022-05-21,2022-05-27,2022-05-21,0,True,0.0,0.0,0.0,67,False,,0.819
+M1 ratio casi correcto,7,2022-03-22,A2 DSS fecha α*,2022-05-21,2022-05-21,2022-06-01,2022-05-21,0,True,0.0,0.0,0.0,72,False,,0.926
+M1 ratio casi correcto,7,2022-03-22,A3 fecha original + gestión al inicio,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.070506647777145,2.070506647777145,61,True,+1 persona(s) en Armado + Expeditar Granallado y pintura (externo),0.5683333333333334
+M1 ratio casi correcto,7,2022-03-22,A4 fecha original + re-pronóstico 40 %,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.0,2.0,61,True,Expeditar Granallado y pintura (externo),0.525
+M1 ratio casi correcto,7,2022-03-22,A5 sistema completo (α* + re-pronóstico 40 %),2022-05-21,2022-05-21,2022-06-01,2022-05-21,0,True,0.0,0.0,0.0,72,False,,0.93
+M1 ratio casi correcto,8,2023-02-14,A0 como se hizo,2023-04-24,2023-04-22,2023-04-24,2023-04-22,0,True,0.0,0.0,0.0,70,False,,0.333
+M1 ratio casi correcto,8,2023-02-14,A1 DSS fecha α=0.80,2023-04-24,2023-04-22,2023-05-04,2023-04-22,0,True,0.0,0.0,0.0,80,False,,0.835
+M1 ratio casi correcto,8,2023-02-14,A2 DSS fecha α*,2023-04-24,2023-04-22,2023-05-09,2023-04-22,0,True,0.0,0.0,0.0,85,False,,0.93
+M1 ratio casi correcto,8,2023-02-14,A3 fecha original + gestión al inicio,2023-04-24,2023-04-22,2023-04-24,2023-04-17,0,True,0.0,2.137776194124834,2.137776194124834,70,True,+1 persona(s) en Armado + +1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3433333333333333
+M1 ratio casi correcto,8,2023-02-14,A4 fecha original + re-pronóstico 40 %,2023-04-24,2023-04-22,2023-04-24,2023-04-17,0,True,0.0,2.1243005909183283,2.1243005909183283,70,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.20333333333333334
+M1 ratio casi correcto,8,2023-02-14,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-24,2023-04-22,2023-05-09,2023-04-22,0,True,0.0,0.0,0.0,85,False,,0.9083333333333333
+M1 ratio casi correcto,9,2023-05-18,A0 como se hizo,2023-07-18,2023-07-16,2023-07-18,2023-07-16,0,True,0.0,0.0,0.0,62,False,,0.542
+M1 ratio casi correcto,9,2023-05-18,A1 DSS fecha α=0.80,2023-07-18,2023-07-16,2023-07-24,2023-07-16,0,True,0.0,0.0,0.0,68,False,,0.823
+M1 ratio casi correcto,9,2023-05-18,A2 DSS fecha α*,2023-07-18,2023-07-16,2023-07-28,2023-07-16,0,True,0.0,0.0,0.0,72,False,,0.932
+M1 ratio casi correcto,9,2023-05-18,A3 fecha original + gestión al inicio,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.5616666666666666
+M1 ratio casi correcto,9,2023-05-18,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.5683333333333334
+M1 ratio casi correcto,9,2023-05-18,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-16,2023-07-28,2023-07-15,0,True,0.0,0.0,0.0,72,False,,0.95
+M1 ratio casi correcto,10,2023-08-11,A0 como se hizo,2023-10-01,2023-10-01,2023-10-01,2023-10-01,0,True,0.0,0.0,0.0,52,False,,0.391
+M1 ratio casi correcto,10,2023-08-11,A1 DSS fecha α=0.80,2023-10-01,2023-10-01,2023-10-07,2023-10-01,0,True,0.0,0.0,0.0,58,False,,0.841
+M1 ratio casi correcto,10,2023-08-11,A2 DSS fecha α*,2023-10-01,2023-10-01,2023-10-11,2023-10-01,0,True,0.0,0.0,0.0,62,False,,0.946
+M1 ratio casi correcto,10,2023-08-11,A3 fecha original + gestión al inicio,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.171174340145221,2.171174340145221,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.375
+M1 ratio casi correcto,10,2023-08-11,A4 fecha original + re-pronóstico 40 %,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.171174340145221,2.171174340145221,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.23666666666666666
+M1 ratio casi correcto,10,2023-08-11,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-01,2023-10-01,2023-10-11,2023-09-30,0,True,0.0,0.0,0.0,62,False,,0.8666666666666667
+M1 ratio casi correcto,11,2023-06-02,A0 como se hizo,2023-07-18,2023-07-18,2023-07-18,2023-07-18,0,True,0.0,0.0,0.0,47,False,,0.282
+M1 ratio casi correcto,11,2023-06-02,A1 DSS fecha α=0.80,2023-07-18,2023-07-18,2023-07-25,2023-07-18,0,True,0.0,0.0,0.0,54,False,,0.856
+M1 ratio casi correcto,11,2023-06-02,A2 DSS fecha α*,2023-07-18,2023-07-18,2023-07-27,2023-07-18,0,True,0.0,0.0,0.0,56,False,,0.932
+M1 ratio casi correcto,11,2023-06-02,A3 fecha original + gestión al inicio,2023-07-18,2023-07-18,2023-07-18,2023-07-15,0,True,0.0,0.4130266424966329,0.4130266424966329,47,True,+1 persona(s) en Armado + +2 persona(s) en Limpieza,0.26166666666666666
+M1 ratio casi correcto,11,2023-06-02,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-18,2023-07-18,2023-07-14,0,True,0.0,2.4483165523977286,2.4483165523977286,47,True,+1 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.12
+M1 ratio casi correcto,11,2023-06-02,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-18,2023-07-27,2023-07-18,0,True,0.0,0.0,0.0,56,False,,0.8483333333333334
+M1 ratio casi correcto,12,2023-08-13,A0 como se hizo,2023-10-17,2023-10-21,2023-10-17,2023-10-21,4,False,4.0,0.0,4.0,66,False,,0.063
+M1 ratio casi correcto,12,2023-08-13,A1 DSS fecha α=0.80,2023-10-17,2023-10-21,2023-11-02,2023-10-21,0,True,0.0,0.0,0.0,82,False,,0.807
+M1 ratio casi correcto,12,2023-08-13,A2 DSS fecha α*,2023-10-17,2023-10-21,2023-11-08,2023-10-21,0,True,0.0,0.0,0.0,88,False,,0.947
+M1 ratio casi correcto,12,2023-08-13,A3 fecha original + gestión al inicio,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.4003570177188496,2.4003570177188496,66,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.04833333333333333
+M1 ratio casi correcto,12,2023-08-13,A4 fecha original + re-pronóstico 40 %,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.4003570177188496,2.4003570177188496,66,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.023333333333333334
+M1 ratio casi correcto,12,2023-08-13,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-17,2023-10-21,2023-11-08,2023-10-21,0,True,0.0,0.0,0.0,88,False,,0.9233333333333333
+M1 ratio casi correcto,13,2023-02-03,A0 como se hizo,2023-04-09,2023-04-07,2023-04-09,2023-04-07,0,True,0.0,0.0,0.0,66,False,,0.4
+M1 ratio casi correcto,13,2023-02-03,A1 DSS fecha α=0.80,2023-04-09,2023-04-07,2023-04-17,2023-04-07,0,True,0.0,0.0,0.0,74,False,,0.814
+M1 ratio casi correcto,13,2023-02-03,A2 DSS fecha α*,2023-04-09,2023-04-07,2023-04-21,2023-04-07,0,True,0.0,0.0,0.0,78,False,,0.944
+M1 ratio casi correcto,13,2023-02-03,A3 fecha original + gestión al inicio,2023-04-09,2023-04-07,2023-04-09,2023-03-31,0,True,0.0,2.1257106235342467,2.1257106235342467,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.44
+M1 ratio casi correcto,13,2023-02-03,A4 fecha original + re-pronóstico 40 %,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.0,2.0,66,True,Expeditar Granallado y pintura (externo),0.5
+M1 ratio casi correcto,13,2023-02-03,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-09,2023-04-07,2023-04-21,2023-04-07,0,True,0.0,0.0,0.0,78,False,,0.9616666666666667
+M1 ratio casi correcto,14,2023-08-04,A0 como se hizo,2023-10-04,2023-10-04,2023-10-04,2023-10-04,0,True,0.0,0.0,0.0,62,False,,0.514
+M1 ratio casi correcto,14,2023-08-04,A1 DSS fecha α=0.80,2023-10-04,2023-10-04,2023-10-10,2023-10-04,0,True,0.0,0.0,0.0,68,False,,0.802
+M1 ratio casi correcto,14,2023-08-04,A2 DSS fecha α*,2023-10-04,2023-10-04,2023-10-16,2023-10-04,0,True,0.0,0.0,0.0,74,False,,0.94
+M1 ratio casi correcto,14,2023-08-04,A3 fecha original + gestión al inicio,2023-10-04,2023-10-04,2023-10-04,2023-09-27,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.5316666666666666
+M1 ratio casi correcto,14,2023-08-04,A4 fecha original + re-pronóstico 40 %,2023-10-04,2023-10-04,2023-10-04,2023-09-27,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.5483333333333333
+M1 ratio casi correcto,14,2023-08-04,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-04,2023-10-04,2023-10-16,2023-10-04,0,True,0.0,0.0,0.0,74,False,,0.9383333333333334
+M1 ratio casi correcto,15,2023-09-23,A0 como se hizo,2023-12-07,2023-12-05,2023-12-07,2023-12-05,0,True,0.0,0.0,0.0,76,False,,0.606
+M1 ratio casi correcto,15,2023-09-23,A1 DSS fecha α=0.80,2023-12-07,2023-12-05,2023-12-13,2023-12-05,0,True,0.0,0.0,0.0,82,False,,0.823
+M1 ratio casi correcto,15,2023-09-23,A2 DSS fecha α*,2023-12-07,2023-12-05,2023-12-19,2023-12-05,0,True,0.0,0.0,0.0,88,False,,0.939
+M1 ratio casi correcto,15,2023-09-23,A3 fecha original + gestión al inicio,2023-12-07,2023-12-05,2023-12-07,2023-12-04,0,True,0.0,0.2890178906702364,0.2890178906702364,76,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza,0.6183333333333333
+M1 ratio casi correcto,15,2023-09-23,A4 fecha original + re-pronóstico 40 %,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.0,2.0,76,True,Expeditar Granallado y pintura (externo),0.5766666666666667
+M1 ratio casi correcto,15,2023-09-23,A5 sistema completo (α* + re-pronóstico 40 %),2023-12-07,2023-12-05,2023-12-19,2023-12-05,0,True,0.0,0.0,0.0,88,False,,0.9416666666666667
+M1 ratio casi correcto,16,2024-06-09,A0 como se hizo,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.0,0.0,57,False,,0.374
+M1 ratio casi correcto,16,2024-06-09,A1 DSS fecha α=0.80,2024-08-04,2024-08-02,2024-08-12,2024-08-02,0,True,0.0,0.0,0.0,65,False,,0.822
+M1 ratio casi correcto,16,2024-06-09,A2 DSS fecha α*,2024-08-04,2024-08-02,2024-08-16,2024-08-02,0,True,0.0,0.0,0.0,69,False,,0.949
+M1 ratio casi correcto,16,2024-06-09,A3 fecha original + gestión al inicio,2024-08-04,2024-08-02,2024-08-04,2024-07-27,0,True,0.0,2.0870858023329686,2.0870858023329686,57,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4116666666666667
+M1 ratio casi correcto,16,2024-06-09,A4 fecha original + re-pronóstico 40 %,2024-08-04,2024-08-02,2024-08-04,2024-07-27,0,True,0.0,2.1567544441993434,2.1567544441993434,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.19
+M1 ratio casi correcto,16,2024-06-09,A5 sistema completo (α* + re-pronóstico 40 %),2024-08-04,2024-08-02,2024-08-16,2024-08-02,0,True,0.0,0.0,0.0,69,False,,0.9166666666666666
+M1 ratio casi correcto,17,2024-04-10,A0 como se hizo,2024-06-06,2024-06-06,2024-06-06,2024-06-06,0,True,0.0,0.0,0.0,58,False,,0.394
+M1 ratio casi correcto,17,2024-04-10,A1 DSS fecha α=0.80,2024-06-06,2024-06-06,2024-06-13,2024-06-06,0,True,0.0,0.0,0.0,65,False,,0.832
+M1 ratio casi correcto,17,2024-04-10,A2 DSS fecha α*,2024-06-06,2024-06-06,2024-06-17,2024-06-06,0,True,0.0,0.0,0.0,69,False,,0.929
+M1 ratio casi correcto,17,2024-04-10,A3 fecha original + gestión al inicio,2024-06-06,2024-06-06,2024-06-06,2024-05-30,0,True,0.0,2.1908788190530517,2.1908788190530517,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.425
+M1 ratio casi correcto,17,2024-04-10,A4 fecha original + re-pronóstico 40 %,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.1908788190530517,2.1908788190530517,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3383333333333333
+M1 ratio casi correcto,17,2024-04-10,A5 sistema completo (α* + re-pronóstico 40 %),2024-06-06,2024-06-06,2024-06-17,2024-06-06,0,True,0.0,0.0,0.0,69,False,,0.905
+M1 ratio casi correcto,18,2024-08-03,A0 como se hizo,2024-10-28,2024-10-26,2024-10-28,2024-10-26,0,True,0.0,0.0,0.0,87,False,,0.441
+M1 ratio casi correcto,18,2024-08-03,A1 DSS fecha α=0.80,2024-10-28,2024-10-26,2024-11-07,2024-10-26,0,True,0.0,0.0,0.0,97,False,,0.821
+M1 ratio casi correcto,18,2024-08-03,A2 DSS fecha α*,2024-10-28,2024-10-26,2024-11-13,2024-10-26,0,True,0.0,0.0,0.0,103,False,,0.926
+M1 ratio casi correcto,18,2024-08-03,A3 fecha original + gestión al inicio,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0993272936201737,2.0993272936201737,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.425
+M1 ratio casi correcto,18,2024-08-03,A4 fecha original + re-pronóstico 40 %,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0993272936201737,2.0993272936201737,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3433333333333333
+M1 ratio casi correcto,18,2024-08-03,A5 sistema completo (α* + re-pronóstico 40 %),2024-10-28,2024-10-26,2024-11-13,2024-10-26,0,True,0.0,0.0,0.0,103,False,,0.89
+M1 ratio casi correcto,19,2024-01-11,A0 como se hizo,2024-03-07,2024-03-15,2024-03-07,2024-03-15,8,False,8.0,0.0,8.0,57,False,,0.025
+M1 ratio casi correcto,19,2024-01-11,A1 DSS fecha α=0.80,2024-03-07,2024-03-15,2024-03-23,2024-03-15,0,True,0.0,0.0,0.0,73,False,,0.846
+M1 ratio casi correcto,19,2024-01-11,A2 DSS fecha α*,2024-03-07,2024-03-15,2024-03-27,2024-03-15,0,True,0.0,0.0,0.0,77,False,,0.936
+M1 ratio casi correcto,19,2024-01-11,A3 fecha original + gestión al inicio,2024-03-07,2024-03-15,2024-03-07,2024-03-07,0,True,0.0,2.492657617076172,2.492657617076172,57,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.04
+M1 ratio casi correcto,19,2024-01-11,A4 fecha original + re-pronóstico 40 %,2024-03-07,2024-03-15,2024-03-07,2024-03-08,1,False,1.0,2.226492188199861,3.226492188199861,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.035
+M1 ratio casi correcto,19,2024-01-11,A5 sistema completo (α* + re-pronóstico 40 %),2024-03-07,2024-03-15,2024-03-27,2024-03-15,0,True,0.0,0.0,0.0,77,False,,0.9583333333333334
+M1 ratio casi correcto,20,2025-05-08,A0 como se hizo,2025-07-13,2025-07-13,2025-07-13,2025-07-13,0,True,0.0,0.0,0.0,67,False,,0.426
+M1 ratio casi correcto,20,2025-05-08,A1 DSS fecha α=0.80,2025-07-13,2025-07-13,2025-07-22,2025-07-13,0,True,0.0,0.0,0.0,76,False,,0.807
+M1 ratio casi correcto,20,2025-05-08,A2 DSS fecha α*,2025-07-13,2025-07-13,2025-07-28,2025-07-13,0,True,0.0,0.0,0.0,82,False,,0.927
+M1 ratio casi correcto,20,2025-05-08,A3 fecha original + gestión al inicio,2025-07-13,2025-07-13,2025-07-13,2025-07-04,0,True,0.0,2.024714252887462,2.024714252887462,67,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.38666666666666666
+M1 ratio casi correcto,20,2025-05-08,A4 fecha original + re-pronóstico 40 %,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.5683333333333334
+M1 ratio casi correcto,20,2025-05-08,A5 sistema completo (α* + re-pronóstico 40 %),2025-07-13,2025-07-13,2025-07-28,2025-07-12,0,True,0.0,0.0,0.0,82,False,,0.97
+M1 ratio casi correcto,21,2025-09-20,A0 como se hizo,2025-12-11,2025-12-15,2025-12-11,2025-12-15,4,False,4.0,0.0,4.0,83,False,,0.258
+M1 ratio casi correcto,21,2025-09-20,A1 DSS fecha α=0.80,2025-12-11,2025-12-15,2025-12-25,2025-12-15,0,True,0.0,0.0,0.0,97,False,,0.81
+M1 ratio casi correcto,21,2025-09-20,A2 DSS fecha α*,2025-12-11,2025-12-15,2026-01-02,2025-12-15,0,True,0.0,0.0,0.0,105,False,,0.937
+M1 ratio casi correcto,21,2025-09-20,A3 fecha original + gestión al inicio,2025-12-11,2025-12-15,2025-12-11,2025-12-04,0,True,0.0,2.29142847186578,2.29142847186578,83,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.225
+M1 ratio casi correcto,21,2025-09-20,A4 fecha original + re-pronóstico 40 %,2025-12-11,2025-12-15,2025-12-11,2025-12-06,0,True,0.0,2.138647040592915,2.138647040592915,83,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.16666666666666666
+M1 ratio casi correcto,21,2025-09-20,A5 sistema completo (α* + re-pronóstico 40 %),2025-12-11,2025-12-15,2026-01-02,2025-12-15,0,True,0.0,0.0,0.0,105,False,,0.9316666666666666
+M1 ratio casi correcto,22,2025-07-03,A0 como se hizo,2025-09-03,2025-09-07,2025-09-03,2025-09-07,4,False,4.0,0.0,4.0,63,False,,0.244
+M1 ratio casi correcto,22,2025-07-03,A1 DSS fecha α=0.80,2025-09-03,2025-09-07,2025-09-13,2025-09-07,0,True,0.0,0.0,0.0,73,False,,0.82
+M1 ratio casi correcto,22,2025-07-03,A2 DSS fecha α*,2025-09-03,2025-09-07,2025-09-19,2025-09-07,0,True,0.0,0.0,0.0,79,False,,0.948
+M1 ratio casi correcto,22,2025-07-03,A3 fecha original + gestión al inicio,2025-09-03,2025-09-07,2025-09-03,2025-08-30,0,True,0.0,2.162532708709003,2.162532708709003,63,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.255
+M1 ratio casi correcto,22,2025-07-03,A4 fecha original + re-pronóstico 40 %,2025-09-03,2025-09-07,2025-09-03,2025-08-30,0,True,0.0,2.162532708709003,2.162532708709003,63,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.17166666666666666
+M1 ratio casi correcto,22,2025-07-03,A5 sistema completo (α* + re-pronóstico 40 %),2025-09-03,2025-09-07,2025-09-19,2025-09-06,0,True,0.0,0.0,0.0,79,False,,0.945
+M1 ratio casi correcto,23,2026-08-05,A0 como se hizo,2026-09-25,2026-09-25,2026-09-25,2026-09-25,0,True,0.0,0.0,0.0,52,False,,0.431
+M1 ratio casi correcto,23,2026-08-05,A1 DSS fecha α=0.80,2026-09-25,2026-09-25,2026-10-02,2026-09-25,0,True,0.0,0.0,0.0,59,False,,0.817
+M1 ratio casi correcto,23,2026-08-05,A2 DSS fecha α*,2026-09-25,2026-09-25,2026-10-07,2026-09-25,0,True,0.0,0.0,0.0,64,False,,0.937
+M1 ratio casi correcto,23,2026-08-05,A3 fecha original + gestión al inicio,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.0,2.0,52,True,Expeditar Granallado y pintura (externo),0.475
+M1 ratio casi correcto,23,2026-08-05,A4 fecha original + re-pronóstico 40 %,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.0,2.0,52,True,Expeditar Granallado y pintura (externo),0.43166666666666664
+M1 ratio casi correcto,23,2026-08-05,A5 sistema completo (α* + re-pronóstico 40 %),2026-09-25,2026-09-25,2026-10-07,2026-09-25,0,True,0.0,0.0,0.0,64,False,,0.935
+M1 ratio casi correcto,24,2026-02-17,A0 como se hizo,2026-05-15,2026-05-20,2026-05-15,2026-05-20,5,False,5.0,0.0,5.0,88,False,,0.214
+M1 ratio casi correcto,24,2026-02-17,A1 DSS fecha α=0.80,2026-05-15,2026-05-20,2026-05-30,2026-05-20,0,True,0.0,0.0,0.0,103,False,,0.806
+M1 ratio casi correcto,24,2026-02-17,A2 DSS fecha α*,2026-05-15,2026-05-20,2026-06-06,2026-05-20,0,True,0.0,0.0,0.0,110,False,,0.934
+M1 ratio casi correcto,24,2026-02-17,A3 fecha original + gestión al inicio,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.2115301582755995,2.2115301582755995,88,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.23
+M1 ratio casi correcto,24,2026-02-17,A4 fecha original + re-pronóstico 40 %,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.1007442750913286,2.1007442750913286,88,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.345
+M1 ratio casi correcto,24,2026-02-17,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-15,2026-05-20,2026-06-06,2026-05-20,0,True,0.0,0.0,0.0,110,False,,0.9633333333333334
+M1 ratio casi correcto,25,2026-03-25,A0 como se hizo,2026-05-18,2026-05-17,2026-05-18,2026-05-17,0,True,0.0,0.0,0.0,55,False,,0.24
+M1 ratio casi correcto,25,2026-03-25,A1 DSS fecha α=0.80,2026-05-18,2026-05-17,2026-05-29,2026-05-17,0,True,0.0,0.0,0.0,66,False,,0.807
+M1 ratio casi correcto,25,2026-03-25,A2 DSS fecha α*,2026-05-18,2026-05-17,2026-06-04,2026-05-17,0,True,0.0,0.0,0.0,72,False,,0.933
+M1 ratio casi correcto,25,2026-03-25,A3 fecha original + gestión al inicio,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.255
+M1 ratio casi correcto,25,2026-03-25,A4 fecha original + re-pronóstico 40 %,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.20333333333333334
+M1 ratio casi correcto,25,2026-03-25,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-18,2026-05-17,2026-06-04,2026-05-16,0,True,0.0,0.0,0.0,72,False,,0.9266666666666666
+M2 sesgo sistemático,1,2021-02-20,A0 como se hizo,2021-05-13,2021-05-12,2021-05-13,2021-05-12,0,True,0.0,0.0,0.0,83,False,,0.113
+M2 sesgo sistemático,1,2021-02-20,A1 DSS fecha α=0.80,2021-05-13,2021-05-12,2021-06-04,2021-05-12,0,True,0.0,0.0,0.0,105,False,,0.802
+M2 sesgo sistemático,1,2021-02-20,A2 DSS fecha α*,2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.931
+M2 sesgo sistemático,1,2021-02-20,A3 fecha original + gestión al inicio,2021-05-13,2021-05-12,2021-05-13,2021-05-04,0,True,0.0,3.077066489282101,3.077066489282101,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.13
+M2 sesgo sistemático,1,2021-02-20,A4 fecha original + re-pronóstico 40 %,2021-05-13,2021-05-12,2021-05-13,2021-05-04,0,True,0.0,2.0,2.0,83,True,Expeditar Granallado y pintura (externo),0.24
+M2 sesgo sistemático,1,2021-02-20,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.9666666666666667
+M2 sesgo sistemático,2,2021-02-19,A0 como se hizo,2021-05-10,2021-05-10,2021-05-10,2021-05-10,0,True,0.0,0.0,0.0,81,False,,0.249
+M2 sesgo sistemático,2,2021-02-19,A1 DSS fecha α=0.80,2021-05-10,2021-05-10,2021-05-25,2021-05-10,0,True,0.0,0.0,0.0,96,False,,0.825
+M2 sesgo sistemático,2,2021-02-19,A2 DSS fecha α*,2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.93
+M2 sesgo sistemático,2,2021-02-19,A3 fecha original + gestión al inicio,2021-05-10,2021-05-10,2021-05-10,2021-05-01,0,True,0.0,2.2680188724759267,2.2680188724759267,81,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.2783333333333333
+M2 sesgo sistemático,2,2021-02-19,A4 fecha original + re-pronóstico 40 %,2021-05-10,2021-05-10,2021-05-10,2021-05-01,0,True,0.0,2.127974805927475,2.127974805927475,81,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.21333333333333335
+M2 sesgo sistemático,2,2021-02-19,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.9416666666666667
+M2 sesgo sistemático,3,2021-09-04,A0 como se hizo,2021-11-17,2021-11-16,2021-11-17,2021-11-16,0,True,0.0,0.0,0.0,75,False,,0.498
+M2 sesgo sistemático,3,2021-09-04,A1 DSS fecha α=0.80,2021-11-17,2021-11-16,2021-11-25,2021-11-16,0,True,0.0,0.0,0.0,83,False,,0.809
+M2 sesgo sistemático,3,2021-09-04,A2 DSS fecha α*,2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.926
+M2 sesgo sistemático,3,2021-09-04,A3 fecha original + gestión al inicio,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.44666666666666666
+M2 sesgo sistemático,3,2021-09-04,A4 fecha original + re-pronóstico 40 %,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.15
+M2 sesgo sistemático,3,2021-09-04,A5 sistema completo (α* + re-pronóstico 40 %),2021-11-17,2021-11-16,2021-12-01,2021-11-15,0,True,0.0,0.14291914764973074,0.14291914764973074,89,True,+2 persona(s) en Limpieza,0.8116666666666666
+M2 sesgo sistemático,4,2022-02-02,A0 como se hizo,2022-04-06,2022-04-06,2022-04-06,2022-04-06,0,True,0.0,0.0,0.0,64,False,,0.343
+M2 sesgo sistemático,4,2022-02-02,A1 DSS fecha α=0.80,2022-04-06,2022-04-06,2022-04-16,2022-04-06,0,True,0.0,0.0,0.0,74,False,,0.808
+M2 sesgo sistemático,4,2022-02-02,A2 DSS fecha α*,2022-04-06,2022-04-06,2022-04-22,2022-04-06,0,True,0.0,0.0,0.0,80,False,,0.93
+M2 sesgo sistemático,4,2022-02-02,A3 fecha original + gestión al inicio,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0,2.0,64,True,Expeditar Granallado y pintura (externo),0.31333333333333335
+M2 sesgo sistemático,4,2022-02-02,A4 fecha original + re-pronóstico 40 %,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0620631179524893,2.0620631179524893,64,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.12833333333333333
+M2 sesgo sistemático,4,2022-02-02,A5 sistema completo (α* + re-pronóstico 40 %),2022-04-06,2022-04-06,2022-04-22,2022-04-06,0,True,0.0,0.0,0.0,80,False,,0.8666666666666667
+M2 sesgo sistemático,5,2022-01-03,A0 como se hizo,2022-03-15,2022-03-15,2022-03-15,2022-03-15,0,True,0.0,0.0,0.0,72,False,,0.442
+M2 sesgo sistemático,5,2022-01-03,A1 DSS fecha α=0.80,2022-03-15,2022-03-15,2022-03-24,2022-03-15,0,True,0.0,0.0,0.0,81,False,,0.815
+M2 sesgo sistemático,5,2022-01-03,A2 DSS fecha α*,2022-03-15,2022-03-15,2022-03-31,2022-03-15,0,True,0.0,0.0,0.0,88,False,,0.938
+M2 sesgo sistemático,5,2022-01-03,A3 fecha original + gestión al inicio,2022-03-15,2022-03-15,2022-03-15,2022-03-07,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.45
+M2 sesgo sistemático,5,2022-01-03,A4 fecha original + re-pronóstico 40 %,2022-03-15,2022-03-15,2022-03-15,2022-03-07,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.5
+M2 sesgo sistemático,5,2022-01-03,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-15,2022-03-15,2022-03-31,2022-03-15,0,True,0.0,0.0,0.0,88,False,,0.955
+M2 sesgo sistemático,6,2022-01-07,A0 como se hizo,2022-03-08,2022-03-13,2022-03-08,2022-03-13,5,False,5.0,0.0,5.0,61,False,,0.155
+M2 sesgo sistemático,6,2022-01-07,A1 DSS fecha α=0.80,2022-03-08,2022-03-13,2022-03-21,2022-03-13,0,True,0.0,0.0,0.0,74,False,,0.814
+M2 sesgo sistemático,6,2022-01-07,A2 DSS fecha α*,2022-03-08,2022-03-13,2022-03-25,2022-03-13,0,True,0.0,0.0,0.0,78,False,,0.932
+M2 sesgo sistemático,6,2022-01-07,A3 fecha original + gestión al inicio,2022-03-08,2022-03-13,2022-03-08,2022-03-04,0,True,0.0,2.420865671194668,2.420865671194668,61,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.13333333333333333
+M2 sesgo sistemático,6,2022-01-07,A4 fecha original + re-pronóstico 40 %,2022-03-08,2022-03-13,2022-03-08,2022-03-05,0,True,0.0,2.0940046886540555,2.0940046886540555,61,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3416666666666667
+M2 sesgo sistemático,6,2022-01-07,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-08,2022-03-13,2022-03-25,2022-03-12,0,True,0.0,0.0,0.0,78,False,,0.985
+M2 sesgo sistemático,7,2022-03-22,A0 como se hizo,2022-05-21,2022-05-21,2022-05-21,2022-05-21,0,True,0.0,0.0,0.0,61,False,,0.534
+M2 sesgo sistemático,7,2022-03-22,A1 DSS fecha α=0.80,2022-05-21,2022-05-21,2022-05-27,2022-05-21,0,True,0.0,0.0,0.0,67,False,,0.8
+M2 sesgo sistemático,7,2022-03-22,A2 DSS fecha α*,2022-05-21,2022-05-21,2022-06-02,2022-05-21,0,True,0.0,0.0,0.0,73,False,,0.934
+M2 sesgo sistemático,7,2022-03-22,A3 fecha original + gestión al inicio,2022-05-21,2022-05-21,2022-05-21,2022-05-14,0,True,0.0,2.1156026998371473,2.1156026998371473,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.545
+M2 sesgo sistemático,7,2022-03-22,A4 fecha original + re-pronóstico 40 %,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.0630560180929893,2.0630560180929893,61,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.36833333333333335
+M2 sesgo sistemático,7,2022-03-22,A5 sistema completo (α* + re-pronóstico 40 %),2022-05-21,2022-05-21,2022-06-02,2022-05-21,0,True,0.0,0.0,0.0,73,False,,0.885
+M2 sesgo sistemático,8,2023-02-14,A0 como se hizo,2023-04-24,2023-04-22,2023-04-24,2023-04-22,0,True,0.0,0.0,0.0,70,False,,0.294
+M2 sesgo sistemático,8,2023-02-14,A1 DSS fecha α=0.80,2023-04-24,2023-04-22,2023-05-08,2023-04-22,0,True,0.0,0.0,0.0,84,False,,0.811
+M2 sesgo sistemático,8,2023-02-14,A2 DSS fecha α*,2023-04-24,2023-04-22,2023-05-15,2023-04-22,0,True,0.0,0.0,0.0,91,False,,0.939
+M2 sesgo sistemático,8,2023-02-14,A3 fecha original + gestión al inicio,2023-04-24,2023-04-22,2023-04-24,2023-04-15,0,True,0.0,2.2259670632028516,2.2259670632028516,70,True,+1 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.2866666666666667
+M2 sesgo sistemático,8,2023-02-14,A4 fecha original + re-pronóstico 40 %,2023-04-24,2023-04-22,2023-04-24,2023-04-15,0,True,0.0,2.134889933202676,2.134889933202676,70,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.30833333333333335
+M2 sesgo sistemático,8,2023-02-14,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-24,2023-04-22,2023-05-15,2023-04-22,0,True,0.0,0.0,0.0,91,False,,0.9833333333333333
+M2 sesgo sistemático,9,2023-05-18,A0 como se hizo,2023-07-18,2023-07-16,2023-07-18,2023-07-16,0,True,0.0,0.0,0.0,62,False,,0.376
+M2 sesgo sistemático,9,2023-05-18,A1 DSS fecha α=0.80,2023-07-18,2023-07-16,2023-07-27,2023-07-16,0,True,0.0,0.0,0.0,71,False,,0.805
+M2 sesgo sistemático,9,2023-05-18,A2 DSS fecha α*,2023-07-18,2023-07-16,2023-08-02,2023-07-16,0,True,0.0,0.0,0.0,77,False,,0.943
+M2 sesgo sistemático,9,2023-05-18,A3 fecha original + gestión al inicio,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.1332729949181273,2.1332729949181273,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4116666666666667
+M2 sesgo sistemático,9,2023-05-18,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.0721895389139857,2.0721895389139857,62,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.37
+M2 sesgo sistemático,9,2023-05-18,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-16,2023-08-02,2023-07-15,0,True,0.0,0.0,0.0,77,False,,0.955
+M2 sesgo sistemático,10,2023-08-11,A0 como se hizo,2023-10-01,2023-10-01,2023-10-01,2023-10-01,0,True,0.0,0.0,0.0,52,False,,0.315
+M2 sesgo sistemático,10,2023-08-11,A1 DSS fecha α=0.80,2023-10-01,2023-10-01,2023-10-09,2023-10-01,0,True,0.0,0.0,0.0,60,False,,0.812
+M2 sesgo sistemático,10,2023-08-11,A2 DSS fecha α*,2023-10-01,2023-10-01,2023-10-13,2023-10-01,0,True,0.0,0.0,0.0,64,False,,0.938
+M2 sesgo sistemático,10,2023-08-11,A3 fecha original + gestión al inicio,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.179211003309572,2.179211003309572,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.31166666666666665
+M2 sesgo sistemático,10,2023-08-11,A4 fecha original + re-pronóstico 40 %,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.179211003309572,2.179211003309572,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.145
+M2 sesgo sistemático,10,2023-08-11,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-01,2023-10-01,2023-10-13,2023-09-30,0,True,0.0,0.0,0.0,64,False,,0.8833333333333333
+M2 sesgo sistemático,11,2023-06-02,A0 como se hizo,2023-07-18,2023-07-18,2023-07-18,2023-07-18,0,True,0.0,0.0,0.0,47,False,,0.267
+M2 sesgo sistemático,11,2023-06-02,A1 DSS fecha α=0.80,2023-07-18,2023-07-18,2023-07-26,2023-07-18,0,True,0.0,0.0,0.0,55,False,,0.848
+M2 sesgo sistemático,11,2023-06-02,A2 DSS fecha α*,2023-07-18,2023-07-18,2023-07-29,2023-07-18,0,True,0.0,0.0,0.0,58,False,,0.942
+M2 sesgo sistemático,11,2023-06-02,A3 fecha original + gestión al inicio,2023-07-18,2023-07-18,2023-07-18,2023-07-13,0,True,0.0,2.272304759954658,2.272304759954658,47,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.25666666666666665
+M2 sesgo sistemático,11,2023-06-02,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-18,2023-07-18,2023-07-17,0,True,0.0,0.272304759954658,0.272304759954658,47,True,+2 persona(s) en Limpieza,0.2916666666666667
+M2 sesgo sistemático,11,2023-06-02,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-18,2023-07-29,2023-07-18,0,True,0.0,0.0,0.0,58,False,,0.9733333333333334
+M2 sesgo sistemático,12,2023-08-13,A0 como se hizo,2023-10-17,2023-10-21,2023-10-17,2023-10-21,4,False,4.0,0.0,4.0,66,False,,0.074
+M2 sesgo sistemático,12,2023-08-13,A1 DSS fecha α=0.80,2023-10-17,2023-10-21,2023-11-04,2023-10-21,0,True,0.0,0.0,0.0,84,False,,0.803
+M2 sesgo sistemático,12,2023-08-13,A2 DSS fecha α*,2023-10-17,2023-10-21,2023-11-10,2023-10-21,0,True,0.0,0.0,0.0,90,False,,0.931
+M2 sesgo sistemático,12,2023-08-13,A3 fecha original + gestión al inicio,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.371386573511224,2.371386573511224,66,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.08
+M2 sesgo sistemático,12,2023-08-13,A4 fecha original + re-pronóstico 40 %,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.173356666493702,2.173356666493702,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.041666666666666664
+M2 sesgo sistemático,12,2023-08-13,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-17,2023-10-21,2023-11-10,2023-10-21,0,True,0.0,0.0,0.0,90,False,,0.955
+M2 sesgo sistemático,13,2023-02-03,A0 como se hizo,2023-04-09,2023-04-07,2023-04-09,2023-04-07,0,True,0.0,0.0,0.0,66,False,,0.461
+M2 sesgo sistemático,13,2023-02-03,A1 DSS fecha α=0.80,2023-04-09,2023-04-07,2023-04-17,2023-04-07,0,True,0.0,0.0,0.0,74,False,,0.816
+M2 sesgo sistemático,13,2023-02-03,A2 DSS fecha α*,2023-04-09,2023-04-07,2023-04-22,2023-04-07,0,True,0.0,0.0,0.0,79,False,,0.939
+M2 sesgo sistemático,13,2023-02-03,A3 fecha original + gestión al inicio,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.125103668043711,2.125103668043711,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.49333333333333335
+M2 sesgo sistemático,13,2023-02-03,A4 fecha original + re-pronóstico 40 %,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.125103668043711,2.125103668043711,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.31833333333333336
+M2 sesgo sistemático,13,2023-02-03,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-09,2023-04-07,2023-04-22,2023-04-07,0,True,0.0,0.0,0.0,79,False,,0.9416666666666667
+M2 sesgo sistemático,14,2023-08-04,A0 como se hizo,2023-10-04,2023-10-04,2023-10-04,2023-10-04,0,True,0.0,0.0,0.0,62,False,,0.588
+M2 sesgo sistemático,14,2023-08-04,A1 DSS fecha α=0.80,2023-10-04,2023-10-04,2023-10-10,2023-10-04,0,True,0.0,0.0,0.0,68,False,,0.818
+M2 sesgo sistemático,14,2023-08-04,A2 DSS fecha α*,2023-10-04,2023-10-04,2023-10-14,2023-10-04,0,True,0.0,0.0,0.0,72,False,,0.935
+M2 sesgo sistemático,14,2023-08-04,A3 fecha original + gestión al inicio,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.585
+M2 sesgo sistemático,14,2023-08-04,A4 fecha original + re-pronóstico 40 %,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.4266666666666667
+M2 sesgo sistemático,14,2023-08-04,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-04,2023-10-04,2023-10-14,2023-10-04,0,True,0.0,0.0,0.0,72,False,,0.9033333333333333
+M2 sesgo sistemático,15,2023-09-23,A0 como se hizo,2023-12-07,2023-12-05,2023-12-07,2023-12-05,0,True,0.0,0.0,0.0,76,False,,0.529
+M2 sesgo sistemático,15,2023-09-23,A1 DSS fecha α=0.80,2023-12-07,2023-12-05,2023-12-15,2023-12-05,0,True,0.0,0.0,0.0,84,False,,0.832
+M2 sesgo sistemático,15,2023-09-23,A2 DSS fecha α*,2023-12-07,2023-12-05,2023-12-20,2023-12-05,0,True,0.0,0.0,0.0,89,False,,0.934
+M2 sesgo sistemático,15,2023-09-23,A3 fecha original + gestión al inicio,2023-12-07,2023-12-05,2023-12-07,2023-11-27,0,True,0.0,2.145610617805211,2.145610617805211,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.5283333333333333
+M2 sesgo sistemático,15,2023-09-23,A4 fecha original + re-pronóstico 40 %,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.0,2.0,76,True,Expeditar Granallado y pintura (externo),0.5666666666666667
+M2 sesgo sistemático,15,2023-09-23,A5 sistema completo (α* + re-pronóstico 40 %),2023-12-07,2023-12-05,2023-12-20,2023-12-05,0,True,0.0,0.0,0.0,89,False,,0.95
+M2 sesgo sistemático,16,2024-06-09,A0 como se hizo,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.0,0.0,57,False,,0.499
+M2 sesgo sistemático,16,2024-06-09,A1 DSS fecha α=0.80,2024-08-04,2024-08-02,2024-08-10,2024-08-02,0,True,0.0,0.0,0.0,63,False,,0.822
+M2 sesgo sistemático,16,2024-06-09,A2 DSS fecha α*,2024-08-04,2024-08-02,2024-08-15,2024-08-02,0,True,0.0,0.0,0.0,68,False,,0.944
+M2 sesgo sistemático,16,2024-06-09,A3 fecha original + gestión al inicio,2024-08-04,2024-08-02,2024-08-04,2024-07-31,0,True,0.0,0.30290930193174204,0.30290930193174204,57,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza,0.5383333333333333
+M2 sesgo sistemático,16,2024-06-09,A4 fecha original + re-pronóstico 40 %,2024-08-04,2024-08-02,2024-08-04,2024-08-01,0,True,0.0,0.1462750175690345,0.1462750175690345,57,True,+2 persona(s) en Limpieza,0.5566666666666666
+M2 sesgo sistemático,16,2024-06-09,A5 sistema completo (α* + re-pronóstico 40 %),2024-08-04,2024-08-02,2024-08-15,2024-08-02,0,True,0.0,0.0,0.0,68,False,,0.9716666666666667
+M2 sesgo sistemático,17,2024-04-10,A0 como se hizo,2024-06-06,2024-06-06,2024-06-06,2024-06-06,0,True,0.0,0.0,0.0,58,False,,0.291
+M2 sesgo sistemático,17,2024-04-10,A1 DSS fecha α=0.80,2024-06-06,2024-06-06,2024-06-15,2024-06-06,0,True,0.0,0.0,0.0,67,False,,0.829
+M2 sesgo sistemático,17,2024-04-10,A2 DSS fecha α*,2024-06-06,2024-06-06,2024-06-20,2024-06-06,0,True,0.0,0.0,0.0,72,False,,0.942
+M2 sesgo sistemático,17,2024-04-10,A3 fecha original + gestión al inicio,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.2065871341974264,2.2065871341974264,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.31166666666666665
+M2 sesgo sistemático,17,2024-04-10,A4 fecha original + re-pronóstico 40 %,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.2065871341974264,2.2065871341974264,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.30666666666666664
+M2 sesgo sistemático,17,2024-04-10,A5 sistema completo (α* + re-pronóstico 40 %),2024-06-06,2024-06-06,2024-06-20,2024-06-06,0,True,0.0,0.0,0.0,72,False,,0.9566666666666667
+M2 sesgo sistemático,18,2024-08-03,A0 como se hizo,2024-10-28,2024-10-26,2024-10-28,2024-10-26,0,True,0.0,0.0,0.0,87,False,,0.425
+M2 sesgo sistemático,18,2024-08-03,A1 DSS fecha α=0.80,2024-10-28,2024-10-26,2024-11-08,2024-10-26,0,True,0.0,0.0,0.0,98,False,,0.806
+M2 sesgo sistemático,18,2024-08-03,A2 DSS fecha α*,2024-10-28,2024-10-26,2024-11-16,2024-10-26,0,True,0.0,0.0,0.0,106,False,,0.936
+M2 sesgo sistemático,18,2024-08-03,A3 fecha original + gestión al inicio,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0982923652527057,2.0982923652527057,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.42833333333333334
+M2 sesgo sistemático,18,2024-08-03,A4 fecha original + re-pronóstico 40 %,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.052422594801443,2.052422594801443,87,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.48
+M2 sesgo sistemático,18,2024-08-03,A5 sistema completo (α* + re-pronóstico 40 %),2024-10-28,2024-10-26,2024-11-16,2024-10-26,0,True,0.0,0.0,0.0,106,False,,0.9616666666666667
+M2 sesgo sistemático,19,2024-01-11,A0 como se hizo,2024-03-07,2024-03-15,2024-03-07,2024-03-15,8,False,8.0,0.0,8.0,57,False,,0.108
+M2 sesgo sistemático,19,2024-01-11,A1 DSS fecha α=0.80,2024-03-07,2024-03-15,2024-03-25,2024-03-15,0,True,0.0,0.0,0.0,75,False,,0.816
+M2 sesgo sistemático,19,2024-01-11,A2 DSS fecha α*,2024-03-07,2024-03-15,2024-03-30,2024-03-15,0,True,0.0,0.0,0.0,80,False,,0.941
+M2 sesgo sistemático,19,2024-01-11,A3 fecha original + gestión al inicio,2024-03-07,2024-03-15,2024-03-07,2024-03-07,0,True,0.0,2.494542833690098,2.494542833690098,57,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.10833333333333334
+M2 sesgo sistemático,19,2024-01-11,A4 fecha original + re-pronóstico 40 %,2024-03-07,2024-03-15,2024-03-07,2024-03-09,2,False,2.0,2.2279330355330127,4.227933035533013,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.058333333333333334
+M2 sesgo sistemático,19,2024-01-11,A5 sistema completo (α* + re-pronóstico 40 %),2024-03-07,2024-03-15,2024-03-30,2024-03-15,0,True,0.0,0.0,0.0,80,False,,0.98
+M2 sesgo sistemático,20,2025-05-08,A0 como se hizo,2025-07-13,2025-07-13,2025-07-13,2025-07-13,0,True,0.0,0.0,0.0,67,False,,0.486
+M2 sesgo sistemático,20,2025-05-08,A1 DSS fecha α=0.80,2025-07-13,2025-07-13,2025-07-21,2025-07-13,0,True,0.0,0.0,0.0,75,False,,0.801
+M2 sesgo sistemático,20,2025-05-08,A2 DSS fecha α*,2025-07-13,2025-07-13,2025-07-28,2025-07-13,0,True,0.0,0.0,0.0,82,False,,0.934
+M2 sesgo sistemático,20,2025-05-08,A3 fecha original + gestión al inicio,2025-07-13,2025-07-13,2025-07-13,2025-07-04,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.44
+M2 sesgo sistemático,20,2025-05-08,A4 fecha original + re-pronóstico 40 %,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.5683333333333334
+M2 sesgo sistemático,20,2025-05-08,A5 sistema completo (α* + re-pronóstico 40 %),2025-07-13,2025-07-13,2025-07-28,2025-07-12,0,True,0.0,0.0,0.0,82,False,,0.97
+M2 sesgo sistemático,21,2025-09-20,A0 como se hizo,2025-12-11,2025-12-15,2025-12-11,2025-12-15,4,False,4.0,0.0,4.0,83,False,,0.217
+M2 sesgo sistemático,21,2025-09-20,A1 DSS fecha α=0.80,2025-12-11,2025-12-15,2025-12-29,2025-12-15,0,True,0.0,0.0,0.0,101,False,,0.82
+M2 sesgo sistemático,21,2025-09-20,A2 DSS fecha α*,2025-12-11,2025-12-15,2026-01-05,2025-12-15,0,True,0.0,0.0,0.0,108,False,,0.93
+M2 sesgo sistemático,21,2025-09-20,A3 fecha original + gestión al inicio,2025-12-11,2025-12-15,2025-12-11,2025-12-08,0,True,0.0,2.3052193037553765,2.3052193037553765,83,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.175
+M2 sesgo sistemático,21,2025-09-20,A4 fecha original + re-pronóstico 40 %,2025-12-11,2025-12-15,2025-12-11,2025-12-06,0,True,0.0,2.34421001631667,2.34421001631667,83,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.03666666666666667
+M2 sesgo sistemático,21,2025-09-20,A5 sistema completo (α* + re-pronóstico 40 %),2025-12-11,2025-12-15,2026-01-05,2025-12-13,0,True,0.0,0.14534969472906487,0.14534969472906487,108,True,+2 persona(s) en Limpieza,0.8883333333333333
+M2 sesgo sistemático,22,2025-07-03,A0 como se hizo,2025-09-03,2025-09-07,2025-09-03,2025-09-07,4,False,4.0,0.0,4.0,63,False,,0.271
+M2 sesgo sistemático,22,2025-07-03,A1 DSS fecha α=0.80,2025-09-03,2025-09-07,2025-09-15,2025-09-07,0,True,0.0,0.0,0.0,75,False,,0.847
+M2 sesgo sistemático,22,2025-07-03,A2 DSS fecha α*,2025-09-03,2025-09-07,2025-09-19,2025-09-07,0,True,0.0,0.0,0.0,79,False,,0.936
+M2 sesgo sistemático,22,2025-07-03,A3 fecha original + gestión al inicio,2025-09-03,2025-09-07,2025-09-03,2025-08-30,0,True,0.0,2.1612164428250087,2.1612164428250087,63,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.28
+M2 sesgo sistemático,22,2025-07-03,A4 fecha original + re-pronóstico 40 %,2025-09-03,2025-09-07,2025-09-03,2025-09-01,0,True,0.0,2.0,2.0,63,True,Expeditar Granallado y pintura (externo),0.325
+M2 sesgo sistemático,22,2025-07-03,A5 sistema completo (α* + re-pronóstico 40 %),2025-09-03,2025-09-07,2025-09-19,2025-09-06,0,True,0.0,0.0,0.0,79,False,,0.9683333333333334
+M2 sesgo sistemático,23,2026-08-05,A0 como se hizo,2026-09-25,2026-09-25,2026-09-25,2026-09-25,0,True,0.0,0.0,0.0,52,False,,0.357
+M2 sesgo sistemático,23,2026-08-05,A1 DSS fecha α=0.80,2026-09-25,2026-09-25,2026-10-03,2026-09-25,0,True,0.0,0.0,0.0,60,False,,0.802
+M2 sesgo sistemático,23,2026-08-05,A2 DSS fecha α*,2026-09-25,2026-09-25,2026-10-09,2026-09-25,0,True,0.0,0.0,0.0,66,False,,0.945
+M2 sesgo sistemático,23,2026-08-05,A3 fecha original + gestión al inicio,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.06381656752461,2.06381656752461,52,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.38166666666666665
+M2 sesgo sistemático,23,2026-08-05,A4 fecha original + re-pronóstico 40 %,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.0,2.0,52,True,Expeditar Granallado y pintura (externo),0.3333333333333333
+M2 sesgo sistemático,23,2026-08-05,A5 sistema completo (α* + re-pronóstico 40 %),2026-09-25,2026-09-25,2026-10-09,2026-09-25,0,True,0.0,0.0,0.0,66,False,,0.9433333333333334
+M2 sesgo sistemático,24,2026-02-17,A0 como se hizo,2026-05-15,2026-05-20,2026-05-15,2026-05-20,5,False,5.0,0.0,5.0,88,False,,0.345
+M2 sesgo sistemático,24,2026-02-17,A1 DSS fecha α=0.80,2026-05-15,2026-05-20,2026-05-28,2026-05-20,0,True,0.0,0.0,0.0,101,False,,0.811
+M2 sesgo sistemático,24,2026-02-17,A2 DSS fecha α*,2026-05-15,2026-05-20,2026-06-04,2026-05-20,0,True,0.0,0.0,0.0,108,False,,0.935
+M2 sesgo sistemático,24,2026-02-17,A3 fecha original + gestión al inicio,2026-05-15,2026-05-20,2026-05-15,2026-05-09,0,True,0.0,2.0921332318742785,2.0921332318742785,88,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3566666666666667
+M2 sesgo sistemático,24,2026-02-17,A4 fecha original + re-pronóstico 40 %,2026-05-15,2026-05-20,2026-05-15,2026-05-09,0,True,0.0,2.0,2.0,88,True,Expeditar Granallado y pintura (externo),0.6733333333333333
+M2 sesgo sistemático,24,2026-02-17,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-15,2026-05-20,2026-06-04,2026-05-20,0,True,0.0,0.0,0.0,108,False,,0.9866666666666667
+M2 sesgo sistemático,25,2026-03-25,A0 como se hizo,2026-05-18,2026-05-17,2026-05-18,2026-05-17,0,True,0.0,0.0,0.0,55,False,,0.254
+M2 sesgo sistemático,25,2026-03-25,A1 DSS fecha α=0.80,2026-05-18,2026-05-17,2026-05-29,2026-05-17,0,True,0.0,0.0,0.0,66,False,,0.818
+M2 sesgo sistemático,25,2026-03-25,A2 DSS fecha α*,2026-05-18,2026-05-17,2026-06-04,2026-05-17,0,True,0.0,0.0,0.0,72,False,,0.93
+M2 sesgo sistemático,25,2026-03-25,A3 fecha original + gestión al inicio,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.25833333333333336
+M2 sesgo sistemático,25,2026-03-25,A4 fecha original + re-pronóstico 40 %,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.30833333333333335
+M2 sesgo sistemático,25,2026-03-25,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-18,2026-05-17,2026-06-04,2026-05-16,0,True,0.0,0.0,0.0,72,False,,0.9566666666666667
+M3 no lineal y colas pesadas,1,2021-02-20,A0 como se hizo,2021-05-13,2021-05-12,2021-05-13,2021-05-12,0,True,0.0,0.0,0.0,83,False,,0.111
+M3 no lineal y colas pesadas,1,2021-02-20,A1 DSS fecha α=0.80,2021-05-13,2021-05-12,2021-06-05,2021-05-12,0,True,0.0,0.0,0.0,106,False,,0.819
+M3 no lineal y colas pesadas,1,2021-02-20,A2 DSS fecha α*,2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.934
+M3 no lineal y colas pesadas,1,2021-02-20,A3 fecha original + gestión al inicio,2021-05-13,2021-05-12,2021-05-13,2021-04-26,0,True,0.0,3.2427690260947317,3.2427690260947317,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.12666666666666668
+M3 no lineal y colas pesadas,1,2021-02-20,A4 fecha original + re-pronóstico 40 %,2021-05-13,2021-05-12,2021-05-13,2021-05-03,0,True,0.0,2.3314050736252616,2.3314050736252616,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.12666666666666668
+M3 no lineal y colas pesadas,1,2021-02-20,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.9516666666666667
+M3 no lineal y colas pesadas,2,2021-02-19,A0 como se hizo,2021-05-10,2021-05-10,2021-05-10,2021-05-10,0,True,0.0,0.0,0.0,81,False,,0.24
+M3 no lineal y colas pesadas,2,2021-02-19,A1 DSS fecha α=0.80,2021-05-10,2021-05-10,2021-05-25,2021-05-10,0,True,0.0,0.0,0.0,96,False,,0.827
+M3 no lineal y colas pesadas,2,2021-02-19,A2 DSS fecha α*,2021-05-10,2021-05-10,2021-06-01,2021-05-10,0,True,0.0,0.0,0.0,103,False,,0.931
+M3 no lineal y colas pesadas,2,2021-02-19,A3 fecha original + gestión al inicio,2021-05-10,2021-05-10,2021-05-10,2021-05-03,0,True,0.0,2.2680188724759267,2.2680188724759267,81,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.27
+M3 no lineal y colas pesadas,2,2021-02-19,A4 fecha original + re-pronóstico 40 %,2021-05-10,2021-05-10,2021-05-10,2021-05-03,0,True,0.0,2.3020463264984277,2.3020463264984277,81,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.09833333333333333
+M3 no lineal y colas pesadas,2,2021-02-19,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-10,2021-05-10,2021-06-01,2021-05-10,0,True,0.0,0.0,0.0,103,False,,0.9016666666666666
+M3 no lineal y colas pesadas,3,2021-09-04,A0 como se hizo,2021-11-17,2021-11-16,2021-11-17,2021-11-16,0,True,0.0,0.0,0.0,75,False,,0.503
+M3 no lineal y colas pesadas,3,2021-09-04,A1 DSS fecha α=0.80,2021-11-17,2021-11-16,2021-11-25,2021-11-16,0,True,0.0,0.0,0.0,83,False,,0.807
+M3 no lineal y colas pesadas,3,2021-09-04,A2 DSS fecha α*,2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.926
+M3 no lineal y colas pesadas,3,2021-09-04,A3 fecha original + gestión al inicio,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.44333333333333336
+M3 no lineal y colas pesadas,3,2021-09-04,A4 fecha original + re-pronóstico 40 %,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.18833333333333332
+M3 no lineal y colas pesadas,3,2021-09-04,A5 sistema completo (α* + re-pronóstico 40 %),2021-11-17,2021-11-16,2021-12-01,2021-11-15,0,True,0.0,0.14291914764973074,0.14291914764973074,89,True,+2 persona(s) en Limpieza,0.8416666666666667
+M3 no lineal y colas pesadas,4,2022-02-02,A0 como se hizo,2022-04-06,2022-04-06,2022-04-06,2022-04-06,0,True,0.0,0.0,0.0,64,False,,0.204
+M3 no lineal y colas pesadas,4,2022-02-02,A1 DSS fecha α=0.80,2022-04-06,2022-04-06,2022-04-20,2022-04-06,0,True,0.0,0.0,0.0,78,False,,0.828
+M3 no lineal y colas pesadas,4,2022-02-02,A2 DSS fecha α*,2022-04-06,2022-04-06,2022-04-26,2022-04-06,0,True,0.0,0.0,0.0,84,False,,0.939
+M3 no lineal y colas pesadas,4,2022-02-02,A3 fecha original + gestión al inicio,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0858171510318244,2.0858171510318244,64,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.19
+M3 no lineal y colas pesadas,4,2022-02-02,A4 fecha original + re-pronóstico 40 %,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0858171510318244,2.0858171510318244,64,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.125
+M3 no lineal y colas pesadas,4,2022-02-02,A5 sistema completo (α* + re-pronóstico 40 %),2022-04-06,2022-04-06,2022-04-26,2022-04-06,0,True,0.0,0.0,0.0,84,False,,0.9233333333333333
+M3 no lineal y colas pesadas,5,2022-01-03,A0 como se hizo,2022-03-15,2022-03-15,2022-03-15,2022-03-15,0,True,0.0,0.0,0.0,72,False,,0.313
+M3 no lineal y colas pesadas,5,2022-01-03,A1 DSS fecha α=0.80,2022-03-15,2022-03-15,2022-03-28,2022-03-15,0,True,0.0,0.0,0.0,85,False,,0.829
+M3 no lineal y colas pesadas,5,2022-01-03,A2 DSS fecha α*,2022-03-15,2022-03-15,2022-04-04,2022-03-15,0,True,0.0,0.0,0.0,92,False,,0.937
+M3 no lineal y colas pesadas,5,2022-01-03,A3 fecha original + gestión al inicio,2022-03-15,2022-03-15,2022-03-15,2022-03-08,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.33
+M3 no lineal y colas pesadas,5,2022-01-03,A4 fecha original + re-pronóstico 40 %,2022-03-15,2022-03-15,2022-03-15,2022-03-08,0,True,0.0,2.0724839434103384,2.0724839434103384,72,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.23666666666666666
+M3 no lineal y colas pesadas,5,2022-01-03,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-15,2022-03-15,2022-04-04,2022-03-15,0,True,0.0,0.0,0.0,92,False,,0.9233333333333333
+M3 no lineal y colas pesadas,6,2022-01-07,A0 como se hizo,2022-03-08,2022-03-13,2022-03-08,2022-03-13,5,False,5.0,0.0,5.0,61,False,,0.017
+M3 no lineal y colas pesadas,6,2022-01-07,A1 DSS fecha α=0.80,2022-03-08,2022-03-13,2022-03-26,2022-03-13,0,True,0.0,0.0,0.0,79,False,,0.83
+M3 no lineal y colas pesadas,6,2022-01-07,A2 DSS fecha α*,2022-03-08,2022-03-13,2022-03-31,2022-03-13,0,True,0.0,0.0,0.0,84,False,,0.931
+M3 no lineal y colas pesadas,6,2022-01-07,A3 fecha original + gestión al inicio,2022-03-08,2022-03-13,2022-03-08,2022-03-07,0,True,0.0,2.495011348061636,2.495011348061636,61,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.018333333333333333
+M3 no lineal y colas pesadas,6,2022-01-07,A4 fecha original + re-pronóstico 40 %,2022-03-08,2022-03-13,2022-03-08,2022-03-07,0,True,0.0,2.226187267431547,2.226187267431547,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.011666666666666667
+M3 no lineal y colas pesadas,6,2022-01-07,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-08,2022-03-13,2022-03-31,2022-03-12,0,True,0.0,0.0,0.0,84,False,,0.9616666666666667
+M3 no lineal y colas pesadas,7,2022-03-22,A0 como se hizo,2022-05-21,2022-05-21,2022-05-21,2022-05-21,0,True,0.0,0.0,0.0,61,False,,0.35
+M3 no lineal y colas pesadas,7,2022-03-22,A1 DSS fecha α=0.80,2022-05-21,2022-05-21,2022-05-31,2022-05-21,0,True,0.0,0.0,0.0,71,False,,0.817
+M3 no lineal y colas pesadas,7,2022-03-22,A2 DSS fecha α*,2022-05-21,2022-05-21,2022-06-06,2022-05-21,0,True,0.0,0.0,0.0,77,False,,0.938
+M3 no lineal y colas pesadas,7,2022-03-22,A3 fecha original + gestión al inicio,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.139394088287136,2.139394088287136,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.37166666666666665
+M3 no lineal y colas pesadas,7,2022-03-22,A4 fecha original + re-pronóstico 40 %,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.139394088287136,2.139394088287136,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.23333333333333334
+M3 no lineal y colas pesadas,7,2022-03-22,A5 sistema completo (α* + re-pronóstico 40 %),2022-05-21,2022-05-21,2022-06-06,2022-05-21,0,True,0.0,0.0,0.0,77,False,,0.9216666666666666
+M3 no lineal y colas pesadas,8,2023-02-14,A0 como se hizo,2023-04-24,2023-04-22,2023-04-24,2023-04-22,0,True,0.0,0.0,0.0,70,False,,0.226
+M3 no lineal y colas pesadas,8,2023-02-14,A1 DSS fecha α=0.80,2023-04-24,2023-04-22,2023-05-06,2023-04-22,0,True,0.0,0.0,0.0,82,False,,0.825
+M3 no lineal y colas pesadas,8,2023-02-14,A2 DSS fecha α*,2023-04-24,2023-04-22,2023-05-12,2023-04-22,0,True,0.0,0.0,0.0,88,False,,0.938
+M3 no lineal y colas pesadas,8,2023-02-14,A3 fecha original + gestión al inicio,2023-04-24,2023-04-22,2023-04-24,2023-04-17,0,True,0.0,2.225091591551069,2.225091591551069,70,True,+1 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.215
+M3 no lineal y colas pesadas,8,2023-02-14,A4 fecha original + re-pronóstico 40 %,2023-04-24,2023-04-22,2023-04-24,2023-04-17,0,True,0.0,2.1342009176115924,2.1342009176115924,70,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.14
+M3 no lineal y colas pesadas,8,2023-02-14,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-24,2023-04-22,2023-05-12,2023-04-22,0,True,0.0,0.0,0.0,88,False,,0.94
+M3 no lineal y colas pesadas,9,2023-05-18,A0 como se hizo,2023-07-18,2023-07-16,2023-07-18,2023-07-16,0,True,0.0,0.0,0.0,62,False,,0.474
+M3 no lineal y colas pesadas,9,2023-05-18,A1 DSS fecha α=0.80,2023-07-18,2023-07-16,2023-07-26,2023-07-16,0,True,0.0,0.0,0.0,70,False,,0.828
+M3 no lineal y colas pesadas,9,2023-05-18,A2 DSS fecha α*,2023-07-18,2023-07-16,2023-07-31,2023-07-16,0,True,0.0,0.0,0.0,75,False,,0.942
+M3 no lineal y colas pesadas,9,2023-05-18,A3 fecha original + gestión al inicio,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.485
+M3 no lineal y colas pesadas,9,2023-05-18,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-16,2023-07-18,2023-07-10,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.49166666666666664
+M3 no lineal y colas pesadas,9,2023-05-18,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-16,2023-07-31,2023-07-15,0,True,0.0,0.0,0.0,75,False,,0.96
+M3 no lineal y colas pesadas,10,2023-08-11,A0 como se hizo,2023-10-01,2023-10-01,2023-10-01,2023-10-01,0,True,0.0,0.0,0.0,52,False,,0.348
+M3 no lineal y colas pesadas,10,2023-08-11,A1 DSS fecha α=0.80,2023-10-01,2023-10-01,2023-10-09,2023-10-01,0,True,0.0,0.0,0.0,60,False,,0.838
+M3 no lineal y colas pesadas,10,2023-08-11,A2 DSS fecha α*,2023-10-01,2023-10-01,2023-10-12,2023-10-01,0,True,0.0,0.0,0.0,63,False,,0.936
+M3 no lineal y colas pesadas,10,2023-08-11,A3 fecha original + gestión al inicio,2023-10-01,2023-10-01,2023-10-01,2023-09-27,0,True,0.0,2.1741760281691764,2.1741760281691764,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3433333333333333
+M3 no lineal y colas pesadas,10,2023-08-11,A4 fecha original + re-pronóstico 40 %,2023-10-01,2023-10-01,2023-10-01,2023-09-27,0,True,0.0,2.1741760281691764,2.1741760281691764,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.225
+M3 no lineal y colas pesadas,10,2023-08-11,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-01,2023-10-01,2023-10-12,2023-09-30,0,True,0.0,0.0,0.0,63,False,,0.8866666666666667
+M3 no lineal y colas pesadas,11,2023-06-02,A0 como se hizo,2023-07-18,2023-07-18,2023-07-18,2023-07-18,0,True,0.0,0.0,0.0,47,False,,0.288
+M3 no lineal y colas pesadas,11,2023-06-02,A1 DSS fecha α=0.80,2023-07-18,2023-07-18,2023-07-26,2023-07-18,0,True,0.0,0.0,0.0,55,False,,0.843
+M3 no lineal y colas pesadas,11,2023-06-02,A2 DSS fecha α*,2023-07-18,2023-07-18,2023-07-29,2023-07-18,0,True,0.0,0.0,0.0,58,False,,0.942
+M3 no lineal y colas pesadas,11,2023-06-02,A3 fecha original + gestión al inicio,2023-07-18,2023-07-18,2023-07-18,2023-07-13,0,True,0.0,2.2754095986039875,2.2754095986039875,47,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.26666666666666666
+M3 no lineal y colas pesadas,11,2023-06-02,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-18,2023-07-18,2023-07-17,0,True,0.0,0.2754095986039875,0.2754095986039875,47,True,+2 persona(s) en Limpieza,0.30333333333333334
+M3 no lineal y colas pesadas,11,2023-06-02,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-18,2023-07-29,2023-07-18,0,True,0.0,0.0,0.0,58,False,,0.9716666666666667
+M3 no lineal y colas pesadas,12,2023-08-13,A0 como se hizo,2023-10-17,2023-10-21,2023-10-17,2023-10-21,4,False,4.0,0.0,4.0,66,False,,0.066
+M3 no lineal y colas pesadas,12,2023-08-13,A1 DSS fecha α=0.80,2023-10-17,2023-10-21,2023-11-04,2023-10-21,0,True,0.0,0.0,0.0,84,False,,0.807
+M3 no lineal y colas pesadas,12,2023-08-13,A2 DSS fecha α*,2023-10-17,2023-10-21,2023-11-10,2023-10-21,0,True,0.0,0.0,0.0,90,False,,0.939
+M3 no lineal y colas pesadas,12,2023-08-13,A3 fecha original + gestión al inicio,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.373029784547,2.373029784547,66,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.06833333333333333
+M3 no lineal y colas pesadas,12,2023-08-13,A4 fecha original + re-pronóstico 40 %,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.1750884476203978,2.1750884476203978,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.06833333333333333
+M3 no lineal y colas pesadas,12,2023-08-13,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-17,2023-10-21,2023-11-10,2023-10-21,0,True,0.0,0.0,0.0,90,False,,0.965
+M3 no lineal y colas pesadas,13,2023-02-03,A0 como se hizo,2023-04-09,2023-04-07,2023-04-09,2023-04-07,0,True,0.0,0.0,0.0,66,False,,0.316
+M3 no lineal y colas pesadas,13,2023-02-03,A1 DSS fecha α=0.80,2023-04-09,2023-04-07,2023-04-18,2023-04-07,0,True,0.0,0.0,0.0,75,False,,0.801
+M3 no lineal y colas pesadas,13,2023-02-03,A2 DSS fecha α*,2023-04-09,2023-04-07,2023-04-22,2023-04-07,0,True,0.0,0.0,0.0,79,False,,0.932
+M3 no lineal y colas pesadas,13,2023-02-03,A3 fecha original + gestión al inicio,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.133189148956433,2.133189148956433,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.35833333333333334
+M3 no lineal y colas pesadas,13,2023-02-03,A4 fecha original + re-pronóstico 40 %,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.133189148956433,2.133189148956433,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3333333333333333
+M3 no lineal y colas pesadas,13,2023-02-03,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-09,2023-04-07,2023-04-22,2023-04-07,0,True,0.0,0.0,0.0,79,False,,0.945
+M3 no lineal y colas pesadas,14,2023-08-04,A0 como se hizo,2023-10-04,2023-10-04,2023-10-04,2023-10-04,0,True,0.0,0.0,0.0,62,False,,0.519
+M3 no lineal y colas pesadas,14,2023-08-04,A1 DSS fecha α=0.80,2023-10-04,2023-10-04,2023-10-11,2023-10-04,0,True,0.0,0.0,0.0,69,False,,0.818
+M3 no lineal y colas pesadas,14,2023-08-04,A2 DSS fecha α*,2023-10-04,2023-10-04,2023-10-16,2023-10-04,0,True,0.0,0.0,0.0,74,False,,0.93
+M3 no lineal y colas pesadas,14,2023-08-04,A3 fecha original + gestión al inicio,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.5133333333333333
+M3 no lineal y colas pesadas,14,2023-08-04,A4 fecha original + re-pronóstico 40 %,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.4216666666666667
+M3 no lineal y colas pesadas,14,2023-08-04,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-04,2023-10-04,2023-10-16,2023-10-04,0,True,0.0,0.0,0.0,74,False,,0.9066666666666666
+M3 no lineal y colas pesadas,15,2023-09-23,A0 como se hizo,2023-12-07,2023-12-05,2023-12-07,2023-12-05,0,True,0.0,0.0,0.0,76,False,,0.491
+M3 no lineal y colas pesadas,15,2023-09-23,A1 DSS fecha α=0.80,2023-12-07,2023-12-05,2023-12-15,2023-12-05,0,True,0.0,0.0,0.0,84,False,,0.819
+M3 no lineal y colas pesadas,15,2023-09-23,A2 DSS fecha α*,2023-12-07,2023-12-05,2023-12-21,2023-12-05,0,True,0.0,0.0,0.0,90,False,,0.938
+M3 no lineal y colas pesadas,15,2023-09-23,A3 fecha original + gestión al inicio,2023-12-07,2023-12-05,2023-12-07,2023-11-29,0,True,0.0,2.148892844898241,2.148892844898241,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4766666666666667
+M3 no lineal y colas pesadas,15,2023-09-23,A4 fecha original + re-pronóstico 40 %,2023-12-07,2023-12-05,2023-12-07,2023-11-29,0,True,0.0,2.148892844898241,2.148892844898241,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.16166666666666665
+M3 no lineal y colas pesadas,15,2023-09-23,A5 sistema completo (α* + re-pronóstico 40 %),2023-12-07,2023-12-05,2023-12-21,2023-12-05,0,True,0.0,0.1488928448982414,0.1488928448982414,90,True,+2 persona(s) en Limpieza,0.8333333333333334
+M3 no lineal y colas pesadas,16,2024-06-09,A0 como se hizo,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.0,0.0,57,False,,0.515
+M3 no lineal y colas pesadas,16,2024-06-09,A1 DSS fecha α=0.80,2024-08-04,2024-08-02,2024-08-09,2024-08-02,0,True,0.0,0.0,0.0,62,False,,0.814
+M3 no lineal y colas pesadas,16,2024-06-09,A2 DSS fecha α*,2024-08-04,2024-08-02,2024-08-13,2024-08-02,0,True,0.0,0.0,0.0,66,False,,0.926
+M3 no lineal y colas pesadas,16,2024-06-09,A3 fecha original + gestión al inicio,2024-08-04,2024-08-02,2024-08-04,2024-08-01,0,True,0.0,0.14481765512612274,0.14481765512612274,57,True,+2 persona(s) en Limpieza,0.56
+M3 no lineal y colas pesadas,16,2024-06-09,A4 fecha original + re-pronóstico 40 %,2024-08-04,2024-08-02,2024-08-04,2024-08-01,0,True,0.0,0.14481765512612274,0.14481765512612274,57,True,+2 persona(s) en Limpieza,0.55
+M3 no lineal y colas pesadas,16,2024-06-09,A5 sistema completo (α* + re-pronóstico 40 %),2024-08-04,2024-08-02,2024-08-13,2024-08-02,0,True,0.0,0.0,0.0,66,False,,0.945
+M3 no lineal y colas pesadas,17,2024-04-10,A0 como se hizo,2024-06-06,2024-06-06,2024-06-06,2024-06-06,0,True,0.0,0.0,0.0,58,False,,0.264
+M3 no lineal y colas pesadas,17,2024-04-10,A1 DSS fecha α=0.80,2024-06-06,2024-06-06,2024-06-14,2024-06-06,0,True,0.0,0.0,0.0,66,False,,0.802
+M3 no lineal y colas pesadas,17,2024-04-10,A2 DSS fecha α*,2024-06-06,2024-06-06,2024-06-19,2024-06-06,0,True,0.0,0.0,0.0,71,False,,0.937
+M3 no lineal y colas pesadas,17,2024-04-10,A3 fecha original + gestión al inicio,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.2102227087834865,2.2102227087834865,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.28833333333333333
+M3 no lineal y colas pesadas,17,2024-04-10,A4 fecha original + re-pronóstico 40 %,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.2102227087834865,2.2102227087834865,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.16166666666666665
+M3 no lineal y colas pesadas,17,2024-04-10,A5 sistema completo (α* + re-pronóstico 40 %),2024-06-06,2024-06-06,2024-06-19,2024-06-06,0,True,0.0,0.0,0.0,71,False,,0.8933333333333333
+M3 no lineal y colas pesadas,18,2024-08-03,A0 como se hizo,2024-10-28,2024-10-26,2024-10-28,2024-10-26,0,True,0.0,0.0,0.0,87,False,,0.42
+M3 no lineal y colas pesadas,18,2024-08-03,A1 DSS fecha α=0.80,2024-10-28,2024-10-26,2024-11-08,2024-10-26,0,True,0.0,0.0,0.0,98,False,,0.823
+M3 no lineal y colas pesadas,18,2024-08-03,A2 DSS fecha α*,2024-10-28,2024-10-26,2024-11-14,2024-10-26,0,True,0.0,0.0,0.0,104,False,,0.926
+M3 no lineal y colas pesadas,18,2024-08-03,A3 fecha original + gestión al inicio,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0987541964983505,2.0987541964983505,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.405
+M3 no lineal y colas pesadas,18,2024-08-03,A4 fecha original + re-pronóstico 40 %,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0987541964983505,2.0987541964983505,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.345
+M3 no lineal y colas pesadas,18,2024-08-03,A5 sistema completo (α* + re-pronóstico 40 %),2024-10-28,2024-10-26,2024-11-14,2024-10-26,0,True,0.0,0.0,0.0,104,False,,0.9083333333333333
+M3 no lineal y colas pesadas,19,2024-01-11,A0 como se hizo,2024-03-07,2024-03-15,2024-03-07,2024-03-15,8,False,8.0,0.0,8.0,57,False,,0.039
+M3 no lineal y colas pesadas,19,2024-01-11,A1 DSS fecha α=0.80,2024-03-07,2024-03-15,2024-03-23,2024-03-15,0,True,0.0,0.0,0.0,73,False,,0.831
+M3 no lineal y colas pesadas,19,2024-01-11,A2 DSS fecha α*,2024-03-07,2024-03-15,2024-03-27,2024-03-15,0,True,0.0,0.0,0.0,77,False,,0.933
+M3 no lineal y colas pesadas,19,2024-01-11,A3 fecha original + gestión al inicio,2024-03-07,2024-03-15,2024-03-07,2024-03-07,0,True,0.0,2.496774852132493,2.496774852132493,57,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.041666666666666664
+M3 no lineal y colas pesadas,19,2024-01-11,A4 fecha original + re-pronóstico 40 %,2024-03-07,2024-03-15,2024-03-07,2024-03-09,2,False,2.0,2.2303656358707027,4.230365635870703,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.055
+M3 no lineal y colas pesadas,19,2024-01-11,A5 sistema completo (α* + re-pronóstico 40 %),2024-03-07,2024-03-15,2024-03-27,2024-03-15,0,True,0.0,0.0,0.0,77,False,,0.9683333333333334
+M3 no lineal y colas pesadas,20,2025-05-08,A0 como se hizo,2025-07-13,2025-07-13,2025-07-13,2025-07-13,0,True,0.0,0.0,0.0,67,False,,0.366
+M3 no lineal y colas pesadas,20,2025-05-08,A1 DSS fecha α=0.80,2025-07-13,2025-07-13,2025-07-24,2025-07-13,0,True,0.0,0.0,0.0,78,False,,0.832
+M3 no lineal y colas pesadas,20,2025-05-08,A2 DSS fecha α*,2025-07-13,2025-07-13,2025-07-30,2025-07-13,0,True,0.0,0.0,0.0,84,False,,0.936
+M3 no lineal y colas pesadas,20,2025-05-08,A3 fecha original + gestión al inicio,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.3233333333333333
+M3 no lineal y colas pesadas,20,2025-05-08,A4 fecha original + re-pronóstico 40 %,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.24833333333333332
+M3 no lineal y colas pesadas,20,2025-05-08,A5 sistema completo (α* + re-pronóstico 40 %),2025-07-13,2025-07-13,2025-07-30,2025-07-12,0,True,0.0,0.0,0.0,84,False,,0.92
+M3 no lineal y colas pesadas,21,2025-09-20,A0 como se hizo,2025-12-11,2025-12-15,2025-12-11,2025-12-15,4,False,4.0,0.0,4.0,83,False,,0.091
+M3 no lineal y colas pesadas,21,2025-09-20,A1 DSS fecha α=0.80,2025-12-11,2025-12-15,2025-12-31,2025-12-15,0,True,0.0,0.0,0.0,103,False,,0.831
+M3 no lineal y colas pesadas,21,2025-09-20,A2 DSS fecha α*,2025-12-11,2025-12-15,2026-01-06,2025-12-15,0,True,0.0,0.0,0.0,109,False,,0.926
+M3 no lineal y colas pesadas,21,2025-09-20,A3 fecha original + gestión al inicio,2025-12-11,2025-12-15,2025-12-11,2025-12-05,0,True,0.0,2.330785953084823,2.330785953084823,83,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.07166666666666667
+M3 no lineal y colas pesadas,21,2025-09-20,A4 fecha original + re-pronóstico 40 %,2025-12-11,2025-12-15,2025-12-11,2025-12-06,0,True,0.0,2.1572030658555024,2.1572030658555024,83,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.04666666666666667
+M3 no lineal y colas pesadas,21,2025-09-20,A5 sistema completo (α* + re-pronóstico 40 %),2025-12-11,2025-12-15,2026-01-06,2025-12-15,0,True,0.0,0.0,0.0,109,False,,0.9233333333333333
+M3 no lineal y colas pesadas,22,2025-07-03,A0 como se hizo,2025-09-03,2025-09-07,2025-09-03,2025-09-07,4,False,4.0,0.0,4.0,63,False,,0.212
+M3 no lineal y colas pesadas,22,2025-07-03,A1 DSS fecha α=0.80,2025-09-03,2025-09-07,2025-09-15,2025-09-07,0,True,0.0,0.0,0.0,75,False,,0.827
+M3 no lineal y colas pesadas,22,2025-07-03,A2 DSS fecha α*,2025-09-03,2025-09-07,2025-09-19,2025-09-07,0,True,0.0,0.0,0.0,79,False,,0.937
+M3 no lineal y colas pesadas,22,2025-07-03,A3 fecha original + gestión al inicio,2025-09-03,2025-09-07,2025-09-03,2025-08-29,0,True,0.0,2.167337149339464,2.167337149339464,63,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.22
+M3 no lineal y colas pesadas,22,2025-07-03,A4 fecha original + re-pronóstico 40 %,2025-09-03,2025-09-07,2025-09-03,2025-08-30,0,True,0.0,2.0,2.0,63,True,Expeditar Granallado y pintura (externo),0.45
+M3 no lineal y colas pesadas,22,2025-07-03,A5 sistema completo (α* + re-pronóstico 40 %),2025-09-03,2025-09-07,2025-09-19,2025-09-06,0,True,0.0,0.0,0.0,79,False,,0.98
+M3 no lineal y colas pesadas,23,2026-08-05,A0 como se hizo,2026-09-25,2026-09-25,2026-09-25,2026-09-25,0,True,0.0,0.0,0.0,52,False,,0.339
+M3 no lineal y colas pesadas,23,2026-08-05,A1 DSS fecha α=0.80,2026-09-25,2026-09-25,2026-10-05,2026-09-25,0,True,0.0,0.0,0.0,62,False,,0.829
+M3 no lineal y colas pesadas,23,2026-08-05,A2 DSS fecha α*,2026-09-25,2026-09-25,2026-10-09,2026-09-25,0,True,0.0,0.0,0.0,66,False,,0.934
+M3 no lineal y colas pesadas,23,2026-08-05,A3 fecha original + gestión al inicio,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.065269982351167,2.065269982351167,52,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.35333333333333333
+M3 no lineal y colas pesadas,23,2026-08-05,A4 fecha original + re-pronóstico 40 %,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.0,2.0,52,True,Expeditar Granallado y pintura (externo),0.415
+M3 no lineal y colas pesadas,23,2026-08-05,A5 sistema completo (α* + re-pronóstico 40 %),2026-09-25,2026-09-25,2026-10-09,2026-09-25,0,True,0.0,0.0,0.0,66,False,,0.9666666666666667
+M3 no lineal y colas pesadas,24,2026-02-17,A0 como se hizo,2026-05-15,2026-05-20,2026-05-15,2026-05-20,5,False,5.0,0.0,5.0,88,False,,0.278
+M3 no lineal y colas pesadas,24,2026-02-17,A1 DSS fecha α=0.80,2026-05-15,2026-05-20,2026-05-29,2026-05-20,0,True,0.0,0.0,0.0,102,False,,0.82
+M3 no lineal y colas pesadas,24,2026-02-17,A2 DSS fecha α*,2026-05-15,2026-05-20,2026-06-05,2026-05-20,0,True,0.0,0.0,0.0,109,False,,0.935
+M3 no lineal y colas pesadas,24,2026-02-17,A3 fecha original + gestión al inicio,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.1986741391173394,2.1986741391173394,88,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.28833333333333333
+M3 no lineal y colas pesadas,24,2026-02-17,A4 fecha original + re-pronóstico 40 %,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.0925849979386135,2.0925849979386135,88,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3616666666666667
+M3 no lineal y colas pesadas,24,2026-02-17,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-15,2026-05-20,2026-06-05,2026-05-20,0,True,0.0,0.0,0.0,109,False,,0.9566666666666667
+M3 no lineal y colas pesadas,25,2026-03-25,A0 como se hizo,2026-05-18,2026-05-17,2026-05-18,2026-05-17,0,True,0.0,0.0,0.0,55,False,,0.197
+M3 no lineal y colas pesadas,25,2026-03-25,A1 DSS fecha α=0.80,2026-05-18,2026-05-17,2026-06-01,2026-05-17,0,True,0.0,0.0,0.0,69,False,,0.832
+M3 no lineal y colas pesadas,25,2026-03-25,A2 DSS fecha α*,2026-05-18,2026-05-17,2026-06-06,2026-05-17,0,True,0.0,0.0,0.0,74,False,,0.938
+M3 no lineal y colas pesadas,25,2026-03-25,A3 fecha original + gestión al inicio,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.20666666666666667
+M3 no lineal y colas pesadas,25,2026-03-25,A4 fecha original + re-pronóstico 40 %,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.30833333333333335
+M3 no lineal y colas pesadas,25,2026-03-25,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-18,2026-05-17,2026-06-06,2026-05-16,0,True,0.0,0.0,0.0,74,False,,0.9716666666666667
+M4 deriva del taller,1,2021-02-20,A0 como se hizo,2021-05-13,2021-05-12,2021-05-13,2021-05-12,0,True,0.0,0.0,0.0,83,False,,0.136
+M4 deriva del taller,1,2021-02-20,A1 DSS fecha α=0.80,2021-05-13,2021-05-12,2021-06-03,2021-05-12,0,True,0.0,0.0,0.0,104,False,,0.804
+M4 deriva del taller,1,2021-02-20,A2 DSS fecha α*,2021-05-13,2021-05-12,2021-06-10,2021-05-12,0,True,0.0,0.0,0.0,111,False,,0.929
+M4 deriva del taller,1,2021-02-20,A3 fecha original + gestión al inicio,2021-05-13,2021-05-12,2021-05-13,2021-04-27,0,True,0.0,3.077066489282101,3.077066489282101,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.15333333333333332
+M4 deriva del taller,1,2021-02-20,A4 fecha original + re-pronóstico 40 %,2021-05-13,2021-05-12,2021-05-13,2021-05-04,0,True,0.0,2.0,2.0,83,True,Expeditar Granallado y pintura (externo),0.24
+M4 deriva del taller,1,2021-02-20,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-13,2021-05-12,2021-06-10,2021-05-12,0,True,0.0,0.0,0.0,111,False,,0.96
+M4 deriva del taller,2,2021-02-19,A0 como se hizo,2021-05-10,2021-05-10,2021-05-10,2021-05-10,0,True,0.0,0.0,0.0,81,False,,0.284
+M4 deriva del taller,2,2021-02-19,A1 DSS fecha α=0.80,2021-05-10,2021-05-10,2021-05-24,2021-05-10,0,True,0.0,0.0,0.0,95,False,,0.818
+M4 deriva del taller,2,2021-02-19,A2 DSS fecha α*,2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.937
+M4 deriva del taller,2,2021-02-19,A3 fecha original + gestión al inicio,2021-05-10,2021-05-10,2021-05-10,2021-04-30,0,True,0.0,2.2680188724759267,2.2680188724759267,81,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3016666666666667
+M4 deriva del taller,2,2021-02-19,A4 fecha original + re-pronóstico 40 %,2021-05-10,2021-05-10,2021-05-10,2021-05-01,0,True,0.0,2.127974805927475,2.127974805927475,81,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.29833333333333334
+M4 deriva del taller,2,2021-02-19,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-10,2021-05-10,2021-05-31,2021-05-10,0,True,0.0,0.0,0.0,102,False,,0.965
+M4 deriva del taller,3,2021-09-04,A0 como se hizo,2021-11-17,2021-11-16,2021-11-17,2021-11-16,0,True,0.0,0.0,0.0,75,False,,0.505
+M4 deriva del taller,3,2021-09-04,A1 DSS fecha α=0.80,2021-11-17,2021-11-16,2021-11-25,2021-11-16,0,True,0.0,0.0,0.0,83,False,,0.816
+M4 deriva del taller,3,2021-09-04,A2 DSS fecha α*,2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.929
+M4 deriva del taller,3,2021-09-04,A3 fecha original + gestión al inicio,2021-11-17,2021-11-16,2021-11-17,2021-11-08,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4716666666666667
+M4 deriva del taller,3,2021-09-04,A4 fecha original + re-pronóstico 40 %,2021-11-17,2021-11-16,2021-11-17,2021-11-09,0,True,0.0,2.0,2.0,75,True,Expeditar Granallado y pintura (externo),0.49333333333333335
+M4 deriva del taller,3,2021-09-04,A5 sistema completo (α* + re-pronóstico 40 %),2021-11-17,2021-11-16,2021-12-01,2021-11-16,0,True,0.0,0.0,0.0,89,False,,0.9516666666666667
+M4 deriva del taller,4,2022-02-02,A0 como se hizo,2022-04-06,2022-04-06,2022-04-06,2022-04-06,0,True,0.0,0.0,0.0,64,False,,0.378
+M4 deriva del taller,4,2022-02-02,A1 DSS fecha α=0.80,2022-04-06,2022-04-06,2022-04-15,2022-04-06,0,True,0.0,0.0,0.0,73,False,,0.8
+M4 deriva del taller,4,2022-02-02,A2 DSS fecha α*,2022-04-06,2022-04-06,2022-04-21,2022-04-06,0,True,0.0,0.0,0.0,79,False,,0.934
+M4 deriva del taller,4,2022-02-02,A3 fecha original + gestión al inicio,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0,2.0,64,True,Expeditar Granallado y pintura (externo),0.38
+M4 deriva del taller,4,2022-02-02,A4 fecha original + re-pronóstico 40 %,2022-04-06,2022-04-06,2022-04-06,2022-03-31,0,True,0.0,2.0,2.0,64,True,Expeditar Granallado y pintura (externo),0.10166666666666667
+M4 deriva del taller,4,2022-02-02,A5 sistema completo (α* + re-pronóstico 40 %),2022-04-06,2022-04-06,2022-04-21,2022-04-06,0,True,0.0,0.0,0.0,79,False,,0.81
+M4 deriva del taller,5,2022-01-03,A0 como se hizo,2022-03-15,2022-03-15,2022-03-15,2022-03-15,0,True,0.0,0.0,0.0,72,False,,0.506
+M4 deriva del taller,5,2022-01-03,A1 DSS fecha α=0.80,2022-03-15,2022-03-15,2022-03-23,2022-03-15,0,True,0.0,0.0,0.0,80,False,,0.815
+M4 deriva del taller,5,2022-01-03,A2 DSS fecha α*,2022-03-15,2022-03-15,2022-03-29,2022-03-15,0,True,0.0,0.0,0.0,86,False,,0.927
+M4 deriva del taller,5,2022-01-03,A3 fecha original + gestión al inicio,2022-03-15,2022-03-15,2022-03-15,2022-03-07,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.49666666666666665
+M4 deriva del taller,5,2022-01-03,A4 fecha original + re-pronóstico 40 %,2022-03-15,2022-03-15,2022-03-15,2022-03-07,0,True,0.0,2.0,2.0,72,True,Expeditar Granallado y pintura (externo),0.5466666666666666
+M4 deriva del taller,5,2022-01-03,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-15,2022-03-15,2022-03-29,2022-03-15,0,True,0.0,0.0,0.0,86,False,,0.945
+M4 deriva del taller,6,2022-01-07,A0 como se hizo,2022-03-08,2022-03-13,2022-03-08,2022-03-13,5,False,5.0,0.0,5.0,61,False,,0.186
+M4 deriva del taller,6,2022-01-07,A1 DSS fecha α=0.80,2022-03-08,2022-03-13,2022-03-19,2022-03-13,0,True,0.0,0.0,0.0,72,False,,0.836
+M4 deriva del taller,6,2022-01-07,A2 DSS fecha α*,2022-03-08,2022-03-13,2022-03-24,2022-03-13,0,True,0.0,0.0,0.0,77,False,,0.937
+M4 deriva del taller,6,2022-01-07,A3 fecha original + gestión al inicio,2022-03-08,2022-03-13,2022-03-08,2022-03-04,0,True,0.0,2.4135944471271498,2.4135944471271498,61,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.16666666666666666
+M4 deriva del taller,6,2022-01-07,A4 fecha original + re-pronóstico 40 %,2022-03-08,2022-03-13,2022-03-08,2022-03-05,0,True,0.0,2.179714110171459,2.179714110171459,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.11833333333333333
+M4 deriva del taller,6,2022-01-07,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-08,2022-03-13,2022-03-24,2022-03-12,0,True,0.0,0.0,0.0,77,False,,0.935
+M4 deriva del taller,7,2022-03-22,A0 como se hizo,2022-05-21,2022-05-21,2022-05-21,2022-05-21,0,True,0.0,0.0,0.0,61,False,,0.637
+M4 deriva del taller,7,2022-03-22,A1 DSS fecha α=0.80,2022-05-21,2022-05-21,2022-05-26,2022-05-21,0,True,0.0,0.0,0.0,66,False,,0.82
+M4 deriva del taller,7,2022-03-22,A2 DSS fecha α*,2022-05-21,2022-05-21,2022-05-31,2022-05-21,0,True,0.0,0.0,0.0,71,False,,0.928
+M4 deriva del taller,7,2022-03-22,A3 fecha original + gestión al inicio,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.0,2.0,61,True,Expeditar Granallado y pintura (externo),0.615
+M4 deriva del taller,7,2022-03-22,A4 fecha original + re-pronóstico 40 %,2022-05-21,2022-05-21,2022-05-21,2022-05-16,0,True,0.0,2.0,2.0,61,True,Expeditar Granallado y pintura (externo),0.4216666666666667
+M4 deriva del taller,7,2022-03-22,A5 sistema completo (α* + re-pronóstico 40 %),2022-05-21,2022-05-21,2022-05-31,2022-05-21,0,True,0.0,0.0,0.0,71,False,,0.8333333333333334
+M4 deriva del taller,8,2023-02-14,A0 como se hizo,2023-04-24,2023-04-22,2023-04-24,2023-04-22,0,True,0.0,0.0,0.0,70,False,,0.277
+M4 deriva del taller,8,2023-02-14,A1 DSS fecha α=0.80,2023-04-24,2023-04-22,2023-05-06,2023-04-22,0,True,0.0,0.0,0.0,82,False,,0.818
+M4 deriva del taller,8,2023-02-14,A2 DSS fecha α*,2023-04-24,2023-04-22,2023-05-12,2023-04-22,0,True,0.0,0.0,0.0,88,False,,0.938
+M4 deriva del taller,8,2023-02-14,A3 fecha original + gestión al inicio,2023-04-24,2023-04-22,2023-04-24,2023-04-15,0,True,0.0,2.2977449490132744,2.2977449490132744,70,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.27166666666666667
+M4 deriva del taller,8,2023-02-14,A4 fecha original + re-pronóstico 40 %,2023-04-24,2023-04-22,2023-04-24,2023-04-17,0,True,0.0,2.12999025808192,2.12999025808192,70,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.22
+M4 deriva del taller,8,2023-02-14,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-24,2023-04-22,2023-05-12,2023-04-22,0,True,0.0,0.0,0.0,88,False,,0.9633333333333334
+M4 deriva del taller,9,2023-05-18,A0 como se hizo,2023-07-18,2023-07-16,2023-07-18,2023-07-16,0,True,0.0,0.0,0.0,62,False,,0.324
+M4 deriva del taller,9,2023-05-18,A1 DSS fecha α=0.80,2023-07-18,2023-07-16,2023-07-28,2023-07-16,0,True,0.0,0.0,0.0,72,False,,0.826
+M4 deriva del taller,9,2023-05-18,A2 DSS fecha α*,2023-07-18,2023-07-16,2023-08-02,2023-07-16,0,True,0.0,0.0,0.0,77,False,,0.941
+M4 deriva del taller,9,2023-05-18,A3 fecha original + gestión al inicio,2023-07-18,2023-07-16,2023-07-18,2023-07-11,0,True,0.0,2.1329041007892147,2.1329041007892147,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.355
+M4 deriva del taller,9,2023-05-18,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-16,2023-07-18,2023-07-11,0,True,0.0,2.1329041007892147,2.1329041007892147,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.37833333333333335
+M4 deriva del taller,9,2023-05-18,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-16,2023-08-02,2023-07-15,0,True,0.0,0.0,0.0,77,False,,0.9616666666666667
+M4 deriva del taller,10,2023-08-11,A0 como se hizo,2023-10-01,2023-10-01,2023-10-01,2023-10-01,0,True,0.0,0.0,0.0,52,False,,0.238
+M4 deriva del taller,10,2023-08-11,A1 DSS fecha α=0.80,2023-10-01,2023-10-01,2023-10-10,2023-10-01,0,True,0.0,0.0,0.0,61,False,,0.808
+M4 deriva del taller,10,2023-08-11,A2 DSS fecha α*,2023-10-01,2023-10-01,2023-10-14,2023-10-01,0,True,0.0,0.0,0.0,65,False,,0.943
+M4 deriva del taller,10,2023-08-11,A3 fecha original + gestión al inicio,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.300820125108597,2.300820125108597,52,True,+1 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.25833333333333336
+M4 deriva del taller,10,2023-08-11,A4 fecha original + re-pronóstico 40 %,2023-10-01,2023-10-01,2023-10-01,2023-09-26,0,True,0.0,2.1870621940643757,2.1870621940643757,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.13166666666666665
+M4 deriva del taller,10,2023-08-11,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-01,2023-10-01,2023-10-14,2023-09-30,0,True,0.0,0.0,0.0,65,False,,0.8966666666666666
+M4 deriva del taller,11,2023-06-02,A0 como se hizo,2023-07-18,2023-07-18,2023-07-18,2023-07-18,0,True,0.0,0.0,0.0,47,False,,0.382
+M4 deriva del taller,11,2023-06-02,A1 DSS fecha α=0.80,2023-07-18,2023-07-18,2023-07-25,2023-07-18,0,True,0.0,0.0,0.0,54,False,,0.851
+M4 deriva del taller,11,2023-06-02,A2 DSS fecha α*,2023-07-18,2023-07-18,2023-07-27,2023-07-18,0,True,0.0,0.0,0.0,56,False,,0.931
+M4 deriva del taller,11,2023-06-02,A3 fecha original + gestión al inicio,2023-07-18,2023-07-18,2023-07-18,2023-07-17,0,True,0.0,0.5402326139961424,0.5402326139961424,47,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza,0.38166666666666665
+M4 deriva del taller,11,2023-06-02,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-18,2023-07-18,2023-07-14,0,True,0.0,2.2574339096320446,2.2574339096320446,47,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.13833333333333334
+M4 deriva del taller,11,2023-06-02,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-18,2023-07-27,2023-07-18,0,True,0.0,0.0,0.0,56,False,,0.8516666666666667
+M4 deriva del taller,12,2023-08-13,A0 como se hizo,2023-10-17,2023-10-21,2023-10-17,2023-10-21,4,False,4.0,0.0,4.0,66,False,,0.063
+M4 deriva del taller,12,2023-08-13,A1 DSS fecha α=0.80,2023-10-17,2023-10-21,2023-11-06,2023-10-21,0,True,0.0,0.0,0.0,86,False,,0.802
+M4 deriva del taller,12,2023-08-13,A2 DSS fecha α*,2023-10-17,2023-10-21,2023-11-13,2023-10-21,0,True,0.0,0.0,0.0,93,False,,0.941
+M4 deriva del taller,12,2023-08-13,A3 fecha original + gestión al inicio,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,2.378270359801863,2.378270359801863,66,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.07
+M4 deriva del taller,12,2023-08-13,A4 fecha original + re-pronóstico 40 %,2023-10-17,2023-10-21,2023-10-17,2023-10-13,0,True,0.0,2.4309212182810107,2.4309212182810107,66,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.04
+M4 deriva del taller,12,2023-08-13,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-17,2023-10-21,2023-11-13,2023-10-21,0,True,0.0,0.0,0.0,93,False,,0.9683333333333334
+M4 deriva del taller,13,2023-02-03,A0 como se hizo,2023-04-09,2023-04-07,2023-04-09,2023-04-07,0,True,0.0,0.0,0.0,66,False,,0.335
+M4 deriva del taller,13,2023-02-03,A1 DSS fecha α=0.80,2023-04-09,2023-04-07,2023-04-19,2023-04-07,0,True,0.0,0.0,0.0,76,False,,0.833
+M4 deriva del taller,13,2023-02-03,A2 DSS fecha α*,2023-04-09,2023-04-07,2023-04-24,2023-04-07,0,True,0.0,0.0,0.0,81,False,,0.926
+M4 deriva del taller,13,2023-02-03,A3 fecha original + gestión al inicio,2023-04-09,2023-04-07,2023-04-09,2023-03-31,0,True,0.0,2.131210927057939,2.131210927057939,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.365
+M4 deriva del taller,13,2023-02-03,A4 fecha original + re-pronóstico 40 %,2023-04-09,2023-04-07,2023-04-09,2023-04-01,0,True,0.0,2.0,2.0,66,True,Expeditar Granallado y pintura (externo),0.515
+M4 deriva del taller,13,2023-02-03,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-09,2023-04-07,2023-04-24,2023-04-07,0,True,0.0,0.0,0.0,81,False,,0.9833333333333333
+M4 deriva del taller,14,2023-08-04,A0 como se hizo,2023-10-04,2023-10-04,2023-10-04,2023-10-04,0,True,0.0,0.0,0.0,62,False,,0.406
+M4 deriva del taller,14,2023-08-04,A1 DSS fecha α=0.80,2023-10-04,2023-10-04,2023-10-13,2023-10-04,0,True,0.0,0.0,0.0,71,False,,0.817
+M4 deriva del taller,14,2023-08-04,A2 DSS fecha α*,2023-10-04,2023-10-04,2023-10-18,2023-10-04,0,True,0.0,0.0,0.0,76,False,,0.927
+M4 deriva del taller,14,2023-08-04,A3 fecha original + gestión al inicio,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.136932271481592,2.136932271481592,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.43333333333333335
+M4 deriva del taller,14,2023-08-04,A4 fecha original + re-pronóstico 40 %,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.136932271481592,2.136932271481592,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.25666666666666665
+M4 deriva del taller,14,2023-08-04,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-04,2023-10-04,2023-10-18,2023-10-04,0,True,0.0,0.0,0.0,76,False,,0.8916666666666667
+M4 deriva del taller,15,2023-09-23,A0 como se hizo,2023-12-07,2023-12-05,2023-12-07,2023-12-05,0,True,0.0,0.0,0.0,76,False,,0.508
+M4 deriva del taller,15,2023-09-23,A1 DSS fecha α=0.80,2023-12-07,2023-12-05,2023-12-15,2023-12-05,0,True,0.0,0.0,0.0,84,False,,0.814
+M4 deriva del taller,15,2023-09-23,A2 DSS fecha α*,2023-12-07,2023-12-05,2023-12-21,2023-12-05,0,True,0.0,0.0,0.0,90,False,,0.932
+M4 deriva del taller,15,2023-09-23,A3 fecha original + gestión al inicio,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.147508681469352,2.147508681469352,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.51
+M4 deriva del taller,15,2023-09-23,A4 fecha original + re-pronóstico 40 %,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.081129774808143,2.081129774808143,76,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.45
+M4 deriva del taller,15,2023-09-23,A5 sistema completo (α* + re-pronóstico 40 %),2023-12-07,2023-12-05,2023-12-21,2023-12-05,0,True,0.0,0.0,0.0,90,False,,0.9416666666666667
+M4 deriva del taller,16,2024-06-09,A0 como se hizo,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.0,0.0,57,False,,0.438
+M4 deriva del taller,16,2024-06-09,A1 DSS fecha α=0.80,2024-08-04,2024-08-02,2024-08-12,2024-08-02,0,True,0.0,0.0,0.0,65,False,,0.801
+M4 deriva del taller,16,2024-06-09,A2 DSS fecha α*,2024-08-04,2024-08-02,2024-08-16,2024-08-02,0,True,0.0,0.0,0.0,69,False,,0.933
+M4 deriva del taller,16,2024-06-09,A3 fecha original + gestión al inicio,2024-08-04,2024-08-02,2024-08-04,2024-07-27,0,True,0.0,2.1551838640719696,2.1551838640719696,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.45166666666666666
+M4 deriva del taller,16,2024-06-09,A4 fecha original + re-pronóstico 40 %,2024-08-04,2024-08-02,2024-08-04,2024-07-27,0,True,0.0,2.1551838640719696,2.1551838640719696,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.27
+M4 deriva del taller,16,2024-06-09,A5 sistema completo (α* + re-pronóstico 40 %),2024-08-04,2024-08-02,2024-08-16,2024-08-02,0,True,0.0,0.0,0.0,69,False,,0.94
+M4 deriva del taller,17,2024-04-10,A0 como se hizo,2024-06-06,2024-06-06,2024-06-06,2024-06-06,0,True,0.0,0.0,0.0,58,False,,0.265
+M4 deriva del taller,17,2024-04-10,A1 DSS fecha α=0.80,2024-06-06,2024-06-06,2024-06-18,2024-06-06,0,True,0.0,0.0,0.0,70,False,,0.827
+M4 deriva del taller,17,2024-04-10,A2 DSS fecha α*,2024-06-06,2024-06-06,2024-06-22,2024-06-06,0,True,0.0,0.0,0.0,74,False,,0.926
+M4 deriva del taller,17,2024-04-10,A3 fecha original + gestión al inicio,2024-06-06,2024-06-06,2024-06-06,2024-06-01,0,True,0.0,2.495019443555064,2.495019443555064,58,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.25833333333333336
+M4 deriva del taller,17,2024-04-10,A4 fecha original + re-pronóstico 40 %,2024-06-06,2024-06-06,2024-06-06,2024-06-01,0,True,0.0,2.222973250712488,2.222973250712488,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.16666666666666666
+M4 deriva del taller,17,2024-04-10,A5 sistema completo (α* + re-pronóstico 40 %),2024-06-06,2024-06-06,2024-06-22,2024-06-06,0,True,0.0,0.0,0.0,74,False,,0.9483333333333334
+M4 deriva del taller,18,2024-08-03,A0 como se hizo,2024-10-28,2024-10-26,2024-10-28,2024-10-26,0,True,0.0,0.0,0.0,87,False,,0.498
+M4 deriva del taller,18,2024-08-03,A1 DSS fecha α=0.80,2024-10-28,2024-10-26,2024-11-06,2024-10-26,0,True,0.0,0.0,0.0,96,False,,0.802
+M4 deriva del taller,18,2024-08-03,A2 DSS fecha α*,2024-10-28,2024-10-26,2024-11-14,2024-10-26,0,True,0.0,0.0,0.0,104,False,,0.938
+M4 deriva del taller,18,2024-08-03,A3 fecha original + gestión al inicio,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0932152450554495,2.0932152450554495,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.495
+M4 deriva del taller,18,2024-08-03,A4 fecha original + re-pronóstico 40 %,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0497147973629066,2.0497147973629066,87,True,+1 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.48333333333333334
+M4 deriva del taller,18,2024-08-03,A5 sistema completo (α* + re-pronóstico 40 %),2024-10-28,2024-10-26,2024-11-14,2024-10-26,0,True,0.0,0.0,0.0,104,False,,0.9483333333333334
+M4 deriva del taller,19,2024-01-11,A0 como se hizo,2024-03-07,2024-03-15,2024-03-07,2024-03-15,8,False,8.0,0.0,8.0,57,False,,0.046
+M4 deriva del taller,19,2024-01-11,A1 DSS fecha α=0.80,2024-03-07,2024-03-15,2024-03-29,2024-03-15,0,True,0.0,0.0,0.0,79,False,,0.815
+M4 deriva del taller,19,2024-01-11,A2 DSS fecha α*,2024-03-07,2024-03-15,2024-04-03,2024-03-15,0,True,0.0,0.0,0.0,84,False,,0.929
+M4 deriva del taller,19,2024-01-11,A3 fecha original + gestión al inicio,2024-03-07,2024-03-15,2024-03-07,2024-03-06,0,True,0.0,2.557307870694284,2.557307870694284,57,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.045
+M4 deriva del taller,19,2024-01-11,A4 fecha original + re-pronóstico 40 %,2024-03-07,2024-03-15,2024-03-07,2024-03-07,0,True,0.0,2.259301465575067,2.259301465575067,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.03333333333333333
+M4 deriva del taller,19,2024-01-11,A5 sistema completo (α* + re-pronóstico 40 %),2024-03-07,2024-03-15,2024-04-03,2024-03-15,0,True,0.0,0.0,0.0,84,False,,0.99
+M4 deriva del taller,20,2025-05-08,A0 como se hizo,2025-07-13,2025-07-13,2025-07-13,2025-07-13,0,True,0.0,0.0,0.0,67,False,,0.429
+M4 deriva del taller,20,2025-05-08,A1 DSS fecha α=0.80,2025-07-13,2025-07-13,2025-07-23,2025-07-13,0,True,0.0,0.0,0.0,77,False,,0.823
+M4 deriva del taller,20,2025-05-08,A2 DSS fecha α*,2025-07-13,2025-07-13,2025-07-30,2025-07-13,0,True,0.0,0.0,0.0,84,False,,0.939
+M4 deriva del taller,20,2025-05-08,A3 fecha original + gestión al inicio,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.38
+M4 deriva del taller,20,2025-05-08,A4 fecha original + re-pronóstico 40 %,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.24833333333333332
+M4 deriva del taller,20,2025-05-08,A5 sistema completo (α* + re-pronóstico 40 %),2025-07-13,2025-07-13,2025-07-30,2025-07-12,0,True,0.0,0.0,0.0,84,False,,0.92
+M4 deriva del taller,21,2025-09-20,A0 como se hizo,2025-12-11,2025-12-15,2025-12-11,2025-12-15,4,False,4.0,0.0,4.0,83,False,,0.083
+M4 deriva del taller,21,2025-09-20,A1 DSS fecha α=0.80,2025-12-11,2025-12-15,2026-01-09,2025-12-15,0,True,0.0,0.0,0.0,112,False,,0.805
+M4 deriva del taller,21,2025-09-20,A2 DSS fecha α*,2025-12-11,2025-12-15,2026-01-19,2025-12-15,0,True,0.0,0.0,0.0,122,False,,0.937
+M4 deriva del taller,21,2025-09-20,A3 fecha original + gestión al inicio,2025-12-11,2025-12-15,2025-12-11,2025-12-04,0,True,0.0,2.3734016635736346,2.3734016635736346,83,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.07166666666666667
+M4 deriva del taller,21,2025-09-20,A4 fecha original + re-pronóstico 40 %,2025-12-11,2025-12-15,2025-12-11,2025-12-05,0,True,0.0,2.177485702359634,2.177485702359634,83,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.035
+M4 deriva del taller,21,2025-09-20,A5 sistema completo (α* + re-pronóstico 40 %),2025-12-11,2025-12-15,2026-01-19,2025-12-15,0,True,0.0,0.0,0.0,122,False,,0.99
+M4 deriva del taller,22,2025-07-03,A0 como se hizo,2025-09-03,2025-09-07,2025-09-03,2025-09-07,4,False,4.0,0.0,4.0,63,False,,0.195
+M4 deriva del taller,22,2025-07-03,A1 DSS fecha α=0.80,2025-09-03,2025-09-07,2025-09-17,2025-09-07,0,True,0.0,0.0,0.0,77,False,,0.828
+M4 deriva del taller,22,2025-07-03,A2 DSS fecha α*,2025-09-03,2025-09-07,2025-09-22,2025-09-07,0,True,0.0,0.0,0.0,82,False,,0.928
+M4 deriva del taller,22,2025-07-03,A3 fecha original + gestión al inicio,2025-09-03,2025-09-07,2025-09-03,2025-09-01,0,True,0.0,2.362131478677795,2.362131478677795,63,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.19166666666666668
+M4 deriva del taller,22,2025-07-03,A4 fecha original + re-pronóstico 40 %,2025-09-03,2025-09-07,2025-09-03,2025-09-01,0,True,0.0,2.4116353418786565,2.4116353418786565,63,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.0033333333333333335
+M4 deriva del taller,22,2025-07-03,A5 sistema completo (α* + re-pronóstico 40 %),2025-09-03,2025-09-07,2025-09-22,2025-09-05,0,True,0.0,0.17149587272600172,0.17149587272600172,82,True,+2 persona(s) en Limpieza,0.7833333333333333
+M4 deriva del taller,23,2026-08-05,A0 como se hizo,2026-09-25,2026-09-25,2026-09-25,2026-09-25,0,True,0.0,0.0,0.0,52,False,,0.282
+M4 deriva del taller,23,2026-08-05,A1 DSS fecha α=0.80,2026-09-25,2026-09-25,2026-10-07,2026-09-25,0,True,0.0,0.0,0.0,64,False,,0.829
+M4 deriva del taller,23,2026-08-05,A2 DSS fecha α*,2026-09-25,2026-09-25,2026-10-12,2026-09-25,0,True,0.0,0.0,0.0,69,False,,0.94
+M4 deriva del taller,23,2026-08-05,A3 fecha original + gestión al inicio,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.1268270536818505,2.1268270536818505,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3
+M4 deriva del taller,23,2026-08-05,A4 fecha original + re-pronóstico 40 %,2026-09-25,2026-09-25,2026-09-25,2026-09-21,0,True,0.0,2.0,2.0,52,True,Expeditar Granallado y pintura (externo),0.28833333333333333
+M4 deriva del taller,23,2026-08-05,A5 sistema completo (α* + re-pronóstico 40 %),2026-09-25,2026-09-25,2026-10-12,2026-09-25,0,True,0.0,0.0,0.0,69,False,,0.96
+M4 deriva del taller,24,2026-02-17,A0 como se hizo,2026-05-15,2026-05-20,2026-05-15,2026-05-20,5,False,5.0,0.0,5.0,88,False,,0.285
+M4 deriva del taller,24,2026-02-17,A1 DSS fecha α=0.80,2026-05-15,2026-05-20,2026-06-02,2026-05-20,0,True,0.0,0.0,0.0,106,False,,0.812
+M4 deriva del taller,24,2026-02-17,A2 DSS fecha α*,2026-05-15,2026-05-20,2026-06-11,2026-05-20,0,True,0.0,0.0,0.0,115,False,,0.934
+M4 deriva del taller,24,2026-02-17,A3 fecha original + gestión al inicio,2026-05-15,2026-05-20,2026-05-15,2026-05-09,0,True,0.0,2.2098121045462786,2.2098121045462786,88,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.285
+M4 deriva del taller,24,2026-02-17,A4 fecha original + re-pronóstico 40 %,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.0,2.0,88,True,Expeditar Granallado y pintura (externo),0.44
+M4 deriva del taller,24,2026-02-17,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-15,2026-05-20,2026-06-11,2026-05-20,0,True,0.0,0.0,0.0,115,False,,0.99
+M4 deriva del taller,25,2026-03-25,A0 como se hizo,2026-05-18,2026-05-17,2026-05-18,2026-05-17,0,True,0.0,0.0,0.0,55,False,,0.238
+M4 deriva del taller,25,2026-03-25,A1 DSS fecha α=0.80,2026-05-18,2026-05-17,2026-05-30,2026-05-17,0,True,0.0,0.0,0.0,67,False,,0.833
+M4 deriva del taller,25,2026-03-25,A2 DSS fecha α*,2026-05-18,2026-05-17,2026-06-05,2026-05-17,0,True,0.0,0.0,0.0,73,False,,0.934
+M4 deriva del taller,25,2026-03-25,A3 fecha original + gestión al inicio,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.24666666666666667
+M4 deriva del taller,25,2026-03-25,A4 fecha original + re-pronóstico 40 %,2026-05-18,2026-05-17,2026-05-18,2026-05-11,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.25666666666666665
+M4 deriva del taller,25,2026-03-25,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-18,2026-05-17,2026-06-05,2026-05-16,0,True,0.0,0.0,0.0,73,False,,0.9566666666666667
+M5 disponibilidad baja,1,2021-02-20,A0 como se hizo,2021-05-13,2021-05-12,2021-05-13,2021-05-12,0,True,0.0,0.0,0.0,83,False,,0.113
+M5 disponibilidad baja,1,2021-02-20,A1 DSS fecha α=0.80,2021-05-13,2021-05-12,2021-06-05,2021-05-12,0,True,0.0,0.0,0.0,106,False,,0.802
+M5 disponibilidad baja,1,2021-02-20,A2 DSS fecha α*,2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.93
+M5 disponibilidad baja,1,2021-02-20,A3 fecha original + gestión al inicio,2021-05-13,2021-05-12,2021-05-13,2021-05-04,0,True,0.0,2.91136395246947,2.91136395246947,83,True,Segundo turno en Habilitado · sierra cinta + Expeditar Granallado y pintura (externo),0.105
+M5 disponibilidad baja,1,2021-02-20,A4 fecha original + re-pronóstico 40 %,2021-05-13,2021-05-12,2021-05-13,2021-05-04,0,True,0.0,2.0,2.0,83,True,Expeditar Granallado y pintura (externo),0.285
+M5 disponibilidad baja,1,2021-02-20,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-13,2021-05-12,2021-06-12,2021-05-12,0,True,0.0,0.0,0.0,113,False,,0.9733333333333334
+M5 disponibilidad baja,2,2021-02-19,A0 como se hizo,2021-05-10,2021-05-10,2021-05-10,2021-05-10,0,True,0.0,0.0,0.0,81,False,,0.239
+M5 disponibilidad baja,2,2021-02-19,A1 DSS fecha α=0.80,2021-05-10,2021-05-10,2021-05-25,2021-05-10,0,True,0.0,0.0,0.0,96,False,,0.824
+M5 disponibilidad baja,2,2021-02-19,A2 DSS fecha α*,2021-05-10,2021-05-10,2021-06-01,2021-05-10,0,True,0.0,0.0,0.0,103,False,,0.934
+M5 disponibilidad baja,2,2021-02-19,A3 fecha original + gestión al inicio,2021-05-10,2021-05-10,2021-05-10,2021-04-30,0,True,0.0,2.2680188724759267,2.2680188724759267,81,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.2783333333333333
+M5 disponibilidad baja,2,2021-02-19,A4 fecha original + re-pronóstico 40 %,2021-05-10,2021-05-10,2021-05-10,2021-05-01,0,True,0.0,2.127974805927475,2.127974805927475,81,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.21333333333333335
+M5 disponibilidad baja,2,2021-02-19,A5 sistema completo (α* + re-pronóstico 40 %),2021-05-10,2021-05-10,2021-06-01,2021-05-10,0,True,0.0,0.0,0.0,103,False,,0.955
+M5 disponibilidad baja,3,2021-09-04,A0 como se hizo,2021-11-17,2021-11-16,2021-11-17,2021-11-16,0,True,0.0,0.0,0.0,75,False,,0.425
+M5 disponibilidad baja,3,2021-09-04,A1 DSS fecha α=0.80,2021-11-17,2021-11-16,2021-11-26,2021-11-16,0,True,0.0,0.0,0.0,84,False,,0.808
+M5 disponibilidad baja,3,2021-09-04,A2 DSS fecha α*,2021-11-17,2021-11-16,2021-12-03,2021-11-16,0,True,0.0,0.0,0.0,91,False,,0.938
+M5 disponibilidad baja,3,2021-09-04,A3 fecha original + gestión al inicio,2021-11-17,2021-11-16,2021-11-17,2021-11-10,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.38166666666666665
+M5 disponibilidad baja,3,2021-09-04,A4 fecha original + re-pronóstico 40 %,2021-11-17,2021-11-16,2021-11-17,2021-11-10,0,True,0.0,2.1429191476497307,2.1429191476497307,75,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.12666666666666668
+M5 disponibilidad baja,3,2021-09-04,A5 sistema completo (α* + re-pronóstico 40 %),2021-11-17,2021-11-16,2021-12-03,2021-11-15,0,True,0.0,0.14291914764973074,0.14291914764973074,91,True,+2 persona(s) en Limpieza,0.8533333333333334
+M5 disponibilidad baja,4,2022-02-02,A0 como se hizo,2022-04-06,2022-04-06,2022-04-06,2022-04-06,0,True,0.0,0.0,0.0,64,False,,0.241
+M5 disponibilidad baja,4,2022-02-02,A1 DSS fecha α=0.80,2022-04-06,2022-04-06,2022-04-19,2022-04-06,0,True,0.0,0.0,0.0,77,False,,0.807
+M5 disponibilidad baja,4,2022-02-02,A2 DSS fecha α*,2022-04-06,2022-04-06,2022-04-25,2022-04-06,0,True,0.0,0.0,0.0,83,False,,0.93
+M5 disponibilidad baja,4,2022-02-02,A3 fecha original + gestión al inicio,2022-04-06,2022-04-06,2022-04-06,2022-04-01,0,True,0.0,2.073986181223012,2.073986181223012,64,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.21166666666666667
+M5 disponibilidad baja,4,2022-02-02,A4 fecha original + re-pronóstico 40 %,2022-04-06,2022-04-06,2022-04-06,2022-04-01,0,True,0.0,2.1739876438071923,2.1739876438071923,64,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.07
+M5 disponibilidad baja,4,2022-02-02,A5 sistema completo (α* + re-pronóstico 40 %),2022-04-06,2022-04-06,2022-04-25,2022-04-06,0,True,0.0,0.0,0.0,83,False,,0.8633333333333333
+M5 disponibilidad baja,5,2022-01-03,A0 como se hizo,2022-03-15,2022-03-15,2022-03-15,2022-03-15,0,True,0.0,0.0,0.0,72,False,,0.328
+M5 disponibilidad baja,5,2022-01-03,A1 DSS fecha α=0.80,2022-03-15,2022-03-15,2022-03-26,2022-03-15,0,True,0.0,0.0,0.0,83,False,,0.802
+M5 disponibilidad baja,5,2022-01-03,A2 DSS fecha α*,2022-03-15,2022-03-15,2022-04-02,2022-03-15,0,True,0.0,0.0,0.0,90,False,,0.933
+M5 disponibilidad baja,5,2022-01-03,A3 fecha original + gestión al inicio,2022-03-15,2022-03-15,2022-03-15,2022-03-09,0,True,0.0,2.063226752958913,2.063226752958913,72,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.35833333333333334
+M5 disponibilidad baja,5,2022-01-03,A4 fecha original + re-pronóstico 40 %,2022-03-15,2022-03-15,2022-03-15,2022-03-09,0,True,0.0,2.063226752958913,2.063226752958913,72,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.135
+M5 disponibilidad baja,5,2022-01-03,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-15,2022-03-15,2022-04-02,2022-03-15,0,True,0.0,0.0,0.0,90,False,,0.8583333333333333
+M5 disponibilidad baja,6,2022-01-07,A0 como se hizo,2022-03-08,2022-03-13,2022-03-08,2022-03-13,5,False,5.0,0.0,5.0,61,False,,0.053
+M5 disponibilidad baja,6,2022-01-07,A1 DSS fecha α=0.80,2022-03-08,2022-03-13,2022-03-24,2022-03-13,0,True,0.0,0.0,0.0,77,False,,0.817
+M5 disponibilidad baja,6,2022-01-07,A2 DSS fecha α*,2022-03-08,2022-03-13,2022-03-30,2022-03-13,0,True,0.0,0.0,0.0,83,False,,0.939
+M5 disponibilidad baja,6,2022-01-07,A3 fecha original + gestión al inicio,2022-03-08,2022-03-13,2022-03-08,2022-03-05,0,True,0.0,2.4705472426904453,2.4705472426904453,61,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.043333333333333335
+M5 disponibilidad baja,6,2022-01-07,A4 fecha original + re-pronóstico 40 %,2022-03-08,2022-03-13,2022-03-08,2022-03-05,0,True,0.0,2.5153260270990123,2.5153260270990123,61,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.0016666666666666668
+M5 disponibilidad baja,6,2022-01-07,A5 sistema completo (α* + re-pronóstico 40 %),2022-03-08,2022-03-13,2022-03-30,2022-03-11,0,True,0.0,0.11229029803238415,0.11229029803238415,83,True,+1 persona(s) en Limpieza,0.8283333333333334
+M5 disponibilidad baja,7,2022-03-22,A0 como se hizo,2022-05-21,2022-05-21,2022-05-21,2022-05-21,0,True,0.0,0.0,0.0,61,False,,0.364
+M5 disponibilidad baja,7,2022-03-22,A1 DSS fecha α=0.80,2022-05-21,2022-05-21,2022-05-31,2022-05-21,0,True,0.0,0.0,0.0,71,False,,0.813
+M5 disponibilidad baja,7,2022-03-22,A2 DSS fecha α*,2022-05-21,2022-05-21,2022-06-06,2022-05-21,0,True,0.0,0.0,0.0,77,False,,0.939
+M5 disponibilidad baja,7,2022-03-22,A3 fecha original + gestión al inicio,2022-05-21,2022-05-21,2022-05-21,2022-05-17,0,True,0.0,2.135097173386355,2.135097173386355,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.385
+M5 disponibilidad baja,7,2022-03-22,A4 fecha original + re-pronóstico 40 %,2022-05-21,2022-05-21,2022-05-21,2022-05-17,0,True,0.0,2.135097173386355,2.135097173386355,61,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.10166666666666667
+M5 disponibilidad baja,7,2022-03-22,A5 sistema completo (α* + re-pronóstico 40 %),2022-05-21,2022-05-21,2022-06-06,2022-05-21,0,True,0.0,0.0,0.0,77,False,,0.8366666666666667
+M5 disponibilidad baja,8,2023-02-14,A0 como se hizo,2023-04-24,2023-04-22,2023-04-24,2023-04-22,0,True,0.0,0.0,0.0,70,False,,0.149
+M5 disponibilidad baja,8,2023-02-14,A1 DSS fecha α=0.80,2023-04-24,2023-04-22,2023-05-11,2023-04-22,0,True,0.0,0.0,0.0,87,False,,0.816
+M5 disponibilidad baja,8,2023-02-14,A2 DSS fecha α*,2023-04-24,2023-04-22,2023-05-17,2023-04-22,0,True,0.0,0.0,0.0,93,False,,0.927
+M5 disponibilidad baja,8,2023-02-14,A3 fecha original + gestión al inicio,2023-04-24,2023-04-22,2023-04-24,2023-04-14,0,True,0.0,2.286599465975802,2.286599465975802,70,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.14333333333333334
+M5 disponibilidad baja,8,2023-02-14,A4 fecha original + re-pronóstico 40 %,2023-04-24,2023-04-22,2023-04-24,2023-04-15,0,True,0.0,2.1399000333232885,2.1399000333232885,70,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.27
+M5 disponibilidad baja,8,2023-02-14,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-24,2023-04-22,2023-05-17,2023-04-22,0,True,0.0,0.0,0.0,93,False,,0.99
+M5 disponibilidad baja,9,2023-05-18,A0 como se hizo,2023-07-18,2023-07-16,2023-07-18,2023-07-16,0,True,0.0,0.0,0.0,62,False,,0.398
+M5 disponibilidad baja,9,2023-05-18,A1 DSS fecha α=0.80,2023-07-18,2023-07-16,2023-07-27,2023-07-16,0,True,0.0,0.0,0.0,71,False,,0.822
+M5 disponibilidad baja,9,2023-05-18,A2 DSS fecha α*,2023-07-18,2023-07-16,2023-08-01,2023-07-16,0,True,0.0,0.0,0.0,76,False,,0.929
+M5 disponibilidad baja,9,2023-05-18,A3 fecha original + gestión al inicio,2023-07-18,2023-07-16,2023-07-18,2023-07-11,0,True,0.0,2.127384232693802,2.127384232693802,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.42333333333333334
+M5 disponibilidad baja,9,2023-05-18,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-16,2023-07-18,2023-07-11,0,True,0.0,2.127384232693802,2.127384232693802,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.415
+M5 disponibilidad baja,9,2023-05-18,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-16,2023-08-01,2023-07-15,0,True,0.0,0.0,0.0,76,False,,0.96
+M5 disponibilidad baja,10,2023-08-11,A0 como se hizo,2023-10-01,2023-10-01,2023-10-01,2023-10-01,0,True,0.0,0.0,0.0,52,False,,0.22
+M5 disponibilidad baja,10,2023-08-11,A1 DSS fecha α=0.80,2023-10-01,2023-10-01,2023-10-11,2023-10-01,0,True,0.0,0.0,0.0,62,False,,0.808
+M5 disponibilidad baja,10,2023-08-11,A2 DSS fecha α*,2023-10-01,2023-10-01,2023-10-16,2023-10-01,0,True,0.0,0.0,0.0,67,False,,0.938
+M5 disponibilidad baja,10,2023-08-11,A3 fecha original + gestión al inicio,2023-10-01,2023-10-01,2023-10-01,2023-09-25,0,True,0.0,2.3822153100655568,2.3822153100655568,52,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.24
+M5 disponibilidad baja,10,2023-08-11,A4 fecha original + re-pronóstico 40 %,2023-10-01,2023-10-01,2023-10-01,2023-09-25,0,True,0.0,2.179770024622087,2.179770024622087,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.21
+M5 disponibilidad baja,10,2023-08-11,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-01,2023-10-01,2023-10-16,2023-09-30,0,True,0.0,0.0,0.0,67,False,,0.9583333333333334
+M5 disponibilidad baja,11,2023-06-02,A0 como se hizo,2023-07-18,2023-07-18,2023-07-18,2023-07-18,0,True,0.0,0.0,0.0,47,False,,0.251
+M5 disponibilidad baja,11,2023-06-02,A1 DSS fecha α=0.80,2023-07-18,2023-07-18,2023-07-26,2023-07-18,0,True,0.0,0.0,0.0,55,False,,0.803
+M5 disponibilidad baja,11,2023-06-02,A2 DSS fecha α*,2023-07-18,2023-07-18,2023-07-31,2023-07-18,0,True,0.0,0.0,0.0,60,False,,0.945
+M5 disponibilidad baja,11,2023-06-02,A3 fecha original + gestión al inicio,2023-07-18,2023-07-18,2023-07-18,2023-07-13,0,True,0.0,2.2722097853390846,2.2722097853390846,47,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.24666666666666667
+M5 disponibilidad baja,11,2023-06-02,A4 fecha original + re-pronóstico 40 %,2023-07-18,2023-07-18,2023-07-18,2023-07-13,0,True,0.0,2.2722097853390846,2.2722097853390846,47,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.2
+M5 disponibilidad baja,11,2023-06-02,A5 sistema completo (α* + re-pronóstico 40 %),2023-07-18,2023-07-18,2023-07-31,2023-07-18,0,True,0.0,0.0,0.0,60,False,,0.975
+M5 disponibilidad baja,12,2023-08-13,A0 como se hizo,2023-10-17,2023-10-21,2023-10-17,2023-10-21,4,False,4.0,0.0,4.0,66,False,,0.042
+M5 disponibilidad baja,12,2023-08-13,A1 DSS fecha α=0.80,2023-10-17,2023-10-21,2023-11-08,2023-10-21,0,True,0.0,0.0,0.0,88,False,,0.811
+M5 disponibilidad baja,12,2023-08-13,A2 DSS fecha α*,2023-10-17,2023-10-21,2023-11-14,2023-10-21,0,True,0.0,0.0,0.0,94,False,,0.935
+M5 disponibilidad baja,12,2023-08-13,A3 fecha original + gestión al inicio,2023-10-17,2023-10-21,2023-10-17,2023-10-14,0,True,0.0,3.277703665901047,3.277703665901047,66,True,Segundo turno en Habilitado · sierra cinta + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.05
+M5 disponibilidad baja,12,2023-08-13,A4 fecha original + re-pronóstico 40 %,2023-10-17,2023-10-21,2023-10-17,2023-10-16,0,True,0.0,2.414782220446903,2.414782220446903,66,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.011666666666666667
+M5 disponibilidad baja,12,2023-08-13,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-17,2023-10-21,2023-11-14,2023-10-21,0,True,0.0,0.0,0.0,94,False,,0.96
+M5 disponibilidad baja,13,2023-02-03,A0 como se hizo,2023-04-09,2023-04-07,2023-04-09,2023-04-07,0,True,0.0,0.0,0.0,66,False,,0.232
+M5 disponibilidad baja,13,2023-02-03,A1 DSS fecha α=0.80,2023-04-09,2023-04-07,2023-04-21,2023-04-07,0,True,0.0,0.0,0.0,78,False,,0.817
+M5 disponibilidad baja,13,2023-02-03,A2 DSS fecha α*,2023-04-09,2023-04-07,2023-04-26,2023-04-07,0,True,0.0,0.0,0.0,83,False,,0.931
+M5 disponibilidad baja,13,2023-02-03,A3 fecha original + gestión al inicio,2023-04-09,2023-04-07,2023-04-09,2023-03-31,0,True,0.0,2.212552597436629,2.212552597436629,66,True,+1 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.28833333333333333
+M5 disponibilidad baja,13,2023-02-03,A4 fecha original + re-pronóstico 40 %,2023-04-09,2023-04-07,2023-04-09,2023-03-31,0,True,0.0,2.1348845927939273,2.1348845927939273,66,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.34833333333333333
+M5 disponibilidad baja,13,2023-02-03,A5 sistema completo (α* + re-pronóstico 40 %),2023-04-09,2023-04-07,2023-04-26,2023-04-07,0,True,0.0,0.0,0.0,83,False,,0.9716666666666667
+M5 disponibilidad baja,14,2023-08-04,A0 como se hizo,2023-10-04,2023-10-04,2023-10-04,2023-10-04,0,True,0.0,0.0,0.0,62,False,,0.302
+M5 disponibilidad baja,14,2023-08-04,A1 DSS fecha α=0.80,2023-10-04,2023-10-04,2023-10-16,2023-10-04,0,True,0.0,0.0,0.0,74,False,,0.818
+M5 disponibilidad baja,14,2023-08-04,A2 DSS fecha α*,2023-10-04,2023-10-04,2023-10-21,2023-10-04,0,True,0.0,0.0,0.0,79,False,,0.936
+M5 disponibilidad baja,14,2023-08-04,A3 fecha original + gestión al inicio,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.139199449779628,2.139199449779628,62,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.31666666666666665
+M5 disponibilidad baja,14,2023-08-04,A4 fecha original + re-pronóstico 40 %,2023-10-04,2023-10-04,2023-10-04,2023-09-28,0,True,0.0,2.0,2.0,62,True,Expeditar Granallado y pintura (externo),0.37666666666666665
+M5 disponibilidad baja,14,2023-08-04,A5 sistema completo (α* + re-pronóstico 40 %),2023-10-04,2023-10-04,2023-10-21,2023-10-04,0,True,0.0,0.0,0.0,79,False,,0.9616666666666667
+M5 disponibilidad baja,15,2023-09-23,A0 como se hizo,2023-12-07,2023-12-05,2023-12-07,2023-12-05,0,True,0.0,0.0,0.0,76,False,,0.428
+M5 disponibilidad baja,15,2023-09-23,A1 DSS fecha α=0.80,2023-12-07,2023-12-05,2023-12-18,2023-12-05,0,True,0.0,0.0,0.0,87,False,,0.83
+M5 disponibilidad baja,15,2023-09-23,A2 DSS fecha α*,2023-12-07,2023-12-05,2023-12-23,2023-12-05,0,True,0.0,0.0,0.0,92,False,,0.931
+M5 disponibilidad baja,15,2023-09-23,A3 fecha original + gestión al inicio,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.147539596850306,2.147539596850306,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.4116666666666667
+M5 disponibilidad baja,15,2023-09-23,A4 fecha original + re-pronóstico 40 %,2023-12-07,2023-12-05,2023-12-07,2023-11-28,0,True,0.0,2.147539596850306,2.147539596850306,76,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3233333333333333
+M5 disponibilidad baja,15,2023-09-23,A5 sistema completo (α* + re-pronóstico 40 %),2023-12-07,2023-12-05,2023-12-23,2023-12-05,0,True,0.0,0.0,0.0,92,False,,0.9383333333333334
+M5 disponibilidad baja,16,2024-06-09,A0 como se hizo,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.0,0.0,57,False,,0.533
+M5 disponibilidad baja,16,2024-06-09,A1 DSS fecha α=0.80,2024-08-04,2024-08-02,2024-08-10,2024-08-02,0,True,0.0,0.0,0.0,63,False,,0.846
+M5 disponibilidad baja,16,2024-06-09,A2 DSS fecha α*,2024-08-04,2024-08-02,2024-08-14,2024-08-02,0,True,0.0,0.0,0.0,67,False,,0.933
+M5 disponibilidad baja,16,2024-06-09,A3 fecha original + gestión al inicio,2024-08-04,2024-08-02,2024-08-04,2024-08-01,0,True,0.0,0.20585289932096035,0.20585289932096035,57,True,+1 persona(s) en Armado + +2 persona(s) en Limpieza,0.5716666666666667
+M5 disponibilidad baja,16,2024-06-09,A4 fecha original + re-pronóstico 40 %,2024-08-04,2024-08-02,2024-08-04,2024-08-02,0,True,0.0,0.13341098026087855,0.13341098026087855,57,True,+2 persona(s) en Limpieza,0.565
+M5 disponibilidad baja,16,2024-06-09,A5 sistema completo (α* + re-pronóstico 40 %),2024-08-04,2024-08-02,2024-08-14,2024-08-02,0,True,0.0,0.0,0.0,67,False,,0.96
+M5 disponibilidad baja,17,2024-04-10,A0 como se hizo,2024-06-06,2024-06-06,2024-06-06,2024-06-06,0,True,0.0,0.0,0.0,58,False,,0.338
+M5 disponibilidad baja,17,2024-04-10,A1 DSS fecha α=0.80,2024-06-06,2024-06-06,2024-06-15,2024-06-06,0,True,0.0,0.0,0.0,67,False,,0.829
+M5 disponibilidad baja,17,2024-04-10,A2 DSS fecha α*,2024-06-06,2024-06-06,2024-06-20,2024-06-06,0,True,0.0,0.0,0.0,72,False,,0.941
+M5 disponibilidad baja,17,2024-04-10,A3 fecha original + gestión al inicio,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.190995086924514,2.190995086924514,58,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.35
+M5 disponibilidad baja,17,2024-04-10,A4 fecha original + re-pronóstico 40 %,2024-06-06,2024-06-06,2024-06-06,2024-05-31,0,True,0.0,2.486221730900448,2.486221730900448,58,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.08833333333333333
+M5 disponibilidad baja,17,2024-04-10,A5 sistema completo (α* + re-pronóstico 40 %),2024-06-06,2024-06-06,2024-06-20,2024-06-05,0,True,0.0,0.10914004967115068,0.10914004967115068,72,True,+1 persona(s) en Limpieza,0.8516666666666667
+M5 disponibilidad baja,18,2024-08-03,A0 como se hizo,2024-10-28,2024-10-26,2024-10-28,2024-10-26,0,True,0.0,0.0,0.0,87,False,,0.405
+M5 disponibilidad baja,18,2024-08-03,A1 DSS fecha α=0.80,2024-10-28,2024-10-26,2024-11-08,2024-10-26,0,True,0.0,0.0,0.0,98,False,,0.803
+M5 disponibilidad baja,18,2024-08-03,A2 DSS fecha α*,2024-10-28,2024-10-26,2024-11-16,2024-10-26,0,True,0.0,0.0,0.0,106,False,,0.93
+M5 disponibilidad baja,18,2024-08-03,A3 fecha original + gestión al inicio,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.141910864274238,2.141910864274238,87,True,+1 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.38
+M5 disponibilidad baja,18,2024-08-03,A4 fecha original + re-pronóstico 40 %,2024-10-28,2024-10-26,2024-10-28,2024-10-18,0,True,0.0,2.0919119454189974,2.0919119454189974,87,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.37166666666666665
+M5 disponibilidad baja,18,2024-08-03,A5 sistema completo (α* + re-pronóstico 40 %),2024-10-28,2024-10-26,2024-11-16,2024-10-26,0,True,0.0,0.0,0.0,106,False,,0.9483333333333334
+M5 disponibilidad baja,19,2024-01-11,A0 como se hizo,2024-03-07,2024-03-15,2024-03-07,2024-03-15,8,False,8.0,0.0,8.0,57,False,,0.073
+M5 disponibilidad baja,19,2024-01-11,A1 DSS fecha α=0.80,2024-03-07,2024-03-15,2024-03-25,2024-03-15,0,True,0.0,0.0,0.0,75,False,,0.823
+M5 disponibilidad baja,19,2024-01-11,A2 DSS fecha α*,2024-03-07,2024-03-15,2024-03-29,2024-03-15,0,True,0.0,0.0,0.0,79,False,,0.934
+M5 disponibilidad baja,19,2024-01-11,A3 fecha original + gestión al inicio,2024-03-07,2024-03-15,2024-03-07,2024-03-06,0,True,0.0,2.5374942180471654,2.5374942180471654,57,True,+2 persona(s) en Soldeo + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.07333333333333333
+M5 disponibilidad baja,19,2024-01-11,A4 fecha original + re-pronóstico 40 %,2024-03-07,2024-03-15,2024-03-07,2024-03-07,0,True,0.0,2.2194560636185914,2.2194560636185914,57,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.08833333333333333
+M5 disponibilidad baja,19,2024-01-11,A5 sistema completo (α* + re-pronóstico 40 %),2024-03-07,2024-03-15,2024-03-29,2024-03-15,0,True,0.0,0.0,0.0,79,False,,0.9833333333333333
+M5 disponibilidad baja,20,2025-05-08,A0 como se hizo,2025-07-13,2025-07-13,2025-07-13,2025-07-13,0,True,0.0,0.0,0.0,67,False,,0.248
+M5 disponibilidad baja,20,2025-05-08,A1 DSS fecha α=0.80,2025-07-13,2025-07-13,2025-07-26,2025-07-13,0,True,0.0,0.0,0.0,80,False,,0.813
+M5 disponibilidad baja,20,2025-05-08,A2 DSS fecha α*,2025-07-13,2025-07-13,2025-08-02,2025-07-13,0,True,0.0,0.0,0.0,87,False,,0.933
+M5 disponibilidad baja,20,2025-05-08,A3 fecha original + gestión al inicio,2025-07-13,2025-07-13,2025-07-13,2025-07-04,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.185
+M5 disponibilidad baja,20,2025-05-08,A4 fecha original + re-pronóstico 40 %,2025-07-13,2025-07-13,2025-07-13,2025-07-05,0,True,0.0,2.0,2.0,67,True,Expeditar Granallado y pintura (externo),0.5033333333333333
+M5 disponibilidad baja,20,2025-05-08,A5 sistema completo (α* + re-pronóstico 40 %),2025-07-13,2025-07-13,2025-08-02,2025-07-12,0,True,0.0,0.0,0.0,87,False,,0.9866666666666667
+M5 disponibilidad baja,21,2025-09-20,A0 como se hizo,2025-12-11,2025-12-15,2025-12-11,2025-12-15,4,False,4.0,0.0,4.0,83,False,,0.155
+M5 disponibilidad baja,21,2025-09-20,A1 DSS fecha α=0.80,2025-12-11,2025-12-15,2025-12-31,2025-12-15,0,True,0.0,0.0,0.0,103,False,,0.816
+M5 disponibilidad baja,21,2025-09-20,A2 DSS fecha α*,2025-12-11,2025-12-15,2026-01-08,2025-12-15,0,True,0.0,0.0,0.0,111,False,,0.935
+M5 disponibilidad baja,21,2025-09-20,A3 fecha original + gestión al inicio,2025-12-11,2025-12-15,2025-12-11,2025-12-05,0,True,0.0,2.306102832340866,2.306102832340866,83,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.12833333333333333
+M5 disponibilidad baja,21,2025-09-20,A4 fecha original + re-pronóstico 40 %,2025-12-11,2025-12-15,2025-12-11,2025-12-06,0,True,0.0,2.145896797043834,2.145896797043834,83,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.135
+M5 disponibilidad baja,21,2025-09-20,A5 sistema completo (α* + re-pronóstico 40 %),2025-12-11,2025-12-15,2026-01-08,2025-12-15,0,True,0.0,0.0,0.0,111,False,,0.9733333333333334
+M5 disponibilidad baja,22,2025-07-03,A0 como se hizo,2025-09-03,2025-09-07,2025-09-03,2025-09-07,4,False,4.0,0.0,4.0,63,False,,0.315
+M5 disponibilidad baja,22,2025-07-03,A1 DSS fecha α=0.80,2025-09-03,2025-09-07,2025-09-15,2025-09-07,0,True,0.0,0.0,0.0,75,False,,0.825
+M5 disponibilidad baja,22,2025-07-03,A2 DSS fecha α*,2025-09-03,2025-09-07,2025-09-19,2025-09-07,0,True,0.0,0.0,0.0,79,False,,0.933
+M5 disponibilidad baja,22,2025-07-03,A3 fecha original + gestión al inicio,2025-09-03,2025-09-07,2025-09-03,2025-08-30,0,True,0.0,2.149426340200214,2.149426340200214,63,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.3016666666666667
+M5 disponibilidad baja,22,2025-07-03,A4 fecha original + re-pronóstico 40 %,2025-09-03,2025-09-07,2025-09-03,2025-09-01,0,True,0.0,2.0,2.0,63,True,Expeditar Granallado y pintura (externo),0.37333333333333335
+M5 disponibilidad baja,22,2025-07-03,A5 sistema completo (α* + re-pronóstico 40 %),2025-09-03,2025-09-07,2025-09-19,2025-09-06,0,True,0.0,0.0,0.0,79,False,,0.975
+M5 disponibilidad baja,23,2026-08-05,A0 como se hizo,2026-09-25,2026-09-25,2026-09-25,2026-09-25,0,True,0.0,0.0,0.0,52,False,,0.239
+M5 disponibilidad baja,23,2026-08-05,A1 DSS fecha α=0.80,2026-09-25,2026-09-25,2026-10-07,2026-09-25,0,True,0.0,0.0,0.0,64,False,,0.8
+M5 disponibilidad baja,23,2026-08-05,A2 DSS fecha α*,2026-09-25,2026-09-25,2026-10-13,2026-09-25,0,True,0.0,0.0,0.0,70,False,,0.942
+M5 disponibilidad baja,23,2026-08-05,A3 fecha original + gestión al inicio,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.1227783911788705,2.1227783911788705,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.26666666666666666
+M5 disponibilidad baja,23,2026-08-05,A4 fecha original + re-pronóstico 40 %,2026-09-25,2026-09-25,2026-09-25,2026-09-19,0,True,0.0,2.1227783911788705,2.1227783911788705,52,True,+2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.095
+M5 disponibilidad baja,23,2026-08-05,A5 sistema completo (α* + re-pronóstico 40 %),2026-09-25,2026-09-25,2026-10-13,2026-09-25,0,True,0.0,0.0,0.0,70,False,,0.9333333333333333
+M5 disponibilidad baja,24,2026-02-17,A0 como se hizo,2026-05-15,2026-05-20,2026-05-15,2026-05-20,5,False,5.0,0.0,5.0,88,False,,0.306
+M5 disponibilidad baja,24,2026-02-17,A1 DSS fecha α=0.80,2026-05-15,2026-05-20,2026-05-30,2026-05-20,0,True,0.0,0.0,0.0,103,False,,0.827
+M5 disponibilidad baja,24,2026-02-17,A2 DSS fecha α*,2026-05-15,2026-05-20,2026-06-05,2026-05-20,0,True,0.0,0.0,0.0,109,False,,0.93
+M5 disponibilidad baja,24,2026-02-17,A3 fecha original + gestión al inicio,2026-05-15,2026-05-20,2026-05-15,2026-05-08,0,True,0.0,2.182632083815356,2.182632083815356,88,True,+2 persona(s) en Armado + +2 persona(s) en Limpieza + Expeditar Granallado y pintura (externo),0.325
+M5 disponibilidad baja,24,2026-02-17,A4 fecha original + re-pronóstico 40 %,2026-05-15,2026-05-20,2026-05-15,2026-05-11,0,True,0.0,2.0,2.0,88,True,Expeditar Granallado y pintura (externo),0.5683333333333334
+M5 disponibilidad baja,24,2026-02-17,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-15,2026-05-20,2026-06-05,2026-05-20,0,True,0.0,0.0,0.0,109,False,,0.9866666666666667
+M5 disponibilidad baja,25,2026-03-25,A0 como se hizo,2026-05-18,2026-05-17,2026-05-18,2026-05-17,0,True,0.0,0.0,0.0,55,False,,0.128
+M5 disponibilidad baja,25,2026-03-25,A1 DSS fecha α=0.80,2026-05-18,2026-05-17,2026-06-02,2026-05-17,0,True,0.0,0.0,0.0,70,False,,0.811
+M5 disponibilidad baja,25,2026-03-25,A2 DSS fecha α*,2026-05-18,2026-05-17,2026-06-09,2026-05-17,0,True,0.0,0.0,0.0,77,False,,0.937
+M5 disponibilidad baja,25,2026-03-25,A3 fecha original + gestión al inicio,2026-05-18,2026-05-17,2026-05-18,2026-05-12,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.14666666666666667
+M5 disponibilidad baja,25,2026-03-25,A4 fecha original + re-pronóstico 40 %,2026-05-18,2026-05-17,2026-05-18,2026-05-12,0,True,0.0,2.0,2.0,55,True,Expeditar Granallado y pintura (externo),0.10166666666666667
+M5 disponibilidad baja,25,2026-03-25,A5 sistema completo (α* + re-pronóstico 40 %),2026-05-18,2026-05-17,2026-06-09,2026-05-16,0,True,0.0,0.0,0.0,77,False,,0.9566666666666667

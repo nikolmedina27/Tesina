@@ -35,3 +35,20 @@ def test_replicas_independientes():
     o = programar(hh, CREW, np.ones((300, 4)), np.vstack([EXT, EXT]), lam=LAM_DEFECTO)
     assert o['fin'][1] > o['fin'][0]
     assert o['fin'][0] == fin()
+
+
+def test_avance_inicial_adelanta_y_cero_equivale_a_nada():
+    hecho = np.zeros(N_PROC); hecho[:8] = 1.0                       # todo hasta el armado ya terminó
+    base = fin()
+    desde_avance = programar(HH, CREW, np.ones((300, 4)), EXT, lam=LAM_DEFECTO, avance0=hecho)['fin'][0]
+    assert desde_avance < base
+    cero = programar(HH, CREW, np.ones((300, 4)), EXT, lam=LAM_DEFECTO, avance0=np.zeros(N_PROC))['fin'][0]
+    assert cero == base
+    # lo que queda por hacer: soldeo + limpieza + despacho + pintura externa, sin esperas artificiales por lo ya hecho
+    resto = HH.copy(); resto[0, :8] = 1e-6
+    assert desde_avance <= programar(resto, CREW, np.ones((300, 4)), EXT, lam=LAM_DEFECTO)['fin'][0]
+
+
+def test_proyecto_ya_terminado_tiene_fin_cero():
+    o = programar(HH, CREW, np.ones((300, 4)), EXT, lam=LAM_DEFECTO, avance0=np.ones(N_PROC))
+    assert o['fin'][0] == 0

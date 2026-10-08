@@ -136,10 +136,10 @@ class Cotizador:
         self.carga = CargaTaller(con, self.dias_cal)
 
     def cotizar(self, proy, R=1000, alpha=0.8, mtbf=MTBF_DEFECTO, semilla=1, lam=LAM_DEFECTO, carga_extra=0.0,
-                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None):
+                sin_disponibilidad=False, sin_carga=False, rho=None, restante=None, mult=None, mult_desde=0):
         """`sin_disponibilidad`, `sin_carga` y `rho` (valor fijo) son para las ablaciones del experimento 4.
         `restante` (13,): fracción de trabajo que falta por proceso (re-pronóstico de un proyecto en curso,
-        con `proy.inicio` = hoy)."""
+        con `proy.inicio` = hoy). `mult` (13,) son las palancas de gestión del what-if (ver dss/whatif.py)."""
         rng = np.random.default_rng(semilla)
         hh_ratio = proy.ton * self.rv.loc[proy.tipo].values
         crew = proy.cuadrilla if proy.cuadrilla is not None else cuadrilla(self.par_cuad, proy.ton)
@@ -147,18 +147,15 @@ class Cotizador:
         phi = muestrear_phi(q_phi, rho_est if rho is None else rho, R, rng)
         hh = hh_ratio * phi
         ext_base = proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton)
-        if restante is not None:
-            restante = np.clip(np.asarray(restante, float), 0.0, 1.0)
-            hh = hh * np.maximum(restante, 1e-6)
-            ext_base = ext_base * np.maximum(restante[[6, 11]], 0.05)
+        avance0 = None if restante is None else 1.0 - np.clip(np.asarray(restante, float), 0.0, 1.0)
         ext = ext_base * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
         u = np.minimum(self.carga.u(proy.inicio, excluir=proy.id, T=T_DIAS) + carga_extra, 0.9)
         if sin_carga:
             u = np.zeros_like(u)
         d = np.ones((R, T_DIAS, 4)) if sin_disponibilidad else muestrear_disp(R, T_DIAS, mtbf, rng)
         disp = CargaTaller.efectiva(d, u[None])
-        o = programar(hh, crew, disp, ext, lam=lam)
-        n = np.nan_to_num(o['fin'], nan=T_DIAS).astype(int)
+        o = programar(hh, crew, disp, ext, lam=lam, mult=mult, mult_desde=mult_desde, avance0=avance0)
+        n = np.maximum(np.nan_to_num(o['fin'], nan=T_DIAS).astype(int), 1)
         base = np.busday_offset(np.datetime64(proy.inicio, 'D'), 0, roll='forward', weekmask=WEEKMASK)
         fechas = np.busday_offset(base, n - 1, weekmask=WEEKMASK)
         res = Resultado(proy, base, fechas, n, hh, alpha)

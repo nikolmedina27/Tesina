@@ -19,6 +19,7 @@ const P = {
   proyectos: '<path d="M3 7h6l2 2h10v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M3 7V5a1 1 0 0 1 1-1h5l2 2"/>',
   gantt: '<path d="M4 4v16h16"/><rect x="7" y="6" width="7" height="3" rx="1"/><rect x="10" y="11" width="8" height="3" rx="1"/><rect x="8" y="16" width="5" height="3" rx="1"/>',
   cotizador: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"/>',
+  planta3d: '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>',
   planta: '<path d="M3 21V10l6 4V10l6 4V6l6 3v12z"/><path d="M7 18h2M12 18h2M17 18h2"/>',
   tareas: '<rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/>',
   usuarios: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.5-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.6c2.6.1 4.6 1.8 5.3 4.6"/>',
@@ -124,7 +125,7 @@ function renderLogin() {
 /* ---------- estructura ---------- */
 const MENU = [
   ['inicio', 'Inicio', null], ['proyectos', 'Proyectos', null], ['gantt', 'Gantt', null],
-  ['cotizador', 'Cotizador', ['cotizador', 'jefe_taller']], ['planta', 'Planta', ['jefe_taller', 'supervisor', 'calidad']],
+  ['cotizador', 'Cotizador', ['cotizador', 'jefe_taller']], ['planta3d', 'Planta 3D', null], ['planta', 'Planta', ['jefe_taller', 'supervisor', 'calidad']],
   ['tareas', 'Tareas', null], ['bandeja', 'RFI y NC', null], ['importar', 'Importar', ['jefe_taller', 'cotizador']], ['usuarios', 'Usuarios', ['__solo_gerencia__']],
 ];
 const puede = roles => !roles || S.me.rol === 'gerencia' || roles.includes(S.me.rol);
@@ -921,9 +922,215 @@ async function vUsuarios() {
   async f => { await api('/api/usuarios', { method: 'POST', body: Object.fromEntries(f) }); toast('Usuario creado'); vUsuarios(); }, 'Crear usuario');
 }
 
+/* =====================================================================  PLANTA 3D (retrospectivo, datos SIMULADOS) */
+const P3 = { escena: null, timer: null, cacheSens: {} };
+function limpiarP3() { if (P3.timer) { clearInterval(P3.timer); P3.timer = null; } if (P3.escena) { P3.escena.destruir(); P3.escena = null; } }
+const ETAPAS_P3 = [['HABILITADO', 'Habilitado'], ['DOBLEZ', 'Doblez'], ['ARMADO', 'Armado'], ['SOLDEO', 'Soldeo'], ['LIMPIEZA', 'Limpieza'], ['PINTURA', 'Pintura'], ['DESPACHO', 'Despacho']];
+const TIPO_PAL = { personas: 'Más personas', turno2: 'Segundo turno', horas_extra: 'Horas extra', expeditar: 'Expeditar servicio externo' };
+const PROC_PAL = { personas: [7, 8, 9], turno2: [2, 3, 4, 5], horas_extra: [0, 1, 7, 8, 9, 10, 12], expeditar: [6, 11] };
+const NOMBRE_PROC = ['Ingeniería', 'Compra de material', 'Habilitado · sierra cinta', 'Habilitado · cizalla-punzonadora', 'Habilitado · mesa CNC', 'Roscado de barra lisa', 'Doblez (externo)', 'Armado', 'Soldeo', 'Limpieza', 'Despacho a pintura', 'Granallado y pintura (externo)', 'Despacho a obra'];
+const sumaDias = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+const rangoLab = (a, b) => { const r = []; for (let f = a; f <= b; f = sumaDias(f, 1)) if (new Date(f + 'T12:00:00').getDay() !== 0) r.push(f); return r; };
+
+async function vPlanta3D() {
+  const m = shell('planta3d', `${ic('planta3d', 20)} Planta 3D <span class="badge b-nar" style="font-size:12px">retrospectivo · datos simulados</span>`);
+  const [modelo, pj] = await Promise.all([api('/api/planta/modelo'), api('/api/planta/proyectos')]);
+  const proy = pj.proyectos;
+  const st = { mundo: 2, pid: (proy.find(p => p.retraso > 0) || proy[10] || proy[0]).pid, idx: 0, fechas: [], estado: null, palancas: [], escenario: false, sel: null, pestana: 'objeto', play: false, vel: 700 };
+  const p = () => proy.find(x => x.pid === st.pid);
+  m.innerHTML = `
+  <div class="p3d">
+    <div class="p3d-izq">
+      <div class="p3d-lienzo" id="p3l"></div>
+      <div class="p3d-kpis" id="p3k"></div>
+      <div class="p3d-abajo"><div class="p3d-seguim" id="p3s"></div>
+      <div class="p3d-ctl">
+        <select id="p3m" title="Mundo simulado">${modelo.mundos.map(x => `<option value="${x.id}" ${x.id === 2 ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>
+        <select id="p3p" title="Proyecto">${proy.map(x => `<option value="${x.pid}">OT ${x.cod} · ${x.ton} t${x.retraso > 0 ? ' · ' + x.retraso + ' d tarde' : ''}</option>`).join('')}</select>
+        <button class="btn peq" id="p3ant" title="Día anterior">‹</button>
+        <button class="btn peq prim" id="p3play" title="Reproducir">▶</button>
+        <button class="btn peq" id="p3sig" title="Día siguiente">›</button>
+        <input type="range" id="p3r" min="0" max="0" value="0">
+        <b id="p3f" style="min-width:150px;text-align:right"></b>
+        <select id="p3v" title="Velocidad"><option value="1200">×0.5</option><option value="700" selected>×1</option><option value="350">×2</option><option value="150">×4</option></select>
+        <label class="p3-chk"><input type="checkbox" id="p3t" checked> Techos</label>
+        <label class="p3-chk"><input type="checkbox" id="p3e" checked> Etiquetas</label>
+        <button class="btn peq" id="p3c" title="Encuadrar">${ic('planta3d', 14)}</button>
+      </div></div>
+    </div>
+    <aside class="p3d-der tarjeta">
+      <div class="p3d-tabs"><button data-t="objeto" class="activo">Objeto</button><button data-t="gestion">Gestión</button><button data-t="retro">Qué habría pasado</button></div>
+      <div class="p3d-panel" id="p3panel"></div>
+    </aside>
+  </div>`;
+  try {
+    P3.escena = (await import('/static/planta3d.js')).crearEscena($('#p3l'), modelo, { alSeleccionar: ref => { st.sel = ref; st.pestana = 'objeto'; pestanas(); panel(); } });
+  } catch (e) { $('#p3l').innerHTML = `<div class="vacio" style="padding:40px">${ic('alerta', 30)}<p>No se pudo iniciar la escena 3D: ${esc(e.message)}</p></div>`; return; }
+  const pestanas = () => $$('.p3d-tabs button').forEach(b => b.classList.toggle('activo', b.dataset.t === st.pestana));
+
+  const fijarRango = () => {
+    const x = p();
+    st.fechas = rangoLab(sumaDias(x.ini, -6), sumaDias(x.real > (st.finEsc || '') ? x.real : st.finEsc, 4));
+    st.idx = Math.min(Math.max(st.fechas.indexOf(x.ini), 0) + 8, st.fechas.length - 1);
+    const r = $('#p3r'); r.max = st.fechas.length - 1; r.value = st.idx;
+  };
+  let pedido = 0;
+  async function cargar() {
+    const n = ++pedido, f = st.fechas[st.idx];
+    $('#p3f').textContent = fmtFecha(f);
+    $('#p3r').value = st.idx;
+    const q = new URLSearchParams({ mundo: st.mundo, fecha: f });
+    if (st.escenario && st.palancas.length) { q.set('pid_esc', st.pid); q.set('palancas', JSON.stringify(st.palancas)); }
+    const e = await api('/api/planta/estado?' + q);
+    if (n !== pedido) return;
+    st.estado = e;
+    P3.escena.actualizar(e, { pidSel: st.pid });
+    kpis(); seguimiento();
+    if (st.pestana === 'objeto') panel();
+  }
+  const kpis = () => {
+    const k = st.estado.kpi;
+    $('#p3k').innerHTML = [['Proyectos en planta', k.proyectos, 'azul'], ['Personas hoy', k.personas, ''], ['kg en proceso', fmtNum(k.kg_en_proceso), ''], ['kg en cola', fmtNum(k.kg_en_cola), k.kg_en_cola > 0 ? 'nar' : ''], ['Stock (kg)', fmtNum(k.stock_kg), '']]
+      .map(([t, v, c]) => `<div class="p3-kpi ${c}"><span>${t}</span><b>${v}</b></div>`).join('');
+  };
+  const seguimiento = () => {
+    const x = p(), e = st.estado, lotes = e.lotes.filter(l => l.pid === st.pid);
+    const act = e.proyectos.find(a => a.pid === st.pid);
+    const etapa = ETAPAS_P3.map(([k, n]) => {
+      const pr = lotes.filter(l => l.etapa === k && l.estado === 'EN_PROCESO').length, co = lotes.filter(l => l.etapa === k && l.estado === 'EN_COLA').length;
+      return `<div class="p3-et ${pr ? 'on' : co ? 'cola' : ''}"><i></i><b>${n}</b><small>${pr ? pr + ' en proceso' : co ? co + ' en cola' : '—'}</small></div>`;
+    }).join('<span class="p3-lin"></span>');
+    const esc = e.escenario ? `<span class="badge b-az">Escenario: termina ${fmtCorta(e.escenario.fin)}</span>` : '';
+    $('#p3s').innerHTML = `<div class="p3-seg-t"><b>OT ${x.cod}</b> · ${esc_(x.tipo)} · ${x.ton} t <span class="nota">inicio ${fmtCorta(x.ini)} · plan ${fmtCorta(x.plan)} · real ${fmtCorta(x.real)}</span> ${x.retraso > 0 ? `<span class="badge b-roj">${x.retraso} d de retraso</span>` : '<span class="badge b-ver">cumplió</span>'} ${esc}
+      <span class="p3-av"><i style="width:${Math.round(100 * (act ? act.avance : 0))}%"></i></span><small>${act ? Math.round(100 * act.avance) : 0} % avance</small></div><div class="p3-etapas">${etapa}</div>`;
+  };
+  const esc_ = esc;
+
+  /* ---------- panel derecho ---------- */
+  const fila = (k, v) => `<div class="p3-f"><span>${k}</span><b>${v}</b></div>`;
+  function detalle(ref) {
+    if (!ref) return `<div class="p3-vacio">${ic('planta3d', 34)}<p>Haz clic en una máquina, mesa, puesto, rack, lote de piezas, paquete de material o persona.</p><p class="nota">Arrastra para rotar, rueda para acercar, clic derecho para mover. ${esc_(modelo.aviso)}</p></div>`;
+    const e = st.estado;
+    if (ref.tipo === 'elemento') {
+      const el = P3.escena.elemento(ref.id) || {}, s = e.estaciones.find(x => x.id === ref.id);
+      const cola = e.lotes.filter(l => l.ubicacion === ref.id && l.estado === 'EN_COLA'), enproc = e.lotes.filter(l => l.ubicacion === ref.id && l.estado === 'EN_PROCESO');
+      const mats = e.material.filter(x => x.ubicacion === ref.id);
+      let h = `<h4>${esc(el.nombre || ref.nombre)}</h4><span class="badge b-az">${esc(el.tipo || '')}</span> <span class="badge ${s ? 'b-ver' : 'b-gris'}">${s ? 'en uso hoy' : 'sin actividad hoy'}</span><div class="p3-fs">`;
+      if (el.capacidad) h += fila(el.tipo === 'grua' ? 'Capacidad (t)' : el.tipo === 'maquina' ? 'Horas por turno' : 'Personas por estación', fmtNum(el.capacidad));
+      if (s) h += fila('Personas hoy', s.personas) + fila('HH hoy', fmtNum(s.hh, 1)) + (el.tipo === 'maquina' ? fila('Carga vs. capacidad', `<span style="color:${s.hh > 8.5 ? 'var(--rojo)' : 'inherit'}">${pct(s.hh / 8)}</span>`) : '');
+      if (s && s.proyectos.length > 1 && el.tipo === 'maquina') h += fila('Proyectos compitiendo', `<span style="color:var(--naranja)">${s.proyectos.length}</span>`);
+      h += '</div>';
+      if (s) h += `<h5>Trabajo asignado</h5>` + s.proyectos.map(x => `<div class="p3-i"><b>OT ${x.cod}</b> · ${esc(x.proceso_nombre)}<span>${x.personas} pers · ${x.hh} HH</span></div>`).join('');
+      if (s && s.gente.length) h += `<h5>Personal (${s.gente.length})</h5><div class="p3-gente">${s.gente.map(g => `<span>${esc(g.nombre)}</span>`).join('')}</div>`;
+      if (enproc.length || cola.length) h += `<h5>Piezas aquí</h5>` + [...enproc, ...cola].map(l => `<div class="p3-i"><b>OT ${l.cod}</b> · ${esc(l.descripcion)}<span>${fmtNum(l.kg)} kg · ${l.estado === 'EN_COLA' ? 'en cola' : 'en proceso'}</span></div>`).join('');
+      if (mats.length) h += `<h5>Contenido (${mats.length} lotes · ${fmtNum(mats.reduce((a, b) => a + b.kg, 0))} kg)</h5><table class="tabla p3-t"><tr><th>Material</th><th>OT</th><th>kg</th><th>Colada</th></tr>${mats.map(x => `<tr><td>${esc(x.perfil)}</td><td>${x.cod}</td><td>${fmtNum(x.kg)}</td><td>${esc(x.colada)}</td></tr>`).join('')}</table>`;
+      if (el.proceso_orden) h += `<h5>Efecto en el cumplimiento de OT ${p().cod}</h5><div id="p3sens"><button class="btn peq" id="p3vs">Calcular con Monte Carlo</button></div>`;
+      return h;
+    }
+    if (ref.tipo === 'lote') {
+      const l = ref.lote, el = P3.escena.elemento(l.ubicacion);
+      return `<h4>${esc(l.descripcion)} · OT ${l.cod}</h4><span class="badge b-az">${esc(l.etapa_nombre || 'En acopio')}</span> <span class="badge ${l.estado === 'EN_COLA' ? 'b-nar' : 'b-ver'}">${l.estado === 'EN_COLA' ? 'en cola' : l.estado === 'ACOPIO' ? 'esperando' : 'en proceso'}</span><div class="p3-fs">${fila('Peso', fmtNum(l.kg) + ' kg')}${fila('Piezas', fmtNum(l.n_piezas))}${fila('Ubicación', esc(el ? el.nombre : '—'))}${fila('Proyecto', 'OT ' + l.cod)}</div><p class="nota">Un lote es la unidad de piezas que se mueve por la planta.</p>`;
+    }
+    if (ref.tipo === 'material') {
+      const x = ref.material, el = P3.escena.elemento(x.ubicacion);
+      return `<h4>${esc(x.perfil)}</h4><span class="badge b-az">${esc(x.tipo.replace('_', ' '))}</span><div class="p3-fs">${fila('Cantidad', fmtNum(x.cantidad) + ' unid.')}${fila('Peso', fmtNum(x.kg) + ' kg')}${fila('Colada', esc(x.colada))}${fila('Certificado', esc(x.certificado))}${fila('Reservado a', 'OT ' + x.cod)}${fila('Ubicación', esc(el ? el.nombre : '—'))}${fila('Ingresó', fmtCorta(x.f_ingreso))}${fila('Se consume', fmtCorta(x.f_consumo))}${fila('Días en stock', x.dias_en_stock)}</div>`;
+    }
+    if (ref.tipo === 'persona') {
+      const g = ref.persona, s = e.estaciones.find(x => x.id === ref.estacion), el = P3.escena.elemento(ref.estacion);
+      return `<h4>${esc(g.nombre)}</h4><span class="badge b-gris">${esc(g.grupo)}</span><div class="p3-fs">${fila('Estación', esc(el ? el.nombre : '—'))}${s ? s.proyectos.map(x => fila('Trabaja en', `OT ${x.cod} · ${esc(x.proceso_nombre)}`)).join('') : ''}</div><p class="nota">Persona anónima simulada, ubicada según el plan del día.</p>`;
+    }
+    return '';
+  }
+  async function sensibilidad(el) {
+    const caja = $('#p3sens'); if (!caja) return;
+    caja.innerHTML = cargando();
+    const k = `${st.mundo}-${st.pid}`;
+    const r = P3.cacheSens[k] || (P3.cacheSens[k] = await api(`/api/planta/sensibilidad?pid=${st.pid}&mundo=${st.mundo}`));
+    const procs = r.procesos.filter(x => x.proceso === el.proceso_orden || (el.tipo === 'zona' && x.proceso === el.proceso_orden));
+    caja.innerHTML = `<p class="nota">Si este proceso tuviera 25 % más capacidad (mismas semillas), contra la fecha ${fmtCorta(r.fecha_objetivo)}:</p>` +
+      procs.map(x => `<div class="p3-fs">${fila('Días laborables ahorrados', `<span style="color:${x.dias_ahorrados > .4 ? 'var(--verde)' : 'var(--gris)'}">${fmtNum(x.dias_ahorrados, 1)}</span>`)}${fila('Δ P(cumplir)', (x.delta_prob >= 0 ? '+' : '') + fmtNum(100 * x.delta_prob, 1) + ' pts')}</div>`).join('') +
+      `<p class="nota">${procs[0] && procs[0].dias_ahorrados < .4 ? 'No es el cuello de botella en este proyecto.' : 'Es un proceso crítico en este proyecto.'}</p>`;
+  }
+
+  function gestion() {
+    const x = p();
+    const filaPal = (pl, i) => `<div class="p3-pal"><span>${esc(etiquetaPal(pl))}</span><button data-q="${i}" class="btn peq" title="Quitar">${ic('cerrar', 12)}</button></div>`;
+    return `<h4>OT ${x.cod} · decidir con el modelo</h4>
+      <p class="nota">El Monte Carlo (1 000 réplicas) usa las mismas semillas para el plan actual y para tu escenario. Fecha objetivo: <input type="date" id="p3fo" value="${x.plan}" style="width:150px"></p>
+      <div class="p3-add"><select id="p3tp">${Object.entries(TIPO_PAL).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
+        <select id="p3pr"></select><select id="p3vl" title="Personas"><option>1</option><option>2</option><option>3</option></select>
+        <button class="btn peq prim" id="p3ad">${ic('mas', 13)}</button></div>
+      <div id="p3lp">${st.palancas.length ? st.palancas.map(filaPal).join('') : '<p class="nota">Sin palancas: es el plan como se ejecutó.</p>'}</div>
+      <div class="p3-bots"><button class="btn peq prim" id="p3ev" ${st.palancas.length ? '' : 'disabled'}>Evaluar escenario</button><button class="btn peq nar" id="p3su">${ic('chispa', 13)} Sugerir</button></div>
+      <label class="p3-chk" style="margin-top:8px"><input type="checkbox" id="p3ve" ${st.escenario ? 'checked' : ''}> Ver el escenario en la escena</label>
+      <div id="p3res"></div>`;
+  }
+  const etiquetaPal = pl => ({ personas: `+${pl.valor} persona(s) en ${NOMBRE_PROC[pl.proceso]}`, turno2: `Segundo turno en ${NOMBRE_PROC[pl.proceso]}`, horas_extra: `Horas extra en ${NOMBRE_PROC[pl.proceso]}`, expeditar: `Expeditar ${NOMBRE_PROC[pl.proceso]}` }[pl.tipo]);
+  const tarjetaRes = (t, r, cls = '') => `<div class="p3-res ${cls}"><b>${t}</b>${fila('P(cumplir)', pct(r.prob))}${fila('Penalidad esperada', fmtNum(r.penalidad, 2) + ' % del presupuesto')}${fila('Costo de palancas', fmtNum(r.costo, 2) + ' %')}${fila('Total', `<b>${fmtNum(r.total, 2)} %</b>`)}${fila('Días laborables medios', fmtNum(r.dias_medios, 1))}${fila('Fecha al 80 %', fmtCorta(r.fecha_alpha))}</div>`;
+  function resultadoEsc(r) {
+    let h = `<div class="p3-cmp">${tarjetaRes('Plan actual', r.base)}${tarjetaRes('Con tus palancas', r.escenario, 'nuevo')}</div>`;
+    if (r.contrafactual) { const c = r.contrafactual; h += `<div class="p3-res cf"><b>Qué habría pasado (con la ejecución simulada)</b>${fila('Terminó (real)', fmtCorta(c.fecha_real))}${fila('Habría terminado', `<b>${fmtCorta(c.fecha_con_palancas)}</b>`)}${fila('Días laborables ahorrados', c.dias_laborables_ahorrados)}${fila('Cumplía ' + fmtCorta(r.fecha_objetivo), `${c.cumple_real ? 'sí' : 'no'} → <b>${c.cumple_con_palancas ? 'sí' : 'no'}</b>`)}</div>`; }
+    return h + `<p class="nota">${esc(r.aviso)} Costos de las palancas: supuestos.</p>`;
+  }
+  function enlaceGestion() {
+    const sel = () => { const t = $('#p3tp').value; $('#p3pr').innerHTML = PROC_PAL[t].map(j => `<option value="${j}">${esc(NOMBRE_PROC[j])}</option>`).join(''); $('#p3vl').style.display = t === 'personas' ? '' : 'none'; };
+    $('#p3tp').onchange = sel; sel();
+    $('#p3ad').onclick = () => { const t = $('#p3tp').value; st.palancas.push({ tipo: t, proceso: +$('#p3pr').value, valor: t === 'personas' ? +$('#p3vl').value : 1 }); st.res = null; panel(); if (st.escenario) cargar(); };
+    $$('[data-q]').forEach(b => b.onclick = () => { st.palancas.splice(+b.dataset.q, 1); panel(); if (st.escenario) cargar(); });
+    $('#p3ve').onchange = e => { st.escenario = e.target.checked; cargar(); };
+    const fo = () => $('#p3fo').value || p().plan;
+    const correr = async (url, body, btn) => { btn.disabled = true; $('#p3res').innerHTML = cargando(); try { return await api(url, { method: 'POST', body }); } catch (e) { $('#p3res').innerHTML = `<p class="nota" style="color:var(--rojo)">${esc(e.message)}</p>`; } finally { btn.disabled = false; } };
+    $('#p3ev').onclick = async e => { const r = await correr('/api/planta/escenario', { mundo: st.mundo, pid: st.pid, palancas: st.palancas, fecha_objetivo: fo() }, e.currentTarget); if (r) { st.res = resultadoEsc(r); $('#p3res').innerHTML = st.res; } };
+    $('#p3su').onclick = async e => {
+      const r = await correr('/api/planta/sugerir', { mundo: st.mundo, pid: st.pid, fecha_objetivo: fo() }, e.currentTarget); if (!r) return;
+      $('#p3res').innerHTML = `<p class="nota">Plan actual: P(cumplir ${fmtCorta(r.fecha_objetivo)}) = <b>${pct(r.base.prob)}</b>, penalidad esperada ${fmtNum(r.base.penalidad, 2)} %.</p>` +
+        (r.sugerencias.length ? r.sugerencias.map((x, i) => `<div class="p3-res sug"><b>${i + 1}. ${x.palancas.map(esc).join(' + ')}</b>${fila('P(cumplir)', pct(x.prob))}${fila('Total (penalidad + costo)', fmtNum(x.total, 2) + ' %')}${fila('Habría terminado', fmtCorta(x.contrafactual_fin))}<button class="btn peq prim" data-ap="${i}">Probar en la escena</button></div>`).join('') : '<p class="nota">Ninguna palanca compensa su costo: se mantiene el plan.</p>') +
+        `<p class="nota">${esc(r.aviso)}</p>`;
+      $$('[data-ap]').forEach(b => b.onclick = () => { st.palancas = r.sugerencias[+b.dataset.ap].palancas_json; st.escenario = true; st.res = null; panel(); cargar(); });
+    };
+    if (st.res) $('#p3res').innerHTML = st.res;
+  }
+  async function retro() {
+    const r = await api('/api/planta/retro?cod=' + p().cod);
+    if (!r.disponible) return `<h4>Qué habría pasado</h4><p class="nota">Aún no se corrió el estudio retrospectivo. Ejecute <code>py scripts/exp5_retrospectivo.py</code>.</p>`;
+    const polis = r.resumen;
+    let h = `<h4>25 proyectos: cómo se hizo vs. con el DSS</h4><p class="nota">Promedio de los 5 mundos simulados. Penalidad: 1 % del presupuesto por día.</p><table class="tabla p3-t"><tr><th>Política</th><th>OTD</th><th>Retraso (d)</th><th>Total (%)</th><th>Plazo (d)</th></tr>${polis.map(x => `<tr><td>${esc(x.politica)}</td><td>${x.otd} %</td><td>${x.retraso_dias}</td><td>${x.total}</td><td>${x.lead}</td></tr>`).join('')}</table>`;
+    if (r.proyecto && r.proyecto.length) { const pr = r.proyecto.filter(x => x.mundo.startsWith('M' + st.mundo)); h += `<h5>OT ${p().cod} (${esc(modelo.mundos.find(w => w.id === st.mundo).nombre)})</h5><table class="tabla p3-t"><tr><th>Política</th><th>Termina</th><th>Tarde (d)</th><th>Palancas</th></tr>${pr.map(x => `<tr><td>${esc(x.politica.slice(0, 2))}</td><td>${fmtCorta(x.fin)}</td><td>${x.tarde}</td><td>${esc(x.palancas || '—')}</td></tr>`).join('')}</table>`; }
+    return h + `<p class="nota">${esc(r.aviso)}</p>`;
+  }
+  async function panel() {
+    const cont = $('#p3panel');
+    if (st.pestana === 'objeto') { cont.innerHTML = detalle(st.sel); const b = $('#p3vs'); if (b) b.onclick = () => sensibilidad(P3.escena.elemento(st.sel.id)); }
+    else if (st.pestana === 'gestion') { cont.innerHTML = gestion(); enlaceGestion(); }
+    else { cont.innerHTML = cargando(); cont.innerHTML = await retro(); }
+  }
+
+  /* ---------- controles ---------- */
+  $$('.p3d-tabs button').forEach(b => b.onclick = () => { st.pestana = b.dataset.t; pestanas(); panel(); });
+  const cambiarProyecto = () => { st.palancas = []; st.res = null; st.escenario = false; st.finEsc = ''; fijarRango(); cargar(); if (st.pestana !== 'objeto') panel(); };
+  $('#p3p').value = st.pid;
+  $('#p3p').onchange = e => { st.pid = +e.target.value; cambiarProyecto(); };
+  $('#p3m').onchange = e => { st.mundo = +e.target.value; st.res = null; cargar(); };
+  $('#p3r').oninput = e => { st.idx = +e.target.value; cargar(); };
+  const paso = d => { st.idx = Math.min(Math.max(st.idx + d, 0), st.fechas.length - 1); cargar(); };
+  $('#p3ant').onclick = () => paso(-1); $('#p3sig').onclick = () => paso(1);
+  const reproducir = () => {
+    st.play = !st.play; $('#p3play').textContent = st.play ? '❚❚' : '▶';
+    clearInterval(P3.timer);
+    if (st.play) P3.timer = setInterval(() => { if (st.idx >= st.fechas.length - 1) { st.play = false; $('#p3play').textContent = '▶'; clearInterval(P3.timer); } else paso(1); }, st.vel);
+  };
+  $('#p3play').onclick = reproducir;
+  $('#p3v').onchange = e => { st.vel = +e.target.value; if (st.play) { reproducir(); reproducir(); } };
+  $('#p3t').onchange = e => P3.escena.techos(e.target.checked);
+  $('#p3e').onchange = e => P3.escena.etiquetas(e.target.checked);
+  $('#p3c').onclick = () => P3.escena.encuadrar();
+  fijarRango(); await cargar(); panel();
+}
+
 /* =====================================================================  ruteo */
 async function ruta() {
   if (!S.me) return renderLogin();
+  limpiarP3();
   const [path, qs = ''] = (location.hash.slice(2) || 'inicio').split('?');
   const [v, a, b] = path.split('/');
   try {
@@ -933,6 +1140,7 @@ async function ruta() {
     if (v === 'gantt') return await vGantt();
     if (v === 'reporte') return await vReporte(a, qs);
     if (v === 'cotizador' && puedeVer('cotizador')) return await vCotizador();
+    if (v === 'planta3d') return await vPlanta3D();
     if (v === 'planta' && puedeVer('planta')) return await vPlanta(qs);
     if (v === 'tareas') return await vTareas(qs);
     if (v === 'bandeja') return await vBandeja();

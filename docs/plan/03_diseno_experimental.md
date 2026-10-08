@@ -12,7 +12,9 @@ Cómo demostrar que el DSS es mejor que la práctica actual, con el rigor que pi
 | 3 · Piloto prospectivo (*shadow mode*) | ⏳ requiere cotizaciones reales | — | — |
 | 4 · Sensibilidad: Dₖ | ✅ escenario M5 (≈ 80 %) | `dss/simulador.py` | idem |
 | 4 · Sensibilidad: R, ρ, α, κ de la carga del taller, σ de plazos externos, c_o | ⏳ pendiente | — | — |
-| 5 · Calibración condicional por tamaño (conformal Mondrian) | ⏳ pendiente; motivado por el experimento 4 | — | — |
+| 5 · Retrospectivo «cómo se hizo vs. qué habría pasado» (6 políticas, palancas de gestión, sensibilidad al costo) | ✅ sobre datos simulados y base reconstruida | `scripts/exp5_retrospectivo.py` | `data/exp5_*.csv`, [analisis/08](../analisis/08_retrospectivo_planta3d.md) |
+| 6 · Calibración condicional por tamaño (conformal Mondrian) | ⏳ pendiente; motivado por los experimentos 4 y 5 (el pronóstico es pesimista y la calibración no es por tamaño) | — | — |
+| 7 · Experimento con usuarios 2D vs. 3D (tiempo y calidad de decisión, SUS) | ⏳ pendiente; ver [plan/05](05_planta_3d.md) | — | — |
 
 Los experimentos 1 y 2 usan **datos simulados**; sus resultados validan el pipeline, no el desempeño en Steelser.
 

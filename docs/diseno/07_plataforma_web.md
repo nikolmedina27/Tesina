@@ -52,6 +52,20 @@ flowchart LR
 | **RFI y NC** (v2.1) | Bandeja de RFI, no conformidades, bloqueos y cambios de alcance: abiertas, vencidas, días abierta, días promedio de cierre, **imputable a** (cliente, Steelser, proveedor, contratista, fuerza mayor), días de impacto y pieza afectada | Bandeja de entrada |
 | **Buscador Ctrl+K** (v2.1) | Paleta de comandos: proyectos en curso e históricos, tareas (por texto o STL-n), piezas por marca o perfil, vistas y acciones; flechas + Enter | Linear command menu |
 
+### Planta 3D (retrospectivo, datos simulados)
+
+Vista nueva del menú: la planta de Steelser en 3D (three.js, copia local en `vendor/three/`) donde se reproduce cómo se ejecutaron los 25 proyectos y se prueban decisiones evaluadas con QRF + Monte Carlo. Diseño y alcance en [plan/05](../plan/05_planta_3d.md); resultados en [analisis/08](../analisis/08_retrospectivo_planta3d.md).
+
+| Parte | Qué hace |
+|---|---|
+| Escena | Naves, máquinas, mesas, puestos, racks, grúas, muelles y oficinas generados desde `sim_planta_elemento`; personal, lotes de piezas (en proceso o en cola) y material en stock del día elegido. Se rota, acerca y desplaza con el mouse; techos y etiquetas se pueden ocultar |
+| Línea de tiempo | Selector de mundo simulado y proyecto, control deslizante por día (lunes a sábado), reproducción ×0.5 a ×4. Abajo, el seguimiento del proyecto por etapa con lotes en proceso y en cola |
+| Panel Objeto | Clic en una máquina, mesa, puesto, rack, lote, paquete de material o persona: carga contra capacidad, trabajo asignado, personal, piezas en cola, contenido de racks (perfil, kg, OT, colada) y, con el botón *Calcular con Monte Carlo*, cuántos días ahorraría el proyecto si ese proceso tuviera 25 % más capacidad |
+| Panel Gestión | Palancas (más personas, segundo turno, horas extra, expeditar un servicio externo), *Evaluar escenario* (plan actual contra escenario con las mismas semillas, más «qué habría pasado» con la ejecución simulada) y *Sugerir* (búsqueda automática; cada sugerencia se puede probar en la escena) |
+| Panel Qué habría pasado | Resultado del estudio retrospectivo: 6 políticas sobre los 25 proyectos |
+
+API (`plataforma/planta.py`, todas leen `steelser.db` y no escriben): `GET /api/planta/modelo`, `/proyectos`, `/estado?mundo&fecha[&pid_esc&palancas]`, `/sensibilidad`, `/retro`; `POST /api/planta/escenario` y `/sugerir` (roles cotizador, jefe de taller y gerencia). El modelo de horas es el del escenario M2 entrenado con los 25 proyectos: para la demostración incluye al proyecto que se evalúa; el estudio riguroso (`scripts/exp5_retrospectivo.py`) usa solo lo anterior a cada proyecto.
+
 ### Permisos por rol
 
 | Acción | Gerencia | Cotizador | Jefe de taller | Supervisor | Calidad |
@@ -116,7 +130,8 @@ flowchart LR
 | **v1 (hecha)** | Cuentas y roles, tablero, proyectos, Gantt, cotizador, crear proyecto, re-pronóstico, tareo, paradas, tareas tipo Linear, accesos directos |
 | **v2 (hecha)** | Importar el formato único (validar e importar, idempotente, con errores por fila), avance físico ponderado por pieza, curva S de kg y HH con índice de avance, compras, servicios externos y eventos, HH estimadas por el cotizador junto al P50 |
 | **v2.1 (hecha)** | Reporte semanal imprimible (PDF desde el navegador), semanas de producción, historial de re-pronósticos, bandeja de RFI/NC con imputabilidad, buscador Ctrl+K, librerías locales (sin internet), PWA, marcar etapas de pieza en la interfaz con trazabilidad |
-| v2.2 | Registro sin conexión en la tablet (cola local que se sincroniza), envío del reporte semanal por correo, adjuntar fotos a RFI/NC, pesos de etapa editables desde la interfaz |
+| **v2.2 (hecha)** | Planta 3D retrospectiva con datos simulados: escena, línea de tiempo, what-if y búsqueda automática de escenarios, resultados del estudio retrospectivo |
+| v2.3 | Registro sin conexión en la tablet (cola local que se sincroniza), envío del reporte semanal por correo, adjuntar fotos a RFI/NC, pesos de etapa editables desde la interfaz |
 | v3 | Contratistas y valorizaciones, costo real vs cotizado, trazabilidad de material, notificaciones, reentrenamiento C4 desde la interfaz |
 | v4 | Multiempresa (`empresa_id`), PostgreSQL, Keycloak, despliegue con HTTPS |
 

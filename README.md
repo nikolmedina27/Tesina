@@ -25,7 +25,7 @@ Un sistema de apoyo a la decisión (DSS) que, en vez de una fecha única, entreg
 | C3 | Programación y Monte Carlo | Motor de capacidad finita día a día (13 procesos, 4 máquinas, contratistas) × 1 000 réplicas → fecha para un nivel de confianza α | `dss/crp_engine.py`, `dss/c3_montecarlo.py` |
 | C4 | Lazo cerrado | Reentrenar si el modelo se desvía | pendiente (`dss/c4_lazo.py`) |
 
-El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal.
+El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una sola vista) con cotizador, Gantt, tareo, paradas de máquina, tareas, importación del formato único en Excel, curva S y reporte semanal. La vista **Planta 3D** muestra la planta de Steelser en 3D (máquinas, personal, lotes de piezas, material en stock, todo clicable) y permite probar decisiones de gestión —más personas, segundo turno, horas extra— evaluadas con el QRF y el Monte Carlo; hoy funciona en modo retrospectivo con datos simulados.
 
 ## Estado y advertencias
 
@@ -36,12 +36,12 @@ El DSS se usa desde **SteelPlan**, una aplicación web (FastAPI + página de una
 ## Estructura del repositorio
 
 ```
-dss/            motor CRP, modelo de φ (C2), Monte Carlo (C3), simulador de datos
+dss/            motor CRP, modelo de φ (C2), Monte Carlo (C3), what-if y búsqueda de escenarios, estudio retrospectivo, simulador de datos y de planta
 plataforma/     SteelPlan: servidor FastAPI, BD operativa, importador, interfaz web (web/)
 app/            cotizador Streamlit (prototipo anterior, para análisis)
 scripts/        construcción de la BD, experimentos 1-4, generadores del Excel, utilidades
 sql/            esquema de la BD histórica (fuente de verdad)
-tests/          15 pruebas (pytest)
+tests/          39 pruebas (pytest)
 data/           resultados de los experimentos (CSV); las BD se generan localmente
 lanzador/       accesos directos de SteelPlan (Windows y Linux)
 docs/           tesis en Markdown, análisis, diseño, plan y guías (índice en docs/README.md)
@@ -56,7 +56,7 @@ git clone https://github.com/nikolmedina27/Tesina.git
 cd Tesina
 python3 -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
-python -m pytest tests -q                              # debe dar 15 passed
+python -m pytest tests -q                              # debe dar 39 passed (algunas se omiten si falta la BD)
 ```
 
 Para construir la base de datos y abrir la plataforma hacen falta los archivos de la empresa en `extras/`, que **no están en el repositorio** (son confidenciales). Pídelos a las autoras y luego:

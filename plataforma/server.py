@@ -62,6 +62,16 @@ app.add_middleware(SessionMiddleware, secret_key=_secreto(), max_age=60 * 60 * 1
 app.mount('/static', StaticFiles(directory=WEB), name='static')
 
 
+@app.middleware('http')
+async def sin_cache(request: Request, call_next):
+    """La interfaz se revalida siempre: así, tras actualizar el código, el navegador no se queda con una versión vieja."""
+    r = await call_next(request)
+    p = request.url.path
+    if p == '/' or p.startswith('/static') or p in ('/sw.js', '/manifest.webmanifest'):
+        r.headers['Cache-Control'] = 'no-cache'
+    return r
+
+
 # ------------------------------------------------------------------ recursos compartidos
 class Motor:
     """Cotizador y modelo de horas, construidos una sola vez al arrancar."""
@@ -89,7 +99,7 @@ threading.Thread(target=Motor.get, daemon=True).start()     # entrena el modelo 
 
 
 def hist():
-    con = sqlite3.connect(HIST)
+    con = sqlite3.connect(HIST, check_same_thread=False)    # FastAPI corre la dependencia y el endpoint en hilos distintos
     con.row_factory = sqlite3.Row
     try:
         yield con
@@ -871,3 +881,8 @@ def crear_usr(d: NuevoUsuario, u=Depends(requiere('gerencia')), p=Depends(plat))
     actividad(p, u, 'usuario', f'Creó la cuenta {d.usuario} ({d.rol})')
     p.commit()
     return {'ok': True}
+
+
+# ------------------------------------------------------------------ planta 3D retrospectiva (datos simulados)
+from . import planta as _planta                                        # noqa: E402
+_planta.registrar(app, hist, usuario_actual, requiere, Motor, HIST)

@@ -27,7 +27,7 @@ El repositorio solo trae código, Markdown y los resultados de los experimentos 
 | Falta | Por qué | Cómo se obtiene |
 |---|---|---|
 | `extras/` (Word de la tesis, 3 Excel, PDF de cotización) | Confidencial (declaración jurada con Steelser) | Pedirlos a las autoras; se colocan en `extras/` y git los ignora |
-| `data/steelser.db` | Se regenera | `python scripts/build_db.py` (necesita `extras/`) |
+| `data/steelser.db` | Se regenera | `python scripts/build_db.py` (necesita `extras/`). Si no tienes `extras/`, ver `scripts/reconstruir_muestra.py` y [diseno/06](../diseno/06_datos_simulados.md) |
 | `papers/` (27 PDFs) | Tamaño y derechos de autor | Carpeta local; el mapeo está en `docs/analisis/papers_mapeo.csv` |
 | `entregables/*.xlsx` | Se generan | `python scripts/generar_formato_unico.py` y `python scripts/generar_ejemplo_importacion.py` |
 | `data/plataforma.db`, `data/credenciales_demo.txt`, `data/secret.key` | Datos locales de la plataforma | Se crean solos al iniciar la plataforma |
@@ -41,7 +41,8 @@ Reconstruir todo desde cero (requiere `extras/`):
 ```bash
 python scripts/build_db.py             # 1. BD desde extras/ (borra las tablas sim_*)
 python -m dss.simulador                # 2. datos simulados (~30 s)
-python -m pytest tests -q              # 3. pruebas (15)
+python -m dss.simulador_planta         # 3. planta, personal, material y lotes simulados (vista 3D)
+python -m pytest tests -q              # 4. pruebas (39; algunas se omiten sin la BD)
 ```
 
 Interfaces:
@@ -60,6 +61,8 @@ python scripts/exp3_frontera.py        # frontera cumplimiento-plazo con cuadril
 python scripts/exp3_frontera.py plan   # igual, con las cuadrillas del cotizador
 python scripts/exp4_ablacion.py        # ablaciones, colchón fijo y 5 escenarios (~30 min)
 python scripts/calibrar_solapes.py     # recalibrar los solapes del motor CRP (~5 min)
+python scripts/exp5_retrospectivo.py   # retrospectivo: cómo se hizo vs. con el DSS, 6 políticas (~8 min con 5 núcleos)
+python scripts/exp5_retrospectivo.py --costo 2   # sensibilidad al costo de las palancas
 ```
 
 Regenerar la tesis en Markdown desde el Word (`docs/tesis/`):

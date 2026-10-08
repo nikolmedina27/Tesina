@@ -89,12 +89,39 @@ El motor, con las HH simuladas, las paradas y la carga del taller de cada mundo,
 | 24 | 2026 | Qberries | 200 | +5 | 76 | 80 | 80/80/80/80 | 0.948 | 0.863 | 0.924 | 0.871 |
 | 25 | 2026 | Danper | 75 | -1 | 47 | 46 | 46/46/46/46 | 0.996 | 0.945 | 0.958 | 1.027 |
 
+## Si falta `extras/`: reconstrucción de la muestra
+
+`data/steelser.db` puede haberse creado sin los Excel de la empresa (son confidenciales y no están en el repo). En ese caso las 25 obras salen con 93 t cada una y cuadrillas de 1 a 4 personas, y el motor las programa en ~170 días cuando las duraciones reales son de 40 a 80: la simulación no tiene sentido. `py scripts/reconstruir_muestra.py` lo corrige (y no hace nada si la BD ya tiene toneladas distintas por proyecto, es decir, datos reales):
+
+| Se conserva (real) | Se toma de la documentación | Se simula |
+|---|---|---|
+| Tipo de estructura y fechas de inicio, fin planificado y fin real (Tabla 3) | Toneladas de cada proyecto (tabla de verificación de arriba, calculada con la BD original) | Cuadrilla por proceso: un factor por proyecto se calibra para que el motor reproduzca la duración real con φ = 1 (error medio 0.4 días, máximo 2) |
+
+También recalcula las HH del ratio vigente (toneladas × ratio) y los días por proceso. Guarda un respaldo en `data/steelser_antes_reconstruccion.db` (`--forzar` vuelve a empezar desde él). Es una reconstrucción **declarada como simulada**: sirve para probar el pipeline, no es la base original.
+
+## Planta, personal, material y lotes simulados (para la vista 3D)
+
+`py -m dss.simulador_planta` (después de `dss.simulador`) crea, para los 5 mundos, todo lo que la escena 3D muestra. Todo es SIMULADO y cada tabla lleva `origen = 'SIMULADO'` donde aplica.
+
+| Tabla | Contenido | Cómo se genera |
+|---|---|---|
+| `sim_planta_elemento` | 35 elementos: 2 naves, 4 máquinas, 6 mesas de armado, 8 puestos de soldeo, 2 puentes grúa, 3 racks, zonas, 3 muelles, 2 oficinas | Plantilla funcional de 100 × 50 m (5 000 m²), no un plano medido |
+| `sim_personal`, `sim_cuadrilla` | 97 personas anónimas (14 por contratista + planta, oficina técnica, compras, despacho) y quiénes trabajaron en cada proyecto × proceso | Muestreo con semilla |
+| `sim_asignacion` | Por día: estación, personas y HH de cada proyecto × proceso (≈ 4 000 filas por mundo) | Las HH simuladas se reparten parejo en la ventana de cada proceso; la suma coincide con `sim_proyecto_proceso.hh_real` |
+| `sim_material_lote` | ≈ 680 lotes de material: perfil, kg, colada, certificado, ubicación (rack o patio), fechas de ingreso y consumo | kg = toneladas × 1.05; ingresa durante la compra y se consume en el habilitado |
+| `sim_lote`, `sim_lote_etapa` | ≈ 260 lotes de piezas (unidad que se mueve) y su ventana en cada etapa (habilitado, doblez, armado, soldeo, limpieza, pintura, despacho) | Cada lote respeta la ventana de los procesos de la etapa y no empieza una etapa antes de terminar la anterior; los kg suman las toneladas |
+
+Los lotes que terminaron una etapa y esperan la siguiente aparecen **en cola** frente a su estación. Pruebas: `tests/test_planta.py`.
+
 ## Regenerar
 
 ```bash
 py scripts/build_db.py        # recrea la BD (borra las tablas sim_*)
+py scripts/reconstruir_muestra.py   # solo si falta extras/ y la muestra tiene datos degenerados (ver arriba)
 py -m dss.simulador           # genera los 5 mundos y las guarda en sim_*
-py -m pytest tests -q         # pruebas del motor
+py -m dss.simulador_planta    # planta, personal, material y lotes simulados (vista 3D)
+py scripts/exp5_retrospectivo.py   # estudio retrospectivo (ver analisis/08)
+py -m pytest tests -q         # pruebas
 ```
 
-Tablas: `sim_mundo`, `sim_feature`, `sim_proyecto_proceso` (HH reales simuladas, φ, fechas por proceso), `sim_parada`, `sim_verificacion`. Semillas fijas en `dss/simulador.py`.
+Tablas: `sim_mundo`, `sim_feature`, `sim_proyecto_proceso` (HH reales simuladas, φ, fechas por proceso), `sim_parada`, `sim_verificacion`, más las de planta y `sim_retro_resultado`. Semillas fijas en `dss/simulador.py` y `dss/simulador_planta.py`. `build_db.py` borra todas.

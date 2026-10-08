@@ -29,6 +29,7 @@ Idioma de trabajo: **español** (docs, comentarios, nombres de tablas y columnas
 2. Los días por proceso de ese Excel también son un reparto construido (retrasos de ±1 día por proceso que suman el retraso del proyecto).
 3. **Sesgo de selección**: la muestra (25) deja fuera 6 de los 12 proyectos atrasados (OTD muestra 76 % vs. población 68.4 %).
 4. La tesis tiene inconsistencias (28 vs. 25 proyectos, 38 − 9 ≠ 28, Ecuaciones 5–15 ausentes, RF vs. QRF, referencias faltantes). Lista completa en `docs/analisis/02_diagnostico_calidad_datos.md`.
+5. **El `data/steelser.db` de la PC de Paolo es una reconstrucción**, no la BD original (falta `extras/`): `scripts/reconstruir_muestra.py` conserva tipos y fechas reales, toma las toneladas reales de `docs/diseno/06` y simula las cuadrillas. Por eso los números del estudio retrospectivo (`analisis/08`) no coinciden con los de `analisis/04` (BD original de Shirley). Detalle en `docs/diseno/06_datos_simulados.md`.
 
 Potencial Q1: alto **si** se consiguen HH reales, se valida con backtest + piloto y se agregan α\* tipo newsvendor, calibración conformal y correlación entre procesos en el Monte Carlo (`docs/analisis/03_potencial_q1.md`).
 
@@ -49,9 +50,9 @@ extras/                   ORIGINALES de la empresa (no editar; NO versionado, so
 data/steelser.db          BD SQLite generada (en .gitignore; no editar a mano)
 data/*.csv                resultados de los experimentos 1-3 (versionados)
 sql/schema.sql            esquema de la BD real: fuente de verdad (las tablas sim_* las crea dss/simulador.py)
-scripts/                  build_db, docx_a_md, calibrar_solapes, exp1_prediccion, exp2_backtest, exp3_frontera
+scripts/                  build_db, reconstruir_muestra, docx_a_md, calibrar_solapes, exp1-exp5
 dss/                      código del DSS (ver "Estado del código")
-plataforma/               plataforma web SteelPlan (FastAPI + SPA)
+plataforma/               plataforma web SteelPlan (FastAPI + SPA; planta.py = API de la planta 3D)
 lanzador/                 .bat, .desktop, ícono y script de accesos directos
 entregables/              Excel generados (no versionados; se regeneran con scripts/generar_*.py)
 app/streamlit_app.py      cotizador Streamlit (prototipo anterior, para análisis)
@@ -60,9 +61,9 @@ tests/                    pruebas (pytest)
 README.md                 presentación del proyecto e instalación para colaboradores
 docs/README.md            índice de toda la documentación
 docs/tesis/               tesis convertida por capítulos (generada)
-docs/analisis/            inventario de datos, diagnóstico, potencial Q1
+docs/analisis/            inventario de datos, diagnóstico, potencial Q1, resultados, literatura, retrospectivo (08)
 docs/diseno/              arquitectura, BD, formato único, ecuaciones, Monte Carlo
-docs/plan/                datos a recolectar, hoja de ruta, diseño experimental
+docs/plan/                datos a recolectar, hoja de ruta, diseño experimental, kit empresa, planta 3D (05)
 docs/guia/                entorno Python y comandos
 ```
 
@@ -80,6 +81,7 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 - **Fuente única del formato**: `plataforma/formato.py` (HOJAS y LISTAS). Si se cambia una columna, se cambia ahí; el generador y el importador la leen. Tablas nuevas en `plataforma.db` se agregan en `ESQUEMA` y las columnas nuevas en `COLUMNAS_V2` (migración sin perder datos).
 - Ejemplo lleno DEMO: `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx`, no versionado (`py scripts/generar_ejemplo_importacion.py`).
 - **v2.1**: reporte semanal imprimible (`#/reporte/{id}`, PDF desde el navegador), pestaña Semanas (ciclos lunes–sábado, `avance.semanas`), historial de re-pronósticos (tabla `pronostico`; mide alertas tempranas en el piloto), bandeja RFI y NC (`/api/bandeja`; columnas `imputable`, `dias_impacto`, `conjunto`, `fecha_cierre` en `tarea`), buscador Ctrl+K (`/api/buscar`), marcar etapas de pieza desde la interfaz (`/api/piezas/etapa`, trazado en `pieza_cambio`; el orden de etapas está en `avance.error_orden_etapas`, compartido con el importador), librerías locales en `plataforma/web/vendor/` y PWA (`sw.js`, `manifest.webmanifest`; el service worker solo se activa en localhost o HTTPS).
+- **v2.2 · Planta 3D** (vista del menú; `plataforma/planta.py`, `plataforma/web/planta3d.js`, three.js local en `vendor/three/`): reproduce la ejecución de los 25 proyectos en 3D con datos SIMULADOS y permite probar palancas de gestión (what-if y búsqueda automática, `dss/whatif.py`). Solo lee `steelser.db`; no toca `plataforma.db`. Diseño en `docs/plan/05_planta_3d.md`, resultados en `docs/analisis/08_retrospectivo_planta3d.md`. El servidor manda `Cache-Control: no-cache` para la interfaz; si cambias rutas de la API hay que reiniciar el servidor (las rutas se registran al arrancar). Al cambiar `app.js`/`styles.css` conviene subir `?v=` en `index.html` y `VERSION` en `sw.js`.
 - `creado_en` de SQLite está en UTC; para días o fechas locales usar `date(col,'localtime')`.
 - Puntos de mejora retrospectivo → prospectivo: `docs/analisis/07_de_retrospectivo_a_prospectivo.md`.
 
@@ -87,6 +89,7 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 
 27 PDFs renombrados a su título (mapeo en `docs/analisis/papers_mapeo.csv`; script `scripts/renombrar_papers.py`, que espera una carpeta local `papers/`). Los PDFs **no se versionan en git** (tamaño y derechos de autor) y se guardan en `~/Documents/shirley docs/Papers/`. Análisis en `docs/analisis/05_literatura_papers.md` y ruta a Q1 con ampliación de BD en `06_ruta_q1_y_ampliacion_bd.md`. Hallazgos:
 - Ninguno de los 27 usa QRF, calibración conformal ni Monte Carlo con penalidad; ninguno junta ML de horas + capacidad + incertidumbre.
+- Fuera de los 27 (`analisis/05` §7): Mehdiyev et al. 2025 sí usa QRF + SHAP en manufactura (QRF no es novedad) y Flores-Gómez & Dauzère-Pérès 2026 define el *makespan service level*, equivalente a nuestro P(cumplir).
 - **El experto es base fuerte**: Rokoss (planificación RMSE 5.87 vs ML 5.56 días) y Roblek (el plan humano gana) coinciden con nuestro banco de pruebas.
 - Antecedentes externos a tratar: Bekci et al. 2022 (arXiv, lead time probabilístico para cotizar), Keskinocak & Tayur (cotización de fechas), Mundt & Lödding 2025 (fecha confiable con colchón fijo).
 - Disponibilidad real de una celda CNC: 69–78 % (Hollerweger); los escenarios M1–M4 asumen ≈ 92 %. El escenario M5 (≈ 80 %) cubre la sensibilidad: el método no se degrada si las paradas se registran.
@@ -101,9 +104,13 @@ Interfaz principal (estructura Odoo, colores SAP Fiori celeste, Gantt frappe-gan
 | `dss/simulador.py` | Datos SIMULADOS de 4 mundos condicionados a los 25 proyectos reales |
 | `dss/c2_modelo.py` | `PhiEmpirico` y `PhiQRF` (QRF + calibración conformal agrupada por proyecto); predicen φ = HH_real / HH_ratio |
 | `dss/c3_montecarlo.py` | `Cotizador.cotizar()`: φ con dependencia gaussiana entre procesos, paradas aleatorias, carga del taller, plazos externos → `Resultado` (fecha α, P(cumplir), penalidad esperada, curva); `alpha_optimo()` tipo newsvendor |
+| `dss/whatif.py` | Palancas de gestión (personas, segundo turno, horas extra, expeditar), evaluación con semillas comunes, búsqueda automática por etapas y sensibilidad por proceso; costos de palancas = SUPUESTOS (`COSTOS`) |
+| `dss/multiproyecto.py` | Varios proyectos comparten las 4 máquinas por prioridad (probado; aún sin interfaz) |
+| `dss/retrospectivo.py` | `Retro` vuelve a programar un proyecto con la verdad simulada; 6 políticas (A0 como se hizo … A5 sistema completo); resultado = fecha real + diferencia causada por la decisión |
+| `dss/simulador_planta.py` | Planta (100 × 50 m), personal, asignaciones diarias, material y lotes SIMULADOS (`sim_planta_elemento`, `sim_lote`, …) |
 | `app/streamlit_app.py` | Cotizador web (`py -m streamlit run app/streamlit_app.py`; también `.claude/launch.json`) |
 | `scripts/exp1_prediccion.py`, `exp2_backtest.py`, `exp3_frontera.py`, `exp4_ablacion.py` | Experimentos; resultados en `data/*.csv`. exp1 y exp4 usan los 5 escenarios; exp2 y exp3 se corrieron con 4 |
-| `tests/` | 15 pruebas (`py -m pytest tests -q`): motor CRP, C3, importador, semanas de producción y orden de etapas |
+| `tests/` | 39 pruebas (`py -m pytest tests -q`; las que necesitan la BD se omiten si falta): motor CRP, multi-proyecto, what-if, C3, planta, retrospectivo, importador, semanas de producción y orden de etapas |
 
 Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ reales), C4 (`c4_lazo`: Md, PICP, alertas), ablaciones A2–A4 y sensibilidades, módulo del formato único en Excel. Ver `docs/diseno/01_arquitectura_dss.md`.
 
@@ -116,6 +123,8 @@ Pendiente: C1 (`c1_datos`: importar el formato único, depuración, Io, Dₖ rea
 - **Punto débil abierto**: la calibración es marginal, no por tamaño: con α = 0.80 los proyectos chicos cumplen 67 %, los medianos 85 %, los grandes 100 %. Siguiente mejora: conformal condicional por tamaño.
 - GBM cuantílico (competidor tipo Bekci) subcubre el intervalo de HH (0.62–0.69); QRF + conformal queda en 0.78–0.81.
 
+- **Experimento 5 (retrospectivo, `analisis/08`; base reconstruida)**: A0 como se hizo: OTD 76 %, penalidad 1.2 % del presupuesto. DSS solo con la fecha (α = 0.80 / α\*): 100 % pero +18 % / +26 % de plazo; con el costo comercial del plazo (supuesto 0.08 %/día) no supera a A0 (IC cruzan 0). DSS gestionando (palancas): evita los atrasos pero gasta en palancas ≈ lo que ahorra (1.1–1.2 % vs 1.2 %); depende del costo de las palancas (supuesto). Interviene en 25/25 porque el pronóstico es pesimista (+2 a +3 d; cree 31 % de cumplimiento de la fecha original cuando fue 76 %). Conclusión coherente con `04`: sin datos reales no hay ventaja demostrada.
+
 ## Datos simulados (banco de pruebas)
 
 Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`docs/diseno/06_datos_simulados.md`): tablas `sim_*`, 5 mundos (M1 ratio casi correcto, M2 sesgo, M3 no lineal/colas, M4 deriva, M5 disponibilidad ≈ 80 %), condicionados a la duración real de los 25 proyectos. Reglas:
@@ -123,7 +132,8 @@ Hasta tener tareos reales, C2 y C3 se desarrollan sobre datos **SIMULADOS** (`do
 - Hallazgo: el ratio es correcto en promedio; el problema es la **dispersión** por proyecto (±5–11 % en HH totales, ±14–16 % por proceso).
 - La carga del taller (WIP) ya está modelada de forma simplificada (ventana 20–50 % de la duración, κ = 0.5, toneladas imputadas en 13 proyectos); son supuestos sin sensibilidad todavía.
 - Las paradas de máquina, los plazos externos y las variables del plano son supuestos del simulador, no mediciones.
-- Orden de regeneración: `py scripts/build_db.py` y luego `py -m dss.simulador` (build_db borra las tablas `sim_*`).
+- Orden de regeneración: `py scripts/build_db.py` (o `py scripts/reconstruir_muestra.py` si falta `extras/`), luego `py -m dss.simulador`, `py -m dss.simulador_planta` y `py scripts/exp5_retrospectivo.py` (build_db borra todas las tablas `sim_*`).
+- La planta 3D (layout, personal, material, lotes) también es SIMULADA: plantilla funcional de 100 × 50 m, no un plano medido.
 
 ## Comandos
 
@@ -136,6 +146,8 @@ py scripts/docx_a_md.py                 # regenerar docs/tesis/ desde el Word
 py -m dss.simulador                     # generar datos simulados (después de build_db)
 py -m pytest tests -q                   # pruebas
 py -m streamlit run app/streamlit_app.py  # cotizador web
+py -m dss.simulador_planta              # planta, personal, material y lotes simulados (vista 3D)
+py scripts/exp5_retrospectivo.py        # cómo se hizo vs. con el DSS (~8 min); acepta --costo 2 (sensibilidad)
 py scripts/exp1_prediccion.py           # experimentos (varios minutos cada uno); exp3_frontera.py acepta "plan"
 ```
 
