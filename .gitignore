@@ -24,3 +24,7 @@ entregables/
 extras/
 papers/
 entregables/SteelPlan_v2.1.zip
+
+# archivos de sistema de Windows
+desktop.ini
+Thumbs.db

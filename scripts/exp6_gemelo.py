@@ -150,8 +150,8 @@ def main(replicas=4, recalibrar=False):
     exportar.guardar_esperas(con, sim0, res0)
     v, antes, despues = calibrar_crp(sim0, res0, [p.pid for p in P if not p.en_muestra])
     con.execute('INSERT INTO gem_meta VALUES (?,?)', ('lam_crp', json.dumps([float(x) for x in vector(v)])))
-    print(f'Planificador (CRP) calibrado con los 13 proyectos fuera de la muestra: sesgo {antes.mean():+.1f} → {despues.mean():+.1f} d, '
-          f'error absoluto {np.abs(antes).mean():.1f} → {np.abs(despues).mean():.1f} d; λ = {v}')
+    print(f'Planificador (CRP) calibrado con los 13 proyectos fuera de la muestra: sesgo {antes.mean():+.1f} -> {despues.mean():+.1f} d, '
+          f'error absoluto {np.abs(antes).mean():.1f} -> {np.abs(despues).mean():.1f} d; lambda = {v}')
     con.commit()
     fin_base = {pid: fecha(t) for pid, t in res0.fin.items()}
     semillas = [SEMILLA] + [SEMILLA + 101 * k for k in range(1, replicas + 1)]

@@ -17,10 +17,10 @@
 
 No «el DSS acierta mejor que el cotizador», sino:
 
-1. **Cotización probabilística de fecha anclada al experto y calibrada** para una pyme de manufactura bajo pedido con pocos proyectos: QRF sobre el factor de corrección de horas + calibración conformal agrupada por proyecto + Monte Carlo de capacidad finita; con α = 0.80 cumple 80 %, y entrega probabilidad de cumplir y penalidad esperada para negociar.
+1. **Cotización probabilística de fecha anclada al experto y calibrada** para una pyme de manufactura bajo pedido con pocos proyectos: QRF sobre el factor de corrección de horas + calibración conformal agrupada por proyecto + Monte Carlo de capacidad finita; entrega probabilidad de cumplir y penalidad esperada para negociar. **Pendiente de revalidar**: en el banco de pruebas α = 0.80 cumplió 76–84 %; en el gemelo, 80 % (8/10) y 60 % (9/10, otro entorno).
 2. **Un banco de pruebas contrafactual con gemelo de eventos discretos** para evaluar políticas de compromiso y de gestión con **números aleatorios comunes** sobre la historia real de la empresa: método reutilizable y replicable (código abierto).
 3. **Hallazgo de riesgo de modelo**: las palancas de capacidad que recomienda un planificador diario no mueven la fecha cuando el plazo lo dominan proveedores y servicios externos; el efecto de cada palanca hay que medirlo (lazo cerrado), no suponerlo.
-4. **Alerta temprana** con probabilidad calibrada: AUC 0.83 en el último cuarto del plazo (simulado).
+4. **Alerta temprana**: discrimina (AUC 0.63–0.78 por cuartil del plazo, simulado, corrida 9/10) pero sus probabilidades necesitan recalibrarse (Brier ≥ base).
 5. **Evaluación con usuarios** de si el gemelo 3D mejora la decisión frente a tablas (SUS, tiempo, calidad de decisión): lo que le da sentido científico al 3D.
 
 Revistas candidatas (verificar cuartil actual en SJR): *International Journal of Production Research*, *Production Planning & Control*, *Journal of Manufacturing Systems*, *Computers & Industrial Engineering*, *Simulation Modelling Practice and Theory*, *Journal of Intelligent Manufacturing*.

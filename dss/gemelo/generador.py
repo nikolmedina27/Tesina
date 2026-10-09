@@ -127,7 +127,7 @@ def generar(con, semilla=SEMILLA):
     cid = 0
     for r in P.itertuples():
         rng = np.random.default_rng([semilla, int(r.pid)])
-        tipo = r.tipo or TIPOS[0]
+        tipo = TIPOS[0] if pd.isna(r.tipo) or not r.tipo else r.tipo
         muestra = bool(r.en_muestra)
         ton = float(r.ton) if muestra else _ton_no_muestra(rng)
         if muestra and r.pid in feats_m.index:
