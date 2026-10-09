@@ -14,7 +14,11 @@ Categories=Office;ProjectManagement;
 Keywords=gantt;cotizacion;metalmecanica;erp;steelplan;mantenimiento;programacion;
 StartupNotify=true
 StartupWMClass=SteelPlan
-Actions=produccion;programacion;mantenimiento;tv;
+Actions=gerencia;produccion;programacion;mantenimiento;tv;
+
+[Desktop Action gerencia]
+Name=Tablero de gerencia
+Exec="RUTA_PROYECTO/scripts/steelplan-launch.sh" --ruta=tgerencia
 
 [Desktop Action produccion]
 Name=Tablero de producción

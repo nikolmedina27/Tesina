@@ -10,4 +10,4 @@ sed "s#RUTA_PROYECTO#$PROYECTO#g" "$PROYECTO/lanzador/SteelPlan.desktop" > "$DES
 chmod +x "$DESTINO/SteelPlan.desktop"
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$DESTINO" || true
 echo "SteelPlan instalado en $DESTINO/SteelPlan.desktop (proyecto: $PROYECTO)"
-echo "Clic derecho en el ícono: Tablero de producción, Programación, Mantenimiento y Modo TV."
+echo "Clic derecho en el ícono: Tablero de gerencia, Tablero de producción, Programación, Mantenimiento y Modo TV."

@@ -14,7 +14,7 @@ Los cinco grupos, con la sub-navegación del grupo activo en la barra lateral: *
 |---|---|---|
 | Acceso directo en el escritorio | **SteelPlan** (inicia el servidor si no está corriendo y abre el navegador) y **SteelPlan (enlace)** (solo abre `http://localhost:8600`) | La PC donde vive la BD |
 | Red local de la planta | `lanzador/iniciar_red_local.bat` → otras PCs y tablets abren `http://IP-DE-LA-PC:8600` | Jefe de taller, supervisores, calidad |
-| Linux | `bash lanzador/instalar_linux.sh` (instala `lanzador/SteelPlan.desktop` con la ruta de esa copia; clic derecho: Tablero de producción, Programación, Mantenimiento, Modo TV) | Opcional |
+| Linux | `bash lanzador/instalar_linux.sh` (instala `lanzador/SteelPlan.desktop` con la ruta de esa copia; clic derecho: Tablero de gerencia, Tablero de producción, Programación, Mantenimiento, Modo TV) | Opcional |
 | Internet (futuro) | Servidor con HTTPS, dominio propio, respaldos y datos anonimizados o con autorización expresa | Etapa 2 (SaaS para pymes) |
 
 Los accesos directos se recrean con `powershell -ExecutionPolicy Bypass -File lanzador\crear_acceso_directo.ps1`. La documentación de la API está en `http://localhost:8600/api/docs`.
