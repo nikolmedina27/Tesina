@@ -154,6 +154,18 @@ MAQUINAS_INICIALES = [
 ]
 
 
+def _demo_mantenimiento(con):
+    """v3: las BD demo creadas antes del rol `mantenimiento` reciben su cuenta demo (una sola vez)."""
+    es_demo = con.execute("SELECT 1 FROM usuario WHERE usuario='taller' AND nombre LIKE '%(demo)%'").fetchone()
+    if not es_demo or con.execute("SELECT 1 FROM usuario WHERE usuario='mantenimiento'").fetchone():
+        return
+    clave = crear_usuario(con, 'mantenimiento', 'Mantenimiento (demo)', 'mantenimiento', 'Mantenimiento')
+    con.commit()
+    if CREDENCIALES.exists():
+        with CREDENCIALES.open('a', encoding='utf-8') as fh:
+            fh.write(f'{"mantenimiento":12} {clave}   ({ROLES["mantenimiento"]})' + '\n')
+
+
 def _sembrar_maquinas(con):
     if con.execute('SELECT COUNT(*) FROM maquina').fetchone()[0]:
         return
@@ -210,12 +222,14 @@ def inicializar():
     _migrar(con)
     con.commit()
     _sembrar_maquinas(con)
+    _demo_mantenimiento(con)
     if con.execute('SELECT COUNT(*) FROM usuario').fetchone()[0] == 0:
         demo = [('gerencia', 'Gerencia (demo)', 'gerencia', 'Gerencia'),
                 ('cotizador', 'Cotizador (demo)', 'cotizador', 'Comercial'),
                 ('taller', 'Jefe de taller (demo)', 'jefe_taller', 'Planta'),
                 ('supervisor', 'Supervisor contratista (demo)', 'supervisor', 'Planta'),
-                ('calidad', 'Calidad (demo)', 'calidad', 'Calidad')]
+                ('calidad', 'Calidad (demo)', 'calidad', 'Calidad'),
+                ('mantenimiento', 'Mantenimiento (demo)', 'mantenimiento', 'Mantenimiento')]
         lineas = ['# Usuarios de DEMOSTRACIÓN de SteelPlan (generados al crear data/plataforma.db).',
                   '# Cambiar o desactivar antes de usar con datos reales. Este archivo NO se versiona.', '']
         for u, nombre, rol, area in demo:

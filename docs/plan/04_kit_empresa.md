@@ -10,6 +10,7 @@ Todo lo que hay que llevar y pedir para completar los registros operativos por p
 | Plataforma SteelPlan (demo en laptop) | acceso directo "SteelPlan" en el escritorio | Mostrar cómo se verá el registro y el cotizador; se usa en vivo con el proyecto DEMO |
 | Ejemplo del formato lleno | `entregables/Ejemplo_importacion_OT-DEMO-001.xlsx` | Mostrar en la reunión cómo se llena cada hoja, importarlo en vivo (vista **Importar**) y ver el avance por pieza y la curva S que resultan |
 | Checklist de datos | este documento, sección 3 | Lo que se pide, a quién y en qué formato |
+| Guía de procedimientos de planta | [`docs/guia/procedimientos_planta.md`](../guia/procedimientos_planta.md) | Quién hace qué y cuándo: fallas, reparaciones, preventivos, aprobación del plan, rutinas diarias, semanales y mensuales; base de la capacitación |
 | Autorización de uso de información | anexo de la tesis | Debe cubrir tareos, planillas, contratos, cotizaciones perdidas y bitácora de mantenimiento |
 
 ## 1. Agenda de la reunión (60 min)
@@ -28,9 +29,10 @@ Todo lo que hay que llevar y pedir para completar los registros operativos por p
 |---|---|---|
 | Gerencia | Gerente general | Ver todo, crear y desactivar usuarios |
 | Cotizador | Área comercial / ingeniería | Cotizar, crear proyectos desde una cotización, gestionar tareas |
-| Jefe de taller | Jefe de planta | Cotizar, registrar tareo y paradas, programar |
-| Supervisor / contratista | Supervisor de cada contratista (T&C, Tarrillo, RFR, Torres, LHL) | Registrar el tareo de su cuadrilla y sus paradas, ver y comentar sus tareas |
-| Calidad | Responsable de calidad | Registrar paradas y no conformidades, liberar |
+| Jefe de taller | Jefe de planta | Cotizar, registrar tareo y paradas, **aprobar el plan de la cartera**, gestionar órdenes de mantenimiento |
+| Supervisor / contratista | Supervisor de cada contratista (T&C, Tarrillo, RFR, Torres, LHL) | Registrar el tareo de su cuadrilla y sus paradas, **reportar fallas**, ver y comentar sus tareas |
+| Calidad | Responsable de calidad | Registrar paradas y no conformidades, liberar, **reportar fallas** |
+| **Mantenimiento** | Técnico o encargado de mantenimiento | Órdenes preventivas y correctivas, cierre de reparaciones, plan preventivo y fichas de las 4 máquinas |
 
 Se crean en **Usuarios** (rol gerencia). Las cuentas de demostración se desactivan antes de usar datos reales.
 
@@ -66,8 +68,8 @@ Se crean en **Usuarios** (rol gerencia). Las cuentas de demostración se desacti
 
 ## 4. Piloto prospectivo (lo que da evidencia de nivel Q1)
 
-1. **Semanas 1–2 · Arranque**: crear cuentas, capacitar 30 minutos al jefe de taller y a cada supervisor, cargar los proyectos en curso.
-2. **Semanas 1–12 · Registro diario**: tareo y paradas todos los días (plataforma en tablet o la hoja TAREO/PARADAS del Excel). Meta: ≥ 90 % de días laborables con registro.
+1. **Semanas 1–2 · Arranque**: crear cuentas, capacitar 30 minutos al jefe de taller, a cada supervisor y a mantenimiento con la [guía de procedimientos](../guia/procedimientos_planta.md), cargar los proyectos en curso, **validar el plan preventivo sugerido** y aprobar el primer plan de la cartera.
+2. **Semanas 1–12 · Registro diario**: tareo y paradas todos los días (plataforma en tablet o la hoja TAREO/PARADAS del Excel); las fallas se reportan en **Mantenimiento** apenas ocurren y se cierran con su orden. Meta: ≥ 90 % de días laborables con registro. Reunión de producción de 10 minutos con el tablero **Producción** y aprobación diaria del plan si hay propuesta.
 3. **Cotización en paralelo (*shadow mode*)**: cada cotización nueva se hace como siempre **y** en SteelPlan, sin que el sistema cambie la oferta. Se guardan ambas fechas antes de saber el resultado.
 4. **Re-pronóstico semanal** de cada proyecto en curso; la plataforma guarda cada uno (pestaña **Semanas › Historial de re-pronósticos**), lo que permite medir con cuánta anticipación se avisó un atraso. Ese mismo día se imprime el **Reporte semanal** en PDF para la reunión de obra.
 5. **RFI y no conformidades** en la bandeja **RFI y NC**, marcando a quién es imputable cada día de impacto: separa el atraso propio del causado por el cliente (dato que falta en el histórico).

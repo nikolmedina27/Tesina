@@ -53,6 +53,7 @@ Generados con `python scripts/docx_a_md.py` (requiere el Word en `extras/`, que 
 | [plan/06_alcance_q1.md](plan/06_alcance_q1.md) | **Alcance y ruta a una revista Q1**: qué entra, qué se congela y qué se quita, datos a pedir, diseño de validación, referencias de código |
 | [plan/05_planta_3d.md](plan/05_planta_3d.md) | Propuesta: planta 3D para gestionar (asignar, priorizar) evaluando cada decisión con QRF + Monte Carlo multi-proyecto; fases, datos, evaluación con usuarios |
 | [plan/07_realismo_3d.md](plan/07_realismo_3d.md) | Plan de realismo del Gemelo 3D: sin *popping*, modelos glTF CC0 para personas y vehículos, fotos de máquinas, entorno |
+| [guia/procedimientos_planta.md](guia/procedimientos_planta.md) | Procedimientos de planta v3: fallas, reparaciones, preventivos, aprobación del plan, rutinas y rol mantenimiento |
 | [plan/08_plan_mejoras_v3.md](plan/08_plan_mejoras_v3.md) | Plan v3: vista de mantenimiento (Dₖ, MTBF, MTTR, Gantt de máquinas), programación automática multi-proyecto con aprobación, tableros fijos y modo TV |
 
 ## Guía
