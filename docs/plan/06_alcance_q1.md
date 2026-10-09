@@ -37,10 +37,11 @@ Revistas candidatas (verificar cuartil actual en SJR): *International Journal of
 | Vista **Gemelo 3D** | **Entra, como herramienta de explicación y de la prueba con usuarios** | No es contribución por sí sola |
 | α\* newsvendor | **Entra** | Pero sin cotizaciones perdidas solo se reporta la frontera |
 | Gestión con palancas (`dss/whatif.py`) | **Entra como experimento negativo y como módulo a validar con datos reales** | No se vende como mejora |
-| Motor multi-proyecto del CRP (`dss/multiproyecto.py`) | **Se congela** | Útil, sin uso en los resultados; el gemelo ya modela la competencia por recursos |
+| Motor multi-proyecto del CRP (`dss/multiproyecto.py`) | **Se reactiva solo en la plataforma** (v3.1, 8/10) | Es el motor de *Programación de la cartera* (`dss/programador.py`); se le agregó `avance0` sin cambiar su comportamiento por defecto. Sigue sin uso en los resultados del paper: ahí el gemelo modela la competencia por recursos |
 | Estudio retrospectivo con el CRP como verdad (exp5, `dss/retrospectivo.py`) | **Se congela como histórico** | Sustituido por exp6; queda para reproducir `analisis/08` |
 | Cotizador Streamlit (`app/streamlit_app.py`) | **Se retira de la tesis** | SteelPlan lo reemplaza; solo análisis exploratorio |
 | Tablero de tareas, bandeja RFI/NC, buscador Ctrl+K, reporte semanal, PWA | **Se congelan (solo mantenimiento)** | Útiles como canal de captura de datos, pero no son contribución; no escribir de ellos en el paper |
+| Mantenimiento de máquinas, programación de la cartera, tableros fijos (v3.0–v3.2) | **Producto; entran como canal de datos** | Mantenimiento registra las paradas que dan Dₖ real (meta de la tesis, Ec. 10) y la programación usa la carga real del taller en C3; los tableros no se reportan en el paper |
 | Multiempresa, PostgreSQL, Keycloak, notificaciones, valorización de contratistas, costo real vs. cotizado | **Fuera de alcance (trabajo futuro)** | Producto, no investigación |
 | Vista «Planta 3D» basada en el replay del CRP | **Eliminada** | Reemplazada por el Gemelo 3D |
 
