@@ -146,7 +146,7 @@ input[type=checkbox], input[type=radio], input[type=range] { height: auto; paddi
 .grid { display: grid; gap: 14px; }
 .g2 { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
 .g3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.cotz { grid-template-columns: minmax(300px, 380px) 1fr; }
+.cotz { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); }
 @media (max-width: 1000px) { .cotz { grid-template-columns: 1fr; } .g2 { grid-template-columns: 1fr; } }
 .tarjeta { background: var(--panel); border: 1px solid var(--borde); }
 .tarjeta > h3 { margin: 0; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--texto); border-bottom: 1px solid var(--borde); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }

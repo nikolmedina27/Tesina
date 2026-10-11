@@ -184,6 +184,7 @@ function ganttCompania(el, res, o = {}) {
     if (o.procesos !== false) x.procesos.slice().sort((a, b) => a.proceso - b.proceso).forEach(pr => filas.push({ tipo: 'proc', etiqueta: S.cat.procesos[pr.proceso - 1].nombre, x, pr }));
   });
   const M = res.carga || [], alto = 20, altoM = 30;
+  el.style.width = '100%';
   el.style.height = `${110 + alto * filas.length + altoM * M.length}px`;
   const datos = filas.map((f, i) => ({ value: [i, f.tipo === 'proy' ? t(f.x.inicio) : t(f.pr.inicio), f.tipo === 'proy' ? t(f.x.p50) + DIA : t(f.pr.fin) + DIA, f.tipo === 'proy' ? t(f.x.p80) + DIA : 0] }));
   const datosM = [];
@@ -240,6 +241,8 @@ function ganttCompania(el, res, o = {}) {
       { type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: [], markLine: { symbol: 'none', silent: true, label: { formatter: 'hoy' }, lineStyle: { color: C.ambar }, data: [{ xAxis: t(res.hoy) }] } }],
   });
   if (o.click) c.on('click', p => { if (p.seriesIndex === 0) o.click(filas[p.value[0]].x); });
+  // si la tarjeta cambia de ancho después de dibujar (barra de desplazamiento, columnas), el Gantt se ajusta a ella
+  if (window.ResizeObserver) new ResizeObserver(() => { if (!c.isDisposed()) c.resize(); }).observe(el);
 }
 const leyendaCompania = () => `<div class="leyenda">${Object.values(CAT).map(([n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}
   <span><i style="background:${C.acento}"></i>Proyecto hasta P50</span><span><i style="background:${C.acentoM}"></i>P50 → P80</span><span><i style="background:${C.ambar}"></i>Proyecto cotizado</span>
