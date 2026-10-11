@@ -698,12 +698,12 @@ async function vCotizador() {
   <div class="grid cotz">
     <form class="tarjeta" id="fcot"><h3>${ic('viga', 17)} Proyecto a cotizar</h3><div class="cuerpo form">
       <label class="ancho">Tipo de estructura<select name="tipo">${S.cat.tipos.map(t => `<option ${t === def.tipo ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></label>
-      <label>Toneladas (metrado)<input name="ton" type="number" step="0.5" min="1" value="${def.ton}"></label>
-      <label>% planchas<input name="pct_planchas" type="number" step="1" min="0" max="80" value="${Math.round(def.pct_planchas * 100)}"></label>
+      <label>Toneladas (metrado)<input name="ton" type="number" step="any" min="0.1" value="${def.ton}"></label>
+      <label>% planchas<input name="pct_planchas" type="number" step="any" min="0" max="100" value="${Math.round(def.pct_planchas * 100)}"></label>
       <label>Piezas por t<input name="piezas_por_t" type="number" step="0.5" min="1" value="${def.piezas_por_t}"></label>
-      <label>m² pintura por t<input name="m2_pint_t" type="number" step="1" min="1" value="${def.m2_pint_t}"></label>
+      <label>m² pintura por t<input name="m2_pint_t" type="number" step="any" min="1" value="${def.m2_pint_t}"></label>
       <label title="Cada capa se aplica en un día: suma días al granallado y pintura">N° de capas de pintura<select name="capas_pintura">${[1, 2, 3, 4, 5, 6].map(n => `<option value="${n}" ${n === (def.capas_pintura || 1) ? 'selected' : ''}>${n} ${n === 1 ? 'capa' : 'capas'}${n > 1 ? ` (+${n - 1} d)` : ''}</option>`).join('')}</select></label>
-      <label>Presupuesto (USD)<input name="presupuesto" type="number" step="1000" min="1000" value="${def.presupuesto}"></label>
+      <label>Presupuesto (USD)<input name="presupuesto" type="number" step="any" min="1" value="${def.presupuesto}"></label>
       <label>Día 1 (planos + OC)<input name="inicio" type="date" value="${def.inicio}"></label>
       <label>Fecha que pide el cliente<input name="fecha_pedida" type="date" value="${def.fecha_pedida || ''}"></label>
       <label class="chk ancho"><input type="checkbox" name="montaje" ${def.montaje ? 'checked' : ''}> Incluye montaje</label>

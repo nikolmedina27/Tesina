@@ -28,3 +28,6 @@ entregables/SteelPlan_v2.1.zip
 # archivos de sistema de Windows
 desktop.ini
 Thumbs.db
+
+# cotizaciones reales de la empresa (confidencial, solo local)
+nueva cotización/
