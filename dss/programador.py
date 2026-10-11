@@ -23,7 +23,7 @@ from datetime import date, timedelta
 
 import numpy as np
 
-from .c3_montecarlo import P_PENALIDAD, SIGMA_EXT, TAUS, Proyecto, muestrear_disp, muestrear_phi
+from .c3_montecarlo import P_PENALIDAD, SIGMA_EXT, TAUS, Proyecto, dias_capas, muestrear_disp, muestrear_phi
 from .crp_engine import MAQUINAS, N_PROC, WEEKMASK
 from .datos import cuadrilla, dias_externos
 from .mantenimiento import disponibilidad_futura
@@ -77,6 +77,7 @@ class Cartera:
             q_phi, rho = cot.predictor.cuantiles(pr, TAUS)
             hh = pr.ton * cot.rv.loc[pr.tipo].values * muestrear_phi(q_phi, rho, R, rng) * cot.escala
             ext = dias_externos(cot.par_ext, pr.ton) * cot.escala * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
+            ext[:, 1] += dias_capas(pr)
             self.muestras.append(dict(hh=hh, ext=ext, cuadrilla=cuadrilla(cot.par_cuad, pr.ton)))
         self.d_fallas = muestrear_disp(R, T, np.asarray(mtbf, float), rng, planificado=False)   # (R, T, 4)
 

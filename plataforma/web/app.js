@@ -657,17 +657,28 @@ function reporteImportacion(j) {
 /* =====================================================================  GANTT DEL TALLER */
 async function vGantt() {
   const m = shell('gantt', `${ic('gantt', 20)} Gantt de proyectos`,
-    `<select id="gan"><option value="activos">En curso</option></select>
-     <div class="vistas"><button data-m="Week">Semana</button><button data-m="Month" class="activo">Mes</button></div>`);
-  const d = await api('/api/gantt/taller');
+    `<select id="gan"><option value="compania">Compañía · todos los procesos</option><option value="activos">En curso (un proyecto por fila)</option></select>
+     <div class="vistas" id="gvis"><button data-m="Week">Semana</button><button data-m="Month" class="activo">Mes</button></div>`);
+  const [d, prog] = await Promise.all([api('/api/gantt/taller'), api('/api/programacion').catch(() => null)]);
+  const plan = prog && (prog.aprobado || prog.propuesto);
   const anios = [...new Set(d.historico.map(r => r.anio))].sort((a, b) => b - a);
   $('#gan').innerHTML += anios.map(a => `<option value="${a}">${a}</option>`).join('');
-  $('#gan').value = d.activos.length ? 'activos' : String(anios[0]);
-  m.innerHTML = `<div class="tarjeta"><h3>Proyectos en el tiempo <span class="leyenda" style="margin:0"><span><i style="background:#9bd3ae"></i>Cumplió</span><span><i style="background:#f2a3a3"></i>Con retraso</span><span><i style="background:#5b95dc"></i>En curso</span></span></h3>
-    <div class="cuerpo"><div class="gantt-wrap" id="gt"></div><p class="nota">Barra = inicio → entrega real (histórico) o → entrega comprometida (en curso). Clic en una barra para abrir el proyecto.</p></div></div>`;
+  $('#gan').value = plan ? 'compania' : d.activos.length ? 'activos' : String(anios[0]);
+  m.innerHTML = `<div class="tarjeta"><h3>Proyectos en el tiempo <span class="leyenda" id="gleyh" style="margin:0"><span><i style="background:#9bd3ae"></i>Cumplió</span><span><i style="background:#f2a3a3"></i>Con retraso</span><span><i style="background:#5b95dc"></i>En curso</span></span></h3>
+    <div class="cuerpo"><div class="gantt-wrap" id="gt"></div><div id="gcia" class="oculto"></div><div id="gley"></div><p class="nota" id="gnota">Barra = inicio → entrega real (histórico) o → entrega comprometida (en curso). Clic en una barra para abrir el proyecto.</p></div></div>`;
   let modo = 'Month';
   const dib = () => {
-    const v = $('#gan').value;
+    const v = $('#gan').value, cia = v === 'compania';
+    $('#gt').classList.toggle('oculto', cia); $('#gcia').classList.toggle('oculto', !cia); $('#gvis').classList.toggle('oculto', cia);
+    $('#gley').innerHTML = cia ? leyendaCompania() : '';
+    $('#gleyh').classList.toggle('oculto', cia);
+    $('#gnota').textContent = cia ? (plan ? `Plan de la cartera #${plan.id} (${plan.estado === 'APROBADO' ? 'aprobado' : 'propuesto, sin aprobar'}): cada proyecto en curso con sus procesos (P50) y su fin con 80 %; abajo, la carga de las 4 máquinas que comparten. Clic en un proyecto para abrirlo; los cambios se hacen en Proyectos › Programación.` : '')
+      : 'Barra = inicio → entrega real (histórico) o → entrega comprometida (en curso). Clic en una barra para abrir el proyecto.';
+    if (cia) {
+      S.charts.forEach(c => c.dispose()); S.charts = [];
+      if (!plan) { $('#gcia').innerHTML = `<div class="vacio">Todavía no hay plan de la cartera. <a href="#/programacion">Calcúlalo en Programación</a>.</div>`; return; }
+      return ganttCompania($('#gcia'), plan.resultado, { click: x => { if (x.id) location.hash = '#/proyecto/a/' + x.id; } });
+    }
     const t = v === 'activos' ? d.activos : d.historico.filter(r => String(r.anio) === v);
     gantt($('#gt'), t, { modo, extra: x => x.plan_fin ? `<br>Fin plan ${fmtCorta(x.plan_fin)}${x.retraso > 0 ? `<br><b style="color:var(--rojo)">Retraso ${x.retraso} días</b>` : ''}` : '',
       click: task => location.hash = task.id[0] === 'h' ? `#/proyecto/h/${task.id.slice(1)}` : `#/proyecto/a/${task.id.slice(1)}` });
@@ -680,7 +691,7 @@ async function vGantt() {
 /* =====================================================================  COTIZADOR */
 async function vCotizador() {
   const m = shell('cotizador', `${ic('cotizador', 20)} Cotizador de plazos`);
-  const def = S.ultimaSol || { tipo: S.cat.tipos[1], ton: 47, pct_planchas: 0.17, piezas_por_t: 8, m2_pint_t: 14, montaje: false, presupuesto: 150000,
+  const def = S.ultimaSol || { tipo: S.cat.tipos[1], ton: 47, pct_planchas: 0.17, piezas_por_t: 8, m2_pint_t: 14, capas_pintura: 1, montaje: false, presupuesto: 150000,
     inicio: hoyISO(), fecha_pedida: '', penalidad: 0.01, pierde_por_dia: 0.005, margen: 0.16, carga_extra: 0, replicas: 1000 };
   m.innerHTML = `
   <div class="aviso">${ic('alerta', 16)} Modelo de horas entrenado con datos SIMULADOS (25 proyectos, escenario M2) hasta cargar los tareos reales. Úsalo para probar el flujo, no para ofertar.</div>
@@ -691,6 +702,7 @@ async function vCotizador() {
       <label>% planchas<input name="pct_planchas" type="number" step="1" min="0" max="80" value="${Math.round(def.pct_planchas * 100)}"></label>
       <label>Piezas por t<input name="piezas_por_t" type="number" step="0.5" min="1" value="${def.piezas_por_t}"></label>
       <label>m² pintura por t<input name="m2_pint_t" type="number" step="1" min="1" value="${def.m2_pint_t}"></label>
+      <label title="Cada capa se aplica en un día: suma días al granallado y pintura">N° de capas de pintura<select name="capas_pintura">${[1, 2, 3, 4, 5, 6].map(n => `<option value="${n}" ${n === (def.capas_pintura || 1) ? 'selected' : ''}>${n} ${n === 1 ? 'capa' : 'capas'}${n > 1 ? ` (+${n - 1} d)` : ''}</option>`).join('')}</select></label>
       <label>Presupuesto (USD)<input name="presupuesto" type="number" step="1000" min="1000" value="${def.presupuesto}"></label>
       <label>Día 1 (planos + OC)<input name="inicio" type="date" value="${def.inicio}"></label>
       <label>Fecha que pide el cliente<input name="fecha_pedida" type="date" value="${def.fecha_pedida || ''}"></label>
@@ -708,7 +720,7 @@ async function vCotizador() {
   </div>`;
   $('#fcot').onsubmit = async e => {
     e.preventDefault(); const f = new FormData(e.target); const b = $('#bcot'); b.disabled = true;
-    const s = { tipo: f.get('tipo'), ton: +f.get('ton'), pct_planchas: f.get('pct_planchas') / 100, piezas_por_t: +f.get('piezas_por_t'), m2_pint_t: +f.get('m2_pint_t'),
+    const s = { tipo: f.get('tipo'), ton: +f.get('ton'), pct_planchas: f.get('pct_planchas') / 100, piezas_por_t: +f.get('piezas_por_t'), m2_pint_t: +f.get('m2_pint_t'), capas_pintura: +f.get('capas_pintura'),
       montaje: !!f.get('montaje'), presupuesto: +f.get('presupuesto'), inicio: f.get('inicio'), fecha_pedida: f.get('fecha_pedida') || null,
       penalidad: f.get('penalidad') / 100, pierde_por_dia: f.get('pierde_por_dia') / 100, margen: f.get('margen') / 100, carga_extra: f.get('carga_extra') / 100, replicas: +f.get('replicas') };
     $('#rcot').innerHTML = `<div class="tarjeta">${cargando()}<p class="nota" style="text-align:center;padding-bottom:20px">Simulando ${s.replicas} futuros del taller…</p></div>`;
@@ -755,6 +767,7 @@ function resultadoCot(r, s) {
   chart($('#ghist'), { grid: { left: 40, right: 10, top: 10, bottom: 40 }, tooltip: {}, xAxis: { type: 'category', data: r.histograma_fechas.map(f => f.slice(5).split('-').reverse().join('/')) },
     yAxis: { type: 'value', name: 'réplicas' }, series: [{ type: 'bar', data: r.histograma, itemStyle: { color: C.acento, borderRadius: [3, 3, 0, 0] } }] });
   gantt($('#gcot'), r.gantt);
+  if (puede(['cotizador', 'jefe_taller', 'mantenimiento'])) plantaConCotizado(r, s);
   const bc = $('#bcrear');
   if (bc) bc.onclick = () => modalProyecto(r, s);
 }

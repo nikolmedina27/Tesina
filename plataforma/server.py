@@ -283,6 +283,7 @@ class SolicitudCotizacion(BaseModel):
     pct_planchas: float = 0.2
     piezas_por_t: float = 8.0
     m2_pint_t: float = 14.0
+    capas_pintura: int = Field(1, ge=1, le=8)        # cada capa = 1 día laborable de granallado y pintura
     montaje: bool = False
     presupuesto: float = 100000
     inicio: str
@@ -318,7 +319,7 @@ def cotizar(s: SolicitudCotizacion, u=Depends(requiere('cotizador', 'jefe_taller
     if s.tipo not in TIPOS:
         raise HTTPException(422, 'Tipo de estructura no válido')
     cot = Motor.get()
-    proy = Proyecto(s.tipo, s.ton, s.inicio, s.presupuesto, s.pct_planchas, s.piezas_por_t, s.m2_pint_t, s.montaje)
+    proy = Proyecto(s.tipo, s.ton, s.inicio, s.presupuesto, s.pct_planchas, s.piezas_por_t, s.m2_pint_t, s.montaje, capas_pintura=s.capas_pintura)
     alpha = s.alpha if s.alpha else alpha_optimo(s.penalidad, s.pierde_por_dia, s.margen)
     oc = _ocupacion(p, s.inicio)              # carga real: lo que toman los proyectos en curso según el plan aprobado
     ocup = None if oc is None else np.clip(oc['frac'] + s.carga_extra, 0, 0.95)
@@ -376,10 +377,10 @@ class NuevoProyecto(BaseModel):
 def crear_proyecto(d: NuevoProyecto, u=Depends(requiere('cotizador')), p=Depends(plat)):
     c = d.cotizacion
     try:
-        cur = p.execute('''INSERT INTO proyecto_activo (codigo, cliente, nombre, tipo, ton, pct_planchas, piezas_por_t, m2_pint_t, montaje,
+        cur = p.execute('''INSERT INTO proyecto_activo (codigo, cliente, nombre, tipo, ton, pct_planchas, piezas_por_t, m2_pint_t, capas_pintura, montaje,
                            presupuesto, inicio, fecha_comprometida, alpha, prob_cumplir, cotizacion_json, creado_por)
-                           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-                        (d.codigo.strip().upper(), d.cliente, d.nombre, c.tipo, c.ton, c.pct_planchas, c.piezas_por_t, c.m2_pint_t,
+                           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                        (d.codigo.strip().upper(), d.cliente, d.nombre, c.tipo, c.ton, c.pct_planchas, c.piezas_por_t, c.m2_pint_t, c.capas_pintura,
                          int(c.montaje), c.presupuesto, c.inicio, d.fecha_comprometida, d.alpha, d.prob_cumplir,
                          json.dumps(dict(solicitud=c.model_dump(), programa=d.programa, hh_p50=d.hh_p50)), u['id']))
     except sqlite3.IntegrityError:
@@ -404,7 +405,7 @@ def _avance(p, r, cot):
 
 def _proy(r, inicio=None):
     return Proyecto(tipo_modelo(r['tipo']), r['ton'], inicio or r['inicio'], r['presupuesto'] or 100000, r['pct_planchas'] or 0.2,
-                    r['piezas_por_t'] or 8, r['m2_pint_t'] or 14, bool(r['montaje']))
+                    r['piezas_por_t'] or 8, r['m2_pint_t'] or 14, bool(r['montaje']), capas_pintura=r['capas_pintura'] or 1)
 
 
 @app.get('/api/proyectos_activos')

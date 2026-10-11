@@ -50,6 +50,7 @@ class SimularIn(BaseModel):
     pct_planchas: float = 0.2
     piezas_por_t: float = 8.0
     m2_pint_t: float = 14.0
+    capas_pintura: int = Field(1, ge=1, le=8)
     montaje: bool = False
     alpha: float = Field(0.8, ge=0.5, le=0.99)
     regla: str = 'penalidad'
@@ -236,7 +237,7 @@ def registrar(app, plat, usuario_actual, requiere, actividad, motor, cartera, mt
         with _lock:
             cot = motor.get()
             base = [x for x in cartera(p) if not x.nuevo]
-            nuevo = ProyectoPlan(id=None, codigo='NUEVO', proy=Proyecto(d.tipo, d.ton, d.inicio, d.presupuesto, d.pct_planchas, d.piezas_por_t, d.m2_pint_t, d.montaje),
+            nuevo = ProyectoPlan(id=None, codigo='NUEVO', proy=Proyecto(d.tipo, d.ton, d.inicio, d.presupuesto, d.pct_planchas, d.piezas_por_t, d.m2_pint_t, d.montaje, capas_pintura=d.capas_pintura),
                                  compromiso=meta, alpha=d.alpha, nuevo=True)
             prev = preventivos_futuros(p, maquinas)
             sin = proponer(cot, base, str(date.today()), prev, maquinas, mtbf_actual(p), regla=d.regla, R=R_PLAN, sugerir_preventivos=False)

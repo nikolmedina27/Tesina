@@ -20,6 +20,7 @@ MTBF_DEFECTO = np.array([15.0, 15.0, 15.0, 15.0])   # supuesto inicial hasta reg
 DUR_MU, DUR_SIGMA = np.log(0.6), 0.9                # duración de una falla (días laborables)
 SIGMA_EXT = 0.2                                     # variabilidad lognormal del plazo externo
 P_PENALIDAD = 0.01                                  # por día calendario, sin tope
+DIAS_POR_CAPA = 1.0                                 # cada capa de pintura adicional: 1 día laborable más en el servicio externo
 
 
 @dataclass
@@ -36,6 +37,7 @@ class Proyecto:
     cuadrilla: np.ndarray | None = None   # personas por proceso (13); por defecto la típica según toneladas
     ext_dias: np.ndarray | None = None    # plazo esperado de doblez y granallado/pintura (2); por defecto el típico
     id: int | None = None            # si ya existe en la BD (se excluye de su propia carga)
+    capas_pintura: int = 1           # capas del sistema de pintura; el plazo externo típico corresponde a 1 capa
 
 
 @dataclass
@@ -71,6 +73,11 @@ class Resultado:
             d = np.datetime64(f, 'D')
             filas.append((d, self.plazo_calendario(d), self.prob_cumplir(d), self.penalidad_esperada(d, p)))
         return filas
+
+
+def dias_capas(proy):
+    """Días laborables extra del granallado y pintura externos por las capas adicionales (cada capa se aplica en un día)."""
+    return max(int(getattr(proy, 'capas_pintura', 1) or 1) - 1, 0) * DIAS_POR_CAPA
 
 
 def alpha_optimo(p=P_PENALIDAD, prob_pierde_por_dia=0.005, margen=0.16, lo=0.5, hi=0.95):
@@ -162,6 +169,7 @@ class Cotizador:
         ext_base = proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton)
         avance0 = None if restante is None else 1.0 - np.clip(np.asarray(restante, float), 0.0, 1.0)
         ext = ext_base * self.escala * np.exp(rng.normal(0, SIGMA_EXT, (R, 2)))
+        ext[:, 1] += dias_capas(proy)
         u = np.minimum(self.carga.u(proy.inicio, excluir=proy.id, T=T_DIAS) + carga_extra, 0.9)
         if sin_carga:
             u = np.zeros_like(u)
@@ -192,7 +200,8 @@ class Cotizador:
         crew = proy.cuadrilla if proy.cuadrilla is not None else cuadrilla(self.par_cuad, proy.ton)
         q_phi, _ = self.predictor.cuantiles(proy, TAUS)
         hh = (hh_ratio * q_phi[:, list(TAUS).index(0.50)])[None]
-        ext = (proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton))[None]
+        ext = (proy.ext_dias if proy.ext_dias is not None else dias_externos(self.par_ext, proy.ton))[None].astype(float)
+        ext[:, 1] += dias_capas(proy)
         u = np.minimum(self.carga.u(proy.inicio, excluir=proy.id, T=T_DIAS), 0.9)
         d_esp = muestrear_disp(200, T_DIAS, mtbf, rng).mean(axis=0)            # (T, 4) disponibilidad esperada
         o = programar(hh, crew, CargaTaller.efectiva(d_esp, u), ext, lam=lam)

@@ -74,3 +74,13 @@ def test_propuesta_regla_penalidad_y_proyecto_nuevo():
     # diferencias: si se aprueba y luego se agrega un proyecto, aparece como nuevo
     r2 = proponer(cot, cart + [pp('OTRO', 50, compromiso='2027-01-15', i=9)], HOY, [], MAQ, [20, 20, 20, 20], R=60)
     assert any(d.get('cambio') == 'nuevo en el plan' and d['codigo'] == 'OTRO' for d in diferencias(r, r2))
+
+
+def test_capas_de_pintura_alargan_el_plazo_externo():
+    from dss.c3_montecarlo import dias_capas
+    una, tres = Proyecto('Nave', 40, HOY), Proyecto('Nave', 40, HOY, capas_pintura=3)
+    assert dias_capas(una) == 0 and dias_capas(tres) == 2                  # cada capa adicional = 1 día laborable
+    c1 = Cartera(CotPrueba(), [ProyectoPlan(None, 'A', una)], HOY, [], MAQ, [40, 40, 40, 40], R=30, semilla=3)
+    c3 = Cartera(CotPrueba(), [ProyectoPlan(None, 'A', tres)], HOY, [], MAQ, [40, 40, 40, 40], R=30, semilla=3)
+    assert np.allclose(c3.muestras[0]['ext'][:, 1] - c1.muestras[0]['ext'][:, 1], 2.0)
+    assert np.all(c3.simular([0])[0]['fin'] >= c1.simular([0])[0]['fin'] + 1)

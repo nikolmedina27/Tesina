@@ -170,3 +170,112 @@ async function avisoPlan(el, codigo) {
   if (!ap) msgs.push('La cartera todavía no tiene un plan aprobado');
   el.innerHTML = msgs.length ? `<div class="aviso" style="margin-bottom:14px">${ic('gantt', 16)} ${msgs.join('. ')}. <a href="#/programacion">Abrir programación</a></div>` : '';
 }
+
+/* =====================================================================  GANTT DE LA COMPAÑÍA (todos los proyectos y sus procesos)
+   res = resultado de un plan de la cartera (aprobado, propuesto o simulado con un proyecto cotizado). Arriba, cada proyecto
+   con sus procesos (P50) y su fin P80; abajo, la carga diaria de las 4 máquinas que comparten. */
+function ganttCompania(el, res, o = {}) {
+  if (!res || !res.proyectos || !res.proyectos.length) { el.innerHTML = '<div class="vacio">No hay proyectos en el plan de la cartera.</div>'; return; }
+  const t = s => new Date(String(s).slice(0, 10) + 'T00:00').getTime(), DIA = 864e5;
+  const nombre = x => x.codigo === 'NUEVO' ? 'Proyecto cotizado' : x.codigo;
+  const filas = [];
+  res.proyectos.forEach(x => {
+    filas.push({ tipo: 'proy', etiqueta: `#${x.prioridad} ${nombre(x)}`, x });
+    if (o.procesos !== false) x.procesos.slice().sort((a, b) => a.proceso - b.proceso).forEach(pr => filas.push({ tipo: 'proc', etiqueta: S.cat.procesos[pr.proceso - 1].nombre, x, pr }));
+  });
+  const M = res.carga || [], alto = 20, altoM = 30;
+  el.style.height = `${110 + alto * filas.length + altoM * M.length}px`;
+  const datos = filas.map((f, i) => ({ value: [i, f.tipo === 'proy' ? t(f.x.inicio) : t(f.pr.inicio), f.tipo === 'proy' ? t(f.x.p50) + DIA : t(f.pr.fin) + DIA, f.tipo === 'proy' ? t(f.x.p80) + DIA : 0] }));
+  const datosM = [];
+  M.forEach((c, k) => c.horas.forEach((h, j) => { const cap = c.capacidad[j]; datosM.push({ value: [k, t(res.fechas[j]), t(res.fechas[j]) + DIA, cap <= 0.01 ? -1 : h / cap, h, cap] }); }));
+  const fin = Math.max(...res.proyectos.map(x => t(x.p80)), ...res.proyectos.filter(x => x.compromiso).map(x => t(x.compromiso))) + 6 * DIA;
+  const colorCarga = u => u < 0 ? C.gris : u < 0.7 ? C.verde : u < 0.95 ? C.ambar : C.rojo;
+  const destacado = x => o.destacar && x.codigo === o.destacar;
+  const recorte = (r, params) => echarts.graphic.clipRectByRect(r, { x: params.coordSys.x, y: params.coordSys.y, width: params.coordSys.width, height: params.coordSys.height });
+  const c = chart(el, {
+    tooltip: { formatter: p => {
+      if (p.seriesIndex === 0) {
+        const f = filas[p.value[0]];
+        if (f.tipo === 'proy') return `<b>${esc(nombre(f.x))}</b> · prioridad ${f.x.prioridad}<br>Inicio ${fmtCorta(f.x.inicio)} · P50 ${fmtCorta(f.x.p50)} · P80 ${fmtCorta(f.x.p80)}<br>Comprometida ${fmtCorta(f.x.compromiso)} · P(cumplir) ${f.x.prob_cumplir == null ? '—' : pct(f.x.prob_cumplir)}`;
+        return `<b>${esc(nombre(f.x))} · ${esc(f.etiqueta)}</b><br>${fmtCorta(f.pr.inicio)} → ${fmtCorta(f.pr.fin)}${f.pr.hh ? `<br>${fmtNum(f.pr.hh)} HH que faltan` : ''}`;
+      }
+      const v = p.value;
+      return `<b>${esc(M[v[0]].maquina)}</b><br>${fmtCorta(new Date(v[1]).toISOString().slice(0, 10))}: ${v[3] < 0 ? 'sin capacidad (preventivo o parada)' : `${fmtNum(v[4], 1)} de ${fmtNum(v[5], 1)} h (${Math.round(100 * v[3])} %)`}`;
+    } },
+    grid: [{ left: 210, right: 24, top: 34, height: alto * filas.length }, { left: 210, right: 24, top: 70 + alto * filas.length, height: altoM * M.length }],
+    xAxis: [{ type: 'time', gridIndex: 0, position: 'top', min: t(res.hoy), max: fin, splitLine: { show: true }, axisLabel: { hideOverlap: true, formatter: { year: '{yyyy}', month: '{dd}/{MM}', day: '{dd}/{MM}' } } },
+      { type: 'time', gridIndex: 1, min: t(res.hoy), max: fin, axisLabel: { show: false }, splitLine: { show: true } }],
+    yAxis: [{ type: 'category', gridIndex: 0, inverse: true, data: filas.map(f => f.etiqueta), axisTick: { show: false },
+        axisLabel: { width: 196, overflow: 'truncate', formatter: (v, i) => filas[i].tipo === 'proy' ? `{p|${v}}` : `{q|${v}}`,
+          rich: { p: { fontWeight: 700, color: C.acento, fontSize: 12 }, q: { color: C.gris, fontSize: 11, padding: [0, 0, 0, 12] } } } },
+      { type: 'category', gridIndex: 1, inverse: true, data: M.map(m => m.maquina), axisTick: { show: false }, axisLabel: { width: 196, overflow: 'truncate', fontSize: 11 } }],
+    dataZoom: [{ type: 'inside', xAxisIndex: [0, 1], filterMode: 'weakFilter' }],
+    series: [
+      { type: 'custom', xAxisIndex: 0, yAxisIndex: 0, data: datos, encode: { x: [1, 2], y: 0 }, renderItem: (params, a) => {
+        const f = filas[a.value(0)], y = a.coord([a.value(1), a.value(0)])[1], h = a.size([0, 1])[1];
+        const x0 = a.coord([a.value(1), 0])[0], x1 = a.coord([a.value(2), 0])[0];
+        const hijos = [];
+        if (f.tipo === 'proy') {
+          const x80 = a.coord([a.value(3), 0])[0];
+          const r1 = recorte({ x: x0, y: y - h * 0.38, width: Math.max(x1 - x0, 2), height: h * 0.76 }, params);
+          const r2 = recorte({ x: x1, y: y - h * 0.38, width: Math.max(x80 - x1, 1), height: h * 0.76 }, params);
+          if (r1) hijos.push({ type: 'rect', shape: r1, style: { fill: destacado(f.x) ? C.ambar : C.acento } });
+          if (r2) hijos.push({ type: 'rect', shape: r2, style: { fill: destacado(f.x) ? C.ambar : C.acentoM, opacity: destacado(f.x) ? 0.45 : 1 } });
+          if (f.x.compromiso) {
+            const xc = a.coord([t(f.x.compromiso) + DIA / 2, 0])[0], tarde = f.x.p80 > f.x.compromiso;
+            hijos.push({ type: 'polygon', shape: { points: [[xc, y - h / 2], [xc + 6, y], [xc, y + h / 2], [xc - 6, y]] }, style: { fill: tarde ? C.rojo : C.verde, stroke: '#fff', lineWidth: 1 } });
+          }
+        } else {
+          const cat = S.cat.procesos[f.pr.proceso - 1].categoria;
+          const r = recorte({ x: x0, y: y - h * 0.3, width: Math.max(x1 - x0, 2), height: h * 0.6 }, params);
+          if (r) hijos.push({ type: 'rect', shape: r, style: { fill: CAT[cat][1], stroke: destacado(f.x) ? C.ambar : null, lineWidth: destacado(f.x) ? 1.5 : 0 } });
+        }
+        return { type: 'group', children: hijos };
+      } },
+      { type: 'custom', xAxisIndex: 1, yAxisIndex: 1, data: datosM, encode: { x: [1, 2], y: 0 }, renderItem: (params, a) => {
+        const p0 = a.coord([a.value(1), a.value(0)]), p1 = a.coord([a.value(2), a.value(0)]), h = a.size([0, 1])[1] * 0.7;
+        const r = recorte({ x: p0[0], y: p0[1] - h / 2, width: Math.max(p1[0] - p0[0] - 1, 1), height: h }, params);
+        return r && { type: 'rect', shape: r, style: { fill: colorCarga(a.value(3)), opacity: a.value(3) < 0 ? 0.5 : Math.max(0.25, Math.min(1, a.value(3) + 0.15)) } };
+      } },
+      { type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: [], markLine: { symbol: 'none', silent: true, label: { formatter: 'hoy' }, lineStyle: { color: C.ambar }, data: [{ xAxis: t(res.hoy) }] } }],
+  });
+  if (o.click) c.on('click', p => { if (p.seriesIndex === 0) o.click(filas[p.value[0]].x); });
+}
+const leyendaCompania = () => `<div class="leyenda">${Object.values(CAT).map(([n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}
+  <span><i style="background:${C.acento}"></i>Proyecto hasta P50</span><span><i style="background:${C.acentoM}"></i>P50 → P80</span><span><i style="background:${C.ambar}"></i>Proyecto cotizado</span>
+  <span><i style="background:${C.verde};transform:rotate(45deg)"></i>Fecha comprometida</span>
+  <span>Máquinas: <i style="background:${C.verde}"></i>&lt; 70 % <i style="background:${C.ambar}"></i>70–95 % <i style="background:${C.rojo}"></i>saturada <i style="background:${C.gris}"></i>sin capacidad</span></div>`;
+
+/* en el cotizador: cómo queda la planta si el proyecto cotizado entra junto con los que ya están en curso */
+async function plantaConCotizado(r, s) {
+  const caja = document.createElement('div');
+  caja.className = 'tarjeta'; caja.style.marginTop = '16px';
+  caja.innerHTML = `<h3>${ic('gantt', 16)} La planta con los proyectos en curso <span class="nota">si este proyecto entra con la regla de prioridad</span></h3><div class="cuerpo" id="cpl">${cargando()}</div>`;
+  $('#rcot').append(caja);
+  const el = $('#cpl', caja);
+  let d;
+  try {
+    d = await api('/api/programacion/simular', { method: 'POST', body: { tipo: s.tipo, ton: s.ton, inicio: s.inicio, meta: r.fecha_recomendada, presupuesto: s.presupuesto,
+      pct_planchas: s.pct_planchas, piezas_por_t: s.piezas_por_t, m2_pint_t: s.m2_pint_t, capas_pintura: s.capas_pintura || 1, montaje: s.montaje,
+      alpha: Math.min(0.99, Math.max(0.5, r.alpha)) } });
+  } catch (e) { el.innerHTML = `<div class="vacio">No se pudo simular la cartera: ${esc(e.message)}</div>`; return; }
+  const n = d.nuevo, otros = d.plan.proyectos.filter(x => !x.nuevo);
+  const cambio = cod => d.efecto_en_otros.find(e => e.codigo === cod);
+  const sem = n.prob_cumplir >= r.alpha ? 'VERDE' : n.prob_cumplir >= 0.6 ? 'AMBAR' : 'ROJO';
+  const filaOtro = x => {
+    const c = cambio(x.codigo);
+    const dias = c && c.dias ? `<b style="color:${c.dias > 0 ? 'var(--rojo)' : 'var(--verde)'}">${c.dias > 0 ? '+' : ''}${c.dias} días</b>` : '<span class="nota">sin cambio</span>';
+    const prob = x.prob_cumplir == null ? '—' : `<span class="badge ${x.prob_cumplir >= x.alpha ? 'b-ver' : x.prob_cumplir >= 0.6 ? 'b-nar' : 'b-roj'}">${pct(x.prob_cumplir)}</span>`;
+    const dp = c && c.cambio_prob ? ` <span class="nota">(${c.cambio_prob > 0 ? '+' : ''}${Math.round(100 * c.cambio_prob)} pts)</span>` : '';
+    return `<tr><td><b>${esc(x.codigo)}</b></td><td>${fmtCorta(x.compromiso)}</td><td>${fmtCorta(x.p80)}</td><td>${dias}</td><td>${prob}${dp}</td></tr>`;
+  };
+  el.innerHTML = `
+    <div class="semaforo ${sem}" style="margin-bottom:10px"><span class="luz"></span><div>
+      <b>${d.plan.proyectos.length} proyectos en simultáneo.</b> Con los ${otros.length} en curso, el proyecto cotizado queda con prioridad ${n.prioridad}:
+      fin probable ${fmtFecha(n.p50)}, con 80 % ${fmtFecha(n.p80)} · P(cumplir el ${fmtCorta(r.fecha_recomendada)}) = ${pct(n.prob_cumplir)}.</div></div>
+    ${otros.length ? `<table class="tabla" style="margin-bottom:10px"><tr><th>Proyecto en curso</th><th>Comprometida</th><th>Fin P80 con el cotizado</th><th>Cambio</th><th>P(cumplir)</th></tr>${otros.map(filaOtro).join('')}</table>`
+      : '<p class="nota">No hay otros proyectos en curso: la planta queda solo para este.</p>'}
+    <div id="gcomp"></div>${leyendaCompania()}
+    <p class="nota">La fecha recomendada de arriba ya descuenta la carga del plan aprobado. Este Gantt programa juntos el proyecto cotizado y los que están en curso, y cada máquina atiende por prioridad (penalidad en riesgo); no guarda nada.</p>`;
+  ganttCompania($('#gcomp', el), d.plan, { destacar: 'NUEVO' });
+}

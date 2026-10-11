@@ -132,7 +132,8 @@ CREATE TABLE IF NOT EXISTS plan_linea (
 COLUMNAS_V2 = {
     'proyecto_activo': [('n_piezas', 'INTEGER'), ('metros_soldadura', 'REAL'), ('fuente_ton', 'TEXT'), ('fecha_pedida', 'TEXT'),
                         ('fecha_fin_real', 'TEXT'), ('ampliacion_dias', 'REAL'), ('penalidad_aplicada', 'REAL'),
-                        ('resultado_cot', 'TEXT'), ('plazo_competidor', 'REAL'), ('motivo_perdida', 'TEXT')],
+                        ('resultado_cot', 'TEXT'), ('plazo_competidor', 'REAL'), ('motivo_perdida', 'TEXT'),
+                        ('capas_pintura', 'INTEGER')],          # v3.3: capas del sistema de pintura (1 día cada una)
     # v2.1: bandeja de RFI / no conformidades
     'tarea': [('imputable', 'TEXT'), ('dias_impacto', 'REAL'), ('conjunto', 'TEXT'), ('fecha_cierre', 'TEXT')],
     # v3: una parada puede venir de (o generar) una orden de mantenimiento
